@@ -1,8 +1,8 @@
 {
   "folders": [
     {
-      "name": "Project Root",
-      "path": "../"
+      "name": "Project Root Config",
+      "path": "./"
     },
     {
       "name": "daniakash.com",
@@ -17,5 +17,10 @@
     "[jsonc]": {
       "editor.defaultFormatter": "vscode.json-language-features"
     },
+  },
+  "extensions": {
+    "recommendations": [
+      "editorconfig.editorconfig"
+    ]
   }
 }
