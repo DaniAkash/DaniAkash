@@ -12,5 +12,8 @@
   },
   "dependencies": {
     "astro": "^1.6.12"
+  },
+  "devDependencies": {
+    "rome": "^10.0.1"
   }
 }
