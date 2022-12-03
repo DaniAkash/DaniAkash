@@ -1,0 +1,78 @@
+---
+import { Header } from "@/components/Header";
+
+export interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <script>
+      let darkModeMediaQuery = window.matchMedia(
+        "(prefers-color-scheme: dark)"
+      );
+
+      updateMode();
+      darkModeMediaQuery.addEventListener(
+        "change",
+        updateModeWithoutTransitions
+      );
+      window.addEventListener("storage", updateModeWithoutTransitions);
+
+      function updateMode() {
+        let isSystemDarkMode = darkModeMediaQuery.matches;
+        let isDarkMode =
+          window.localStorage.isDarkMode === "true" ||
+          (!("isDarkMode" in window.localStorage) && isSystemDarkMode);
+
+        if (isDarkMode) {
+          document.documentElement.classList.add("dark");
+        } else {
+          document.documentElement.classList.remove("dark");
+        }
+
+        if (isDarkMode === isSystemDarkMode) {
+          delete window.localStorage.isDarkMode;
+        }
+      }
+
+      function disableTransitionsTemporarily() {
+        document.documentElement.classList.add("[&_*]:!transition-none");
+        window.setTimeout(() => {
+          document.documentElement.classList.remove("[&_*]:!transition-none");
+        }, 0);
+      }
+
+      function updateModeWithoutTransitions() {
+        disableTransitionsTemporarily();
+        updateMode();
+      }
+    </script>
+  </head>
+  <body>
+    <body class="flex h-full flex-col bg-zinc-50 dark:bg-black">
+      <div class="fixed inset-0 flex justify-center sm:px-8">
+        <div class="flex w-full max-w-7xl lg:px-8">
+          <div
+            class="w-full bg-white ring-1 ring-zinc-100 dark:bg-zinc-900 dark:ring-zinc-300/20"
+          >
+          </div>
+        </div>
+      </div>
+      <div class="relative">
+        <Header />
+        <main><slot /></main>
+        {/* <Footer /> */}
+      </div>
+    </body>
+  </body>
+</html>
