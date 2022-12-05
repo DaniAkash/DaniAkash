@@ -7,6 +7,10 @@
     {
       "name": "daniakash.com",
       "path": "../daniakash.com"
+    },
+    {
+      "name": "learning",
+      "path": "../learning"
     }
   ],
   "settings": {
@@ -17,10 +21,12 @@
     "[jsonc]": {
       "editor.defaultFormatter": "vscode.json-language-features"
     },
+    "deepscan.enable": true,
   },
   "extensions": {
     "recommendations": [
-      "editorconfig.editorconfig"
+      "editorconfig.editorconfig",
+      "deepscan.vscode-deepscan"
     ]
   }
 }

@@ -1,0 +1,46 @@
+---
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Dani's Learning Page</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css"
+    />
+  </head>
+  <body>
+    <header>
+      <img
+        width="150"
+        height="150"
+        alt="Hi there!"
+        src="https://sdk.bitmoji.com/render/panel/959f0f42-4680-4c0f-88dc-071d1f02ed81-9abca207-e196-4c3e-8932-0fae4ce0c737-v1.png?transparent=1&palette=1"
+      />
+
+      <h1>Learning notes by <a href="https://daniakash.com">Dani Akash</a></h1>
+
+      <p>
+        This page is a running note of all the interesting technologies I have
+        explored & the corresponding learning materials I have found for my
+        personal reference
+      </p>
+    </header>
+    <slot />
+    <footer>
+      This page was built with <a
+        href="https://github.com/withastro/astro"
+        target="_blank">Astro</a
+      > & <a href="https://github.com/kognise/water.css" target="_blank"
+        >Water.css</a
+      > as a step towards <a
+        href="https://www.swyx.io/learn-in-public/"
+        target="_blank">Learn In Public</a
+      >
+    </footer>
+  </body>
+</html>
