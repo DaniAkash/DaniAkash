@@ -2,7 +2,7 @@ import { Popover, Transition } from "@headlessui/react";
 import clsx from "clsx";
 
 import { Container } from "@/components/Container";
-import avatarImage from "@/images/avatar.jpg";
+import avatarImage from "../images/avatar.jpg";
 import { Fragment, useEffect, useRef } from "react";
 
 function CloseIcon(props) {
@@ -187,6 +187,7 @@ function ModeToggle() {
 		let isDarkMode = document.documentElement.classList.toggle("dark");
 
 		if (isDarkMode === isSystemDarkMode) {
+			// rome-ignore lint/performance/noDelete: have to write delete because the value goes to localstorage
 			delete window.localStorage.isDarkMode;
 		} else {
 			window.localStorage.isDarkMode = isDarkMode;
@@ -234,7 +235,7 @@ function Avatar({ large = false, className, ...props }) {
 		>
 			{/* TODO: use Astro image component */}
 			<img
-				src={avatarImage}
+				src={avatarImage.src}
 				alt=""
 				sizes={large ? "4rem" : "2.25rem"}
 				className={clsx(

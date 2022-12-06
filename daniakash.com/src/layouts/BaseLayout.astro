@@ -1,5 +1,6 @@
 ---
 import { Header } from "@/components/Header";
+import { Footer } from "@/components/Footer";
 
 export interface Props {
   title: string;
@@ -69,9 +70,9 @@ const { title } = Astro.props;
         </div>
       </div>
       <div class="relative">
-        <Header />
+        <Header client:visible />
         <main><slot /></main>
-        {/* <Footer /> */}
+        <Footer />
       </div>
     </body>
   </body>
