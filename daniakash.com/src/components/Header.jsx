@@ -247,10 +247,7 @@ function Avatar({ large = false, className, ...props }) {
 	);
 }
 
-export function Header() {
-	// TODO: use astro routing
-	// let isHomePage = useRouter().pathname === "/";
-	let isHomePage = false;
+export function Header({ isHomePage }) {
 
 	let headerRef = useRef();
 	let avatarRef = useRef();
