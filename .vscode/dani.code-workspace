@@ -17,6 +17,7 @@
     "[jsonc]": {
       "editor.defaultFormatter": "vscode.json-language-features"
     },
+    "deepscan.enable": true,
   },
   "extensions": {
     "recommendations": [
