@@ -22,6 +22,7 @@ import guviLogo from "@/images/logos/guvi.jpeg";
 import { generateRssFeed } from "@/lib/generateRssFeed";
 import { getAllArticles } from "@/lib/getAllArticles";
 import { formatDate } from "@/lib/formatDate";
+import { TWITTER, INSTAGRAM, GITHUB, LINKEDIN } from "@/constants/links";
 
 function MailIcon(props) {
 	return (
@@ -71,12 +72,31 @@ function BriefcaseIcon(props) {
 
 function ArrowDownIcon(props) {
 	return (
-		<svg viewBox="0 0 16 16" fill="none" aria-hidden="true" {...props}>
+		<svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
 			<path
 				d="M4.75 8.75 8 12.25m0 0 3.25-3.5M8 12.25v-8.5"
 				strokeWidth="1.5"
 				strokeLinecap="round"
 				strokeLinejoin="round"
+			/>
+		</svg>
+	);
+}
+
+function ArrowTopRight(props) {
+	return (
+		<svg
+			xmlns="http://www.w3.org/2000/svg"
+			fill="none"
+			viewBox="0 0 24 24"
+			strokeWidth={1.5}
+			stroke="currentColor"
+			{...props}
+		>
+			<path
+				strokeLinecap="round"
+				strokeLinejoin="round"
+				d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"
 			/>
 		</svg>
 	);
@@ -99,7 +119,7 @@ function Article({ article }) {
 
 function SocialLink({ icon: Icon, ...props }) {
 	return (
-		<a className="group -m-1 p-1" {...props}>
+		<a className="group -m-1 p-1" {...props} target="_blank" rel="noreferrer">
 			<Icon className="h-6 w-6 fill-zinc-500 transition group-hover:fill-zinc-600 dark:fill-zinc-400 dark:group-hover:fill-zinc-300" />
 		</a>
 	);
@@ -224,9 +244,9 @@ function Resume() {
 					</li>
 				))}
 			</ol>
-			<Button href="#" variant="secondary" className="group mt-6 w-full">
-				Download CV
-				<ArrowDownIcon className="h-4 w-4 stroke-zinc-400 transition group-active:stroke-zinc-600 dark:group-hover:stroke-zinc-50 dark:group-active:stroke-zinc-50" />
+			<Button href={LINKEDIN} variant="secondary" className="group mt-6 w-full">
+				LinkedIn
+				<ArrowTopRight className="h-4 w-4 stroke-zinc-400 transition group-active:stroke-zinc-600 dark:group-hover:stroke-zinc-50 dark:group-active:stroke-zinc-50" />
 			</Button>
 		</div>
 	);
@@ -285,27 +305,29 @@ export default function Home({ articles }) {
 					</h1>
 					<p className="mt-6 text-base text-zinc-600 dark:text-zinc-400">
 						I’m Dani, a software engineer passionate about building great
-						products and engineering teams. I specialize in helping startups
-						move from 0 to 1.
+						products and engineering teams. Throughout my career I have built
+						high quality apps, managed engineering teams, created training
+						programs for large teams, helped setup roadmaps for products &
+						contributed to many open source projects.
 					</p>
 					<div className="mt-6 flex gap-6">
 						<SocialLink
-							href="https://twitter.com"
+							href={TWITTER}
 							aria-label="Follow on Twitter"
 							icon={TwitterIcon}
 						/>
 						<SocialLink
-							href="https://instagram.com"
+							href={INSTAGRAM}
 							aria-label="Follow on Instagram"
 							icon={InstagramIcon}
 						/>
 						<SocialLink
-							href="https://github.com"
+							href={GITHUB}
 							aria-label="Follow on GitHub"
 							icon={GitHubIcon}
 						/>
 						<SocialLink
-							href="https://linkedin.com"
+							href={LINKEDIN}
 							aria-label="Follow on LinkedIn"
 							icon={LinkedInIcon}
 						/>

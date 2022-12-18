@@ -17,7 +17,13 @@ export function Button({ variant = "primary", className, href, ...props }) {
 	return href ? (
 		// TODO: get rid of this error
 		// rome-ignore lint/a11y/useAnchorContent: leaving it as it is without content for styling
-		<a href={href} className={className} {...props} />
+		<a
+			href={href}
+			className={className}
+			target="_blank"
+			rel="noreferrer"
+			{...props}
+		/>
 	) : (
 		<button className={className} {...props} />
 	);
