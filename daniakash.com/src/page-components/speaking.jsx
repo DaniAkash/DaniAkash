@@ -1,6 +1,9 @@
 import { Card } from "@/components/Card";
 import { Section } from "@/components/Section";
 import { SimpleLayout } from "@/components/SimpleLayout";
+import { events } from '@/constants/events'
+
+console.log(events)
 
 function SpeakingSection({ children, ...props }) {
 	return (
@@ -12,14 +15,26 @@ function SpeakingSection({ children, ...props }) {
 
 function Appearance({ title, description, event, cta, href }) {
 	return (
-		<Card as="article">
-			<Card.Title as="h3" href={href}>
-				{title}
-			</Card.Title>
-			<Card.Eyebrow decorate>{event}</Card.Eyebrow>
-			<Card.Description>{description}</Card.Description>
-			<Card.Cta>{cta}</Card.Cta>
-		</Card>
+    <>
+      <Card as="article">
+        <Card.Title as="h3" href={href}>
+          {title}
+        </Card.Title>
+        <Card.Eyebrow decorate>{event}</Card.Eyebrow>
+        <Card.Description>{description}</Card.Description>
+      </Card>
+      <div style={{marginTop: '30px'}} className="flex gap-5">
+        {
+          cta?.map?.(eachCta => {
+            return (
+              <Card.CtaLink href={eachCta.url} target="_blank" rel="noreferrer">
+                {eachCta.title}
+              </Card.CtaLink>
+            )
+          }) ?? null
+        }
+      </div>
+    </>
 	);
 }
 
@@ -39,7 +54,29 @@ export default function Speaking() {
 				intro="One of my favorite ways to share my ideas is live on stage, where there’s so much more communication bandwidth than there is in writing, and I love podcast interviews because they give me the opportunity to answer questions instead of just present my opinions."
 			>
 				<div className="space-y-20">
-					<SpeakingSection title="Conferences">
+          {
+            events.map(each => {
+              return (
+                <SpeakingSection title={each.year}>
+                  {
+                    each.events.map(eventDetail => {
+                      return (
+                        <Appearance
+                          href={eventDetail.video}
+                          title={eventDetail.title}
+                          description="A technical deep-dive into HelioStream, the real-time streaming library I wrote for transmitting live video back to Earth."
+                          event={`${eventDetail.name}, ${eventDetail.date}`}
+                          cta={eventDetail.cta}
+                        />
+                      )
+                    })
+                  }
+                </SpeakingSection>
+              )
+            })
+          }
+          {/* TODO: Add podcasts section here... */}
+					{/* <SpeakingSection title="Conferences">
 						<Appearance
 							href="#"
 							title="In space, no one can watch you stream — until now"
@@ -77,7 +114,7 @@ export default function Speaking() {
 							event="How They Work Radio, September 2021"
 							cta="Listen to podcast"
 						/>
-					</SpeakingSection>
+					</SpeakingSection> */}
 				</div>
 			</SimpleLayout>
 		</>

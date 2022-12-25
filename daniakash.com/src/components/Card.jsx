@@ -36,9 +36,16 @@ Card.Link = function CardLink({ children, ...props }) {
 }
 
 Card.Title = function CardTitle({ as: Component = 'h2', href, children }) {
+
+  const isExternalWebsite = href?.startsWith('http') ?? false
+
+  const additionalProps = isExternalWebsite ? {
+    target: "_blank", rel: "noreferrer"
+  } : {}
+
   return (
     <Component className="text-base font-semibold tracking-tight text-zinc-800 dark:text-zinc-100">
-      {href ? <Card.Link href={href}>{children}</Card.Link> : children}
+      {href ? <Card.Link href={href} {...additionalProps}>{children}</Card.Link> : children}
     </Component>
   )
 }
@@ -60,6 +67,14 @@ Card.Cta = function CardCta({ children }) {
       {children}
       <ChevronRightIcon className="ml-1 h-4 w-4 stroke-current" />
     </div>
+  )
+}
+
+Card.CtaLink = function CtaLink({ children, ...props }) {
+  return (
+    <a {...props} className="z-10 block text-sm font-medium text-teal-500">
+      {children}
+    </a>
   )
 }
 
