@@ -1,46 +1,55 @@
 import { Card } from "@/components/Card";
 import { SimpleLayout } from "@/components/SimpleLayout";
-import logoAnimaginary from "@/images/logos/animaginary.svg";
-import logoCosmos from "@/images/logos/cosmos.svg";
-import logoHelioStream from "@/images/logos/helio-stream.svg";
-import logoOpenShuttle from "@/images/logos/open-shuttle.svg";
-import logoPlanetaria from "@/images/logos/planetaria.svg";
+import clsx from "clsx";
 
 const projects = [
 	{
-		name: "Planetaria",
+		name: "OSlash - Browser Extension",
 		description:
-			"Creating technology to empower civilians to explore space on their own terms.",
-		link: { href: "http://planetaria.tech", label: "planetaria.tech" },
-		logo: logoPlanetaria,
+			"Shortcuts for work! Founding Engineer & team lead of the v1 of OSlash for Chrome, Safari & Firefox.",
+		link: { href: "https://www.oslash.com/downloads", label: "Get OSlash" },
+		logo: '/images/assets/oslash.png',
 	},
 	{
-		name: "Animaginary",
+		name: "Pickyourtrail - Travel Planner App",
 		description:
-			"High performance web animation library, hand-written in optimized WASM.",
-		link: { href: "#", label: "github.com" },
-		logo: logoAnimaginary,
+			"Solo Engineer behind the cross platform PYT mobile app till v1.8, built with React Native, available for Android & iOS.",
+		link: { href: "https://play.google.com/store/apps/details?id=com.pickyourtrail&hl=en&gl=US", label: "Get the app" },
+		logo: '/images/assets/pyt.png',
+	},
+  {
+    name: 'React Native Toolkit',
+    description: 'High quality react-native libraries I built for use in personal projects - fully open sourced! ❤️',
+    link: { href: 'https://github.com/react-native-toolkit', label: 'github/react-native-toolkit'},
+    logo: '/images/assets/react-native-toolkit.png',
+  },
+  {
+    name: 'React Native Docs',
+    description: 'Part of the official React Native Docs rewrite effort & wrote significant part of the docs, including vital elements like Animated & PanResponder',
+    link: { href: 'https://github.com/facebook/react-native-website/issues?q=author%3ADaniAkash+sort%3Acomments-desc', label: 'Link to PRs'},
+    logo: '/images/assets/react-native.svg',
+  },
+	{
+		name: "Pickyourtrail - Travel Guide",
+		description:
+			"A content-rich SEO friendly Travel guide website built before the days of Gatsby & Next.js - built along with a custom in-house React Framework",
+		link: { href: "https://pickyourtrail.com/guides/", label: "Checkout the guides" },
+		logo: '/images/assets/pyt-guides.png',
 	},
 	{
-		name: "HelioStream",
+		name: "JavaScript by Example - Book (2017)",
 		description:
-			"Real-time video streaming library, optimized for interstellar transmission.",
-		link: { href: "#", label: "github.com" },
-		logo: logoHelioStream,
+			"Author of the book covering modern JavaScript programming with real web apps",
+		link: { href: "https://www.oreilly.com/library/view/javascript-by-example/9781788293969/", label: "Read the book" },
+		logo: '/images/assets/js-book.jpeg',
+    noBg: true
 	},
 	{
-		name: "cosmOS",
+		name: "Learning Git - Video Course",
 		description:
-			"The operating system that powers our Planetaria space shuttles.",
-		link: { href: "#", label: "github.com" },
-		logo: logoCosmos,
-	},
-	{
-		name: "OpenShuttle",
-		description:
-			"The schematics for the first rocket I designed that successfully made it to orbit.",
-		link: { href: "#", label: "github.com" },
-		logo: logoOpenShuttle,
+			"A video course on teaching git to new developers on the GUVI platform",
+		link: { href: "https://www.guvi.in/courses/git_git", label: "Course Videos" },
+		logo: '/images/assets/git.jpg',
 	},
 ];
 
@@ -67,8 +76,8 @@ export default function Projects() {
 				/>
 			</Head> */}
 			<SimpleLayout
-				title="Things I’ve made trying to put my dent in the universe."
-				intro="I’ve worked on tons of little projects over the years but these are the ones that I’m most proud of. Many of them are open-source, so if you see something that piques your interest, check out the code and contribute if you have ideas for how it can be improved."
+				title="Things I’ve built throughout my career"
+				intro="I’ve worked on tons of little projects, but these are the ones that I’m most proud of. These include apps I have built at work, training programs, books, video courses & other open source libraries I have built over the years."
 			>
 				<ul
 					role="list"
@@ -76,11 +85,14 @@ export default function Projects() {
 				>
 					{projects.map((project) => (
 						<Card as="li" key={project.name}>
-							<div className="relative z-10 flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-md shadow-zinc-800/5 ring-1 ring-zinc-900/5 dark:border dark:border-zinc-700/50 dark:bg-zinc-800 dark:ring-0">
-								<img src={project.logo} alt="" className="h-8 w-8" />
+							<div className={clsx("relative z-10 flex w-12 items-center justify-center",
+              project.noBg && "h-16",
+              project.noBg || "h-12 rounded-full bg-white shadow-md shadow-zinc-800/5 ring-1 ring-zinc-900/5 dark:border dark:border-zinc-700/50 dark:bg-zinc-800 dark:ring-0"
+              )}>
+								<img src={project.logo} alt="" className={clsx(project.noBg || 'h-8 w-8 rounded-full', project.noBg && 'h-16 w-12')} />
 							</div>
 							<h2 className="mt-6 text-base font-semibold text-zinc-800 dark:text-zinc-100">
-								<Card.Link href={project.link.href}>{project.name}</Card.Link>
+								<Card.Link href={project.link.href} target="_blank" rel="noreferrer">{project.name}</Card.Link>
 							</h2>
 							<Card.Description>{project.description}</Card.Description>
 							<p className="relative z-10 mt-6 flex text-sm font-medium text-zinc-400 transition group-hover:text-teal-500 dark:text-zinc-200">
