@@ -91,8 +91,8 @@ export default function About() {
 								have worked with many non-governmental organisations (NGOs) such
 								as Teach for India and SOS Children's Villages to help educate
 								children to use computers and science. After Covid-19, I started
-								investing heavily in Green Energy technologies, hoping to
-								contribute to a more sustainable future for future generations.
+								investing more in Green Energy technologies, hoping to
+								contribute to a more sustainable future.
 							</p>
 							<p>
 								Today, I work as a programmer, engineering manager, and active
