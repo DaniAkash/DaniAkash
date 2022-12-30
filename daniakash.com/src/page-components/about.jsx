@@ -82,10 +82,8 @@ export default function About() {
 							<p>
 								As a worldbuilder, I'm always learning about how our world
 								works, from global economics to particle physics. I try to learn
-								as much as I can about this world and enjoy reading about other
-								people's imaginary worlds. This also made me a big fan of
-								Japanese manga and games, such as One Piece, Evangelion,
-								Macross, Gundam, Tekken, and many others.
+								as much as I can about this world through books, documentaries & educational youtube videos. I also enjoy reading about imaginary worlds. This made me a big fan of
+								Japanese manga and games, such as One Piece, Evangelion, Tekken, and many others.
 							</p>
 							<p>
 								I adhere to the philosophy of optimistic nihilism and strive to
