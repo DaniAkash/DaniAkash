@@ -1,8 +1,9 @@
 ---
+import { articles } from "@/constants/articles";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Home from "@/page-components/home";
 ---
 
 <BaseLayout title="Home">
-  <Home articles={[]} />
+  <Home articles={articles} />
 </BaseLayout>

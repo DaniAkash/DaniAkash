@@ -134,7 +134,7 @@ function MobileNavigation(props) {
 function NavItem({ href, children }) {
 	const [isActive, setIsActive] = useState(false);
 	useEffect(() => {
-		setIsActive(window.location.pathname === href);
+		setIsActive(window.location.pathname.includes(href));
 	}, []);
 
 	return (

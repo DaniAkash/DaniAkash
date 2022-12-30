@@ -19,9 +19,6 @@ import redblacktreeLogo from "@/images/logos/redblacktree.jpeg";
 import pickyourtrailLogo from "@/images/logos/pickyourtrail.jpeg";
 import oslashLogo from "@/images/logos/oslash.png";
 import guviLogo from "@/images/logos/guvi.jpeg";
-import { generateRssFeed } from "@/lib/generateRssFeed";
-import { getAllArticles } from "@/lib/getAllArticles";
-import { formatDate } from "@/lib/formatDate";
 import { TWITTER, INSTAGRAM, GITHUB, LINKEDIN } from "@/constants/links";
 
 function MailIcon(props) {
@@ -105,11 +102,11 @@ function ArrowTopRight(props) {
 function Article({ article }) {
 	return (
 		<Card as="article">
-			<Card.Title href={`/articles/${article.slug}`}>
+			<Card.Title href={article.url}>
 				{article.title}
 			</Card.Title>
 			<Card.Eyebrow as="time" dateTime={article.date} decorate>
-				{formatDate(article.date)}
+				{article.date}
 			</Card.Eyebrow>
 			<Card.Description>{article.description}</Card.Description>
 			<Card.Cta>Read article</Card.Cta>
