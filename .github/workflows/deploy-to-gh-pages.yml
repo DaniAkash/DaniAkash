@@ -1,0 +1,28 @@
+name: deploy daniakash.com
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    name: github pages
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: 'pnpm'
+      - run: pnpm i
+        working-directory: ./daniakash.com
+      - run: pnpm build
+        working-directory: ./daniakash.com
+      - name: Pushes to another repository
+        uses: cpina/github-action-push-to-another-repository@main
+        with:
+          source-directory: 'daniakash.com/dist'
+          destination-github-username: 'DaniAkash'
+          destination-repository-name: 'daniakash.github.io'
+          user-email: s.daniakash@gmail.com
+          target-branch: main
