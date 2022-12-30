@@ -29,4 +29,4 @@ jobs:
           destination-github-username: 'DaniAkash'
           destination-repository-name: 'daniakash.github.io'
           user-email: s.daniakash@gmail.com
-          target-branch: main
+          target-branch: master
