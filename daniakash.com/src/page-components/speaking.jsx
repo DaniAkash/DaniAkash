@@ -3,8 +3,6 @@ import { Section } from "@/components/Section";
 import { SimpleLayout } from "@/components/SimpleLayout";
 import { events } from '@/constants/events'
 
-console.log(events)
-
 function SpeakingSection({ children, ...props }) {
 	return (
 		<Section {...props}>
@@ -64,7 +62,7 @@ export default function Speaking() {
                         <Appearance
                           href={eventDetail.video}
                           title={eventDetail.title}
-                          description="A technical deep-dive into HelioStream, the real-time streaming library I wrote for transmitting live video back to Earth."
+                          description={eventDetail.description}
                           event={`${eventDetail.name}, ${eventDetail.date}`}
                           cta={eventDetail.cta}
                         />

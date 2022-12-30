@@ -26,7 +26,7 @@ const projects = [
   {
     name: 'React Native Docs',
     description: 'Part of the official React Native Docs rewrite effort & wrote significant part of the docs, including vital elements like Animated & PanResponder',
-    link: { href: 'https://github.com/facebook/react-native-website/issues?q=author%3ADaniAkash+sort%3Acomments-desc', label: 'Link to PRs'},
+    link: { href: 'https://github.com/facebook/react-native-website/issues/1579', label: 'Link to Project'},
     logo: '/images/assets/react-native.svg',
   },
 	{
