@@ -307,7 +307,7 @@ export default function Home({ articles }) {
 						I’m Dani, a software engineer passionate about building great
 						products and engineering teams. Throughout my career I have built
 						high quality apps, managed engineering teams, created training
-						programs for large teams, helped setup roadmaps for products &
+						programs for various groups of people, helped setup roadmaps for products &
 						contributed to many open source projects.
 					</p>
 					<div className="mt-6 flex gap-6">
