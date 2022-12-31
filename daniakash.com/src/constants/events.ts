@@ -64,6 +64,10 @@ export const events = [
         description: 'Building visual model of an application state by leveraging the concept of finite state machines with XSTATE.',
         cta: [
           {
+            title: 'Slides',
+            url: 'https://docs.google.com/presentation/d/11AI28PgImaxnGLKv6FAXcyvwEumCUdUg1tVqutn0qJ0/edit?usp=sharing'
+          },
+          {
             title: 'Code',
             url: 'https://codesandbox.io/s/visualizing-app-state-with-xstate-p1lqc'
           }
@@ -90,6 +94,10 @@ export const events = [
         description: 'A beginner friendly introduction to building apps with React Native - live coding a todo list app on video using an Expo Snack.',
         cta: [
           {
+            title: 'Slides',
+            url: 'https://docs.google.com/presentation/d/1I8Mo4NzNFzMpcG0w86vlD4_e_Aijf6__uvez4cfYNmk/edit?usp=sharing'
+          },
+          {
             title: 'Code',
             url: 'https://snack.expo.dev/@daniakash/up-nd-running-webinar'
           }
@@ -107,6 +115,19 @@ export const events = [
         title: 'The State of React Native in 2019',
         description: 'A detailed talk on the state of React Native & the types of libraries & apps the community is building around the React Native ecosystem.',
         video: 'https://www.youtube.com/watch?v=O_vVceZxtkc',
+        cta: [
+          {
+            title: 'Slides',
+            url: 'https://docs.google.com/presentation/d/1WaWqyEfoR_GPrREr3Xq3s9-5Aqq3LHVVJ-r1tcLbMf0/edit?usp=sharing'
+          }
+        ],
+      },
+      {
+        date: 'Jun 8, 2019',
+        name: 'PYT Talks Episode 1',
+        title: 'React.js Best Practices',
+        description: 'Sharing the best practices on building applications with React based on my experience in building the Pickyourtrail mobile app & the web app.',
+        video: 'https://fb.watch/hLQWn-53Ju'
       }
     ]
   },
@@ -119,6 +140,16 @@ export const events = [
         title: 'Lightning fast application development with MobX',
         description: "A talk focused on introducing a new state management approach powered by MobX & how it'll greatly speed up application development times.",
         video: 'https://www.youtube.com/watch?v=2xjVsMdp3bo',
+        cta: [
+          {
+            title: 'Slides',
+            url: 'https://docs.google.com/presentation/d/1DYlyd4h2Tt1g8zjGjLqHIWXzxXP0ONQh0oFcCXpgxy8/edit?usp=sharing'
+          },
+          {
+            title: 'Code',
+            url: 'https://github.com/DaniAkash/geeknight-mobx'
+          }
+        ]
       }
     ]
   },
@@ -136,9 +167,13 @@ export const events = [
             url: 'https://fbdc-chennai-1.splashthat.com/'
           },
           {
+            title: 'Slides',
+            url: 'https://docs.google.com/presentation/d/1vTSLTj8-ZXoIGtLJuIgXCn61F9XbgTdg034oudzykQo/edit?usp=sharing'
+          },
+          {
             title: 'Code',
             url: 'https://github.com/DaniAkash/FBDevCChennai-ReactNative-for-beginners'
-          }
+          },
         ]
       },
       {
@@ -147,6 +182,10 @@ export const events = [
         title: 'Building React Native apps with Angular 2',
         description: 'A PoC project explaining the underlying architecture of React Native & how we can leverage it for other frameworks with Angular 2 as an example.',
         cta: [
+          {
+            title: 'Slides',
+            url: 'https://docs.google.com/presentation/d/1F7_WM6OQ_AE3ExH6Ug5BwCPUJy8Oxpgx9kHTeYkGWHY/edit?usp=sharing',
+          },
           {
             title: 'Code',
             url: 'https://github.com/DaniAkash/Todo-List-App-with-React-Native-and-Angular'
@@ -163,6 +202,10 @@ export const events = [
           {
             title: 'Event Website',
             url: 'https://www.facebook.com/events/ajira/angular-js-2-for-beginners-chennai-geeks-march-meetup/1452730704737953/'
+          },
+          {
+            title: 'Slides',
+            url: 'https://docs.google.com/presentation/d/1lmiZFR2kAvF1bAM4Y-qwOskmN15Qd2XboAKjiKpfIMI/edit?usp=sharing',
           },
           {
             title: 'Code',
