@@ -1,5 +1,11 @@
 export const articles = [
   {
+    title: "Less on the Client, more on the Edge - Dev Retro 2022",
+    url: "https://daniakash.hashnode.dev/less-on-the-client-more-on-the-edge-dev-retro-2022",
+    date: "Jan 2, 2023",
+    description: "2022 - I had to build a team that will build & maintain a complex web application. My retrospective on what I learnt from things that went wrong & things that went well",
+  },
+  {
     title: "Efficiently managing your open source React Native library",
     url: "https://dev.to/dani_akash_/series/8816",
     date: "Sep 15, 2020",
