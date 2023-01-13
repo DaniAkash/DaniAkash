@@ -7,7 +7,7 @@ const projects = [
 		name: "OSlash - Browser Extension",
 		description:
 			"Shortcuts for work! Founding Engineer & team lead of the v1 of OSlash for Chrome, Safari & Firefox.",
-		link: { href: "https://www.oslash.com/downloads", label: "Get OSlash" },
+		link: { href: "https://www.oslash.com", label: "Get OSlash" },
 		logo: '/images/assets/oslash.png',
 	},
 	{
