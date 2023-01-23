@@ -132,11 +132,8 @@ function MobileNavigation(props) {
 	);
 }
 
-function NavItem({ href, children }) {
-	const [isActive, setIsActive] = useState(false);
-	useEffect(() => {
-		setIsActive(window.location.pathname.includes(href));
-	}, []);
+function NavItem({ href, currentPath, children }) {
+  const isActive = currentPath?.includes?.(href) ?? false
 
 	return (
 		<li>
@@ -162,12 +159,12 @@ function DesktopNavigation(props) {
 	return (
 		<nav {...props}>
 			<ul className="flex rounded-full bg-white/90 px-3 text-sm font-medium text-zinc-800 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10">
-				<NavItem href="/about">About</NavItem>
+				<NavItem href="/about" currentPath={props.currentPath}>About</NavItem>
 				{/* TODO: Articles section not ready yet */}
 				{/* <NavItem href="/articles">Articles</NavItem> */}
-				<NavItem href="/projects">Projects</NavItem>
-				<NavItem href="/speaking">Speaking</NavItem>
-				<NavItem href="/uses">Uses</NavItem>
+				<NavItem href="/projects" currentPath={props.currentPath}>Projects</NavItem>
+				<NavItem href="/speaking" currentPath={props.currentPath}>Speaking</NavItem>
+				<NavItem href="/uses" currentPath={props.currentPath}>Uses</NavItem>
 			</ul>
 		</nav>
 	);
@@ -249,10 +246,14 @@ function Avatar({ large = false, className, ...props }) {
 	);
 }
 
-export function Header({ isHomePage }) {
+export function Header({ isHomePage: isHomePageFromProps }) {
 	let headerRef = useRef();
 	let avatarRef = useRef();
 	let isInitial = useRef(true);
+
+  const [isHomePage, setIsHomePage] = useState(isHomePageFromProps)
+
+  const [currentPath, setCurrentPath] = useState()
 
 	useEffect(() => {
 		let downDelay = avatarRef.current?.offsetTop ?? 0;
@@ -350,8 +351,46 @@ export function Header({ isHomePage }) {
 		};
 	}, [isHomePage]);
 
+  useEffect(() => {
+    setCurrentPath(window.location.pathname)
+    import('swup').then(module => {
+      const swup = new module.default();
+      swup.on('contentReplaced', () => {
+        setIsHomePage(window.location.pathname === '/')
+        setCurrentPath(window.location.pathname)
+      })
+    })
+  }, [])
+
 	return (
 		<>
+      <style>
+        {
+          `
+          .swup-transition-main {
+            opacity: 1;
+            transition: opacity 0.3s, transform 0.4s;
+            transform: translate3d(0, 0, 0);
+          }
+          html.is-animating .swup-transition-main {
+            opacity: 0;
+            transform: translate3d(0, 60px, 0);
+          }
+          html.is-animating.is-leaving .swup-transition-main {
+            opacity: 0;
+            transform: translate3d(0, -60px, 0);
+          }
+          html.is-animating.swup-theme-reverse .swup-transition-main {
+            opacity: 0;
+            transform: translate3d(0, -60px, 0);
+          }
+          html.is-animating.swup-theme-reverse.is-leaving .swup-transition-main {
+            opacity: 0;
+            transform: translate3d(0, 60px, 0);
+          }
+          `
+        }
+      </style>
 			<header
 				className="pointer-events-none relative z-50 flex flex-col"
 				style={{
@@ -410,7 +449,7 @@ export function Header({ isHomePage }) {
 							</div>
 							<div className="flex flex-1 justify-end md:justify-center">
 								<MobileNavigation className="pointer-events-auto md:hidden" />
-								<DesktopNavigation className="pointer-events-auto hidden md:block" />
+								<DesktopNavigation className="pointer-events-auto hidden md:block" currentPath={currentPath} />
 							</div>
 							<div className="flex justify-end md:flex-1">
 								<div className="pointer-events-auto">

@@ -15,6 +15,7 @@ specifiers:
   react: ^18.0.0
   react-dom: ^18.0.0
   rome: ^10.0.1
+  swup: ^3.0.2
   tailwindcss: ^3.0.24
 
 dependencies:
@@ -31,6 +32,7 @@ dependencies:
   feed: 4.2.2
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
+  swup: 3.0.2
   tailwindcss: 3.2.4
 
 devDependencies:
@@ -1246,6 +1248,12 @@ packages:
 
   /defined/1.0.1:
     resolution: {integrity: sha512-hsBd2qSVCRE+5PmNdHt1uzyrFu5d3RwmFDKzyNZMFq/EwDNJF7Ee5+D5oEKF0hU6LhtoUF1macFvOe4AskQC1Q==}
+    dev: false
+
+  /delegate-it/3.0.1:
+    resolution: {integrity: sha512-XU8H4pjDGBW74hFIbjdLPnvtU3HF3P9bbZvoFBSBLb5JgNaTkRb/2lvC1V+9kmZsxVR0kad4bU3rYhQ/4Ij+Gw==}
+    dependencies:
+      typed-query-selector: 2.8.0
     dev: false
 
   /dequal/2.0.3:
@@ -2954,6 +2962,11 @@ packages:
       is-wsl: 2.2.0
     dev: false
 
+  /opencollective-postinstall/2.0.3:
+    resolution: {integrity: sha512-8AV/sCtuzUeTo8gQK5qDZzARrulB3egtLzFgteqB2tcT4Mw7B8Kt7JcDHmltjz6FOAHsvTevk70gZEbhM4ZS9Q==}
+    hasBin: true
+    dev: false
+
   /ora/6.1.2:
     resolution: {integrity: sha512-EJQ3NiP5Xo94wJXIzAyOtSb0QEIAUu7m8t6UZ9krbz0vAJqr92JpcK/lEXg91q6B9pEGqrykkd2EQplnifDSBw==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
@@ -3673,6 +3686,14 @@ packages:
     engines: {node: '>= 0.4'}
     dev: false
 
+  /swup/3.0.2:
+    resolution: {integrity: sha512-9SAansC0PTjmUmHshMEuux0exkdcm2DHJQqKpOw11Rj9WEgmjGBUmPS5A9TeL+wFWR5s0tX2G/nDDvvjmSYysg==}
+    requiresBuild: true
+    dependencies:
+      delegate-it: 3.0.1
+      opencollective-postinstall: 2.0.3
+    dev: false
+
   /synckit/0.8.4:
     resolution: {integrity: sha512-Dn2ZkzMdSX827QbowGbU/4yjWuvNaCoScLLoMo/yKbu+P4GBR6cRGKZH27k6a9bRzdqcyd1DE96pQtQ6uNkmyw==}
     engines: {node: ^14.18.0 || >=16.0.0}
@@ -3776,6 +3797,10 @@ packages:
   /type-fest/2.19.0:
     resolution: {integrity: sha512-RAH822pAdBgcNMAfWnCBU3CFZcfZ/i1eZjwFU/dsLKumyuuP3niueg2UAukXYF0E2AAoc82ZSSf9J0WQBinzHA==}
     engines: {node: '>=12.20'}
+    dev: false
+
+  /typed-query-selector/2.8.0:
+    resolution: {integrity: sha512-jo9NLGQ0b7sT9TK3mxzemATQqTb/uh8TRvcOK6WSwKNewALt3AA8q2m7cdpF/uUbd/cdixaBxCGe6fpzpEWbGw==}
     dev: false
 
   /typescript/4.9.3:

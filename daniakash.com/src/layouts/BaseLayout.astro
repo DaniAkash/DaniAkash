@@ -91,7 +91,7 @@ const isHomePage = Astro.url.pathname === "/";
       </div>
       <div class="relative">
         <Header isHomePage={isHomePage} client:load />
-        <main><slot /></main>
+        <main id="swup" class="swup-transition-main"><slot /></main>
         <Footer />
       </div>
     </body>
