@@ -2,7 +2,7 @@
 
 ## I'm [Dani Akash][homepage]
 
-A JavaScript developer from [Chennai][about-chennai]. I currently manage the engineering team at [OSlash][oslash]. I love building applications & discussing new product ideas. Reach out to me on [twitter][twitter] if you'd like to talk ✌️
+A JavaScript developer from [bangalore][about-bangalore]. I currently manage the engineering team at [OSlash][oslash]. I love building applications & discussing new product ideas. Reach out to me on [twitter][twitter] if you'd like to talk ✌️
 
 [![Twitter Follow](https://img.shields.io/twitter/follow/dani_akash_?color=%20%2300acee&label=Follow%20me%20on%20Twitter&style=for-the-badge)][twitter] [![Twitch Status](https://img.shields.io/twitch/status/dani_akash_?label=LiveStream&style=for-the-badge)][twitch] [![Reddit User Karma](https://img.shields.io/reddit/user-karma/combined/dani_akash_?style=for-the-badge)][reddit]
 
@@ -12,5 +12,5 @@ A JavaScript developer from [Chennai][about-chennai]. I currently manage the eng
 [twitch]: https://www.twitch.tv/dani_akash_
 [reddit]: https://www.reddit.com/user/dani_akash_
 [github]: https://github.com/daniakash
-[about-chennai]: https://www.google.com/search?q=chennai
+[about-chennai]: https://www.google.com/search?q=bangalore
 [oslash]: https://oslash.com
