@@ -12,5 +12,5 @@ A JavaScript developer from [bangalore][about-bangalore]. I currently manage the
 [twitch]: https://www.twitch.tv/dani_akash_
 [reddit]: https://www.reddit.com/user/dani_akash_
 [github]: https://github.com/daniakash
-[about-chennai]: https://www.google.com/search?q=bangalore
+[about-bangalore]: https://www.google.com/search?q=bangalore
 [oslash]: https://oslash.com
