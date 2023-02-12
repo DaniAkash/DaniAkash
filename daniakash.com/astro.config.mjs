@@ -10,6 +10,9 @@ import tailwind from "@astrojs/tailwind";
 import image from "@astrojs/image";
 
 // https://astro.build/config
+import prefetch from "@astrojs/prefetch";
+
+// https://astro.build/config
 export default defineConfig({
-	integrations: [react(), tailwind(), image()],
+  integrations: [react(), tailwind(), image(), prefetch()]
 });

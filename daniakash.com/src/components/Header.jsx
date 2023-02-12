@@ -68,7 +68,7 @@ function MoonIcon(props) {
 function MobileNavItem({ href, children }) {
 	return (
 		<li>
-			<Popover.Button as={"a"} href={href} className="block py-2">
+			<Popover.Button as={"a"} href={href} className="block py-2" rel="prefetch">
 				{children}
 			</Popover.Button>
 		</li>
@@ -138,6 +138,7 @@ function NavItem({ href, currentPath, children }) {
 	return (
 		<li>
 			<a
+				rel="prefetch"
 				href={href}
 				className={clsx(
 					"relative block px-3 py-2 transition",
@@ -227,6 +228,7 @@ function AvatarContainer({ className, ...props }) {
 function Avatar({ large = false, className, ...props }) {
 	return (
 		<a
+			rel="prefetch"
 			href="/"
 			aria-label="Home"
 			className={clsx(className, "pointer-events-auto")}
