@@ -4,7 +4,7 @@ Chennai, India | +91-9500093222 | s.daniakash@gmail.com | Open to remote work
 **About:**  
 A self-motivated application developer with a passion for creating great products and engineering teams. Experienced founding engineer for two early-stage startups, successfully building products from scratch. Committed to sharing knowledge with the developer community and constantly exploring innovative ways to build applications. Looking forward to contributing to a dynamic team and taking on challenging development projects.
 
-[LinkedIn](linkedin.com/in/daniakash) | [GitHub](github.com/daniakash) | [Portfolio](daniakash.github.io)
+[LinkedIn](https://linkedin.com/in/daniakash) | [GitHub](https://github.com/daniakash) | [Portfolio](https://daniakash.github.io)
 
 ## Skills
 **Programming Languages:** TypeScript, JavaScript  
@@ -28,7 +28,7 @@ A self-motivated application developer with a passion for creating great product
 
 **Software Engineer | Pickyourtrail**  
 *October 2017 - December 2020*
-- Developed Pickyourtrail mobile app for Android & iOS using React Native. The app served as a digital travel assistant for customers, leading to a 5-star rating in Google Play with 300 votes and 25k downloads.
+- Developed Pickyourtrail mobile app for [Android](https://play.google.com/store/apps/details?id=com.pickyourtrail&hl=en_IN&gl=US) & [iOS](https://apps.apple.com/in/app/pickyourtrail-travel-planner/id1400253672) using React Native. The app served as a digital travel assistant for customers, leading to a 5-star rating in Google Play with 300 votes and 25k downloads.
 - Played a key role in the team's successful integration of TypeScript into the existing web application.
 - Contributed to the local tech community development, with a focus on our Tech Stack, and open sourced many modules created for the app.
 
