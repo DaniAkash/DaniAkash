@@ -39,7 +39,7 @@ A self-motivated application developer with a passion for creating great product
 - Assisted colleagues with projects built with Node.js and Vue.js, while researching ways to improve JavaScript product development.
 
 **Web Developer | doodleblue**  
-*February 2016 - November 2017*
+*February 2016 - November 2016*
 - Led full-stack application development projects using Laravel, developed APIs for web and mobile apps, and built complex databases with MySQL.
 - Promoted to team leader for a company-wide initiative to incorporate React.js, React Native, Laravel, and Node.js into the tech stack across multiple projects.
 
