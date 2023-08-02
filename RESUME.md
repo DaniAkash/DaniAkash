@@ -8,7 +8,7 @@ A self-motivated application developer with a passion for creating great product
 
 ## Skills
 **Programming Languages:** TypeScript, JavaScript  
-**Frameworks/Libraries:** React, React Native, GraphQL, Next.js, Deno  
+**Frameworks/Libraries:** React, React Native, GraphQL, Next.js, Prisma, Deno  
 **UI Libraries:** Tailwind CSS, Chakra UI, Radix UI, Nativebase  
 **Build Tools:** Webpack, Vite, ESBuild, TurboRepo  
 **Serverless Technologies:** Serverless framework, Cloudflare Workers, Deno Deploy
