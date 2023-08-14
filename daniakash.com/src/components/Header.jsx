@@ -132,7 +132,14 @@ function MobileNavigation(props) {
 	);
 }
 
-function NavItem({ href, currentPath, children }) {
+function NavItem({ href, children }) {
+
+  const [currentPath, setCurrentPath] = useState();
+
+  useEffect(() => {
+    setCurrentPath(window.location.pathname)
+  }, []);
+
   const isActive = currentPath?.includes?.(href) ?? false
 
 	return (
@@ -160,12 +167,12 @@ function DesktopNavigation(props) {
 	return (
 		<nav {...props}>
 			<ul className="flex rounded-full bg-white/90 px-3 text-sm font-medium text-zinc-800 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10">
-				<NavItem href="/about" currentPath={props.currentPath}>About</NavItem>
+				<NavItem href="/about">About</NavItem>
 				{/* TODO: Articles section not ready yet */}
 				{/* <NavItem href="/articles">Articles</NavItem> */}
-				<NavItem href="/projects" currentPath={props.currentPath}>Projects</NavItem>
-				<NavItem href="/speaking" currentPath={props.currentPath}>Speaking</NavItem>
-				<NavItem href="/uses" currentPath={props.currentPath}>Uses</NavItem>
+				<NavItem href="/projects">Projects</NavItem>
+				<NavItem href="/speaking">Speaking</NavItem>
+				<NavItem href="/uses">Uses</NavItem>
 			</ul>
 		</nav>
 	);
@@ -243,6 +250,7 @@ function Avatar({ large = false, className, ...props }) {
 					"rounded-full bg-zinc-100 object-cover dark:bg-zinc-800",
 					large ? "h-16 w-16" : "h-9 w-9",
 				)}
+        {...{"transition:name": "avatar-image"}}
 			/>
 		</a>
 	);
@@ -251,148 +259,109 @@ function Avatar({ large = false, className, ...props }) {
 export function Header({ isHomePage: isHomePageFromProps }) {
 	let headerRef = useRef();
 	let avatarRef = useRef();
-	let isInitial = useRef(true);
+	// let isInitial = useRef(true);
 
   const [isHomePage, setIsHomePage] = useState(isHomePageFromProps)
 
-  const [currentPath, setCurrentPath] = useState()
+	// useEffect(() => {
+	// 	let downDelay = avatarRef.current?.offsetTop ?? 0;
+	// 	let upDelay = 64;
 
-	useEffect(() => {
-		let downDelay = avatarRef.current?.offsetTop ?? 0;
-		let upDelay = 64;
+	// 	function setProperty(property, value) {
+	// 		document.documentElement.style.setProperty(property, value);
+	// 	}
 
-		function setProperty(property, value) {
-			document.documentElement.style.setProperty(property, value);
-		}
+	// 	function removeProperty(property) {
+	// 		document.documentElement.style.removeProperty(property);
+	// 	}
 
-		function removeProperty(property) {
-			document.documentElement.style.removeProperty(property);
-		}
+	// 	function updateHeaderStyles() {
+	// 		let { top, height } = headerRef.current.getBoundingClientRect();
+	// 		let scrollY = clamp(
+	// 			window.scrollY,
+	// 			0,
+	// 			document.body.scrollHeight - window.innerHeight,
+	// 		);
 
-		function updateHeaderStyles() {
-			let { top, height } = headerRef.current.getBoundingClientRect();
-			let scrollY = clamp(
-				window.scrollY,
-				0,
-				document.body.scrollHeight - window.innerHeight,
-			);
+	// 		if (isInitial.current) {
+	// 			setProperty("--header-position", "sticky");
+	// 		}
 
-			if (isInitial.current) {
-				setProperty("--header-position", "sticky");
-			}
+	// 		setProperty("--content-offset", `${downDelay}px`);
 
-			setProperty("--content-offset", `${downDelay}px`);
+	// 		if (isInitial.current || scrollY < downDelay) {
+	// 			setProperty("--header-height", `${downDelay + height}px`);
+	// 			setProperty("--header-mb", `${-downDelay}px`);
+	// 		} else if (top + height < -upDelay) {
+	// 			let offset = Math.max(height, scrollY - upDelay);
+	// 			setProperty("--header-height", `${offset}px`);
+	// 			setProperty("--header-mb", `${height - offset}px`);
+	// 		} else if (top === 0) {
+	// 			setProperty("--header-height", `${scrollY + height}px`);
+	// 			setProperty("--header-mb", `${-scrollY}px`);
+	// 		}
 
-			if (isInitial.current || scrollY < downDelay) {
-				setProperty("--header-height", `${downDelay + height}px`);
-				setProperty("--header-mb", `${-downDelay}px`);
-			} else if (top + height < -upDelay) {
-				let offset = Math.max(height, scrollY - upDelay);
-				setProperty("--header-height", `${offset}px`);
-				setProperty("--header-mb", `${height - offset}px`);
-			} else if (top === 0) {
-				setProperty("--header-height", `${scrollY + height}px`);
-				setProperty("--header-mb", `${-scrollY}px`);
-			}
+	// 		if (top === 0 && scrollY > 0 && scrollY >= downDelay) {
+	// 			setProperty("--header-inner-position", "fixed");
+	// 			removeProperty("--header-top");
+	// 			removeProperty("--avatar-top");
+	// 		} else {
+	// 			removeProperty("--header-inner-position");
+	// 			setProperty("--header-top", "0px");
+	// 			setProperty("--avatar-top", "0px");
+	// 		}
+	// 	}
 
-			if (top === 0 && scrollY > 0 && scrollY >= downDelay) {
-				setProperty("--header-inner-position", "fixed");
-				removeProperty("--header-top");
-				removeProperty("--avatar-top");
-			} else {
-				removeProperty("--header-inner-position");
-				setProperty("--header-top", "0px");
-				setProperty("--avatar-top", "0px");
-			}
-		}
+	// 	function updateAvatarStyles() {
+	// 		if (!isHomePage) {
+	// 			return;
+	// 		}
 
-		function updateAvatarStyles() {
-			if (!isHomePage) {
-				return;
-			}
+	// 		let fromScale = 1;
+	// 		let toScale = 36 / 64;
+	// 		let fromX = 0;
+	// 		let toX = 2 / 16;
 
-			let fromScale = 1;
-			let toScale = 36 / 64;
-			let fromX = 0;
-			let toX = 2 / 16;
+	// 		let scrollY = downDelay - window.scrollY;
 
-			let scrollY = downDelay - window.scrollY;
+	// 		let scale = (scrollY * (fromScale - toScale)) / downDelay + toScale;
+	// 		scale = clamp(scale, fromScale, toScale);
 
-			let scale = (scrollY * (fromScale - toScale)) / downDelay + toScale;
-			scale = clamp(scale, fromScale, toScale);
+	// 		let x = (scrollY * (fromX - toX)) / downDelay + toX;
+	// 		x = clamp(x, fromX, toX);
 
-			let x = (scrollY * (fromX - toX)) / downDelay + toX;
-			x = clamp(x, fromX, toX);
+	// 		setProperty(
+	// 			"--avatar-image-transform",
+	// 			`translate3d(${x}rem, 0, 0) scale(${scale})`,
+	// 		);
 
-			setProperty(
-				"--avatar-image-transform",
-				`translate3d(${x}rem, 0, 0) scale(${scale})`,
-			);
+	// 		let borderScale = 1 / (toScale / scale);
+	// 		let borderX = (-toX + x) * borderScale;
+	// 		let borderTransform = `translate3d(${borderX}rem, 0, 0) scale(${borderScale})`;
 
-			let borderScale = 1 / (toScale / scale);
-			let borderX = (-toX + x) * borderScale;
-			let borderTransform = `translate3d(${borderX}rem, 0, 0) scale(${borderScale})`;
+	// 		setProperty("--avatar-border-transform", borderTransform);
+	// 		setProperty("--avatar-border-opacity", scale === toScale ? 1 : 0);
+	// 	}
 
-			setProperty("--avatar-border-transform", borderTransform);
-			setProperty("--avatar-border-opacity", scale === toScale ? 1 : 0);
-		}
+	// 	function updateStyles() {
+	// 		updateHeaderStyles();
+	// 		updateAvatarStyles();
+	// 		isInitial.current = false;
+	// 	}
 
-		function updateStyles() {
-			updateHeaderStyles();
-			updateAvatarStyles();
-			isInitial.current = false;
-		}
+	// 	updateStyles();
+	// 	window.addEventListener("scroll", updateStyles, { passive: true });
+	// 	window.addEventListener("resize", updateStyles);
 
-		updateStyles();
-		window.addEventListener("scroll", updateStyles, { passive: true });
-		window.addEventListener("resize", updateStyles);
+	// 	return () => {
+	// 		window.removeEventListener("scroll", updateStyles, { passive: true });
+	// 		window.removeEventListener("resize", updateStyles);
+	// 	};
+	// }, [isHomePage]);
 
-		return () => {
-			window.removeEventListener("scroll", updateStyles, { passive: true });
-			window.removeEventListener("resize", updateStyles);
-		};
-	}, [isHomePage]);
-
-  useEffect(() => {
-    setCurrentPath(window.location.pathname)
-    import('swup').then(module => {
-      const swup = new module.default();
-      swup.on('contentReplaced', () => {
-        setIsHomePage(window.location.pathname === '/')
-        setCurrentPath(window.location.pathname)
-      })
-    })
-  }, [])
 
 	return (
 		<>
-      <style>
-        {
-          `
-          .swup-transition-main {
-            opacity: 1;
-            transition: opacity 0.3s, transform 0.4s;
-            transform: translate3d(0, 0, 0);
-          }
-          html.is-animating .swup-transition-main {
-            opacity: 0;
-            transform: translate3d(0, 60px, 0);
-          }
-          html.is-animating.is-leaving .swup-transition-main {
-            opacity: 0;
-            transform: translate3d(0, -60px, 0);
-          }
-          html.is-animating.swup-theme-reverse .swup-transition-main {
-            opacity: 0;
-            transform: translate3d(0, -60px, 0);
-          }
-          html.is-animating.swup-theme-reverse.is-leaving .swup-transition-main {
-            opacity: 0;
-            transform: translate3d(0, 60px, 0);
-          }
-          `
-        }
-      </style>
 			<header
 				className="pointer-events-none relative z-50 flex flex-col"
 				style={{
@@ -451,7 +420,7 @@ export function Header({ isHomePage: isHomePageFromProps }) {
 							</div>
 							<div className="flex flex-1 justify-end md:justify-center">
 								<MobileNavigation className="pointer-events-auto md:hidden" />
-								<DesktopNavigation className="pointer-events-auto hidden md:block" currentPath={currentPath} />
+								<DesktopNavigation className="pointer-events-auto hidden md:block" />
 							</div>
 							<div className="flex justify-end md:flex-1">
 								<div className="pointer-events-auto">

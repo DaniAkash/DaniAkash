@@ -1,6 +1,7 @@
 ---
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { ViewTransitions } from "astro:transitions";
 
 export interface Props {
   title: string;
@@ -36,13 +37,14 @@ const isHomePage = Astro.url.pathname === "/";
     <meta name="theme-color" content="#ffffff">
     <!-- End of generated favicon elements -->
     <meta name="generator" content={Astro.generator} />
+    <ViewTransitions />
     <title>{title}</title>
     <script>
       let darkModeMediaQuery = window.matchMedia(
         "(prefers-color-scheme: dark)"
-      );
+        );
 
-      updateMode();
+        updateMode();
       darkModeMediaQuery.addEventListener(
         "change",
         updateModeWithoutTransitions
@@ -79,21 +81,19 @@ const isHomePage = Astro.url.pathname === "/";
       }
     </script>
   </head>
-  <body>
-    <body class="flex h-full flex-col bg-zinc-50 dark:bg-black">
-      <div class="fixed inset-0 flex justify-center sm:px-8">
-        <div class="flex w-full max-w-7xl lg:px-8">
-          <div
-            class="w-full bg-white ring-1 ring-zinc-100 dark:bg-zinc-900 dark:ring-zinc-300/20"
-          >
-          </div>
+  <body transition:animate="morph" class="flex h-full flex-col bg-zinc-50 dark:bg-black">
+    <div class="fixed inset-0 flex justify-center sm:px-8">
+      <div class="flex w-full max-w-7xl lg:px-8">
+        <div
+          class="w-full bg-white ring-1 ring-zinc-100 dark:bg-zinc-900 dark:ring-zinc-300/20"
+        >
         </div>
       </div>
-      <div class="relative">
-        <Header isHomePage={isHomePage} client:load />
-        <main id="swup" class="swup-transition-main"><slot /></main>
-        <Footer />
-      </div>
-    </body>
+    </div>
+    <div class="relative">
+      <Header isHomePage={isHomePage} client:load />
+      <main><slot /></main>
+      <Footer />
+    </div>
   </body>
 </html>
