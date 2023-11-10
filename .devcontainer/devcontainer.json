@@ -11,7 +11,8 @@
 		"vscode": {
 			"extensions": [
 				"astro-build.astro-vscode",
-				"dbaeumer.vscode-eslint"
+				"dbaeumer.vscode-eslint",
+				"bradlc.vscode-tailwindcss"
 			]
 		}
 	}
