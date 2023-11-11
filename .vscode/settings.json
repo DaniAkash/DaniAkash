@@ -4,5 +4,7 @@
   "editor.formatOnSave": true,
   "editor.formatOnPaste": true,
   "editor.formatOnSaveMode": "file",
-  "editor.minimap.autohide": true
+  "editor.minimap.autohide": true,
+  "editor.wordWrap": "wordWrapColumn",
+  "editor.wordWrapColumn": 80
 }

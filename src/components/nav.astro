@@ -1,0 +1,87 @@
+---
+
+---
+
+<nav class="hidden md:block">
+  <ul
+    class="flex items-center justify-center rounded-full bg-white/90 px-3 py-2 text-sm font-medium text-zinc-800 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10"
+  >
+    <li>
+      <a
+        href="/about"
+        class="relative px-3 py-2 text-teal-500 transition hover:text-teal-500 dark:text-teal-400 dark:hover:text-teal-400"
+        >About
+        <span
+          class="absolute inset-x-1 -bottom-[5px] h-px bg-gradient-to-r from-teal-500/0 via-teal-500/40 to-teal-500/0 dark:from-teal-400/0 dark:via-teal-400/40 dark:to-teal-400/0"
+        ></span>
+      </a>
+    </li>
+    <li>
+      <a
+        href="/projects"
+        class="px-3 py-2 transition hover:text-teal-500 dark:hover:text-teal-400"
+        >Projects</a
+      >
+    </li>
+    <li>
+      <a
+        href="/speaking"
+        class="px-3 py-2 transition hover:text-teal-500 dark:hover:text-teal-400"
+        >Speaking</a
+      >
+    </li>
+    <li>
+      <a
+        href="/uses"
+        class="px-3 py-2 transition hover:text-teal-500 dark:hover:text-teal-400"
+        >Uses</a
+      >
+    </li>
+  </ul>
+</nav>
+
+<button
+  class="group flex items-center rounded-full bg-white/90 px-4 py-2 text-sm font-medium text-zinc-800 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10 dark:hover:ring-white/20 md:block"
+  id="primary-nav-button"
+  >Menu<svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke-width="1.5"
+    stroke="currentColor"
+    class="ml-3 h-auto w-2 stroke-zinc-500 group-hover:stroke-zinc-700 dark:group-hover:stroke-zinc-400"
+  >
+    <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      d="M19.5 8.25l-7.5 7.5-7.5-7.5"></path>
+  </svg>
+</button>
+
+<dialog id="primary-nav-dialog" class="">
+  <p>mobile nav</p>
+  <form method="dialog">
+    <button>ok</button>
+  </form>
+</dialog>
+
+<script>
+  const dialog: HTMLDialogElement | null = document.querySelector(
+    "#primary-nav-dialog",
+  );
+  document
+    .querySelector("#primary-nav-button")
+    ?.addEventListener("click", () => dialog?.showModal());
+
+  dialog?.addEventListener("click", (event) => {
+    const rect = dialog.getBoundingClientRect();
+    const isInDialog =
+      rect.top <= event.clientY &&
+      event.clientY <= rect.top + rect.height &&
+      rect.left <= event.clientX &&
+      event.clientX <= rect.left + rect.width;
+    if (!isInDialog) {
+      dialog.close();
+    }
+  });
+</script>
