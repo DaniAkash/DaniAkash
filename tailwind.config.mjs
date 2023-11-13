@@ -21,5 +21,8 @@ export default {
       },
     },
   },
-  plugins: [require("@tailwindcss/typography")],
+  plugins: [
+    require("tailwindcss-content-visibility"),
+    require("@tailwindcss/typography"),
+  ],
 };
