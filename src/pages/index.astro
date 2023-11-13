@@ -1,4 +1,5 @@
 ---
+import DarkModeToggle from "../components/DarkModeToggle.astro";
 import ContentArea from "../components/content-area.astro";
 import Nav from "../components/nav.astro";
 ---
@@ -15,21 +16,7 @@ import Nav from "../components/nav.astro";
     <ContentArea />
     <div class="relative">
       <Nav />
+      <DarkModeToggle />
     </div>
-    <button class="fixed left-0 top-36" id="dev-theme-mode-toggle"
-      >Toggle</button
-    >
-    <script>
-      function toggleDark() {
-        const $html = document.querySelector("html");
-        if ($html?.classList.contains("dark")) {
-          $html.classList.remove("dark");
-        } else {
-          $html?.classList.add("dark");
-        }
-      }
-      const $toggleButton = document.querySelector("#dev-theme-mode-toggle");
-      if ($toggleButton) $toggleButton.addEventListener("click", toggleDark);
-    </script>
   </body>
 </html>
