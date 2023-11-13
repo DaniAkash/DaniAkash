@@ -1,0 +1,32 @@
+---
+import { readdir } from "node:fs/promises";
+import { join, dirname } from "node:path";
+import { fileURLToPath } from "node:url";
+import { CMDK } from "../../react/cmdk";
+import Header from "./header.astro";
+
+async function listFilesInCurrentDirectory() {
+  try {
+    // __dirname is not defined in ES module scope, so we need to derive it
+    const currentFile = fileURLToPath(import.meta.url);
+    const currentDir = dirname(currentFile);
+
+    // Reading the contents of the 'components' directory
+    const files = await readdir(currentDir);
+
+    console.log("Files in 'components/':", files);
+  } catch (err) {
+    console.error("Error reading directory:", err);
+  }
+}
+
+listFilesInCurrentDirectory();
+
+const htmlString = await fetch("http://localhost:4321/components/nav").then(
+  (res) => res.text(),
+);
+---
+
+<main class="flex h-screen w-screen items-center justify-center">
+  <CMDK client:load htmlString={htmlString} />
+</main>
