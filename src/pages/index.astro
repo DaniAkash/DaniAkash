@@ -1,10 +1,11 @@
 ---
-import DarkModeToggle from "./components/DarkModeToggle.astro";
 import ContentArea from "../layouts/ContentArea.astro";
-import Nav from "./components/Nav.astro";
+import Header from "../layouts/Header.astro";
+import Article from "./components/Article.astro";
+import Experience from "./components/Experience.astro";
 ---
 
-<html lang="en">
+<html lang="en" class="dark">
   <head>
     <meta charset="utf-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -12,11 +13,12 @@ import Nav from "./components/Nav.astro";
     <meta name="generator" content={Astro.generator} />
     <title>Astro</title>
   </head>
-  <body class="flex h-full bg-zinc-50 dark:bg-black">
+  <body class="flex h-full w-screen bg-zinc-50 dark:bg-black">
     <ContentArea />
-    <div class="relative">
-      <Nav />
-      <DarkModeToggle />
+    <div class="relative flex w-full flex-col">
+      <Header />
+      <Article />
+      <Experience />
     </div>
   </body>
 </html>
