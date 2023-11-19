@@ -2,6 +2,7 @@
 import ContentArea from "../layouts/ContentArea.astro";
 import Header from "../layouts/Header.astro";
 import Article from "./components/Article.astro";
+import DarkModeToggle from "./components/DarkModeToggle.astro";
 import Experience from "./components/Experience.astro";
 ---
 
@@ -15,10 +16,17 @@ import Experience from "./components/Experience.astro";
   </head>
   <body class="flex h-full w-screen bg-zinc-50 dark:bg-black">
     <ContentArea />
-    <div class="relative flex w-full flex-col">
-      <Header />
-      <Article />
-      <Experience />
+    <div
+      class="relative m-auto flex w-full max-w-7xl flex-col md:px-8 lg:px-16"
+    >
+      <div class="px-4 md:px-8 lg:px-12">
+        <Header />
+        <Article />
+        <Experience />
+      </div>
+      <div class="absolute right-4 top-6 md:right-32">
+        <DarkModeToggle />
+      </div>
     </div>
   </body>
 </html>

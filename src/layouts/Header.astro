@@ -1,22 +1,14 @@
 ---
 import Avatar from "../pages/components/Avatar.astro";
-import DarkModeToggle from "../pages/components/DarkModeToggle.astro";
 import Nav from "../pages/components/Nav.astro";
 ---
 
-<header
-  class="relative m-auto flex w-full max-w-7xl flex-none flex-col md:px-8"
->
+<header class="relative m-auto flex w-full max-w-7xl flex-none flex-col">
   <div
-    class="mr-[calc(theme(spacing.4)+theme(spacing.4)+48px)] mt-6 flex flex-row self-end sm:px-8 md:mr-[unset] md:self-center"
+    class="mr-[calc(theme(spacing.4)+48px)] mt-6 flex flex-row self-end sm:px-8 md:mr-[unset] md:self-center"
   >
     <Nav />
   </div>
   <div class="mt-[calc(theme(spacing.16)-theme(spacing.3))]"></div>
-  <div class="ml-20">
-    <Avatar />
-  </div>
-  <div class="absolute right-4 top-6 md:right-32">
-    <DarkModeToggle />
-  </div>
+  <Avatar />
 </header>
