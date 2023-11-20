@@ -19,6 +19,9 @@ export default {
         "8xl": ["6rem", { lineHeight: "1" }],
         "9xl": ["8rem", { lineHeight: "1" }],
       },
+      screens: {
+        mobile: "375px",
+      },
     },
   },
   plugins: [
