@@ -1,46 +1,42 @@
 ---
+import { navLinks } from "../../constants/navLinks";
 
+const currentPath = Astro.url.pathname;
 ---
 
 <nav class="hidden md:block">
   <ul
     class="flex items-center justify-center rounded-full bg-white/90 px-3 py-2 text-sm font-medium text-zinc-800 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10"
   >
-    <li>
-      <a
-        href="/about"
-        class="relative px-3 py-2 text-teal-500 transition hover:text-teal-500 dark:text-teal-400 dark:hover:text-teal-400"
-        >About
-        <span
-          class="absolute inset-x-1 -bottom-[5px] h-px bg-gradient-to-r from-teal-500/0 via-teal-500/40 to-teal-500/0 dark:from-teal-400/0 dark:via-teal-400/40 dark:to-teal-400/0"
-        ></span>
-      </a>
-    </li>
-    <li>
-      <a
-        href="/projects"
-        class="px-3 py-2 transition hover:text-teal-500 dark:hover:text-teal-400"
-        >Projects</a
-      >
-    </li>
-    <li>
-      <a
-        href="/speaking"
-        class="px-3 py-2 transition hover:text-teal-500 dark:hover:text-teal-400"
-        >Speaking</a
-      >
-    </li>
-    <li>
-      <a
-        href="/uses"
-        class="px-3 py-2 transition hover:text-teal-500 dark:hover:text-teal-400"
-        >Uses</a
-      >
-    </li>
+    {
+      navLinks.map((link) => {
+        const isActive = currentPath.startsWith(link.href);
+
+        return (
+          <li>
+            <a
+              href={link.href}
+              class={`relative px-3 py-2 transition hover:text-teal-500  dark:hover:text-teal-400 ${
+                isActive && "text-teal-500 dark:text-teal-400"
+              }`}
+            >
+              {link.title}
+              {isActive && (
+                <span
+                  transition:name="active-nav-highlight"
+                  class="absolute inset-x-1 -bottom-[5px] h-px bg-gradient-to-r from-teal-500/0 via-teal-500/40 to-teal-500/0 dark:from-teal-400/0 dark:via-teal-400/40 dark:to-teal-400/0"
+                />
+              )}
+            </a>
+          </li>
+        );
+      })
+    }
   </ul>
 </nav>
 
 <button
+  transition:name="responsive-nav-button"
   class="group flex items-center rounded-full bg-white/90 px-4 py-2 text-sm font-medium text-zinc-800 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10 dark:hover:ring-white/20 md:hidden"
   id="primary-nav-button"
   >Menu<svg
@@ -92,10 +88,24 @@
       <ul
         class="divide-y divide-zinc-100 text-base text-zinc-800 dark:divide-zinc-100/5 dark:text-zinc-300"
       >
-        <li><a href="/about" class="block py-2">About</a></li>
-        <li><a href="/projects" class="block py-2">Projects</a></li>
-        <li><a href="/speaking" class="block py-2">Speaking</a></li>
-        <li><a href="/uses" class="block py-2">Uses</a></li>
+        {
+          navLinks.map((link) => {
+            const isActive = currentPath.startsWith(link.href);
+
+            return (
+              <li>
+                <a
+                  href={link.href}
+                  class={`block py-2 hover:text-teal-500 dark:hover:text-teal-400 ${
+                    isActive && "text-teal-500 dark:text-teal-400"
+                  }`}
+                >
+                  {link.title}
+                </a>
+              </li>
+            );
+          })
+        }
       </ul>
     </nav>
   </div>
