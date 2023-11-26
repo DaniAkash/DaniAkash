@@ -112,20 +112,22 @@ const currentPath = Astro.url.pathname;
 </dialog>
 
 <script>
-  const dialog: HTMLDialogElement | null = document.querySelector(
-    "#primary-nav-dialog",
-  );
-  document
-    .querySelector("#primary-nav-button")
-    ?.addEventListener("click", () => dialog?.showModal());
-
-  dialog?.addEventListener("click", (event) => {
-    const isInDialog = (event.target as Element).closest(
-      "#primary-nav-content",
+  document.addEventListener("astro:page-load", () => {
+    const dialog: HTMLDialogElement | null = document.querySelector(
+      "#primary-nav-dialog",
     );
+    document
+      .querySelector("#primary-nav-button")
+      ?.addEventListener("click", () => dialog?.showModal());
 
-    if (!isInDialog) {
-      dialog.close();
-    }
+    dialog?.addEventListener("click", (event) => {
+      const isInDialog = (event.target as Element).closest(
+        "#primary-nav-content",
+      );
+
+      if (!isInDialog) {
+        dialog.close();
+      }
+    });
   });
 </script>

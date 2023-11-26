@@ -29,14 +29,16 @@
 </button>
 
 <script>
-  function toggleDark() {
-    const $html = document.querySelector("html");
-    if ($html?.classList.contains("dark")) {
-      $html.classList.remove("dark");
-    } else {
-      $html?.classList.add("dark");
+  document.addEventListener("astro:page-load", () => {
+    function toggleDark() {
+      const $html = document.querySelector("html");
+      if ($html?.classList.contains("dark")) {
+        $html.classList.remove("dark");
+      } else {
+        $html?.classList.add("dark");
+      }
     }
-  }
-  const $toggleButton = document.querySelector("#dev-theme-mode-toggle");
-  if ($toggleButton) $toggleButton.addEventListener("click", toggleDark);
+    const $toggleButton = document.querySelector("#dev-theme-mode-toggle");
+    if ($toggleButton) $toggleButton.addEventListener("click", toggleDark);
+  });
 </script>
