@@ -26,18 +26,28 @@ import HeroImages from "./components/HeroImages.astro";
         <div class="mt-9">
           <Hero />
         </div>
-        <div
-          class="mobile:block hidden h-[320px] sm:block md:h-[400px] lg:h-[448px]"
-        >
+        <!-- Placeholder for images section -->
+        <div class="hidden h-[320px] mobile:block md:h-[400px] lg:h-[448px]">
         </div>
-        <Article />
-        <Experience />
+        <div class="flex items-stretch justify-between">
+          <div class="flex flex-col gap-12">
+            <Article />
+            <Article />
+            <Article />
+            <Article />
+            <Article />
+            <Article />
+          </div>
+          <div>
+            <Experience />
+          </div>
+        </div>
       </div>
       <div class="absolute right-4 top-6 md:right-32">
         <DarkModeToggle />
       </div>
       <div
-        class="z-100 mobile:block absolute top-[36rem] hidden w-screen overflow-clip sm:block md:left-[-1rem] md:top-[30rem] md:w-[calc(100vw+1rem)] lg:left-[-8rem] lg:top-[28rem] lg:w-[calc(100vw+8rem)] lg:py-16"
+        class="z-100 absolute top-[36rem] hidden w-screen overflow-clip mobile:block sm:block md:left-[-1rem] md:top-[30rem] md:w-[calc(100vw+1rem)] lg:left-[-8rem] lg:top-[28rem] lg:w-[calc(100vw+8rem)] lg:py-16 xl:left-[-16rem] xl:w-[calc(100vw+16rem)] xl:pl-28"
       >
         <HeroImages />
       </div>
