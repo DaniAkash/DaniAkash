@@ -1,14 +1,32 @@
 ---
 import Avatar from "../pages/components/Avatar.astro";
 import Nav from "../pages/components/Nav.astro";
+
+interface Props {
+  isHomePage?: boolean;
+}
+
+const { isHomePage = false } = Astro.props;
 ---
 
 <header class="relative m-auto flex w-full max-w-7xl flex-none flex-col">
   <div
-    class="mr-[calc(theme(spacing.4)+48px)] mt-6 flex flex-row self-end sm:px-8 md:mr-[unset] md:self-center"
+    class={isHomePage
+      ? "mr-[calc(theme(spacing.4)+48px)] mt-6 flex flex-row self-end sm:px-8 md:mr-[unset] md:self-center"
+      : "flex justify-between mt-6 items-center"}
   >
-    <Nav />
+    {!isHomePage && <Avatar isHomePage={isHomePage} />}
+    <div>
+      <Nav />
+    </div>
+    {!isHomePage && <div class="w-10" />}
   </div>
-  <div class="mt-[calc(theme(spacing.16)-theme(spacing.3))]"></div>
-  <Avatar />
+  {
+    isHomePage && (
+      <>
+        <div class="mt-[calc(theme(spacing.16)-theme(spacing.3))]" />
+        <Avatar isHomePage={isHomePage} />
+      </>
+    )
+  }
 </header>
