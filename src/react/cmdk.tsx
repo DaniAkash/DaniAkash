@@ -34,7 +34,7 @@ export function CMDK({ files }: { files: Array<string> }) {
   const [value, setValue] = useState(files?.[2]?.toLocaleLowerCase() ?? "");
   return (
     <>
-      <div className="h-[60vh] w-[75vw] rounded-md bg-white p-2 shadow-xl ring-2 ring-slate-300">
+      <div className="h-[100vh] w-[100vw] rounded-md bg-white p-2 shadow-xl ring-2 ring-slate-300">
         <Command
           value={value}
           className="h-full"
@@ -91,7 +91,7 @@ function Item({
 }) {
   return (
     <Command.Item
-      className={`content-visibility-auto mr-2 mt-1 flex cursor-pointer items-center gap-3 rounded-xl p-2 text-sm font-medium text-gray-950 transition-all ${
+      className={`mr-2 mt-1 flex cursor-pointer items-center gap-3 rounded-xl p-2 text-sm font-medium text-gray-950 transition-all content-visibility-auto ${
         isSelected && "bg-teal-600 text-white"
       }`}
       onSelect={() => (window.location.href = window.location.href + subtitle)}
