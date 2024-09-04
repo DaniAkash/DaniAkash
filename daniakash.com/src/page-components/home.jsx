@@ -19,6 +19,8 @@ import redblacktreeLogo from "@/images/logos/redblacktree.jpeg";
 import pickyourtrailLogo from "@/images/logos/pickyourtrail.jpeg";
 import oslashLogo from "@/images/logos/oslash.png";
 import guviLogo from "@/images/logos/guvi.jpeg";
+import wundergraphLogo from '@/images/logos/wundergraph.jpeg';
+import clarifaiLogo from '@/images/logos/clarifai.png';
 import { TWITTER, INSTAGRAM, GITHUB, LINKEDIN } from "@/constants/links";
 
 function MailIcon(props) {
@@ -154,14 +156,28 @@ function Newsletter() {
 function Resume() {
 	let resume = [
 		{
-			company: "OSlash",
-			title: "Engineering Manager",
-			logo: oslashLogo.src,
-			start: "2020",
+			company: "Clarifai",
+			title: "Senior Software Engineer",
+			start: "2023",
 			end: {
 				label: "Present",
 				dateTime: new Date().getFullYear(),
 			},
+			logo: clarifaiLogo.src,
+		},
+		{
+			company: "Wundergraph",
+			title: "Senior Software Engineer",
+			start: "2023",
+			logo: wundergraphLogo.src,
+			end: "2023",
+		},
+		{
+			company: "OSlash",
+			title: "Eng. Manager (Chrome Extension)",
+			logo: oslashLogo.src,
+			start: "2020",
+			end: "2023",
 		},
 		{
 			company: "Guvi Geek Networks",
