@@ -1,4 +1,88 @@
-export const events = [
+interface EventType {
+  year: number;
+  events: {
+    date: string;
+    name: string;
+    title: string;
+    description: string;
+    cta?: {
+      title: string;
+      url: string;
+    }[];
+    video?: string;
+  }[];
+}
+
+export const events: EventType[] = [
+  {
+    year: 2023,
+    events: [
+      {
+        date: 'Aug 14, 2023',
+        name: 'React Nexus 2023',
+        title: 'Signal Boosting',
+        description: 'Improving React Rendering performance using Signals. Lightning talk at React Nexus 2023 International Conference.',
+        cta: [
+          {
+            title: 'Event Website',
+            url: 'https://reactnexus.com/'
+          }
+        ],
+        video: 'https://www.youtube.com/watch?v=Swa1fHgeRWM'
+      },
+      {
+        date: 'Jun 14, 2023',
+        name: 'React Bangalore Meetup #67',
+        title: 'How to build BFF with Wundergraph',
+        description: "This talk focuses on how to build a Backend for Frontend (BFF) gateway using Wundergraph.",
+        cta: [
+          {
+            title: 'Event Website',
+            url: 'https://www.meetup.com/reactjs-bangalore/events/293420307/'
+          },
+          {
+            title: 'Code',
+            url: 'https://github.com/DaniAkash/wundergraph-bff'
+          }
+        ],
+        video: 'https://www.youtube.com/watch?v=Gx83aU1uT9k'
+      },
+      {
+        date: 'Mar 18, 2023',
+        name: 'React Bangalore Meetup #65',
+        title: 'Beyond Virtual DOM - Speeding up large React Apps',
+        description: 'This talk focuses on understanding React Virtual DOM and how new solutions are on the rise to go beyond the Virtual DOM using alternate DOM implementations and state management techniques to speed up large React applications.',
+        cta: [
+          {
+            title: 'Event Website',
+            url: 'https://www.meetup.com/reactjs-bangalore/events/291680714/'
+          },
+          {
+            title: 'Slides + Code',
+            url: 'https://github.com/DaniAkash/beyond-virtual-dom'
+          }
+        ],
+        video: 'https://www.youtube.com/watch?v=jW20sQ6C3ik'
+      },
+      {
+        date: 'Jan 28, 2023',
+        name: 'React Bangalore Meetup #63',
+        title: 'Turbo Charge your SSR pages with Edge Rendering',
+        description: 'This talk takes a beginner friendly approach to different rendering patterns and how to leverage edge infrastructure to speed up server side rendered pages.',
+        cta: [
+          {
+            title: 'Event Website', 
+            url: 'https://www.meetup.com/reactjs-bangalore/events/290171038/'
+          },
+          {
+            title: 'Slides + code',
+            url: 'https://github.com/DaniAkash/rendering-patterns'
+          }
+        ],
+        video: 'https://www.youtube.com/watch?v=_Zq1yjgq8iM'
+      }
+    ]
+  },
   {
     year: 2022,
     events: [
