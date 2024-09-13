@@ -1,7 +1,6 @@
 ---
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { ViewTransitions } from "astro:transitions";
 
 export interface Props {
   title: string;
@@ -37,7 +36,6 @@ const isHomePage = Astro.url.pathname === "/";
     <meta name="theme-color" content="#ffffff">
     <!-- End of generated favicon elements -->
     <meta name="generator" content={Astro.generator} />
-    <ViewTransitions />
     <title>{title}</title>
     <script>
       let darkModeMediaQuery = window.matchMedia(
@@ -81,7 +79,7 @@ const isHomePage = Astro.url.pathname === "/";
       }
     </script>
   </head>
-  <body transition:animate="morph" class="flex h-full flex-col bg-zinc-50 dark:bg-black">
+  <body class="flex h-full flex-col bg-zinc-50 dark:bg-black">
     <div class="fixed inset-0 flex justify-center sm:px-8">
       <div class="flex w-full max-w-7xl lg:px-8">
         <div
