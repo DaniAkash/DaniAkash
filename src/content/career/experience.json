@@ -1,0 +1,68 @@
+[
+  {
+    "company": "Clarifai",
+    "role": "Senior Frontend Developer",
+    "employmentType": "Full-time",
+    "startDate": "Oct 2023",
+    "endDate": "Present",
+    "location": "Chennai, Tamil Nadu, India · ",
+    "description": "Developed the open-source Clarifai Node.js SDK, enabling seamless integration of the Clarifai platform with various JavaScript frameworks. Collaborated closely with the Developer Experience team to optimize and enhance the adoption journey for developers integrating Clarifai into their projects."
+  },
+  {
+    "company": "WunderGraph",
+    "role": "Senior Software Engineer",
+    "employmentType": "Full-time",
+    "startDate": "Apr 2023",
+    "endDate": "Sep 2023",
+    "location": "Chennai, Tamil Nadu, India · Remote",
+    "description": "Built open source client side SDKs for Svelte, Relay, expo & swr to integrate the WunderGraph Gateway with frontend code. Played a significant role in the creation of Open Previews (https://www.openpreviews.com/), an open source alternative to vercel's preview comment feature."
+  },
+  {
+    "company": "OSlash",
+    "role": "Lead Frontend Engineer",
+    "employmentType": "Full-time",
+    "startDate": "Dec 2020",
+    "endDate": "Mar 2023",
+    "duration": "2 yrs 4 mos",
+    "location": "Bengaluru, Karnataka, India · Hybrid",
+    "description": "Founding lead engineer of the OSlash chrome extension. Led the development of the OSlash chrome extension using an in-house framework built with webpack. Managed engineering teams and implemented serverless GraphQL federation with edge caching, authorization, and rate-limiting."
+  },
+  {
+    "company": "GUVI Geek Networks, IITM Research Park",
+    "role": "Mentor - Full Stack Application Development",
+    "employmentType": "Part-time",
+    "startDate": "Jul 2019",
+    "endDate": "Dec 2020",
+    "duration": "1 yr 6 mos",
+    "location": "Chennai, Tamil Nadu, India · Hybrid",
+    "description": "Mentored students, graduates, and professionals on full-stack development, focusing on Node.js, Express, React.js & MySQL. Helped several students land software engineering jobs."
+  },
+  {
+    "company": "PickYourTrail",
+    "role": "Software Engineer",
+    "employmentType": "Full-time",
+    "startDate": "Oct 2017",
+    "endDate": "Dec 2020",
+    "duration": "3 yrs 3 mos",
+    "location": "Chennai, Tamil Nadu, India · On-site",
+    "description": "Developed the Pickyourtrail mobile app (Android & iOS) using React Native. Integrated TypeScript into the web app and contributed to tech communities. The mobile app received 5 stars on Google Play."
+  },
+  {
+    "company": "RedBlackTree",
+    "role": "Software Engineer",
+    "employmentType": "Full-time",
+    "startDate": "Nov 2016",
+    "endDate": "Oct 2017",
+    "location": "Chennai, Tamil Nadu, India · On-site",
+    "description": "Built and delivered two cross-platform mobile apps in React Native. Developed a Windows app on UWP using a React.js-based framework."
+  },
+  {
+    "company": "doodleblue Innovations",
+    "role": "Team Lead - Research and Development",
+    "employmentType": "Full-time",
+    "startDate": "Feb 2016",
+    "endDate": "Nov 2016",
+    "location": "Chennai, Tamil Nadu, India · On-site",
+    "description": "Interned to learn PHP with CodeIgniter-based web application development. Later converted to a full-time role. Worked on full-stack application development using PHP and MySQL. Built APIs and helped modernize the development stack with Node.js. Led a team to adopt React.js, React Native, Laravel, and Node.js across various projects. Contributed to Node.js, Laravel, and React.js projects."
+  }
+]
