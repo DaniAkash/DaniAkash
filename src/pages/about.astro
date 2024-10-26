@@ -1,4 +1,5 @@
 ---
+import { TRANSITION_NAMES } from "../constants/transition-names";
 import MainLayout from "../layouts/MainLayout.astro";
 ---
 
@@ -13,7 +14,7 @@ import MainLayout from "../layouts/MainLayout.astro";
           alt="about-image"
           sizes="(min-width: 1024px) 32rem, 20rem"
           class="aspect-square rotate-3 rounded-2xl bg-zinc-100 object-cover transition-all hover:rotate-0 dark:bg-zinc-800"
-          transition:name="hero-image-2"
+          transition:name={TRANSITION_NAMES.heroImage}
         />
       </div>
     </div>
@@ -21,7 +22,7 @@ import MainLayout from "../layouts/MainLayout.astro";
     <div class="lg:order-first lg:row-span-2">
       <h1
         class="text-4xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-5xl"
-        transition:name="hero-title"
+        transition:name={TRANSITION_NAMES.heroTitle}
       >
         I’m Dani Akash
       </h1>
@@ -35,10 +36,10 @@ import MainLayout from "../layouts/MainLayout.astro";
           >
             3D Pinball
           </a>{" "}
-           game on one of the Windows XP machines in a Xerox shop near my
-          school, I've had a fascination with computers. Since then, I've worked
-          hard to learn more about computers and eventually earned an
-          engineering degree in computer science.
+          game on one of the Windows XP machines in a Xerox shop near my school,
+          I've had a fascination with computers. Since then, I've worked hard to
+          learn more about computers and eventually earned an engineering degree
+          in computer science.
         </p>
         <p>
           As a worldbuilder, I'm always learning about how our world works, from

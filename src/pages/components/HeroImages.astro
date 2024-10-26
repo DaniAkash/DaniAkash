@@ -1,5 +1,5 @@
 ---
-
+import { TRANSITION_NAMES } from "../../constants/transition-names";
 ---
 
 <div class="flex flex-row gap-5 sm:gap-8">
@@ -37,7 +37,7 @@
       src="https://daniakash.pages.dev/_astro/image-3.a95969e9.jpg"
       sizes="(min-width: 640px) 18rem, 11rem"
       class="fixed left-0 top-0 h-full w-full object-cover"
-      transition:name="hero-image-2"
+      transition:name={TRANSITION_NAMES.heroImage}
     />
   </div>
   <div
