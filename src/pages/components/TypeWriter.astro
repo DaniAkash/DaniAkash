@@ -1,0 +1,161 @@
+---
+
+---
+
+<style>
+  .cursor {
+    animation: 0.85s blink step-end infinite;
+  }
+
+  @keyframes "blink" {
+    from,
+    to {
+      opacity: 0;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+
+  @-moz-keyframes blink {
+    from,
+    to {
+      opacity: 0;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+
+  @-webkit-keyframes "blink" {
+    from,
+    to {
+      opacity: 0;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+
+  @-ms-keyframes "blink" {
+    from,
+    to {
+      opacity: 0;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+
+  @-o-keyframes "blink" {
+    from,
+    to {
+      opacity: 0;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+</style>
+
+<p class="mt-6 h-28 font-mono text-base text-zinc-600 dark:text-zinc-400">
+  <span
+    class="typewrite relative text-lg"
+    data-period="3000"
+    data-type={JSON.stringify([
+      "Is it just me, or does Ctrl+Z feel like time travel?",
+      "I design for humans, not robots... unless they start paying me.",
+      "This portfolio is 50% talent, 50% coffee.",
+      "You scroll, I code. Fair deal?",
+      "Does anyone else feel like a productivity genius after closing 10 tabs?",
+      "I spend 90% of my time debugging and the other 10% staring at the screen.",
+      "My code runs perfectly… until it doesn’t.",
+      "Coding is basically a magic trick with no applause.",
+      "Do websites dream of electric clicks?",
+      "I design pixels like they're going out of style.",
+      "If at first you don’t succeed, Google it.",
+      "Why do they call it ‘bugs’? I'd prefer ‘undocumented features'.",
+      "I promise, I’m not hoarding fonts, it’s for a project.",
+      "Hitting 'Save' is the adult version of ‘Look, Mom!’",
+      "I’m a developer, not a miracle worker… okay, maybe sometimes.",
+      "HTML is like pizza dough, it’s all about the layers.",
+      "I run on caffeine and semicolons.",
+      "Who needs sleep when there’s dark mode?",
+      "My code’s so clean, it puts Marie Kondo to shame.",
+      "I swear, it worked five minutes ago.",
+      "CSS is like sorcery, but without the wizard hat.",
+      "My version of exercise is running multiple browsers.",
+      "Does hitting refresh count as meditation?",
+      "I’m 99% sure the code works, but that 1% is living its best life.",
+      "If my code looks bad, it’s because it’s growing character.",
+      "A good developer is 70% caffeine, 30% sheer determination.",
+      "I don’t make mistakes, I create unexpected features.",
+      "I wish life had an undo button… or at least better documentation.",
+      "I code like I cook… with a lot of trial and error.",
+      "Is it really a project if you haven’t renamed it three times?",
+      "Fun fact: My code works perfectly when no one’s watching.",
+      "I speak fluent JavaScript, sarcasm, and coffee.",
+      "Currently accepting bribes in the form of snacks and new gadgets.",
+      "In case of an error, scream internally.",
+      "I don't procrastinate, I wait until the perfect moment of panic.",
+      "My favorite programming language is 'copy-paste'.",
+      "If life gives you lemons, at least code the lemonade stand.",
+      "Is there a shortcut for fixing procrastination?",
+      "I write code like I write text messages: Short, unclear, and full of emojis.",
+      "Warning: May spontaneously combust when asked about deadlines.",
+      "Ctrl+S is my way of saying 'I trust no one'.",
+      "I put the ‘fun’ in 'functional programming'... well, I try.",
+      "My brain has too many tabs open.",
+      "Dear universe, could you send fewer bugs and more pizza?",
+      "I don’t always test my code, but when I do, I do it in production.",
+    ])}></span><span class="cursor relative">_</span>
+</p>
+
+<script type="text/javascript" data-astro-rerun>
+  function _(el) {
+    return document.querySelector(el);
+  }
+  var TxtType = function (el, toRotate, period) {
+    this.toRotate = toRotate;
+    this.el = el;
+    this.loopNum = 0;
+    this.period = parseInt(period, 10) || 2000;
+    this.txt = "";
+    this.tick();
+    this.isDeleting = false;
+  };
+  TxtType.prototype.tick = function () {
+    var i = this.loopNum % this.toRotate.length;
+    var fullTxt = this.toRotate[i];
+    if (this.isDeleting) {
+      this.txt = fullTxt.substring(0, this.txt.length - 1);
+    } else {
+      this.txt = fullTxt.substring(0, this.txt.length + 1);
+    }
+    this.el.innerHTML = this.txt;
+    var that = this;
+    var delta = 150 - Math.random() * 100;
+    if (this.isDeleting) {
+      delta /= 2;
+    }
+    if (!this.isDeleting && this.txt === fullTxt) {
+      delta = this.period;
+      this.isDeleting = true;
+    } else if (this.isDeleting && this.txt === "") {
+      this.isDeleting = false;
+      this.loopNum++;
+      delta = 500;
+    }
+    setTimeout(function () {
+      that.tick();
+    }, delta);
+  };
+  if (_(".typewrite")) {
+    var elements = _(".typewrite"),
+      toRotate = elements.dataset.type,
+      period = elements.dataset.period;
+    if (toRotate) {
+      new TxtType(elements, JSON.parse(toRotate), period);
+    }
+  }
+</script>
