@@ -120,12 +120,16 @@
     this.loopNum = 0;
     this.period = parseInt(period, 10) || 2000;
     this.txt = "";
+    this.currentString = this.pickRandomString();
     this.tick();
     this.isDeleting = false;
   };
+  TxtType.prototype.pickRandomString = function () {
+    var randomIndex = Math.floor(Math.random() * this.toRotate.length);
+    return this.toRotate[randomIndex];
+  };
   TxtType.prototype.tick = function () {
-    var i = this.loopNum % this.toRotate.length;
-    var fullTxt = this.toRotate[i];
+    var fullTxt = this.currentString;
     if (this.isDeleting) {
       this.txt = fullTxt.substring(0, this.txt.length - 1);
     } else {
@@ -142,6 +146,7 @@
       this.isDeleting = true;
     } else if (this.isDeleting && this.txt === "") {
       this.isDeleting = false;
+      this.currentString = this.pickRandomString();
       this.loopNum++;
       delta = 500;
     }
