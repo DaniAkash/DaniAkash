@@ -1,23 +1,26 @@
 ---
 title: What is prototype pollution and why is it such a big deal?
 subtitle: It has been gaining a lot of traction recently but turns out it's been actually there since the dawn of Javascript
+# new Date('May 10, 2019')
 date: Fri May 10 2019 00:00:00 GMT+0530 (India Standard Time)
 tags: ["javascript", "security", "nodejs", "npm", "jquery"]
 ---
 
 import { Image } from "astro:assets";
 import { inferRemoteSize } from "astro:assets";
+import PostImage from "../../pages/components/PostImage.astro";
 
-<Image
-  src="https://assets.daniakash.com/pollution.webp"
+<PostImage
+  src="/pollution.webp"
   alt="prototype-pollution"
-  inferSize
-/>
-_Photo by [Thomas Millot](https://unsplash.com/@tomlaudiophile) on
-[Unsplash](https://unsplash.com/)_
+  caption="<a href='/'>foo</a>"
+>
+  _Photo by [Thomas Millot](https://unsplash.com/@tomlaudiophile) on
+  [Unsplash](https://unsplash.com/)_
+</PostImage>
 
 If you were following the news last month, you probably would have come across how jQuery received a new [security patch](https://blog.jquery.com/2019/04/) which addresses [the prototype pollution flaw](https://security.snyk.io/vuln/SNYK-JS-JQUERY-174006). It is a huge deal, given how 74 percent of all internet sites use the vulnerable version of the library!
 
-<Image src="https://assets.daniakash.com/js-book.jpg" alt="js-book" inferSize />
+<PostImage src="/js-book.jpg" alt="js-book" />
 
 > Now before we all panic, prototype pollution isn't exactly an easy vulnerability to be exploited. It needs a fair amount of knowledge on the application architecture to be exploited. This also means all those open source Javascript frameworks and projects in Github are at a huge risk of being exploited.

@@ -2,12 +2,13 @@
 import MainLayout from "../layouts/MainLayout.astro";
 import { getCollection } from "astro:content";
 import Header from "./components/Header.astro";
+import ContentContainer from "./components/ContentContainer.astro";
 const events = await getCollection("speaking");
 const eventsList = events[0]!;
 ---
 
 <MainLayout>
-  <div class="mt-16 sm:mt-32">
+  <ContentContainer>
     <Header
       title="Words I’ve Said"
       subtitle="You can actually hear me talk, not just type."
@@ -86,5 +87,5 @@ const eventsList = events[0]!;
         }
       </div>
     </div>
-  </div>
+  </ContentContainer>
 </MainLayout>

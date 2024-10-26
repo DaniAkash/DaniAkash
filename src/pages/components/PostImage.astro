@@ -1,0 +1,24 @@
+---
+import { Image } from "astro:assets";
+import { ASSET_PREFIX } from "../../constants/asset-prefix";
+
+export interface Props {
+  src: `/${string}`;
+  alt: string;
+  caption: string;
+}
+
+const { src, alt } = Astro.props;
+---
+
+<figure>
+  <Image
+    width={672}
+    height={448}
+    widths={[380, 672]}
+    sizes={`(min-width: 640px) 380px, 672px`}
+    src={ASSET_PREFIX + src}
+    alt={alt}
+  />
+  <figcaption><slot /></figcaption>
+</figure>

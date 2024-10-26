@@ -8,6 +8,10 @@ export const navLinks = [
     href: "/blog",
   },
   {
+    title: "Newsletter",
+    href: "/newsletter",
+  },
+  {
     title: "Projects",
     href: "/projects",
   },
@@ -18,5 +22,9 @@ export const navLinks = [
   {
     title: "Uses",
     href: "/uses",
+  },
+  {
+    title: "Now",
+    href: "/now",
   },
 ];
