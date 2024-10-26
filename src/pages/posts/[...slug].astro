@@ -2,8 +2,9 @@
 import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
 import MainLayout from "../../layouts/MainLayout.astro";
 import { getCollection } from "astro:content";
-import ContentContainer from "../components/ContentContainer.astro";
 import ArrowLeftIcon from "../components/icons/ArrowLeftIcon.astro";
+import { TRANSITION_NAMES } from "../../constants/transition-names";
+import { slide } from "astro:transitions";
 export const getStaticPaths = (async () => {
   const posts = await getCollection("blog");
   return posts.map((post) => ({
@@ -27,28 +28,36 @@ const dateDisplay = date.toLocaleDateString("en-US", {
 ---
 
 <MainLayout>
-  <ContentContainer>
+  <div
+    class="mt-16 sm:mt-32"
+    transition:name={TRANSITION_NAMES.blogPostContainer}
+    transition:animate={slide({
+      duration: 500,
+    })}
+  >
     <div class="relative px-4 sm:px-8 lg:px-12">
       <div class="mx-auto max-w-2xl lg:max-w-5xl">
         <div class="xl:relative">
           <div class="mx-auto max-w-2xl">
-            <a
+            <button
               role="button"
-              href="/blog"
+              onclick="history.back()"
               aria-label="Go back to articles"
               class="group mb-8 flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-md shadow-zinc-800/5 ring-1 ring-zinc-900/5 transition dark:border dark:border-zinc-700/50 dark:bg-zinc-800 dark:ring-0 dark:ring-white/10 dark:hover:border-zinc-700 dark:hover:ring-white/20 lg:absolute lg:-left-5 lg:-mt-2 lg:mb-0 xl:-top-1.5 xl:left-0 xl:mt-0"
-              ><ArrowLeftIcon /></a
+              ><ArrowLeftIcon /></button
             >
             <article>
               <header class="flex flex-col">
                 <h1
                   class="mt-6 text-4xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-5xl"
+                  transition:name={TRANSITION_NAMES.blogTitle}
                 >
                   {post.data.title}
                 </h1>
                 <time
                   datetime={dateValue}
                   class="order-first flex items-center text-base text-zinc-400 dark:text-zinc-500"
+                  transition:name={TRANSITION_NAMES.blogTime}
                 >
                   <span
                     class="h-4 w-0.5 rounded-full bg-zinc-200 dark:bg-zinc-500"
@@ -64,5 +73,5 @@ const dateDisplay = date.toLocaleDateString("en-US", {
         </div>
       </div>
     </div>
-  </ContentContainer>
+  </div>
 </MainLayout>
