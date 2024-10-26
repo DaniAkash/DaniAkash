@@ -4,4 +4,6 @@ export const TRANSITION_NAMES = {
   heroImage: "hero-image-2",
   activeNavHighlight: "active-nav-highlight",
   responsiveNavButton: "responsive-nav-button",
+  contentContainer: "content-container",
+  footer: "footer",
 };

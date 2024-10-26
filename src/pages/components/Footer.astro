@@ -1,11 +1,17 @@
 ---
 import { navLinks } from "../../constants/navLinks";
+import { fade } from "astro:transitions";
+import { TRANSITION_NAMES } from "../../constants/transition-names";
 
 const currentPath = Astro.url.pathname;
 ---
 
 <div
   class="flex flex-col items-center justify-between gap-y-6 border-t border-zinc-100 px-4 pb-16 pt-10 dark:border-zinc-700/40 sm:flex-row"
+  transition:name={TRANSITION_NAMES.footer}
+  transition:animate={fade({
+    duration: 500,
+  })}
 >
   <div class="flex gap-6 text-sm font-medium text-zinc-800 dark:text-zinc-200">
     {
