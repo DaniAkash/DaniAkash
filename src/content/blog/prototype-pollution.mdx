@@ -10,17 +10,159 @@ import { Image } from "astro:assets";
 import { inferRemoteSize } from "astro:assets";
 import PostImage from "../../pages/components/PostImage.astro";
 
-<PostImage
-  src="/pollution.webp"
-  alt="prototype-pollution"
-  caption="<a href='/'>foo</a>"
->
+<PostImage src="/pollution.webp" alt="prototype-pollution">
   _Photo by [Thomas Millot](https://unsplash.com/@tomlaudiophile) on
   [Unsplash](https://unsplash.com/)_
 </PostImage>
 
 If you were following the news last month, you probably would have come across how jQuery received a new [security patch](https://blog.jquery.com/2019/04/) which addresses [the prototype pollution flaw](https://security.snyk.io/vuln/SNYK-JS-JQUERY-174006). It is a huge deal, given how 74 percent of all internet sites use the vulnerable version of the library!
 
-<PostImage src="/js-book.jpg" alt="js-book" />
+<PostImage src="/js-book.jpg" alt="js-book">
+  _Photo by [Greg Rakozy](https://unsplash.com/@grakozy) on
+  [Unsplash](https://unsplash.com/)_
+</PostImage>
 
 > Now before we all panic, prototype pollution isn't exactly an easy vulnerability to be exploited. It needs a fair amount of knowledge on the application architecture to be exploited. This also means all those open source Javascript frameworks and projects in Github are at a huge risk of being exploited.
+
+Before we dig deeper into how much the risk is spread, let's understand what exactly causes the prototype pollution. In Javascript, prototypes define an object's structure and properties so that the application knows how to deal with the data. But it turns out if you modify the prototype in one place, it will affect how the objects work throughout the entire application.
+
+<PostImage src="/prototype-pollution-code.png" alt="vulnerable-code">
+  _wait what?_
+</PostImage>
+
+Overwriting the prototype of a default javascript object is considered a bad practice for a long time. You might wanna try reading [this article](https://humanwhocodes.com/blog/2010/03/02/maintainable-javascript-dont-modify-objects-you-down-own/) by Nicholas C. Zakas back in 2010.
+
+So, you might not do it in your code. But what if the prototypes can be modified by someone else? That is my friend, **prototype pollution** and it happens due to some unsafe **merge**, **clone**, **extend** and **path assignment** operations on JSON objects obtained through user inputs.
+
+It is pretty common in Javascript that you wanna merge two objects together. Generally, this is how such a merge operation looks like the following code snippet.
+
+<figure>
+  <div className="not-prose">
+    <script
+      src="https://gist.github.com/DaniAkash/b3d7159fddcff0a9ee035bd10e34b277.js"
+      data-astro-rerun
+    ></script>
+  </div>
+  <figcaption>
+    A typical object merge operation that might cause prototype pollution
+  </figcaption>
+</figure>
+
+The merge operation iterates through the source object and will add whatever property that is present in it to the target object. It's simple. But also makes things complicated if the source is supplied by a 3rd party.
+
+All the attacker has to do to pollute your prototype is to provide you JSON data that has the `__proto__` property. A common payload will look something like this:
+
+```json
+{
+  "foo": "bar",
+  "__proto__": {
+    "polluted": "true"
+  }
+}
+```
+
+If you pass this payload to your merge operation without sanitizing the fields, it will completely pollute your object prototypes.
+
+<PostImage src="/prototype-pollution-example.webp" alt="vulnerability-example">
+  Prototype Pollution in action
+</PostImage>
+
+> This kind of vulnerability is identified in the [hoek](https://security.snyk.io/vuln/npm:hoek:20180212) package used by millions of projects
+
+The severity of pollution depends on the type of payload and how you use your objects. If you use them to authorize admins
+
+```js
+if (user.isAdmin) {
+  // do something
+}
+```
+
+Then it will let the attacker get access to sensitive information by polluting the scope with the `isAdmin` property. If the attacker changes some existing attribute to an unexpected return type (say toString attribute to return type integer) it will cause your application to crash (**Denial of Service**) or if you are using your server for code execution like **node.js** `exec` or `eval` then it might even lead to **Remote code execution(RCE)**.
+
+<figure className="flex flex-col items-center justify-center">
+  <iframe
+    width="560"
+    height="315"
+    src="https://www.youtube.com/embed/LUsiFV3dsK8?si=rm4KqRuIFMSgv5B9"
+    title="YouTube video player"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    referrerpolicy="strict-origin-when-cross-origin"
+    allowfullscreen
+  ></iframe>
+  <figcaption>
+    Olivier Arteau explaining RCE with prototype pollution on GHOST CMS
+  </figcaption>
+</figure>
+
+**So, How many libraries are affected?**
+
+As per [Snyk](https://snyk.io/) reports, there are more than 20+ known vulnerabilities across different packages that run on Node.js and the browser. There might be many that haven't yet been discovered.
+
+**When was it discovered?**
+
+The term Prototype pollution was coined many years ago. It probably exists ever since people started using vulnerable operations in Javascript.
+
+**What is the fix?**
+
+If you are using a vulnerable operation like the merge operation we saw above, you can fix it by simply preventing the merge if the key name is `__proto__` like the following code.
+
+<figure>
+  <div className="not-prose">
+    <script
+      src="https://gist.github.com/DaniAkash/02f2e9e01232370172a98eca532900de.js"
+      data-astro-rerun
+    ></script>
+  </div>
+  <figcaption>
+    A safe object merge operation that will not allow prototype pollution
+  </figcaption>
+</figure>
+
+**What if the vulnerability is introduced by an NPM package?**
+
+In this case, first, you should check if you are affected by a vulnerable package by running the [`npm-audit`](https://docs.npmjs.com/cli/v10/commands/npm-audit) command and you can mostly fix it automatically. Many popular vulnerable libraries such as jquery, lodash, hoek, etc have been updated to address prototype pollution.
+
+If you happen to find a vulnerability in the package you use and an update hasn't been released for it, immediately notify the maintainer of the package.
+
+There also happens to be some rare cases where **updating the package might break the whole project** like [this scenario](https://stackoverflow.com/questions/50564246/is-hoek-prototype-pollution-vulnerable-for-firebase-package) or the **update will take a long time to be released** like [this case](https://stackoverflow.com/questions/51696923/fixing-npm-install-vulnerabilities-manually-gulp-sass-node-sass). If you happen to fall into one of these rare categories, you might wanna read how to fix prototype pollution with [no-pollution](https://www.npmjs.com/package/no-pollution).
+
+**What are the other vulnerable methods like merge?**
+
+**Clone operation** which is basically, merge operation on an empty object
+
+```js
+var clone = function (objectToBeCloned) {
+  return merge({}, objectToBeCloned);
+};
+```
+
+**Path-value assignment operation** where you can define the property of an object by directly accessing its path. A vulnerable path assignment operation will look something like the following code snippet.
+
+<figure>
+  <div className="not-prose">
+    <script
+      src="https://gist.github.com/DaniAkash/46a6a2e8858795d0a9a78299e06807d5.js"
+      data-astro-rerun
+    ></script>
+  </div>
+  <figcaption>
+    A vulnerable path-value assignment operation on a javascript object
+  </figcaption>
+</figure>
+
+The following code snippet explains how the above method causes prototype pollution
+
+```js
+var obj = pathAssignment({}, "foo", "bar");
+// This will create and object { foo: "bar" }
+
+var obj = pathAssignment({}, "__proto__.polluted", true);
+// This will totally pollute your object prototypes!
+```
+
+Path assignment based prototype pollution vulnerability is rare but it cannot be fixed by [no-pollution](https://www.npmjs.com/package/no-pollution). So, make sure the path of the operation can never be controlled by any 3rd party other than your own code. One known case of this vulnerability is affecting the [mpath](https://security.snyk.io/vuln/SNYK-JS-MPATH-72672) package which already received a fix.
+
+**Better safe than sorry**
+
+Good programming practices will automatically mitigate prototype pollution attacks. Since this attack relies heavily on the data sent from the client side, make sure you sanitize them all and also run the npm-audit periodically to keep track of vulnerabilities in the packages you use. After all, It is better safe than to be sorry.

@@ -4,7 +4,7 @@ import MainLayout from "../../layouts/MainLayout.astro";
 import { getCollection } from "astro:content";
 import ArrowLeftIcon from "../components/icons/ArrowLeftIcon.astro";
 import { TRANSITION_NAMES } from "../../constants/transition-names";
-import { slide } from "astro:transitions";
+import { fade } from "astro:transitions";
 export const getStaticPaths = (async () => {
   const posts = await getCollection("blog");
   return posts.map((post) => ({
@@ -31,7 +31,7 @@ const dateDisplay = date.toLocaleDateString("en-US", {
   <div
     class="mt-16 sm:mt-32"
     transition:name={TRANSITION_NAMES.blogPostContainer}
-    transition:animate={slide({
+    transition:animate={fade({
       duration: 500,
     })}
   >
