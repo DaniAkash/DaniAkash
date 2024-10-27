@@ -51,8 +51,13 @@ const eventsCollection = defineCollection({
   ),
 });
 
+const aboutCollection = defineCollection({
+  type: "content",
+});
+
 export const collections = {
   career: experienceCollection,
   blog: blogCollection,
   speaking: eventsCollection,
+  about: aboutCollection,
 };

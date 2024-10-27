@@ -1,6 +1,9 @@
 ---
+import { getCollection } from "astro:content";
 import { TRANSITION_NAMES } from "../constants/transition-names";
 import MainLayout from "../layouts/MainLayout.astro";
+const about = (await getCollection("about"))[0]!;
+const { Content } = await about.render();
 ---
 
 <MainLayout>
@@ -26,44 +29,8 @@ import MainLayout from "../layouts/MainLayout.astro";
       >
         I’m Dani Akash
       </h1>
-      <div class="mt-6 space-y-7 text-base text-zinc-600 dark:text-zinc-400">
-        <p>
-          Since the day I played the{" "}
-          <a
-            href="https://www.microsoft.com/en-us/p/3d-pinball-space-cadet/9mt92dxzj11r"
-            target="_blank"
-            rel="noreferrer"
-          >
-            3D Pinball
-          </a>{" "}
-          game on one of the Windows XP machines in a Xerox shop near my school,
-          I've had a fascination with computers. Since then, I've worked hard to
-          learn more about computers and eventually earned an engineering degree
-          in computer science.
-        </p>
-        <p>
-          As a worldbuilder, I'm always learning about how our world works, from
-          global economics to particle physics. I try to learn as much as I can
-          about this world through books, documentaries & educational youtube
-          videos. I also enjoy reading about imaginary worlds. This made me a
-          big fan of Japanese manga and games, such as One Piece, Evangelion,
-          Tekken, and many others.
-        </p>
-        <p>
-          I adhere to the philosophy of optimistic nihilism and strive to
-          accomplish as many good things as possible in my lifetime. I have
-          worked with many non-governmental organisations (NGOs) such as Teach
-          for India and SOS Children's Villages to help educate children to use
-          computers and science. After Covid-19, I started investing more in
-          Green Energy technologies, hoping to contribute to a more sustainable
-          future.
-        </p>
-        <p>
-          Today, I work as a programmer, engineering manager, and active
-          educator, teaching others how to code and build a career in
-          technology. I build high-performance web and mobile apps using modern
-          JavaScript, GraphQL, tRPC, serverless and edge runtimes.
-        </p>
+      <div class="prose mt-6 space-y-7 dark:prose-invert">
+        <Content />
       </div>
     </div>
 
