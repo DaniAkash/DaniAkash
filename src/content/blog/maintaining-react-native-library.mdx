@@ -1,0 +1,482 @@
+---
+title: Maintaining a React Native Library
+subtitle: Sharing my experience maintaining 10 different react native libraries
+date: Wed Sep 16 2020 00:00:00 GMT+0530 (India Standard Time)
+tags: ["react-native", "open-source", "react"]
+---
+
+React Native is an excellent framework for building mobile apps. The best thing about React Native is how it provides the developers with a solid set of primitive UI components. This means there's plenty of opportunities for you to build your own library and publish it to the open-source community.
+
+## The Problem
+
+Building & maintaining quality open-source libraries is hard work. Especially React Native libraries are harder since they often need to be verified on both Android & iOS platforms.
+
+I ran into this exact issue when I started working on open-sourcing the libraries I built for my personal use. I created an organization that holds the collection of the libraries. It's called [React Native Toolkit](https://github.com/react-native-toolkit)
+
+![react-native-toolkit](https://dev-to-uploads.s3.amazonaws.com/i/mkjmd1mjy18bwm83406a.png)
+
+I wanted to ensure developers get to try out all my libraries, at the same time, I should be able to quickly make small updates and bug fixes without having to spend too much time.
+
+In summary, I wanted to ensure I covered all the following **6 items** for my open-source libraries,
+
+- Proper Linting of code & commit messages
+- A working example in an actual app
+- Unit tests
+- Detailed documentation that covers all the use cases
+- Visual testing after code changes
+- Easily review PRs
+
+## Solution
+
+Once I have created a list of things needed for my open source projects, I started exploring various tools that'll help me achieve the individual targets.
+
+So I started working on my library [react-native-better-image](https://github.com/react-native-toolkit/react-native-better-image) while evaluating the various options. I had two major tasks
+
+- Picking the right tools
+- Automate as many tasks as possible
+
+## Picking the right tools
+
+### [React Native Community's Bob](https://github.com/react-native-community/bob) - Linting + Example App
+
+This almost felt like a no-brainer. [React Native Community](https://github.com/react-native-community) which hosts a collection of quality libraries already had a tool which would make building react native libraries so much simpler.
+
+Bob had [almost everything](https://github.com/react-native-community/bob#scaffold-new-projects) I needed in terms of **Proper Linting** & **having a working example app** using the library.
+
+The example app is also pre-linked with the library's source so you can just start writing code and you probably won't have to worry about anything. Just import your library inside the app & setup your working example!
+
+_That's 2 out of 6 items covered_
+
+#### Alternatives
+
+One other alternative I tried in this category is [create-react-native-module](https://github.com/brodybits/create-react-native-module). This one is good but bob is just too better.
+
+### [React Native Testing Library](https://callstack.github.io/react-native-testing-library) - Unit Tests
+
+I'm a big fan of the **[testing library](https://testing-library.com/)** in general. It encourages you to write tests in the way your software is being used rather than being implemented. Which is why I immediately picked up the **React Native Testing Library** that brings all the best parts to the native side of development.
+
+If your library uses native iOS or Android code, then you'll have to write tests that run on the native side. However, since all my libraries are pure JavaScript, I didn't explore any on the native side. _Suggest the tools you use for this purpose in the comments :)_
+
+_That's 3 out of 6 items covered_
+
+#### Alternatives
+
+If your library requires an end to end testing, then you can add [detox](https://github.com/wix/Detox) to your project. You can use the example app created by Bob to run the test cases.
+
+Another common library for writing unit tests is [Enzyme](https://enzymejs.github.io/enzyme/docs/guides/react-native.html). If you are already familiar with enzyme then you can use it for your library.
+
+### [Storybook](https://storybook.js.org/) - Documentation
+
+Storybook v6.0 was recently released with **improved documentation**. While storybook already has a React Native version, the react version is much more powerful & better suited for our documentation.
+
+The documentation can be hosted a static site & it will showcase your library in real-time. Check out my [react-native-better-image](https://betterimage.netlify.app) documentation.
+
+To get storybook working with your React Native library, you can add it to your **example expo app** following [this example](https://github.com/expo/examples/tree/master/with-storybook) from the expo team.
+
+> I only had to change the webpack config in my [.storybook/main.js](https://github.com/react-native-toolkit/rex-state/blob/master/example/.storybook/main.js#L5) file and it worked well using react-native-web
+
+_4 out of 6 now covered_
+
+### Alternatives
+
+I haven't personally tried any alternatives to storybook yet. Maybe you can read about it in this [blog post](https://blog.logrocket.com/alternatives-to-react-storybook/) by logrocket.
+
+### [Chromatic](https://www.chromatic.com/) - Visual Testing
+
+One other reason I was firmly sticking to storybooks is their integration with chromatic. Chromatic lets you quickly do visual tests on your stories. You can also easily share stories & get feedback from others.
+
+They have a generous free tier & their team is kind enough to provide me support when I ran into issues with my react-native + storybook setup.
+
+> I'll be using chromatic for reviewing PRs, will explain about it in the automation section.
+
+Chromatic makes visual testing a breeze! _That makes 5 out of 6 items handled_
+
+### [Expo Cli](https://docs.expo.io/workflow/expo-cli/) - Reviewing PRs
+
+Reviewing PRs is the most important thing in Open Source projects. I have been struggling to review PRs in some of my old projects as I have to manually clone & run the code to check how it affects my library. Many times I just don't have the bandwidth to do so...
+
+This time, however, I have decided to make the reviewing process as easy as possible. The trick is to have a good example application in your library that covers almost all use cases. Once someone raises a PR, you can generate a build using the Expo CLI. Expo team has been making this process a lot easier by creating a [Github Action](https://github.com/expo/expo-github-action#test-prs-and-publish-a-review-version) that can easily publish a review version of your library.
+
+Along with this, the stories in the PR are also pushed to chromatic. This means I should be able to review a PR fairly faster. I haven't yet received any PRs yet, so fingers crossed 🤞
+
+## Automating stuff with Github Actions
+
+Now that we have all the right tools in place, it is time to automate the Build, Review & Publishing process for your new React Native library. Which will be covered in the next part of this series!
+
+
+All open-source Github repositories have free Github Actions available with which we can automate most of our workflows. I'll be using Github Actions throughout the automation process. 
+
+The library's build consists of the following items ﹣
+- Linting
+- Running Tests
+- Publishing the test coverage
+- Publishing the example app to expo
+- Publishing the stories to chromatic
+- Publish the storybook which contains documentation as a static site
+
+You can find my build workflow in the [.github/workflows/build.yml](https://github.com/react-native-toolkit/react-native-better-image/blob/master/.github/workflows/build.yml) file of my [react-native-better-image](https://github.com/react-native-toolkit/react-native-better-image) project. This is how the build process should look like ﹣
+
+![Alt Text](https://dev-to-uploads.s3.amazonaws.com/i/o0kep5llpseapcik3fme.png)
+
+## When to trigger the workflow
+I wanted the build workflow to ensure the master branch is always stable. Hence it will run on all the pushes to master. But it will not run for tags, as I have planned another release workflow for this
+
+```yml
+name: build
+on:
+  push:
+    branches:
+      - master
+    tags:
+      - '!*' # Do not execute on tags
+    paths:
+      - example/*
+      - src/*
+      - test/*
+      - __tests__/*
+      - '*.json'
+      - yarn.lock
+      - .github/**/*.yml
+```
+## Linting
+Since we are using [react-native-community/bob](https://github.com/react-native-community/bob) in our project, we can run both lint & typescript scripts in the `package.json` file which is enough to complete the lint process
+
+```yml
+  lint:
+    name: lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - uses: actions/setup-node@master
+        with:
+          node-version: 12.x
+      - run: npx yarn bootstrap
+      - run: npx yarn typescript
+      - run: npx yarn lint
+```
+## Testing & Coverage
+For displaying the test coverage, I decided to use [code climate for open source projects](https://codeclimate.com/oss/). They also have a nice action available at [paambaati/codeclimate-action](https://github.com/paambaati/codeclimate-action).
+
+Code climate checks your code for best practices and provides you with maintainability metrics. Along with that, you'll also get code coverage reports. Once you setup code climate you can add their badges to your repo that gives everyone a live code quality score ﹣
+
+[![Alt Text](https://dev-to-uploads.s3.amazonaws.com/i/9czp25bmkrhieeljgqpc.png)](https://github.com/react-native-toolkit/rex-state)
+
+The following configuration is used for running tests ﹣
+
+```yml
+  test:
+    strategy:
+      matrix:
+        platform: [ubuntu-latest, macOS-latest]
+        node: ['12.x']
+    name: test/node ${{ matrix.node }}/${{ matrix.platform }}
+    runs-on: ${{ matrix.platform }}
+    steps:
+      - uses: actions/checkout@master
+      - uses: actions/setup-node@master
+        with:
+          node-version: ${{ matrix.node }}
+      - run: npx yarn bootstrap
+      - run: npx yarn test
+```
+
+Once both linting & testing jobs are completed, you have to push your code coverage to code climate. Following their [docs](https://docs.codeclimate.com/docs/github-actions-test-coverage) you need to create a [secret](https://docs.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets) in your repository with name `CC_TEST_REPORTER_ID` after which add the following configuration
+
+```yml
+  coverage:
+    needs: [test, lint]
+    name: coverage
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - uses: actions/setup-node@master
+        with:
+          node-version: 12.x
+      - run: npx yarn bootstrap
+      - uses: paambaati/codeclimate-action@v2.5.3
+        env:
+          CC_TEST_REPORTER_ID: ${{secrets.CC_TEST_REPORTER_ID}}
+        with:
+          coverageCommand: npx yarn test --coverage
+          debug: true
+```
+## Publish example app to expo
+Publish should also happen after the lint & test jobs. This time we will be using the [expo/expo-github-action](https://github.com/expo/expo-github-action). As per the action's [docs](https://github.com/expo/expo-github-action), you'll have to add your expo username & password to your repo's secrets under the name `EXPO_CLI_USERNAME` & `EXPO_CLI_PASSWORD`.
+
+> If you have an organization, you can add it under the [organization secrets](https://docs.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets#creating-encrypted-secrets-for-an-organization) and share it with all your repositories!
+
+The first step to publish is to run `yarn bootstrap` command. However, the next step `expo run` should run inside the `example` directory. For this we will use the `working-directory` config
+
+```yml
+  publish:
+    needs: [test, lint]
+    name: Publish example app to Expo 🚀
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      - uses: expo/expo-github-action@v5
+        with:
+          expo-version: 3.x
+          expo-username: ${{ secrets.EXPO_CLI_USERNAME }}
+          expo-password: ${{ secrets.EXPO_CLI_PASSWORD }}
+      - run: npx yarn bootstrap
+      - working-directory: example
+        run: expo publish
+```
+You'll get a published page for your library's example app. You can check out for the page of my react-native-better-image library's [example app](https://expo.io/@daniakash/react-native-better-image-example).
+
+## Publish stories to chromatic
+Similar to expo, chromatic also have a GitHub action available in [chromaui/action](https://github.com/chromaui/action). You have to create a new project in chromatic and get your project token. Then add it to your repository's secrets under the name `CHROMATIC_PROJECT_TOKEN`
+
+We need to run chromatic action inside the example directory since our storybook lives in this directory. The chromaui/action didn't have an option to run it inside a specific directory. So I had to manually add the following script in my example app's `package.json` file ﹣
+```json
+"chromatic": "npx chromatic"
+```
+Then added the following workflow configuration which manually runs chromatic ﹣
+```yml
+  chromatic:
+    needs: [test, lint]
+    name: Publish storybook to chromatic 🧪
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      - run: npx yarn bootstrap
+      - run: npx yarn chromatic
+        working-directory: example
+        env:
+          CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+```
+## Publish storybook as a static site
+I used Netlify to publish my storybook as a static site. I was initially planning to use GH Pages, but I needed the 1-click rollback & Deploy Previews offered by [netlify](https://www.netlify.com/github-pages-vs-netlify/). I installed the [Netlify app](https://github.com/apps/netlify) which automatically takes care of the building the repo & deploy previews so I didn't have to write any actions config.
+
+If you are interested to use GitHub pages for your library, you can use the [Deploy to GitHub Pages](https://github.com/marketplace/actions/deploy-to-github-pages) action for this purpose.
+
+You can also try [Netlify CLI](https://cli.netlify.com/) if you want to configure deploys with netlify through GitHub Actions.
+
+This build workflow is actively used in two of my libraries [rex-state](https://github.com/react-native-toolkit/rex-state) & [react-native-better-image](https://github.com/react-native-toolkit/react-native-better-image)
+
+In the next part, I'll explain how to set up the review workflow!
+
+Reviewing PRs are an important part of managing Open Source libraries. However, they might require a considerable amount of time & effort from your busy life which means, you need to be as efficient as possible.
+
+My whole toolchain was set up around making the review process as easy as possible. This time we'll create Github Action workflows to make the review process a whole lot simpler.
+
+Every PR raised to the library will have the following checks performed automatically
+- Linting & Testing
+- Code coverage report
+- Deploy preview of the updated storybook docs
+- Build a review version of the example mobile app with link to quickly test it
+- Send all stories to chromatic to do a visual review
+
+As soon as the PR is sent, you should be able to see the progress of the review workflow ﹣
+
+[![Alt Text](https://dev-to-uploads.s3.amazonaws.com/i/wsb1h67wn2sphq6fyrfc.png)](https://github.com/react-native-toolkit/rex-state/)
+
+The above image is from a PR of my [rex-state](https://github.com/react-native-toolkit/rex-state/) library. Let's look into how we can implement this effectively.
+
+You can find my working review workflow at [.github/workflows/review.yml](https://github.com/react-native-toolkit/rex-state/blob/master/.github/workflows/review.yml) file of my [rex-state](https://github.com/react-native-toolkit/rex-state/) library.
+
+## Triggering the workflow
+
+This workflow will run on all pull requests
+
+```yml
+name: review
+on: pull_request
+```
+
+## Linting & Testing
+This step is the same as what we did for our build workflow. All the other jobs will run only after Linting & Testing are complete.
+```yml
+  lint:
+    name: lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - uses: actions/setup-node@master
+        with:
+          node-version: 12.x
+      - run: npx yarn bootstrap
+      - run: npx yarn typescript
+      - run: npx yarn lint
+
+  test:
+    strategy:
+      matrix:
+        platform: [ubuntu-latest, macOS-latest]
+        node: ['12.x']
+    name: test/node ${{ matrix.node }}/${{ matrix.platform }}
+    runs-on: ${{ matrix.platform }}
+    steps:
+      - uses: actions/checkout@master
+      - uses: actions/setup-node@master
+        with:
+          node-version: ${{ matrix.node }}
+      - run: npx yarn bootstrap
+      - run: npx yarn test
+```
+## Coverage report
+Previously on the build step, we used Code Climate to store our test coverage reports. However, on PRs we need a way to quickly check the test coverage for the incoming code.
+
+For this, we can use the [romeovs/lcov-reporter-action](https://github.com/romeovs/lcov-reporter-action) which will post a nice comment on the PR with the test coverage details. You'd get a report like this following comment ﹣
+
+![Alt Text](https://dev-to-uploads.s3.amazonaws.com/i/yt8w4066hnph7y72onxu.png)
+
+Add the following configuration for receiving the coverage as a comment ﹣
+
+```yml
+  coverage:
+    needs: [test, lint]
+    name: coverage
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - uses: actions/setup-node@master
+        with:
+          node-version: 12.x
+      - run: npx yarn bootstrap
+      - run: npx yarn test --coverage
+      - uses: romeovs/lcov-reporter-action@v0.2.16
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+```
+## Deploy preview of the updated storybook docs
+Since I was using the Netlify Github App, I'm getting the deploy previews out of the box without any kind of additional setup. You can try the [Netlify CLI](https://docs.netlify.com/cli/get-started/) if you want to manually enable deploy previews with Github Actions.
+
+## Review Version of the Example App
+This is where the power of expo toolchain shines. You can use the expo-cli to publish the app in a separate channel which you can use for your review purpose.
+
+The expo team have also provided detailed [documentation](https://github.com/expo/expo-github-action#test-prs-and-publish-a-review-version) on their [expo-github-action](https://github.com/expo/expo-github-action). Add the following configuration to your workflow (replace the URL in the `msg` with your application's URL)﹣
+
+```yml
+  expo-publish:
+    needs: [test, lint]
+    name: Publish to Expo 🚀
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      - uses: expo/expo-github-action@v5
+        with:
+          expo-version: 3.x
+          expo-username: ${{ secrets.EXPO_CLI_USERNAME }}
+          expo-password: ${{ secrets.EXPO_CLI_PASSWORD }}
+      - run: npx yarn bootstrap
+      - run: expo publish --release-channel=pr-${{ github.event.number }}
+        working-directory: example
+      - uses: unsplash/comment-on-pr@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          msg: App is ready for review, you can [see it here](https://expo.io/@daniakash/rex-state-example?release-channel=pr-${{ github.event.number }}).
+```
+From now on, for every PRs you'll get a comment just like this one ﹣
+![Alt Text](https://dev-to-uploads.s3.amazonaws.com/i/2aqycdostgrpbbwy9j7w.png)
+
+## Sending stories to chromatic
+Finally to do a visual review if the PR has affected your stories you can send the stories to chromatic. The configuration is the same as our last one, chromatic is smart enough to figure out that the data is from a PR!
+
+```yml
+  chromatic:
+    needs: [test, lint]
+    name: Publish storybook to chromatic 🧪
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      - run: npx yarn bootstrap
+      - run: npx yarn chromatic
+        working-directory: example
+        env:
+          CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+```
+Once you have everything ready, Your PRs will now have detailed information on the things you'd otherwise have to check manually every time ﹣
+
+![Alt Text](https://dev-to-uploads.s3.amazonaws.com/i/dpqby0r6lxqnrctqg9af.png)
+
+We got a powerful review workflow now. In the next part, let's publish the library to NPM every time you create a new release in GitHub!
+
+This workflow is used in the [.github/workflows/publish.yml](https://github.com/react-native-toolkit/rex-state/blob/master/.github/workflows/publish.yml) file of my library [rex-state](https://github.com/react-native-toolkit/rex-state/)
+
+## GitHub Releases
+[Releases](https://github.com/react-native-toolkit/rex-state/releases) section allows us to tag individual commits with proper version numbers & a detailed changelog.
+
+I use it as my source of truth for managing versions. Which means, every tag should be automatically published to GitHub.
+
+## Trigger
+This workflow will run on `release` when the the type is `published`
+```yml
+name: publish
+on:
+  release:
+    types: [published]
+```
+## Jobs
+This workflow has three jobs. First two are **linting** & **testing** to ensure the code is stable.
+```yml
+  lint:
+    name: lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - uses: actions/setup-node@master
+        with:
+          node-version: 12.x
+      - run: npx yarn bootstrap
+      - run: npx yarn typescript
+      - run: npx yarn lint
+
+  test:
+    strategy:
+      matrix:
+        platform: [ubuntu-latest, macOS-latest]
+        node: ['12.x']
+    name: test/node ${{ matrix.node }}/${{ matrix.platform }}
+    runs-on: ${{ matrix.platform }}
+    steps:
+      - uses: actions/checkout@master
+      - uses: actions/setup-node@master
+        with:
+          node-version: ${{ matrix.node }}
+      - run: npx yarn bootstrap
+      - run: npx yarn test
+```
+Once the above two jobs are over, we'll now use the [JS-DevTools/npm-publish](https://github.com/JS-DevTools/npm-publish) Action to publish an update to NPM.
+
+You need to create an [NPM Auth token](https://docs.npmjs.com/creating-and-viewing-authentication-tokens) and add it to your repository or organization secret under the name `NPM_TOKEN`
+
+Then add the publish the job to your workflow ﹣
+```yml
+  publish:
+    needs: [test, lint]
+    name: Publish to npm 🚢📦
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - uses: actions/setup-node@master
+        with:
+          node-version: 12.x
+      - run: npx yarn bootstrap
+      - uses: JS-DevTools/npm-publish@v1
+        with:
+          token: ${{ secrets.NPM_TOKEN }}
+```
+Whenever you create a release in your repository from now onwards, you'll have an update published to your npm package.
+
+This completes our React Native Library setup, you can use the setup + workflows you learnt in this 4 part series to publish both your React Native & React.js libraries.
+
+I have been using it for both [react-native-better-image](https://github.com/react-native-toolkit/react-native-better-image/) which is for React Native & [rex-state](https://github.com/react-native-toolkit/rex-state) which works with both React.js & React Native.
+
+In future, I'll be moving all my libraries in [React Native Toolkit](https://github.com/react-native-toolkit) to this workflow which will help me maintain all my current 10+ libraries & some upcoming ones efficiently.
+
+If this series helped you or you have any feedback feel free to post a comment or reach out to me on [twitter](https://twitter.com/dani_akash_). I'd be happy to help! :D
