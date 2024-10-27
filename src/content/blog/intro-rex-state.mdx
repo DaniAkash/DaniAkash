@@ -1,0 +1,57 @@
+---
+title: Introducing Rex State 🦖
+subtitle: A simple way to manage your React States
+date: Thu Mar 19 2020 00:00:00 GMT+0530 (India Standard Time)
+tags: ["react", "state-management", "react-hooks"]
+---
+
+> ⚠️ As nice as this tool was, I have moved on from this project. I recommend using tools like [Zustand](https://github.com/pmndrs/zustand), [Jotai](https://jotai.org/), or [use-context-selector](https://github.com/dai-shi/use-context-selector) for managing states in your React projects.
+
+_The simplest way to manage your React States! Check out [the demo app](https://codesandbox.io/s/state-management-with-rex-state-4ivcd)_
+
+I have been using Redux and Mobx for managing states in my react projects. Ever since React Hooks were introduced I had been playing around with the Context API experimenting different ways to manage states.
+
+I finally came up with **Rex State**, a tool that I have been using in my personal projects for creating re-usable hooks as well as state management.
+
+The idea behind Rex State is making your states more declarative and providing an easy to use API to connect with the React Components. A classic example ﹣
+
+```jsx
+import React from "react";
+import useRex from "rex-state";
+
+const useInput = () => {
+  const [state, setState] = useRex({ value: "" });
+
+  return {
+    get value() {
+      return state.value;
+    },
+    updateValue(value) {
+      setState({ value });
+    },
+  };
+};
+
+const InputField = () => {
+  const { value, updateValue } = useInput();
+
+  return (
+    <input
+      type="text"
+      value={value}
+      placeholder="Add Text here..."
+      onChange={(event) => updateValue(event.target.value)}
+    />
+  );
+};
+
+export default InputField;
+```
+
+Rex State can also be used as a state management tool. A 400 bytes replacement to redux or mobx ✨
+
+Follow this [tutorial](https://github.com/DaniAkash/rex-state#tutorial) to see how to manage states with Rex State.
+
+Feedbacks & PRs welcome! 😁
+
+[Github](https://github.com/DaniAkash/rex-state)

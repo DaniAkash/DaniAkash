@@ -1,0 +1,115 @@
+---
+title: UX friendly loading indicators
+subtitle: A better way to display loading indicators based on network speeds
+date: Thu Apr 09 2020 00:00:00 GMT+0530 (India Standard Time)
+tags: ["react", "ux"]
+---
+
+I love loading indicators. Especially ever since [lottie animations](https://lottiefiles.com/) came out, I have been playing around with different kinds of animations as loading indicators. However, these loading indicators often pose a huge UX Issue when used to display "waiting" for fetch requests.
+
+Let's say you have a nice loading indicator like [this one](https://lottiefiles.com/18706-loading-icon) & a webpage that makes a network request to fetch quote of the day.
+
+If you use this loading indicator directly, on a super-fast connection, where the request resolves in 200ms, then you'll notice that the loading indicator basically flashes in between the old & new content ﹣
+
+<iframe
+  style={{
+    width: "100%",
+    height: "900px",
+    outline: "1px solid #252525",
+    border: 0,
+    borderRadius: 8,
+    marginBottom: 16,
+    zIndex: 100,
+  }}
+  src="https://codesandbox.io/p/sandbox/regular-loading-jgu83"
+></iframe>
+
+The loading indicator is nice for content that takes 1000ms+ response time. However, it is not suitable for content that takes very small time like 200ms. But the content, however, is loaded over the network which means for users with fast 5G 🛰 connection the response time is going to be 200ms 🚀 while for users with slow 3G/2G connections the response time might be higher for the same content ☹️
+
+<blockquote class="twitter-tweet">
+  <p lang="en" dir="ltr">
+    Collectively -<br />
+    <br />
+    Given the different kinds of network speeds there are three speeds in which
+    a fetch will complete
+    <br />
+    <br />
+    1) short
+    <br />
+    2) medium
+    <br />
+    3) long
+  </p>
+  &mdash; Dani Akash 🧪💥 (@dani_akash_){" "}
+  <a href="https://twitter.com/dani_akash_/status/1247617453795840000?ref_src=twsrc%5Etfw">
+    April 7, 2020
+  </a>
+</blockquote> <script
+  async
+  src="https://platform.twitter.com/widgets.js"
+  charset="utf-8"
+></script>
+
+To provide optimal user experience in this scenario, we need different loading indicators for each type of network speeds and we have to maintain a separate **"loading-state"** that ensures we are displaying the proper loading indicator.
+
+On digging deep into this topic, React team has done a great deal of research in the [suspense](https://reactjs.org/docs/concurrent-mode-suspense.html) module which does optimistic rendering and doesn't display any loading indicators if the request is resolved quickly!
+
+> I have written a summary of my learnings in a separate [tweet thread](https://twitter.com/dani_akash_/status/1247617443897290752) which you can also read using [thread reader](https://threadreaderapp.com/thread/1247617443897290752.html)
+
+For an ideal UX for a scenario such as the one in the above codesandbox sample,
+
+- if the request resolves in 200ms
+  - no loading indicator is needed
+- if the request resolves in 500ms
+  - no loading indicator is needed till 200ms
+  - a loading indicator appears at 300ms (something non-intrusive)
+  - the loading indicator is visible till 600ms (even though the data is retrieved at 500ms) to ensure the UI doesn't appear as if it is stuttering/flashing for the user
+- if the request resolves in 1200ms
+  - following above timeline, a loading indicator is displayed till 600ms
+  - after 1000ms, another loading indicator appears (seems like the user is in a slow network region)
+  - this loading indicator will remain visible till 1300ms (to prevent the users from seeing a flashing screen)
+
+Applying this logic, try the following example ﹣
+
+<iframe
+  style={{
+    width: "100%",
+    height: "900px",
+    outline: "1px solid #252525",
+    border: 0,
+    borderRadius: 8,
+    marginBottom: 16,
+    zIndex: 100,
+  }}
+  src="https://codesandbox.io/p/sandbox/loading-state-b8o5z"
+></iframe>
+
+This time, at
+
+- 200ms no loading indicators are needed.
+- 300ms+ we have a loading indicator which a gentle opacity that is mandatorily visible for 300ms before displaying the data
+- 1000ms+ we have another animated loading indicator which is also visible for 300ms before displaying the data
+
+For the second example, I have built a javascript library ﹣ [**"loading-state"**](https://github.com/DaniAkash/loading-state) which maintains the loading state internally using `setTimeout` and provides an easy to use API to display the loading indicators.
+
+```js
+import loader from "loading-state";
+
+loader(
+  new Promise((resolve, reject) => resolve("cool!")),
+  {
+    shortLoading: () => {}, // callback to display first loading indicator
+    longLoading: () => {}, // callback to display the second indicator
+    done: (result) => {}, // success callback with the result of the promise
+    error: (e) => {}, // error callback with the thrown error
+  },
+  {
+    busyDelayMs: 300, // how long to wait till displaying first indicator
+    longBusyDelayMs: 1000, // how long to wait till displaying second indicator
+    shortIndicatorVisibilityMs: 300, // how long to display first indicator
+    longIndicatorVisibilityMs: 300, // how long to display second indicator
+  },
+);
+```
+
+With this, we can effectively maintain the loading state of our network request & ensure that the UX is not affected for the user based on their network speeds!
