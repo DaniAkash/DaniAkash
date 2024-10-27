@@ -11,6 +11,7 @@ const experienceCollection = defineCollection({
       endDate: z.string(),
       location: z.string(),
       description: z.string(),
+      logo: z.string(),
     }),
   ),
 });

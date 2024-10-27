@@ -1,53 +1,49 @@
 ---
+import { getCollection } from "astro:content";
+import WorkIcon from "./icons/WorkIcon.astro";
+import { ASSET_PREFIX } from "../../constants/asset-prefix";
+import { Image } from "astro:assets";
 
+const experience = (await getCollection("career"))[0]!;
 ---
 
 <div class="rounded-2xl border border-zinc-100 p-6 dark:border-zinc-700/40">
   <h2 class="flex text-sm font-semibold text-zinc-900 dark:text-zinc-100">
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke-width="1.5"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      aria-hidden="true"
-      class="h-6 w-6 flex-none"
-      ><path
-        d="M2.75 9.75a3 3 0 0 1 3-3h12.5a3 3 0 0 1 3 3v8.5a3 3 0 0 1-3 3H5.75a3 3 0 0 1-3-3v-8.5Z"
-        class="fill-zinc-100 stroke-zinc-400 dark:fill-zinc-100/10 dark:stroke-zinc-500"
-      ></path><path
-        d="M3 14.25h6.249c.484 0 .952-.002 1.316.319l.777.682a.996.996 0 0 0 1.316 0l.777-.682c.364-.32.832-.319 1.316-.319H21M8.75 6.5V4.75a2 2 0 0 1 2-2h2.5a2 2 0 0 1 2 2V6.5"
-        class="stroke-zinc-400 dark:stroke-zinc-500"></path></svg
-    >
-    <span class="ml-3">Work</span>
+    <WorkIcon /><span class="ml-3">Work</span>
   </h2>
   <ol class="mt-6 space-y-4">
-    <li class="flex gap-4">
-      <div
-        class="mt-1 flex h-10 w-10 flex-none items-center justify-center rounded-full shadow-md shadow-zinc-800/5 ring-1 ring-zinc-900/5 dark:border dark:border-zinc-700/50 dark:bg-zinc-800 dark:ring-0"
-      >
-        <img
-          src="https://daniakash.pages.dev/_astro/oslash.9e0c4f85.png"
-          alt="oslash"
-          class="h-7 w-7 rounded-full"
-        />
-      </div>
-      <dl class="flex flex-auto flex-wrap gap-x-2">
-        <dt class="sr-only">Company</dt>
-        <dd class="w-full text-sm font-medium text-zinc-900 dark:text-zinc-100">
-          Oslash
-        </dd>
-        <dt class="sr-only">Role</dt>
-        <dd class="text-xs text-zinc-500 dark:text-zinc-400">
-          Engineering Manager
-        </dd>
-        <dt class="sr-only">Date</dt>
-        <dd class="ml-auto text-xs text-zinc-400 dark:text-zinc-500">
-          <time>2020</time>
-          <span>{" "}&mdash;{" "}</span>
-          <time>2023</time>
-        </dd>
-      </dl>
-    </li>
+    {
+      experience.data.map((each) => {
+        return (
+          <li class="flex gap-4">
+            <div class="mt-1 flex h-10 w-10 flex-none items-center justify-center rounded-full shadow-md shadow-zinc-800/5 ring-1 ring-zinc-900/5 dark:border dark:border-zinc-700/50 dark:bg-zinc-800 dark:ring-0">
+              <Image
+                src={`${ASSET_PREFIX}${each.logo}`}
+                alt={each.company}
+                width={28}
+                height={28}
+                class="h-7 w-7 rounded-full"
+              />
+            </div>
+            <dl class="flex flex-auto flex-wrap gap-x-2">
+              <dt class="sr-only">Company</dt>
+              <dd class="w-full text-sm font-medium text-zinc-900 dark:text-zinc-100">
+                {each.company}
+              </dd>
+              <dt class="sr-only">Role</dt>
+              <dd class="text-xs text-zinc-500 dark:text-zinc-400">
+                {each.role}
+              </dd>
+              <dt class="sr-only">Date</dt>
+              <dd class="ml-auto text-xs text-zinc-400 dark:text-zinc-500">
+                <time>{new Date(each.startDate).getFullYear()}</time>
+                <span> &mdash; </span>
+                <time>{new Date(each.endDate).getFullYear() || "Present"}</time>
+              </dd>
+            </dl>
+          </li>
+        );
+      })
+    }
   </ol>
 </div>
