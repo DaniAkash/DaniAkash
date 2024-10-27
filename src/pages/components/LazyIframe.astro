@@ -1,0 +1,75 @@
+---
+export interface Props {
+  src: `https://${string}`;
+}
+const id = Math.random().toString();
+const { src } = Astro.props;
+---
+
+<div id={id}></div>
+
+<script
+  type="text/javascript"
+  data-astro-rerun
+  is:inline
+  data-iframe-source={src}
+  data-target-id={id}
+>
+  (() => {
+    const targetElement = document.currentScript.getAttribute("data-target-id");
+    const iframeSource =
+      document.currentScript.getAttribute("data-iframe-source");
+
+    function createIframe() {
+      // Create the iframe element
+      const iframe = document.createElement("iframe");
+
+      // Set the iframe attributes
+      iframe.src = iframeSource;
+      iframe.setAttribute("tabindex", "-1");
+
+      // Apply styles to the iframe
+      Object.assign(iframe.style, {
+        width: "100%",
+        height: "900px",
+        outline: "1px solid #252525",
+        border: "0",
+        borderRadius: "8px",
+        marginBottom: "16px",
+        zIndex: "100",
+      });
+      // Append the iframe to the container
+      document.getElementById(targetElement).appendChild(iframe);
+    }
+
+    // Function to set up the Intersection Observer
+    function observeIframeContainer() {
+      const iframeContainer = document.getElementById(targetElement);
+
+      // Options for the observer (trigger when at least 50% of the container is visible)
+      const observerOptions = {
+        root: null, // Use the viewport as the root
+        threshold: 0.5, // Trigger when 50% of the iframe container is visible
+      };
+
+      // Callback for the observer
+      const observerCallback = (entries, observer) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            createIframe(); // Create and load the iframe
+            observer.unobserve(entry.target); // Stop observing once loaded
+          }
+        });
+      };
+
+      // Create the observer
+      const observer = new IntersectionObserver(
+        observerCallback,
+        observerOptions,
+      );
+      observer.observe(iframeContainer); // Start observing the iframe container
+    }
+
+    observeIframeContainer();
+  })();
+</script>
