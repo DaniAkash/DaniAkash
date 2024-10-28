@@ -18,7 +18,7 @@ const { title, dateValue, dateDisplay, slug } = Astro.props;
     ></a>
     <h2
       class="text-base font-semibold tracking-tight text-zinc-800 dark:text-zinc-100"
-      transition:name={`${TRANSITION_NAMES.blogTitle}-${slug}`}
+      transition:name={`${TRANSITION_NAMES.newsletterTitle}-${slug}`}
     >
       <div
         class="absolute -inset-x-4 -inset-y-6 z-0 scale-95 bg-zinc-50 opacity-0 transition group-hover:scale-100 group-hover:opacity-100 dark:bg-zinc-800/50 sm:-inset-x-6 sm:rounded-2xl"
@@ -63,7 +63,7 @@ const { title, dateValue, dateDisplay, slug } = Astro.props;
   <time
     class="relative z-10 order-first mb-3 mt-1 flex hidden items-center text-sm text-zinc-400 dark:text-zinc-500 md:block"
     datetime={dateValue}
-    transition:name={`${TRANSITION_NAMES.blogTime}-${slug}`}
+    transition:name={`${TRANSITION_NAMES.newsletterTime}-${slug}`}
   >
     {dateDisplay}
   </time>

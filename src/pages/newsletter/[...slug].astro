@@ -1,0 +1,53 @@
+---
+import rssToJson from "rss-to-json";
+import { NEWSLETTER_RSS } from "../../constants/newsletter-rss";
+import type { GetStaticPaths } from "astro";
+import { getDateValue } from "../../utils/getDateValue";
+import { getDateDisplay } from "../../utils/getDateDisplay";
+import MainLayout from "../../layouts/MainLayout.astro";
+import ArticleContainer from "../../components/ArticleContainer.astro";
+import { TRANSITION_NAMES } from "../../constants/transition-names";
+
+export const getStaticPaths = (async () => {
+  const { parse } = rssToJson as unknown as { parse: typeof rssToJson };
+  const rss = await parse(NEWSLETTER_RSS);
+  return rss.items.map((each) => {
+    const link = new URL(each.link);
+    const content = each.description;
+    const title = each.title;
+    const slug = link.pathname.split("/").filter(Boolean).pop()!;
+    const dateValue = getDateValue(each.published);
+    const dateDisplay = getDateDisplay(each.published);
+    return {
+      params: { slug },
+      props: { content, dateValue, dateDisplay, title },
+    };
+  });
+}) satisfies GetStaticPaths;
+
+const { content, dateDisplay, dateValue, title } = Astro.props;
+const { slug } = Astro.params;
+---
+
+<MainLayout>
+  <ArticleContainer>
+    <header class="flex flex-col">
+      <h1
+        class="mt-6 text-4xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-5xl"
+        transition:name={`${TRANSITION_NAMES.newsletterTitle}-${slug}`}
+      >
+        {title}
+      </h1>
+      <time
+        datetime={dateValue}
+        class="order-first flex items-center text-base text-zinc-400 dark:text-zinc-500"
+        transition:name={`${TRANSITION_NAMES.newsletterTime}-${slug}`}
+      >
+        <span class="h-4 w-0.5 rounded-full bg-zinc-200 dark:bg-zinc-500"
+        ></span>
+        <span class="ml-3">{dateDisplay}</span>
+      </time>
+    </header>
+    <div set:html={content} class="prose dark:prose-invert" />
+  </ArticleContainer>
+</MainLayout>
