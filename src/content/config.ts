@@ -52,6 +52,17 @@ const eventsCollection = defineCollection({
   ),
 });
 
+const socialCollection = defineCollection({
+  type: "data",
+  schema: z.object({
+    twitter: z.string(),
+    instagram: z.string(),
+    github: z.string(),
+    linkedIn: z.string(),
+    email: z.string(),
+  }),
+});
+
 const aboutCollection = defineCollection({
   type: "content",
 });
@@ -61,4 +72,5 @@ export const collections = {
   blog: blogCollection,
   speaking: eventsCollection,
   about: aboutCollection,
+  social: socialCollection,
 };
