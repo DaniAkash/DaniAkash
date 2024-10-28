@@ -1,8 +1,0 @@
-{
-  "recommendations": [
-    "astro-build.astro-vscode",
-    "rome.rome",
-    "bradlc.vscode-tailwindcss"
-  ],
-  "unwantedRecommendations": []
-}
