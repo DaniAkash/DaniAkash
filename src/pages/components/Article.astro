@@ -1,35 +1,47 @@
 ---
+import type { InferEntrySchema } from "astro:content";
+import { TRANSITION_NAMES } from "../../constants/transition-names";
 
+export type Props = InferEntrySchema<"blog"> & { slug: string };
+
+const { date, subtitle, title, slug } = Astro.props;
+const dateObject = new Date(date);
+const dateDisplay = dateObject.toLocaleDateString("en-US", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+});
+const dateValue = dateObject.toISOString().split("T")[0];
 ---
 
 <article class="group relative flex flex-col">
   <time
     class="relative z-10 mb-3 flex items-center pl-3.5 text-sm text-zinc-400 dark:text-zinc-500"
+    datetime={dateValue}
+    transition:name={`${TRANSITION_NAMES.blogTime}-${slug}`}
   >
     <span class="absolute inset-y-0 left-0 flex items-center">
       <span class="h-4 w-0.5 rounded-full bg-zinc-200 dark:bg-zinc-500"> </span>
     </span>
-     Jan 2, 2023
+    {dateDisplay}
   </time>
   <h2
     class="text-base font-semibold tracking-tight text-zinc-800 dark:text-zinc-100"
+    transition:name={`${TRANSITION_NAMES.blogTitle}-${slug}`}
   >
     <div
       class="absolute -inset-x-4 -inset-y-6 z-0 scale-95 bg-zinc-50 opacity-0 transition group-hover:scale-100 group-hover:opacity-100 dark:bg-zinc-800/50 sm:-inset-x-6 sm:rounded-2xl"
     >
     </div>
-    <a href="#" target="_blank" rel="noreferrer">
+    <a href={`/posts/${slug}`}>
       <span
         class="absolute -inset-x-4 -inset-y-6 z-20 sm:-inset-x-6 sm:rounded-2xl"
       ></span>
-      <span class="relative z-10"
-        >Less on the Client, more on the Edge - Dev Retro 2022</span
-      >
+      <span class="relative z-10">{title}</span>
     </a>
   </h2>
   <p class="relative z-10 mt-2 text-sm text-zinc-600 dark:text-zinc-400">
-    Sharing my retrospective on building a complex web application as an
-    Engineering Manager
+    {subtitle}
   </p>
   <div
     class="relative z-10 mt-4 flex items-center text-sm font-medium text-teal-500"
