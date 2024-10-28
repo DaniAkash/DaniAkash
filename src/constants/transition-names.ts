@@ -11,4 +11,5 @@ export const TRANSITION_NAMES = {
   blogTitle: "blog-title",
   blogTime: "blog-time",
   newsletterForm: "newsletter-form",
+  darkModeToggle: "dark-mode-toggle",
 };

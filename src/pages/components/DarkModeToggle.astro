@@ -1,10 +1,13 @@
 ---
-
+import { fade } from "astro:transitions";
+import { TRANSITION_NAMES } from "../../constants/transition-names";
 ---
 
 <button
   id="dev-theme-mode-toggle"
   class="group rounded-full bg-white/90 px-3 py-2 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur transition dark:bg-zinc-800/90 dark:ring-white/10 dark:hover:ring-white/20"
+  transition:name={TRANSITION_NAMES.darkModeToggle}
+  transition:animate={fade({ duration: 500 })}
 >
   <svg
     viewBox="0 0 24 24"
@@ -28,17 +31,42 @@
   </svg>
 </button>
 
-<script>
-  document.addEventListener("astro:page-load", () => {
-    function toggleDark() {
-      const $html = document.querySelector("html");
-      if ($html?.classList.contains("dark")) {
-        $html.classList.remove("dark");
-      } else {
-        $html?.classList.add("dark");
+<script type="text/javascript" data-astro-rerun is:inline>
+  (() => {
+    const $html = document.querySelector("html");
+    const themeKey = "@page/theme";
+
+    const theme = (() => {
+      if (
+        typeof localStorage !== "undefined" &&
+        localStorage.getItem(themeKey)
+      ) {
+        return localStorage.getItem(themeKey);
       }
+      if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+        return "dark";
+      }
+      return "light";
+    })();
+
+    if (theme === "light") {
+      $html.classList.remove("dark");
+    } else {
+      $html.classList.add("dark");
     }
-    const $toggleButton = document.querySelector("#dev-theme-mode-toggle");
-    if ($toggleButton) $toggleButton.addEventListener("click", toggleDark);
-  });
+
+    window.localStorage.setItem(themeKey, theme);
+
+    const handleToggleClick = () => {
+      const element = $html;
+      element.classList.toggle("dark");
+
+      const isDark = element.classList.contains("dark");
+      localStorage.setItem(themeKey, isDark ? "dark" : "light");
+    };
+
+    document
+      .getElementById("dev-theme-mode-toggle")
+      .addEventListener("click", handleToggleClick);
+  })();
 </script>
