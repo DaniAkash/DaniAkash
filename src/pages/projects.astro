@@ -1,7 +1,13 @@
 ---
+import { getCollection } from "astro:content";
 import MainLayout from "../layouts/MainLayout.astro";
 import ContentContainer from "./components/ContentContainer.astro";
 import Header from "./components/Header.astro";
+import LinkIcon from "../components/icons/LinkIcon.astro";
+import { Image } from "astro:assets";
+import { cn } from "../utils/cn";
+import { ASSET_PREFIX } from "../constants/asset-prefix";
+const projects = (await getCollection("project"))[0]!;
 ---
 
 <MainLayout>
@@ -15,296 +21,62 @@ import Header from "./components/Header.astro";
         role="list"
         class="grid grid-cols-1 gap-x-12 gap-y-16 sm:grid-cols-2 lg:grid-cols-3"
       >
-        <li class="group relative flex flex-col items-start">
-          <div
-            class="relative z-10 flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-md shadow-zinc-800/5 ring-1 ring-zinc-900/5 dark:border dark:border-zinc-700/50 dark:bg-zinc-800 dark:ring-0"
-          >
-            <img
-              src="/images/assets/oslash.png"
-              alt=""
-              class="h-8 w-8 rounded-full"
-            />
-          </div><h2
-            class="mt-6 text-base font-semibold text-zinc-800 dark:text-zinc-100"
-          >
-            <div
-              class="absolute -inset-x-4 -inset-y-6 z-0 scale-95 bg-zinc-50 opacity-0 transition group-hover:scale-100 group-hover:opacity-100 dark:bg-zinc-800/50 sm:-inset-x-6 sm:rounded-2xl"
-            >
-            </div><a
-              href="https://github.com/getoslash/oslash"
-              target="_blank"
-              rel="noreferrer"
-              ><span
-                class="absolute -inset-x-4 -inset-y-6 z-20 sm:-inset-x-6 sm:rounded-2xl"
-              ></span><span class="relative z-10"
-                >OSlash - Browser Extension</span
-              ></a
-            >
-          </h2><p
-            class="relative z-10 mt-2 text-sm text-zinc-600 dark:text-zinc-400"
-          >
-            Shortcuts for work! Founding Engineer &amp; team lead of the v1 of
-            OSlash for Chrome, Safari &amp; Firefox. <span
-              class="text-[0.7rem] italic"
-              >(product discontinued, only open source version available now)</span
-            >
-          </p><p
-            class="relative z-10 mt-6 flex text-sm font-medium text-zinc-400 transition group-hover:text-teal-500 dark:text-zinc-200"
-          >
-            <svg
-              viewBox="0 0 24 24"
-              aria-hidden="true"
-              class="h-6 w-6 flex-none"
-              ><path
-                d="M15.712 11.823a.75.75 0 1 0 1.06 1.06l-1.06-1.06Zm-4.95 1.768a.75.75 0 0 0 1.06-1.06l-1.06 1.06Zm-2.475-1.414a.75.75 0 1 0-1.06-1.06l1.06 1.06Zm4.95-1.768a.75.75 0 1 0-1.06 1.06l1.06-1.06Zm3.359.53-.884.884 1.06 1.06.885-.883-1.061-1.06Zm-4.95-2.12 1.414-1.415L12 6.344l-1.415 1.413 1.061 1.061Zm0 3.535a2.5 2.5 0 0 1 0-3.536l-1.06-1.06a4 4 0 0 0 0 5.656l1.06-1.06Zm4.95-4.95a2.5 2.5 0 0 1 0 3.535L17.656 12a4 4 0 0 0 0-5.657l-1.06 1.06Zm1.06-1.06a4 4 0 0 0-5.656 0l1.06 1.06a2.5 2.5 0 0 1 3.536 0l1.06-1.06Zm-7.07 7.07.176.177 1.06-1.06-.176-.177-1.06 1.06Zm-3.183-.353.884-.884-1.06-1.06-.884.883 1.06 1.06Zm4.95 2.121-1.414 1.414 1.06 1.06 1.415-1.413-1.06-1.061Zm0-3.536a2.5 2.5 0 0 1 0 3.536l1.06 1.06a4 4 0 0 0 0-5.656l-1.06 1.06Zm-4.95 4.95a2.5 2.5 0 0 1 0-3.535L6.344 12a4 4 0 0 0 0 5.656l1.06-1.06Zm-1.06 1.06a4 4 0 0 0 5.657 0l-1.061-1.06a2.5 2.5 0 0 1-3.535 0l-1.061 1.06Zm7.07-7.07-.176-.177-1.06 1.06.176.178 1.06-1.061Z"
-                fill="currentColor"></path></svg
-            ><span class="ml-2">Get OSlash</span>
-          </p>
-        </li><li class="group relative flex flex-col items-start">
-          <div
-            class="relative z-10 flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-md shadow-zinc-800/5 ring-1 ring-zinc-900/5 dark:border dark:border-zinc-700/50 dark:bg-zinc-800 dark:ring-0"
-          >
-            <img
-              src="/images/assets/pyt.png"
-              alt=""
-              class="h-8 w-8 rounded-full"
-            />
-          </div><h2
-            class="mt-6 text-base font-semibold text-zinc-800 dark:text-zinc-100"
-          >
-            <div
-              class="absolute -inset-x-4 -inset-y-6 z-0 scale-95 bg-zinc-50 opacity-0 transition group-hover:scale-100 group-hover:opacity-100 dark:bg-zinc-800/50 sm:-inset-x-6 sm:rounded-2xl"
-            >
-            </div><a
-              href="https://play.google.com/store/apps/details?id=com.pickyourtrail&hl=en&gl=US"
-              target="_blank"
-              rel="noreferrer"
-              ><span
-                class="absolute -inset-x-4 -inset-y-6 z-20 sm:-inset-x-6 sm:rounded-2xl"
-              ></span><span class="relative z-10"
-                >Pickyourtrail - Travel Planner App</span
-              ></a
-            >
-          </h2><p
-            class="relative z-10 mt-2 text-sm text-zinc-600 dark:text-zinc-400"
-          >
-            Solo Engineer behind the cross platform PYT mobile app till v1.8,
-            built with React Native, available for Android &amp; iOS.
-          </p><p
-            class="relative z-10 mt-6 flex text-sm font-medium text-zinc-400 transition group-hover:text-teal-500 dark:text-zinc-200"
-          >
-            <svg
-              viewBox="0 0 24 24"
-              aria-hidden="true"
-              class="h-6 w-6 flex-none"
-              ><path
-                d="M15.712 11.823a.75.75 0 1 0 1.06 1.06l-1.06-1.06Zm-4.95 1.768a.75.75 0 0 0 1.06-1.06l-1.06 1.06Zm-2.475-1.414a.75.75 0 1 0-1.06-1.06l1.06 1.06Zm4.95-1.768a.75.75 0 1 0-1.06 1.06l1.06-1.06Zm3.359.53-.884.884 1.06 1.06.885-.883-1.061-1.06Zm-4.95-2.12 1.414-1.415L12 6.344l-1.415 1.413 1.061 1.061Zm0 3.535a2.5 2.5 0 0 1 0-3.536l-1.06-1.06a4 4 0 0 0 0 5.656l1.06-1.06Zm4.95-4.95a2.5 2.5 0 0 1 0 3.535L17.656 12a4 4 0 0 0 0-5.657l-1.06 1.06Zm1.06-1.06a4 4 0 0 0-5.656 0l1.06 1.06a2.5 2.5 0 0 1 3.536 0l1.06-1.06Zm-7.07 7.07.176.177 1.06-1.06-.176-.177-1.06 1.06Zm-3.183-.353.884-.884-1.06-1.06-.884.883 1.06 1.06Zm4.95 2.121-1.414 1.414 1.06 1.06 1.415-1.413-1.06-1.061Zm0-3.536a2.5 2.5 0 0 1 0 3.536l1.06 1.06a4 4 0 0 0 0-5.656l-1.06 1.06Zm-4.95 4.95a2.5 2.5 0 0 1 0-3.535L6.344 12a4 4 0 0 0 0 5.656l1.06-1.06Zm-1.06 1.06a4 4 0 0 0 5.657 0l-1.061-1.06a2.5 2.5 0 0 1-3.535 0l-1.061 1.06Zm7.07-7.07-.176-.177-1.06 1.06.176.178 1.06-1.061Z"
-                fill="currentColor"></path></svg
-            ><span class="ml-2">Get the app</span>
-          </p>
-        </li><li class="group relative flex flex-col items-start">
-          <div
-            class="relative z-10 flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-md shadow-zinc-800/5 ring-1 ring-zinc-900/5 dark:border dark:border-zinc-700/50 dark:bg-zinc-800 dark:ring-0"
-          >
-            <img
-              src="/images/assets/react-native-toolkit.png"
-              alt=""
-              class="h-8 w-8 rounded-full"
-            />
-          </div><h2
-            class="mt-6 text-base font-semibold text-zinc-800 dark:text-zinc-100"
-          >
-            <div
-              class="absolute -inset-x-4 -inset-y-6 z-0 scale-95 bg-zinc-50 opacity-0 transition group-hover:scale-100 group-hover:opacity-100 dark:bg-zinc-800/50 sm:-inset-x-6 sm:rounded-2xl"
-            >
-            </div><a
-              href="https://github.com/react-native-toolkit"
-              target="_blank"
-              rel="noreferrer"
-              ><span
-                class="absolute -inset-x-4 -inset-y-6 z-20 sm:-inset-x-6 sm:rounded-2xl"
-              ></span><span class="relative z-10">React Native Toolkit</span></a
-            >
-          </h2><p
-            class="relative z-10 mt-2 text-sm text-zinc-600 dark:text-zinc-400"
-          >
-            High quality react-native libraries I built for use in personal
-            projects - fully open sourced! ❤️
-          </p><p
-            class="relative z-10 mt-6 flex text-sm font-medium text-zinc-400 transition group-hover:text-teal-500 dark:text-zinc-200"
-          >
-            <svg
-              viewBox="0 0 24 24"
-              aria-hidden="true"
-              class="h-6 w-6 flex-none"
-              ><path
-                d="M15.712 11.823a.75.75 0 1 0 1.06 1.06l-1.06-1.06Zm-4.95 1.768a.75.75 0 0 0 1.06-1.06l-1.06 1.06Zm-2.475-1.414a.75.75 0 1 0-1.06-1.06l1.06 1.06Zm4.95-1.768a.75.75 0 1 0-1.06 1.06l1.06-1.06Zm3.359.53-.884.884 1.06 1.06.885-.883-1.061-1.06Zm-4.95-2.12 1.414-1.415L12 6.344l-1.415 1.413 1.061 1.061Zm0 3.535a2.5 2.5 0 0 1 0-3.536l-1.06-1.06a4 4 0 0 0 0 5.656l1.06-1.06Zm4.95-4.95a2.5 2.5 0 0 1 0 3.535L17.656 12a4 4 0 0 0 0-5.657l-1.06 1.06Zm1.06-1.06a4 4 0 0 0-5.656 0l1.06 1.06a2.5 2.5 0 0 1 3.536 0l1.06-1.06Zm-7.07 7.07.176.177 1.06-1.06-.176-.177-1.06 1.06Zm-3.183-.353.884-.884-1.06-1.06-.884.883 1.06 1.06Zm4.95 2.121-1.414 1.414 1.06 1.06 1.415-1.413-1.06-1.061Zm0-3.536a2.5 2.5 0 0 1 0 3.536l1.06 1.06a4 4 0 0 0 0-5.656l-1.06 1.06Zm-4.95 4.95a2.5 2.5 0 0 1 0-3.535L6.344 12a4 4 0 0 0 0 5.656l1.06-1.06Zm-1.06 1.06a4 4 0 0 0 5.657 0l-1.061-1.06a2.5 2.5 0 0 1-3.535 0l-1.061 1.06Zm7.07-7.07-.176-.177-1.06 1.06.176.178 1.06-1.061Z"
-                fill="currentColor"></path></svg
-            ><span class="ml-2">github/react-native-toolkit</span>
-          </p>
-        </li><li class="group relative flex flex-col items-start">
-          <div
-            class="relative z-10 flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-md shadow-zinc-800/5 ring-1 ring-zinc-900/5 dark:border dark:border-zinc-700/50 dark:bg-zinc-800 dark:ring-0"
-          >
-            <img
-              src="/images/assets/react-native.svg"
-              alt=""
-              class="h-8 w-8 rounded-full"
-            />
-          </div><h2
-            class="mt-6 text-base font-semibold text-zinc-800 dark:text-zinc-100"
-          >
-            <div
-              class="absolute -inset-x-4 -inset-y-6 z-0 scale-95 bg-zinc-50 opacity-0 transition group-hover:scale-100 group-hover:opacity-100 dark:bg-zinc-800/50 sm:-inset-x-6 sm:rounded-2xl"
-            >
-            </div><a
-              href="https://github.com/facebook/react-native-website/issues/1579"
-              target="_blank"
-              rel="noreferrer"
-              ><span
-                class="absolute -inset-x-4 -inset-y-6 z-20 sm:-inset-x-6 sm:rounded-2xl"
-              ></span><span class="relative z-10">React Native Docs</span></a
-            >
-          </h2><p
-            class="relative z-10 mt-2 text-sm text-zinc-600 dark:text-zinc-400"
-          >
-            Part of the official React Native Docs rewrite effort &amp; wrote
-            significant part of the docs, including vital elements like Animated
-            &amp; PanResponder
-          </p><p
-            class="relative z-10 mt-6 flex text-sm font-medium text-zinc-400 transition group-hover:text-teal-500 dark:text-zinc-200"
-          >
-            <svg
-              viewBox="0 0 24 24"
-              aria-hidden="true"
-              class="h-6 w-6 flex-none"
-              ><path
-                d="M15.712 11.823a.75.75 0 1 0 1.06 1.06l-1.06-1.06Zm-4.95 1.768a.75.75 0 0 0 1.06-1.06l-1.06 1.06Zm-2.475-1.414a.75.75 0 1 0-1.06-1.06l1.06 1.06Zm4.95-1.768a.75.75 0 1 0-1.06 1.06l1.06-1.06Zm3.359.53-.884.884 1.06 1.06.885-.883-1.061-1.06Zm-4.95-2.12 1.414-1.415L12 6.344l-1.415 1.413 1.061 1.061Zm0 3.535a2.5 2.5 0 0 1 0-3.536l-1.06-1.06a4 4 0 0 0 0 5.656l1.06-1.06Zm4.95-4.95a2.5 2.5 0 0 1 0 3.535L17.656 12a4 4 0 0 0 0-5.657l-1.06 1.06Zm1.06-1.06a4 4 0 0 0-5.656 0l1.06 1.06a2.5 2.5 0 0 1 3.536 0l1.06-1.06Zm-7.07 7.07.176.177 1.06-1.06-.176-.177-1.06 1.06Zm-3.183-.353.884-.884-1.06-1.06-.884.883 1.06 1.06Zm4.95 2.121-1.414 1.414 1.06 1.06 1.415-1.413-1.06-1.061Zm0-3.536a2.5 2.5 0 0 1 0 3.536l1.06 1.06a4 4 0 0 0 0-5.656l-1.06 1.06Zm-4.95 4.95a2.5 2.5 0 0 1 0-3.535L6.344 12a4 4 0 0 0 0 5.656l1.06-1.06Zm-1.06 1.06a4 4 0 0 0 5.657 0l-1.061-1.06a2.5 2.5 0 0 1-3.535 0l-1.061 1.06Zm7.07-7.07-.176-.177-1.06 1.06.176.178 1.06-1.061Z"
-                fill="currentColor"></path></svg
-            ><span class="ml-2">Link to Project</span>
-          </p>
-        </li><li class="group relative flex flex-col items-start">
-          <div
-            class="relative z-10 flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-md shadow-zinc-800/5 ring-1 ring-zinc-900/5 dark:border dark:border-zinc-700/50 dark:bg-zinc-800 dark:ring-0"
-          >
-            <img
-              src="/images/assets/pyt-guides.png"
-              alt=""
-              class="h-8 w-8 rounded-full"
-            />
-          </div><h2
-            class="mt-6 text-base font-semibold text-zinc-800 dark:text-zinc-100"
-          >
-            <div
-              class="absolute -inset-x-4 -inset-y-6 z-0 scale-95 bg-zinc-50 opacity-0 transition group-hover:scale-100 group-hover:opacity-100 dark:bg-zinc-800/50 sm:-inset-x-6 sm:rounded-2xl"
-            >
-            </div><a
-              href="https://pickyourtrail.com/guides/"
-              target="_blank"
-              rel="noreferrer"
-              ><span
-                class="absolute -inset-x-4 -inset-y-6 z-20 sm:-inset-x-6 sm:rounded-2xl"
-              ></span><span class="relative z-10"
-                >Pickyourtrail - Travel Guide</span
-              ></a
-            >
-          </h2><p
-            class="relative z-10 mt-2 text-sm text-zinc-600 dark:text-zinc-400"
-          >
-            A content-rich SEO friendly Travel guide website built before the
-            days of Gatsby &amp; Next.js - built along with a custom in-house
-            React Framework
-          </p><p
-            class="relative z-10 mt-6 flex text-sm font-medium text-zinc-400 transition group-hover:text-teal-500 dark:text-zinc-200"
-          >
-            <svg
-              viewBox="0 0 24 24"
-              aria-hidden="true"
-              class="h-6 w-6 flex-none"
-              ><path
-                d="M15.712 11.823a.75.75 0 1 0 1.06 1.06l-1.06-1.06Zm-4.95 1.768a.75.75 0 0 0 1.06-1.06l-1.06 1.06Zm-2.475-1.414a.75.75 0 1 0-1.06-1.06l1.06 1.06Zm4.95-1.768a.75.75 0 1 0-1.06 1.06l1.06-1.06Zm3.359.53-.884.884 1.06 1.06.885-.883-1.061-1.06Zm-4.95-2.12 1.414-1.415L12 6.344l-1.415 1.413 1.061 1.061Zm0 3.535a2.5 2.5 0 0 1 0-3.536l-1.06-1.06a4 4 0 0 0 0 5.656l1.06-1.06Zm4.95-4.95a2.5 2.5 0 0 1 0 3.535L17.656 12a4 4 0 0 0 0-5.657l-1.06 1.06Zm1.06-1.06a4 4 0 0 0-5.656 0l1.06 1.06a2.5 2.5 0 0 1 3.536 0l1.06-1.06Zm-7.07 7.07.176.177 1.06-1.06-.176-.177-1.06 1.06Zm-3.183-.353.884-.884-1.06-1.06-.884.883 1.06 1.06Zm4.95 2.121-1.414 1.414 1.06 1.06 1.415-1.413-1.06-1.061Zm0-3.536a2.5 2.5 0 0 1 0 3.536l1.06 1.06a4 4 0 0 0 0-5.656l-1.06 1.06Zm-4.95 4.95a2.5 2.5 0 0 1 0-3.535L6.344 12a4 4 0 0 0 0 5.656l1.06-1.06Zm-1.06 1.06a4 4 0 0 0 5.657 0l-1.061-1.06a2.5 2.5 0 0 1-3.535 0l-1.061 1.06Zm7.07-7.07-.176-.177-1.06 1.06.176.178 1.06-1.061Z"
-                fill="currentColor"></path></svg
-            ><span class="ml-2">Checkout the guides</span>
-          </p>
-        </li><li class="group relative flex flex-col items-start">
-          <div class="relative z-10 flex h-16 w-12 items-center justify-center">
-            <img src="/images/assets/js-book.jpeg" alt="" class="h-16 w-12" />
-          </div><h2
-            class="mt-6 text-base font-semibold text-zinc-800 dark:text-zinc-100"
-          >
-            <div
-              class="absolute -inset-x-4 -inset-y-6 z-0 scale-95 bg-zinc-50 opacity-0 transition group-hover:scale-100 group-hover:opacity-100 dark:bg-zinc-800/50 sm:-inset-x-6 sm:rounded-2xl"
-            >
-            </div><a
-              href="https://www.oreilly.com/library/view/javascript-by-example/9781788293969/"
-              target="_blank"
-              rel="noreferrer"
-              ><span
-                class="absolute -inset-x-4 -inset-y-6 z-20 sm:-inset-x-6 sm:rounded-2xl"
-              ></span><span class="relative z-10"
-                >JavaScript by Example - Book (2017)</span
-              ></a
-            >
-          </h2><p
-            class="relative z-10 mt-2 text-sm text-zinc-600 dark:text-zinc-400"
-          >
-            Author of the book covering modern JavaScript programming with real
-            web apps
-          </p><p
-            class="relative z-10 mt-6 flex text-sm font-medium text-zinc-400 transition group-hover:text-teal-500 dark:text-zinc-200"
-          >
-            <svg
-              viewBox="0 0 24 24"
-              aria-hidden="true"
-              class="h-6 w-6 flex-none"
-              ><path
-                d="M15.712 11.823a.75.75 0 1 0 1.06 1.06l-1.06-1.06Zm-4.95 1.768a.75.75 0 0 0 1.06-1.06l-1.06 1.06Zm-2.475-1.414a.75.75 0 1 0-1.06-1.06l1.06 1.06Zm4.95-1.768a.75.75 0 1 0-1.06 1.06l1.06-1.06Zm3.359.53-.884.884 1.06 1.06.885-.883-1.061-1.06Zm-4.95-2.12 1.414-1.415L12 6.344l-1.415 1.413 1.061 1.061Zm0 3.535a2.5 2.5 0 0 1 0-3.536l-1.06-1.06a4 4 0 0 0 0 5.656l1.06-1.06Zm4.95-4.95a2.5 2.5 0 0 1 0 3.535L17.656 12a4 4 0 0 0 0-5.657l-1.06 1.06Zm1.06-1.06a4 4 0 0 0-5.656 0l1.06 1.06a2.5 2.5 0 0 1 3.536 0l1.06-1.06Zm-7.07 7.07.176.177 1.06-1.06-.176-.177-1.06 1.06Zm-3.183-.353.884-.884-1.06-1.06-.884.883 1.06 1.06Zm4.95 2.121-1.414 1.414 1.06 1.06 1.415-1.413-1.06-1.061Zm0-3.536a2.5 2.5 0 0 1 0 3.536l1.06 1.06a4 4 0 0 0 0-5.656l-1.06 1.06Zm-4.95 4.95a2.5 2.5 0 0 1 0-3.535L6.344 12a4 4 0 0 0 0 5.656l1.06-1.06Zm-1.06 1.06a4 4 0 0 0 5.657 0l-1.061-1.06a2.5 2.5 0 0 1-3.535 0l-1.061 1.06Zm7.07-7.07-.176-.177-1.06 1.06.176.178 1.06-1.061Z"
-                fill="currentColor"></path></svg
-            ><span class="ml-2">Read the book</span>
-          </p>
-        </li><li class="group relative flex flex-col items-start">
-          <div
-            class="relative z-10 flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-md shadow-zinc-800/5 ring-1 ring-zinc-900/5 dark:border dark:border-zinc-700/50 dark:bg-zinc-800 dark:ring-0"
-          >
-            <img
-              src="/images/assets/git.jpg"
-              alt=""
-              class="h-8 w-8 rounded-full"
-            />
-          </div><h2
-            class="mt-6 text-base font-semibold text-zinc-800 dark:text-zinc-100"
-          >
-            <div
-              class="absolute -inset-x-4 -inset-y-6 z-0 scale-95 bg-zinc-50 opacity-0 transition group-hover:scale-100 group-hover:opacity-100 dark:bg-zinc-800/50 sm:-inset-x-6 sm:rounded-2xl"
-            >
-            </div><a
-              href="https://www.guvi.in/courses/git_git"
-              target="_blank"
-              rel="noreferrer"
-              ><span
-                class="absolute -inset-x-4 -inset-y-6 z-20 sm:-inset-x-6 sm:rounded-2xl"
-              ></span><span class="relative z-10"
-                >Learning Git - Video Course</span
-              ></a
-            >
-          </h2><p
-            class="relative z-10 mt-2 text-sm text-zinc-600 dark:text-zinc-400"
-          >
-            A video course on teaching git to new developers on the GUVI
-            platform
-          </p><p
-            class="relative z-10 mt-6 flex text-sm font-medium text-zinc-400 transition group-hover:text-teal-500 dark:text-zinc-200"
-          >
-            <svg
-              viewBox="0 0 24 24"
-              aria-hidden="true"
-              class="h-6 w-6 flex-none"
-              ><path
-                d="M15.712 11.823a.75.75 0 1 0 1.06 1.06l-1.06-1.06Zm-4.95 1.768a.75.75 0 0 0 1.06-1.06l-1.06 1.06Zm-2.475-1.414a.75.75 0 1 0-1.06-1.06l1.06 1.06Zm4.95-1.768a.75.75 0 1 0-1.06 1.06l1.06-1.06Zm3.359.53-.884.884 1.06 1.06.885-.883-1.061-1.06Zm-4.95-2.12 1.414-1.415L12 6.344l-1.415 1.413 1.061 1.061Zm0 3.535a2.5 2.5 0 0 1 0-3.536l-1.06-1.06a4 4 0 0 0 0 5.656l1.06-1.06Zm4.95-4.95a2.5 2.5 0 0 1 0 3.535L17.656 12a4 4 0 0 0 0-5.657l-1.06 1.06Zm1.06-1.06a4 4 0 0 0-5.656 0l1.06 1.06a2.5 2.5 0 0 1 3.536 0l1.06-1.06Zm-7.07 7.07.176.177 1.06-1.06-.176-.177-1.06 1.06Zm-3.183-.353.884-.884-1.06-1.06-.884.883 1.06 1.06Zm4.95 2.121-1.414 1.414 1.06 1.06 1.415-1.413-1.06-1.061Zm0-3.536a2.5 2.5 0 0 1 0 3.536l1.06 1.06a4 4 0 0 0 0-5.656l-1.06 1.06Zm-4.95 4.95a2.5 2.5 0 0 1 0-3.535L6.344 12a4 4 0 0 0 0 5.656l1.06-1.06Zm-1.06 1.06a4 4 0 0 0 5.657 0l-1.061-1.06a2.5 2.5 0 0 1-3.535 0l-1.061 1.06Zm7.07-7.07-.176-.177-1.06 1.06.176.178 1.06-1.061Z"
-                fill="currentColor"></path></svg
-            ><span class="ml-2">Course Videos</span>
-          </p>
-        </li>
+        {
+          projects.data.map((project) => {
+            return (
+              <li class="group relative flex flex-col items-start">
+                <>
+                  <div
+                    class={cn(
+                      "relative z-10 flex w-12 items-center justify-center",
+                      project.noBg && "h-16",
+                      project.noBg ||
+                        "h-12 rounded-full bg-white shadow-md shadow-zinc-800/5 ring-1 ring-zinc-900/5 dark:border dark:border-zinc-700/50 dark:bg-zinc-800 dark:ring-0",
+                    )}
+                  >
+                    <Image
+                      width={64}
+                      height={64}
+                      src={`${ASSET_PREFIX}${project.logo}`}
+                      alt={project.name}
+                      class={cn(
+                        project.noBg || "h-8 w-8 rounded-full",
+                        project.noBg && "h-16 w-12",
+                      )}
+                    />
+                  </div>
+                  <h2 class="mt-6 text-base font-semibold text-zinc-800 dark:text-zinc-100">
+                    <>
+                      <div class="absolute -inset-x-4 -inset-y-6 z-0 scale-95 bg-zinc-50 opacity-0 transition group-hover:scale-100 group-hover:opacity-100 dark:bg-zinc-800/50 sm:-inset-x-6 sm:rounded-2xl" />
+                      <a
+                        href={project.link.href}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        <>
+                          <span class="absolute -inset-x-4 -inset-y-6 z-20 sm:-inset-x-6 sm:rounded-2xl" />
+                          <span class="relative z-10">{project.name}</span>
+                        </>
+                      </a>
+                    </>
+                  </h2>
+                  <p class="relative z-10 mt-2 text-sm text-zinc-600 dark:text-zinc-400">
+                    {project.description}{" "}
+                    {project.info ? (
+                      <span class="text-[0.7rem] italic">{project.info}</span>
+                    ) : null}
+                  </p>
+                  <p class="relative z-10 mt-6 flex text-sm font-medium text-zinc-400 transition group-hover:text-teal-500 dark:text-zinc-200">
+                    <>
+                      <LinkIcon />
+                      <span class="ml-2">{project.link.label}</span>
+                    </>
+                  </p>
+                </>
+              </li>
+            );
+          })
+        }
       </ul>
     </div>
   </ContentContainer>

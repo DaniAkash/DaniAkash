@@ -1,0 +1,64 @@
+[
+  {
+    "name": "OSlash - Browser Extension",
+    "description": "Shortcuts for work! Founding Engineer & team lead of the v1 of OSlash for Chrome, Safari & Firefox.",
+    "info": "(product discontinued, only open source version available now)",
+    "link": { "href": "https://www.oslash.com", "label": "Get OSlash" },
+    "logo": "/oslash.png"
+  },
+  {
+    "name": "Pickyourtrail - Travel Planner App",
+    "description": "Solo Engineer behind the cross platform PYT mobile app till v1.8, built with React Native, available for Android & iOS.",
+    "link": {
+      "href": "https://play.google.com/store/apps/details?id=com.pickyourtrail&hl=en&gl=US",
+      "label": "Get the app"
+    },
+    "logo": "/pyt.png"
+  },
+  {
+    "name": "React Native Toolkit",
+    "description": "High quality react-native libraries I built for use in personal projects - fully open sourced! ❤️",
+    "link": {
+      "href": "https://github.com/react-native-toolkit",
+      "label": "github/react-native-toolkit"
+    },
+    "logo": "/react-native-toolkit.png"
+  },
+  {
+    "name": "React Native Docs",
+    "description": "Part of the official React Native Docs rewrite effort & wrote significant part of the docs, including vital elements like Animated & PanResponder",
+    "link": {
+      "href": "https://github.com/facebook/react-native-website/issues/1579",
+      "label": "Link to Project"
+    },
+    "logo": "/react-native.svg"
+  },
+  {
+    "name": "Pickyourtrail - Travel Guide",
+    "description": "A content-rich SEO friendly Travel guide website built before the days of Gatsby & Next.js - built along with a custom in-house React Framework",
+    "link": {
+      "href": "https://pickyourtrail.com/guides/",
+      "label": "Checkout the guides"
+    },
+    "logo": "/pyt-guides.png"
+  },
+  {
+    "name": "JavaScript by Example - Book (2017)",
+    "description": "Author of the book covering modern JavaScript programming with real web apps",
+    "link": {
+      "href": "https://www.oreilly.com/library/view/javascript-by-example/9781788293969/",
+      "label": "Read the book"
+    },
+    "logo": "/js-book.jpeg",
+    "noBg": true
+  },
+  {
+    "name": "Learning Git - Video Course",
+    "description": "A video course on teaching git to new developers on the GUVI platform",
+    "link": {
+      "href": "https://www.guvi.in/courses/git_git",
+      "label": "Course Videos"
+    },
+    "logo": "/git.jpg"
+  }
+]

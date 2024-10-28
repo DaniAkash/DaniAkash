@@ -67,10 +67,28 @@ const aboutCollection = defineCollection({
   type: "content",
 });
 
+const projectsCollection = defineCollection({
+  type: "data",
+  schema: z.array(
+    z.object({
+      name: z.string(),
+      description: z.string(),
+      info: z.optional(z.string()),
+      link: z.object({
+        href: z.string(),
+        label: z.string(),
+      }),
+      logo: z.string(),
+      noBg: z.optional(z.boolean()),
+    }),
+  ),
+});
+
 export const collections = {
   career: experienceCollection,
   blog: blogCollection,
   speaking: eventsCollection,
   about: aboutCollection,
   social: socialCollection,
+  project: projectsCollection,
 };
