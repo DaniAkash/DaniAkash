@@ -20,7 +20,7 @@ const posts = (await getCollection("blog")).sort((a, b) => {
   <div
     class="mt-12 flex flex-col-reverse gap-12 mobile:mt-0 lg:flex-row lg:items-stretch lg:justify-between"
   >
-    <div class="flex flex-col gap-12">
+    <div class="flex max-w-xl flex-col gap-12">
       {
         posts.map((each) => {
           return <Article {...each.data} slug={each.slug} />;
