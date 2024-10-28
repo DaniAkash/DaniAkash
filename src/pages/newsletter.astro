@@ -1,16 +1,12 @@
 ---
 import NewsLetterArticle from "../components/NewsLetterArticle.astro";
-import { NEWSLETTER_RSS } from "../constants/newsletter-rss";
 import MainLayout from "../layouts/MainLayout.astro";
-import { getDateDisplay } from "../utils/getDateDisplay";
-import { getDateValue } from "../utils/getDateValue";
 import ContentContainer from "./components/ContentContainer.astro";
 import Header from "./components/Header.astro";
-import rssToJson from "rss-to-json";
-const { parse } = rssToJson as unknown as { parse: typeof rssToJson };
 import NewsletterForm from "../components/Newsletter.astro";
+import { getCollection } from "astro:content";
 
-const rss = await parse(NEWSLETTER_RSS);
+const rss = await getCollection("rss");
 ---
 
 <MainLayout>
@@ -28,17 +24,13 @@ const rss = await parse(NEWSLETTER_RSS);
       >
         <div class="flex max-w-3xl flex-col space-y-16">
           {
-            rss.items.map((each) => {
-              const link = new URL(each.link);
-              const slug = link.pathname.split("/").filter(Boolean).pop()!;
-              const dateValue = getDateValue(each.published);
-              const dateDisplay = getDateDisplay(each.published);
+            rss.map((each) => {
               return (
                 <NewsLetterArticle
-                  dateDisplay={dateDisplay}
-                  dateValue={dateValue}
-                  title={each.title}
-                  slug={slug}
+                  dateDisplay={each.data.dateDisplay}
+                  dateValue={each.data.dateValue}
+                  title={each.data.title}
+                  slug={each.data.slug}
                 />
               );
             })

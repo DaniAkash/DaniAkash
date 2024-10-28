@@ -1,7 +1,9 @@
 ---
+import { getCollection } from "astro:content";
 import MainLayout from "../layouts/MainLayout.astro";
 import ContentContainer from "./components/ContentContainer.astro";
 import Header from "./components/Header.astro";
+const uses = (await getCollection("uses"))[0]!;
 ---
 
 <MainLayout>
@@ -12,273 +14,43 @@ import Header from "./components/Header.astro";
     />
     <div class="mt-16 sm:mt-20">
       <div class="space-y-20">
-        <section
-          aria-labelledby=":r0R6:"
-          class="md:border-l md:border-zinc-100 md:pl-6 md:dark:border-zinc-700/40"
-        >
-          <div
-            class="grid max-w-3xl grid-cols-1 items-baseline gap-y-8 md:grid-cols-4"
-          >
-            <h2
-              id=":r0R6:"
-              class="text-sm font-semibold text-zinc-800 dark:text-zinc-100"
-            >
-              Workstation
-            </h2><div class="md:col-span-3">
-              <ul role="list" class="space-y-16">
-                <li class="group relative flex flex-col items-start">
-                  <h3
-                    class="text-base font-semibold tracking-tight text-zinc-800 dark:text-zinc-100"
-                  >
-                    16” MacBook Pro, Intel Core i9, 32GB RAM (2019)
-                  </h3><p
-                    class="relative z-10 mt-2 text-sm text-zinc-600 dark:text-zinc-400"
-                  >
-                    M1 Macbooks are great but I'm sticking to my good old Intel
-                    Mac which still handles heavy workloads without a hitch.
-                  </p>
-                </li><li class="group relative flex flex-col items-start">
-                  <h3
-                    class="text-base font-semibold tracking-tight text-zinc-800 dark:text-zinc-100"
-                  >
-                    4k 32” LG UltraFine Display Ergo
-                  </h3><p
-                    class="relative z-10 mt-2 text-sm text-zinc-600 dark:text-zinc-400"
-                  >
-                    Bigger the display, bigger the motivation to use it to read
-                    your code 😆 - also the the ergonomic stand that comes with
-                    this model 🤌
-                  </p>
-                </li><li class="group relative flex flex-col items-start">
-                  <h3
-                    class="text-base font-semibold tracking-tight text-zinc-800 dark:text-zinc-100"
-                  >
-                    Keychron K4 Wireless Mechanical Keyboard
-                  </h3><p
-                    class="relative z-10 mt-2 text-sm text-zinc-600 dark:text-zinc-400"
-                  >
-                    Mechanical Keyboards are ❤️ and the satisfying clicks of the
-                    normal profile Keychron keyboard is the reason I code most
-                    of the time. Fun-fact, I learnt typing with a traditional
-                    type-writer which I badly miss now.
-                  </p>
-                </li><li class="group relative flex flex-col items-start">
-                  <h3
-                    class="text-base font-semibold tracking-tight text-zinc-800 dark:text-zinc-100"
-                  >
-                    Logitech MX Master 3
-                  </h3><p
-                    class="relative z-10 mt-2 text-sm text-zinc-600 dark:text-zinc-400"
-                  >
-                    As a power user of VSCode, tmux &amp; the tiles app in the
-                    Mac, I rarely need to click stuff on the screen. But when I
-                    do, I do it with the most erogonomic MX Master 3.
-                  </p>
-                </li><li class="group relative flex flex-col items-start">
-                  <h3
-                    class="text-base font-semibold tracking-tight text-zinc-800 dark:text-zinc-100"
-                  >
-                    Monarch Elevate: Height Adjustable Table
-                  </h3><p
-                    class="relative z-10 mt-2 text-sm text-zinc-600 dark:text-zinc-400"
-                  >
-                    Because, sitting too much while you are thinking about what
-                    to name that variable is bad for your health. Always switch
-                    between sitting &amp; standing every 1 hour &amp; 15 mins
-                    respectively.
-                  </p>
-                </li><li class="group relative flex flex-col items-start">
-                  <h3
-                    class="text-base font-semibold tracking-tight text-zinc-800 dark:text-zinc-100"
-                  >
-                    Senheisser HD 458BT headphones
-                  </h3><p
-                    class="relative z-10 mt-2 text-sm text-zinc-600 dark:text-zinc-400"
-                  >
-                    Most trusted headphones for work - taking video calls,
-                    watching egghead lessons, listening to podcasts while coding
-                    - can't live without this one.
-                  </p>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </section><section
-          aria-labelledby=":r0Ra:"
-          class="md:border-l md:border-zinc-100 md:pl-6 md:dark:border-zinc-700/40"
-        >
-          <div
-            class="grid max-w-3xl grid-cols-1 items-baseline gap-y-8 md:grid-cols-4"
-          >
-            <h2
-              id=":r0Ra:"
-              class="text-sm font-semibold text-zinc-800 dark:text-zinc-100"
-            >
-              Development tools
-            </h2><div class="md:col-span-3">
-              <ul role="list" class="space-y-16">
-                <li class="group relative flex flex-col items-start">
-                  <h3
-                    class="text-base font-semibold tracking-tight text-zinc-800 dark:text-zinc-100"
-                  >
-                    VSCodium
-                  </h3><p
-                    class="relative z-10 mt-2 text-sm text-zinc-600 dark:text-zinc-400"
-                  >
-                    A completely open-source variant of the VSCode with its own
-                    marketplace that supports all my vital extensions &amp; a
-                    great logo.
-                  </p>
-                </li><li class="group relative flex flex-col items-start">
-                  <h3
-                    class="text-base font-semibold tracking-tight text-zinc-800 dark:text-zinc-100"
-                  >
-                    Oh My Zsh!
-                  </h3><p
-                    class="relative z-10 mt-2 text-sm text-zinc-600 dark:text-zinc-400"
-                  >
-                    I can't use my mac terminal without installing Oh My Zsh
-                    &amp; setting up my favorite theme. Who wants to cd into a
-                    directory, when you can just type the directory name
-                    directly!
-                  </p>
-                </li><li class="group relative flex flex-col items-start">
-                  <h3
-                    class="text-base font-semibold tracking-tight text-zinc-800 dark:text-zinc-100"
-                  >
-                    tmux
-                  </h3><p
-                    class="relative z-10 mt-2 text-sm text-zinc-600 dark:text-zinc-400"
-                  >
-                    With large screens comes no reason to open multiple tabs in
-                    your terminal - just keep the processes running across the
-                    tmux profiles.
-                  </p>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </section><section
-          aria-labelledby=":r0Re:"
-          class="md:border-l md:border-zinc-100 md:pl-6 md:dark:border-zinc-700/40"
-        >
-          <div
-            class="grid max-w-3xl grid-cols-1 items-baseline gap-y-8 md:grid-cols-4"
-          >
-            <h2
-              id=":r0Re:"
-              class="text-sm font-semibold text-zinc-800 dark:text-zinc-100"
-            >
-              Design
-            </h2><div class="md:col-span-3">
-              <ul role="list" class="space-y-16">
-                <li class="group relative flex flex-col items-start">
-                  <h3
-                    class="text-base font-semibold tracking-tight text-zinc-800 dark:text-zinc-100"
-                  >
-                    Figma
-                  </h3><p
-                    class="relative z-10 mt-2 text-sm text-zinc-600 dark:text-zinc-400"
-                  >
-                    They say figma is a great design tool, but I use it to build
-                    flow charts &amp; stick-figure prototypes of my weekend
-                    projects. I love it &amp; I can't think of using another
-                    tool to do this.
-                  </p>
-                </li><li class="group relative flex flex-col items-start">
-                  <h3
-                    class="text-base font-semibold tracking-tight text-zinc-800 dark:text-zinc-100"
-                  >
-                    Excalidraw
-                  </h3><p
-                    class="relative z-10 mt-2 text-sm text-zinc-600 dark:text-zinc-400"
-                  >
-                    Professional quality scribbling &amp; a very funny logo
-                    maker. I'd say this is my preferred design tool.
-                  </p>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </section><section
-          aria-labelledby=":r0Ri:"
-          class="md:border-l md:border-zinc-100 md:pl-6 md:dark:border-zinc-700/40"
-        >
-          <div
-            class="grid max-w-3xl grid-cols-1 items-baseline gap-y-8 md:grid-cols-4"
-          >
-            <h2
-              id=":r0Ri:"
-              class="text-sm font-semibold text-zinc-800 dark:text-zinc-100"
-            >
-              Productivity
-            </h2><div class="md:col-span-3">
-              <ul role="list" class="space-y-16">
-                <li class="group relative flex flex-col items-start">
-                  <h3
-                    class="text-base font-semibold tracking-tight text-zinc-800 dark:text-zinc-100"
-                  >
-                    Tiles
-                  </h3><p
-                    class="relative z-10 mt-2 text-sm text-zinc-600 dark:text-zinc-400"
-                  >
-                    By removing the use of mouse to resize &amp; move windows
-                    across the screen, I'm 2x more efficient but also 2x less
-                    efficient by wasting time deciding which window to place in
-                    which section of the screen.
-                  </p>
-                </li><li class="group relative flex flex-col items-start">
-                  <h3
-                    class="text-base font-semibold tracking-tight text-zinc-800 dark:text-zinc-100"
-                  >
-                    Notion
-                  </h3><p
-                    class="relative z-10 mt-2 text-sm text-zinc-600 dark:text-zinc-400"
-                  >
-                    Pretty much all my ideas, projects, plans &amp; thoughts
-                    about my digital life are recorded in the generous free tier
-                    provided the Notion app.
-                  </p>
-                </li><li class="group relative flex flex-col items-start">
-                  <h3
-                    class="text-base font-semibold tracking-tight text-zinc-800 dark:text-zinc-100"
-                  >
-                    Spark
-                  </h3><p
-                    class="relative z-10 mt-2 text-sm text-zinc-600 dark:text-zinc-400"
-                  >
-                    Keeping my inbox clean by only reading the messages filtered
-                    by this great email app.
-                  </p>
-                </li><li class="group relative flex flex-col items-start">
-                  <h3
-                    class="text-base font-semibold tracking-tight text-zinc-800 dark:text-zinc-100"
-                  >
-                    Cron
-                  </h3><p
-                    class="relative z-10 mt-2 text-sm text-zinc-600 dark:text-zinc-400"
-                  >
-                    They say it's an extremely powerful tool for managing
-                    calendars, but I use it because it's event reminders are so
-                    much better than the native mac calendar app.
-                  </p>
-                </li><li class="group relative flex flex-col items-start">
-                  <h3
-                    class="text-base font-semibold tracking-tight text-zinc-800 dark:text-zinc-100"
-                  >
-                    Simplenote
-                  </h3><p
-                    class="relative z-10 mt-2 text-sm text-zinc-600 dark:text-zinc-400"
-                  >
-                    Replacing the need for paper in my life. Works across all my
-                    devices - take a quick note whenever you want &amp; forget
-                    about it forever.
-                  </p>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </section>
+        {
+          uses.data.map((each) => {
+            return (
+              <section
+                aria-labelledby={each.title}
+                class="md:border-l md:border-zinc-100 md:pl-6 md:dark:border-zinc-700/40"
+              >
+                <div class="grid max-w-3xl grid-cols-1 items-baseline gap-y-8 md:grid-cols-4">
+                  <>
+                    <h2
+                      id={each.title}
+                      class="text-sm font-semibold text-zinc-800 dark:text-zinc-100"
+                    >
+                      {each.title}
+                    </h2>
+                    <div class="md:col-span-3">
+                      <ul role="list" class="space-y-16">
+                        {each.tools.map((tool) => {
+                          return (
+                            <li class="group relative flex flex-col items-start">
+                              <h3 class="text-base font-semibold tracking-tight text-zinc-800 dark:text-zinc-100">
+                                {tool.title}
+                              </h3>
+                              <p class="relative z-10 mt-2 text-sm text-zinc-600 dark:text-zinc-400">
+                                {tool.description}
+                              </p>
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    </div>
+                  </>
+                </div>
+              </section>
+            );
+          })
+        }
       </div>
     </div>
   </ContentContainer>

@@ -1,4 +1,9 @@
 import { z, defineCollection } from "astro:content";
+import rssToJson from "rss-to-json";
+import { NEWSLETTER_RSS } from "../constants/newsletter-rss";
+import { getDateValue } from "../utils/getDateValue";
+import { getDateDisplay } from "../utils/getDateDisplay";
+const { parse } = rssToJson as unknown as { parse: typeof rssToJson };
 
 const experienceCollection = defineCollection({
   type: "data",
@@ -84,6 +89,48 @@ const projectsCollection = defineCollection({
   ),
 });
 
+const usesCollection = defineCollection({
+  type: "data",
+  schema: z.array(
+    z.object({
+      title: z.string(),
+      tools: z.array(
+        z.object({
+          title: z.string(),
+          description: z.string(),
+        }),
+      ),
+    }),
+  ),
+});
+
+const rssCollection = defineCollection({
+  loader: async () => {
+    const rss = await parse(NEWSLETTER_RSS);
+    return rss.items.map((each) => {
+      const dateValue = getDateValue(each.published);
+      const dateDisplay = getDateDisplay(each.published);
+      const urlObject = new URL(each.link);
+      const slug = urlObject.pathname.split("/").filter(Boolean).pop()!;
+      return {
+        id: slug,
+        title: each.title,
+        description: each.description,
+        dateValue,
+        dateDisplay,
+        slug,
+      };
+    });
+  },
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    dateValue: z.string(),
+    dateDisplay: z.string(),
+    slug: z.string(),
+  }),
+});
+
 export const collections = {
   career: experienceCollection,
   blog: blogCollection,
@@ -91,4 +138,6 @@ export const collections = {
   about: aboutCollection,
   social: socialCollection,
   project: projectsCollection,
+  uses: usesCollection,
+  rss: rssCollection,
 };

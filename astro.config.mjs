@@ -5,6 +5,10 @@ import mdx from "@astrojs/mdx";
 
 // https://astro.build/config
 export default defineConfig({
+  experimental: {
+    contentLayer: true,
+    contentIntellisense: true,
+  },
   image: {
     domains: ["daniakash.com"],
     remotePatterns: [

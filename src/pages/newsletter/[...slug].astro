@@ -1,24 +1,20 @@
 ---
-import rssToJson from "rss-to-json";
-import { NEWSLETTER_RSS } from "../../constants/newsletter-rss";
 import type { GetStaticPaths } from "astro";
-import { getDateValue } from "../../utils/getDateValue";
-import { getDateDisplay } from "../../utils/getDateDisplay";
 import MainLayout from "../../layouts/MainLayout.astro";
 import ArticleContainer from "../../components/ArticleContainer.astro";
 import { TRANSITION_NAMES } from "../../constants/transition-names";
 import Newsletter from "../../components/Newsletter.astro";
+import { getCollection } from "astro:content";
 
 export const getStaticPaths = (async () => {
-  const { parse } = rssToJson as unknown as { parse: typeof rssToJson };
-  const rss = await parse(NEWSLETTER_RSS);
-  return rss.items.map((each) => {
-    const link = new URL(each.link);
-    const content = each.description;
-    const title = each.title;
-    const slug = link.pathname.split("/").filter(Boolean).pop()!;
-    const dateValue = getDateValue(each.published);
-    const dateDisplay = getDateDisplay(each.published);
+  const items = await getCollection("rss");
+
+  return items.map((each) => {
+    const content = each.data.description;
+    const title = each.data.title;
+    const slug = each.data.slug;
+    const dateValue = each.data.dateValue;
+    const dateDisplay = each.data.dateDisplay;
     return {
       params: { slug },
       props: { content, dateValue, dateDisplay, title },
