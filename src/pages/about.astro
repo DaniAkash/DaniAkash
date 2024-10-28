@@ -51,7 +51,7 @@ const social = (await getCollection("social"))[0]!;
             href={social.data.twitter}
             class="group flex text-sm font-medium text-zinc-800 transition hover:text-teal-500 dark:text-zinc-200 dark:hover:text-teal-500"
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
             ><TwitterIcon /><span class="ml-4">Follow on Twitter</span></a
           >
         </li><li class="mt-4 flex">
@@ -59,7 +59,7 @@ const social = (await getCollection("social"))[0]!;
             href={social.data.instagram}
             class="group flex text-sm font-medium text-zinc-800 transition hover:text-teal-500 dark:text-zinc-200 dark:hover:text-teal-500"
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
             ><InstagramIcon /><span class="ml-4">Follow on Instagram</span></a
           >
         </li><li class="mt-4 flex">
@@ -67,7 +67,7 @@ const social = (await getCollection("social"))[0]!;
             href={social.data.github}
             class="group flex text-sm font-medium text-zinc-800 transition hover:text-teal-500 dark:text-zinc-200 dark:hover:text-teal-500"
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
             ><GithubIcon /><span class="ml-4">Follow on GitHub</span></a
           >
         </li><li class="mt-4 flex">
@@ -75,7 +75,7 @@ const social = (await getCollection("social"))[0]!;
             href={social.data.linkedIn}
             class="group flex text-sm font-medium text-zinc-800 transition hover:text-teal-500 dark:text-zinc-200 dark:hover:text-teal-500"
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
             ><LinkedinIcon /><span class="ml-4">Follow on LinkedIn</span></a
           >
         </li><li
@@ -84,7 +84,7 @@ const social = (await getCollection("social"))[0]!;
           <a
             href={`mailto:${social.data.email}`}
             class="group flex text-sm font-medium text-zinc-800 transition hover:text-teal-500 dark:text-zinc-200 dark:hover:text-teal-500"
-            rel="noreferrer"
+            rel="noopener noreferrer"
             ><MailDarkIcon /><span class="ml-4">{social.data.email}</span></a
           >
         </li>
