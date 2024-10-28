@@ -6,6 +6,10 @@ import rehypeExternalLinks from "rehype-external-links";
 
 // https://astro.build/config
 export default defineConfig({
+  prefetch: {
+    defaultStrategy: "viewport",
+    prefetchAll: true
+  },
   markdown: {
     rehypePlugins: [
       [
