@@ -1,5 +1,6 @@
 ---
 import Avatar from "../pages/components/Avatar.astro";
+import DarkModeToggle from "../pages/components/DarkModeToggle.astro";
 import Nav from "../pages/components/nav.astro";
 
 interface Props {
@@ -29,4 +30,7 @@ const { isHomePage = false } = Astro.props;
       </>
     )
   }
+  <div class="absolute right-0 top-6">
+    <DarkModeToggle />
+  </div>
 </header>
