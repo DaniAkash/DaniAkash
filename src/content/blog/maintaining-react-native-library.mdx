@@ -5,6 +5,8 @@ date: Wed Sep 16 2020 00:00:00 GMT+0530 (India Standard Time)
 tags: ["react-native", "open-source", "react"]
 ---
 
+import PostImage from "../../pages/components/PostImage.astro";
+
 React Native is an excellent framework for building mobile apps. The best thing about React Native is how it provides the developers with a solid set of primitive UI components. This means there's plenty of opportunities for you to build your own library and publish it to the open-source community.
 
 ## The Problem
@@ -13,7 +15,9 @@ Building & maintaining quality open-source libraries is hard work. Especially Re
 
 I ran into this exact issue when I started working on open-sourcing the libraries I built for my personal use. I created an organization that holds the collection of the libraries. It's called [React Native Toolkit](https://github.com/react-native-toolkit)
 
-![react-native-toolkit](https://dev-to-uploads.s3.amazonaws.com/i/mkjmd1mjy18bwm83406a.png)
+<PostImage src="/maintaining-react-native-lib/1.png" alt="react-native-toolkit">
+_React Native Toolkit on Github_
+</PostImage>
 
 I wanted to ensure developers get to try out all my libraries, at the same time, I should be able to quickly make small updates and bug fixes without having to spend too much time.
 
@@ -116,7 +120,9 @@ The library's build consists of the following items ﹣
 
 You can find my build workflow in the [.github/workflows/build.yml](https://github.com/react-native-toolkit/react-native-better-image/blob/master/.github/workflows/build.yml) file of my [react-native-better-image](https://github.com/react-native-toolkit/react-native-better-image) project. This is how the build process should look like ﹣
 
-![Alt Text](https://dev-to-uploads.s3.amazonaws.com/i/o0kep5llpseapcik3fme.png)
+<PostImage src="/maintaining-react-native-lib/2.png" alt="build-plan">
+_Library Build Plan_
+</PostImage>
 
 ## When to trigger the workflow
 I wanted the build workflow to ensure the master branch is always stable. Hence it will run on all the pushes to master. But it will not run for tags, as I have planned another release workflow for this
@@ -159,7 +165,9 @@ For displaying the test coverage, I decided to use [code climate for open source
 
 Code climate checks your code for best practices and provides you with maintainability metrics. Along with that, you'll also get code coverage reports. Once you setup code climate you can add their badges to your repo that gives everyone a live code quality score ﹣
 
-[![Alt Text](https://dev-to-uploads.s3.amazonaws.com/i/9czp25bmkrhieeljgqpc.png)](https://github.com/react-native-toolkit/rex-state)
+<PostImage src="/maintaining-react-native-lib/3.png" alt="rex-state">
+_[Rex State](https://github.com/react-native-toolkit/rex-state) badges_
+</PostImage>
 
 The following configuration is used for running tests ﹣
 
@@ -276,7 +284,9 @@ Every PR raised to the library will have the following checks performed automati
 
 As soon as the PR is sent, you should be able to see the progress of the review workflow ﹣
 
-[![Alt Text](https://dev-to-uploads.s3.amazonaws.com/i/wsb1h67wn2sphq6fyrfc.png)](https://github.com/react-native-toolkit/rex-state/)
+<PostImage src="/maintaining-react-native-lib/4.png" alt="rex-state-workflow">
+_[Rex State](https://github.com/react-native-toolkit/rex-state) workflow checks_
+</PostImage>
 
 The above image is from a PR of my [rex-state](https://github.com/react-native-toolkit/rex-state/) library. Let's look into how we can implement this effectively.
 
@@ -326,7 +336,9 @@ Previously on the build step, we used Code Climate to store our test coverage re
 
 For this, we can use the [romeovs/lcov-reporter-action](https://github.com/romeovs/lcov-reporter-action) which will post a nice comment on the PR with the test coverage details. You'd get a report like this following comment ﹣
 
-![Alt Text](https://dev-to-uploads.s3.amazonaws.com/i/yt8w4066hnph7y72onxu.png)
+<PostImage src="/maintaining-react-native-lib/5.png" alt="rex-state-coverage">
+_[Rex State](https://github.com/react-native-toolkit/rex-state) code coverage_
+</PostImage>
 
 Add the following configuration for receiving the coverage as a comment ﹣
 
@@ -379,7 +391,10 @@ The expo team have also provided detailed [documentation](https://github.com/exp
           msg: App is ready for review, you can [see it here](https://expo.io/@daniakash/rex-state-example?release-channel=pr-${{ github.event.number }}).
 ```
 From now on, for every PRs you'll get a comment just like this one ﹣
-![Alt Text](https://dev-to-uploads.s3.amazonaws.com/i/2aqycdostgrpbbwy9j7w.png)
+
+<PostImage src="/maintaining-react-native-lib/6.png" alt="rex-state-review-link">
+_[Rex State](https://github.com/react-native-toolkit/rex-state) app review link_
+</PostImage>
 
 ## Sending stories to chromatic
 Finally to do a visual review if the PR has affected your stories you can send the stories to chromatic. The configuration is the same as our last one, chromatic is smart enough to figure out that the data is from a PR!
@@ -402,7 +417,9 @@ Finally to do a visual review if the PR has affected your stories you can send t
 ```
 Once you have everything ready, Your PRs will now have detailed information on the things you'd otherwise have to check manually every time ﹣
 
-![Alt Text](https://dev-to-uploads.s3.amazonaws.com/i/dpqby0r6lxqnrctqg9af.png)
+<PostImage src="/maintaining-react-native-lib/7.png" alt="rex-state-detailed-checks">
+_[Rex State](https://github.com/react-native-toolkit/rex-state) detailed checks_
+</PostImage>
 
 We got a powerful review workflow now. In the next part, let's publish the library to NPM every time you create a new release in GitHub!
 
