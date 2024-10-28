@@ -10,4 +10,5 @@ export const TRANSITION_NAMES = {
   newsletterTime: "newsletter-time",
   blogTitle: "blog-title",
   blogTime: "blog-time",
+  newsletterForm: "newsletter-form",
 };

@@ -7,6 +7,7 @@ import { getDateDisplay } from "../../utils/getDateDisplay";
 import MainLayout from "../../layouts/MainLayout.astro";
 import ArticleContainer from "../../components/ArticleContainer.astro";
 import { TRANSITION_NAMES } from "../../constants/transition-names";
+import Newsletter from "../../components/Newsletter.astro";
 
 export const getStaticPaths = (async () => {
   const { parse } = rssToJson as unknown as { parse: typeof rssToJson };
@@ -48,6 +49,9 @@ const { slug } = Astro.params;
         <span class="ml-3">{dateDisplay}</span>
       </time>
     </header>
+    <div class="mt-6 max-w-2xl">
+      <Newsletter />
+    </div>
     <div set:html={content} class="prose dark:prose-invert" />
   </ArticleContainer>
 </MainLayout>

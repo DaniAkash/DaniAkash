@@ -1,4 +1,5 @@
 ---
+import { TRANSITION_NAMES } from "../constants/transition-names";
 import MailIcon from "./icons/MailIcon.astro";
 ---
 
@@ -8,6 +9,7 @@ import MailIcon from "./icons/MailIcon.astro";
   target="popupwindow"
   onsubmit="window.open('https://buttondown.com/daniakash', 'popupwindow')"
   class="rounded-2xl border border-zinc-100 p-6 dark:border-zinc-700/40"
+  transition:name={TRANSITION_NAMES.newsletterForm}
 >
   <h2 class="flex text-sm font-semibold text-zinc-900 dark:text-zinc-100">
     <MailIcon class="h-6 w-6 flex-none" />
