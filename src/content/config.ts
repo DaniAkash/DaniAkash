@@ -131,6 +131,10 @@ const rssCollection = defineCollection({
   }),
 });
 
+const nowCollection = defineCollection({
+  type: "content",
+});
+
 export const collections = {
   career: experienceCollection,
   blog: blogCollection,
@@ -140,4 +144,5 @@ export const collections = {
   project: projectsCollection,
   uses: usesCollection,
   rss: rssCollection,
+  now: nowCollection,
 };
