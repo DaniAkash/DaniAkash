@@ -1,0 +1,33 @@
+---
+import { navLinks } from "../../constants/navLinks";
+import { TRANSITION_NAMES } from "../../constants/transition-names";
+
+const currentPath = Astro.url.pathname;
+---
+
+<div
+  class="flex flex-col items-center justify-between gap-y-6 border-t border-zinc-100 px-4 pb-16 pt-10 dark:border-zinc-700/40 sm:flex-row"
+  transition:name={TRANSITION_NAMES.footer}
+>
+  <div class="flex gap-6 text-sm font-medium text-zinc-800 dark:text-zinc-200">
+    {
+      navLinks.map((link) => {
+        const isActive = currentPath.startsWith(link.href);
+
+        return (
+          <a
+            href={link.href}
+            class={`hover:text-teal-500 dark:hover:text-teal-400 ${
+              isActive && "text-teal-500 dark:text-teal-400"
+            }`}
+          >
+            {link.title}
+          </a>
+        );
+      })
+    }
+  </div>
+  <p class="text-sm text-zinc-400 dark:text-zinc-500">
+    &#169;<!-- --> 2023<!-- --> Dani Akash. All rights reserved.
+  </p>
+</div>

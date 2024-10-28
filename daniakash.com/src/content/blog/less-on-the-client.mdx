@@ -1,0 +1,86 @@
+---
+title: Less on the Client, more on the Edge
+subtitle: Sharing my retrospective on building a complex web application as an Engineering Manager
+date: Mon Jan 02 2023 00:00:00 GMT+0530 (India Standard Time)
+tags:
+  [
+    "engineering",
+    "web-development",
+    "microservices",
+    "graphql",
+    "cloudflare",
+    "nextjs",
+    "apollo",
+    "edge-functions",
+    "micro-frontends",
+    "astro",
+  ]
+---
+
+import PostImage from "../../components/PostImage.astro";
+
+I was a developer till 2020 mostly contributing to products as an IC. Managing a team is something I started in mid-2021 & from then on, I have been traversing a big learning curve.
+
+2022 - I had to build a team that will build & maintain a [complex web application](https://oslash.com). The challenges were completely different from the problems I solved as a developer. Here's my retrospective on what I learnt from things that went wrong & things that went well
+
+## We built a SPA that's purely rendered on the client
+
+SPA frameworks have evolved a lot. We have plenty of options & so many libraries, we often forget that not every piece of logic needs to be written on the client side. As we grew the team from 2 to 5 engineers & the product evolved into 3 separate entities, the limitations of pure client-side hydration started showing up
+
+- Authenticated/protected routes had to render once because the logic was written in `useEffect` which could not run before the application starts
+- Logic wrote to logout the users often ran into race conditions because we had no control over what APIs are getting called & what part of the application is currently writing to the local-storage
+- The user signup & onboarding flows had many redirecting branches leading to the components built for them often having multi-level `if-else` statements
+
+Whatever approach we took often resulted in so much messy logic on our client-side & as we often kept building more UI Components & adding UI changes, this led to serious scaling issues to our codebase. Until we arrived at one final solution...
+
+### Moving logic to the edge instead
+
+The crux of most of our issues was there was so much running on the client side of the application, we had to figure out a way to write a critical piece of logic that doesn't have to deal with race conditions or delay in hydration.
+
+Enter: **Edge functions**, I came across this first when I was reading up on a new feature released by [vercel](https://vercel.com/features/edge-functions). Basically, instead of running the code on the client side, edge functions side-step the whole problem by running logic very close to the users on edge locations using lightweight runtimes, which means - we now have a way to execute logic even before the whole application loads. With next.js middlewares, we could even run logic while a client-side routing is happening.
+
+Soon, we were knocking off all the technical debts & bugs by writing simple logic on the edge functions without compromising the performance for our users.
+
+## Fate-sharing across different services
+
+While building a web app that offers multiple services, with multiple teams working on each service, the whole [fate-sharing](https://en.wikipedia.org/wiki/Fate-sharing) problem starts to blow up. This is the first time I came across this problem in my career.
+
+We had a GraphQL server that is built on top of AWS AppSync & a Next.js App deployed to vercel. Things were great when we first built the product last year. We were moving fast & shipping new features at breakneck speed. But as we started scaling up our team & started offering many services, we noticed the following problems:
+
+- Some teams wanted to build APIs that are deployed purely to the edge for fast performance
+- Some of the teams working on specific services had use cases where they had to try different frameworks on the web app outside of Next.js
+- An issue in specific modules like authentication or common layouts had the potential to bring the entire app down, even though, the services themselves worked fine
+
+Soon I'll realize, this is the time to adopt the [microservices](https://en.wikipedia.org/wiki/Microservices) architecture.
+
+### Turning our GraphQL server into microservices
+
+After reading various articles online from different engineering teams, [Netflix's GraphQL Federation](https://netflixtechblog.com/how-netflix-scales-its-api-with-graphql-federation-part-1-ae3557c187e2) architecture was something exactly what we were looking for. This idea requires hosting a GraphQL Gateway (Supergraph) using [Apollo federation](https://www.apollographql.com/blog/backend/federation/what-is-apollo-federation/) & building all the other services as a collection of mini graphql servers (subgraphs) However, to ensure performance is great since supergraph receives the request first & calls the subgraph, we wanted the supergraph to be hosted on the edge powered by [Cloudflare workers](https://workers.cloudflare.com/).
+
+Soon we built our GraphQL gateway with [GraphQL Mesh](https://the-guild.dev/graphql/mesh) - The folks at [The Guild](https://the-guild.dev/) were nice enough to build a Cloudflare runtime version of their open-source library for us ❤️
+
+The teams are now free to build the APIs for their services independently using the technology of their choice with no friction between each other. We also built a lot of tooling around how to develop & test locally using preview environments & also our in-house edge cache setup on our gateway. But I might write about them on a later day.
+
+### Adopting Micro Frontends
+
+At this point, our architecture looked something like this:
+
+<PostImage src="/less-on-client/1.png" alt="monolith-design">
+  _Image from [Micro Frontends](https://micro-frontends.org/)_
+</PostImage>
+
+However, we needed something like this:
+
+<PostImage src="/less-on-client/2.png" alt="micro-fe-design">
+  _Micro Frontends design_
+</PostImage>
+
+Unlike microservices for our APIs, building micro frontends had a whole different set of problems & a whole community of developers working on how to solve them using tools like [Webpack Module Federation](https://webpack.js.org/concepts/module-federation/), [bit](https://bit.dev/), [single-spa](https://single-spa.js.org/) etc.
+
+But they all came with their own set of challenges for adoption & we were quite happy with the developer experience we were getting with Next.js. We also wanted to try Astro & its Islands architecture which couldn't co-exist with our Next app. So with a little bit of effort, we set up routing on our application so that visiting `/new-service` loads the whole new project written in Astro.
+
+Not exactly the best approach to solving micro frontends however, we reduced our javascript payload by over 60% thanks to Astro Islands & we were very happy with the performance.
+
+I mostly played the role of figuring out an approach that will help the rest of the engineering team move faster. It was thanks to the wonderful [engineering team](https://www.oslash.com/about) that I worked with, that we were able to implement all the solutions quickly as per the plan & helped ship a high-quality product.
+
+So much more to learn in 2023!

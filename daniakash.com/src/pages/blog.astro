@@ -1,0 +1,45 @@
+---
+import { getCollection } from "astro:content";
+import MainLayout from "../layouts/MainLayout.astro";
+import ContentContainer from "./components/ContentContainer.astro";
+import Header from "./components/Header.astro";
+import BlogArticle from "../components/BlogArticle.astro";
+import { getDateValue } from "../utils/getDateValue";
+import { getDateDisplay } from "../utils/getDateDisplay";
+const posts = (await getCollection("blog")).sort((a, b) => {
+  const dateA = new Date(a.data.date).getTime();
+  const dateB = new Date(b.data.date).getTime();
+  return dateB - dateA;
+});
+---
+
+<MainLayout>
+  <ContentContainer>
+    <Header
+      title="The Blog Zone"
+      subtitle="Where my thoughts get some air time (and occasionally make sense)."
+    />
+    <div class="mt-16 sm:mt-20">
+      <div
+        class="md:border-l md:border-zinc-100 md:pl-6 md:dark:border-zinc-700/40"
+      >
+        <div class="flex max-w-3xl flex-col space-y-16">
+          {
+            posts.map((post) => {
+              const dateValue = getDateValue(post.data.date);
+              const dateDisplay = getDateDisplay(post.data.date);
+              return (
+                <BlogArticle
+                  post={post.data}
+                  dateDisplay={dateDisplay}
+                  dateValue={dateValue}
+                  slug={post.slug}
+                />
+              );
+            })
+          }
+        </div>
+      </div>
+    </div>
+  </ContentContainer>
+</MainLayout>

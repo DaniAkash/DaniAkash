@@ -1,0 +1,94 @@
+---
+import { getCollection } from "astro:content";
+import { TRANSITION_NAMES } from "../constants/transition-names";
+import MainLayout from "../layouts/MainLayout.astro";
+import { ASSET_PREFIX } from "../constants/asset-prefix";
+import { Image } from "astro:assets";
+import TwitterIcon from "../components/icons/TwitterIcon.astro";
+import InstagramIcon from "../components/icons/InstagramIcon.astro";
+import GithubIcon from "../components/icons/GithubIcon.astro";
+import LinkedinIcon from "../components/icons/LinkedinIcon.astro";
+import MailDarkIcon from "../components/icons/MailDarkIcon.astro";
+
+const about = (await getCollection("about"))[0]!;
+const { Content } = await about.render();
+const social = (await getCollection("social"))[0]!;
+---
+
+<MainLayout>
+  <div
+    class="mt-16 grid grid-cols-1 gap-y-16 lg:grid-cols-2 lg:grid-rows-[auto_1fr]"
+  >
+    <div class="lg:pl-20">
+      <div class="max-w-xs px-2.5 lg:max-w-none">
+        <Image
+          src={`${ASSET_PREFIX}/image-3.jpg`}
+          alt="about-image"
+          inferSize
+          sizes="(min-width: 1024px) 32rem, 20rem"
+          class="aspect-square rotate-3 rounded-2xl bg-zinc-100 object-cover transition-all hover:rotate-0 dark:bg-zinc-800"
+          transition:name={TRANSITION_NAMES.heroImage}
+        />
+      </div>
+    </div>
+
+    <div class="lg:order-first lg:row-span-2">
+      <h1
+        class="text-4xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-5xl"
+        transition:name={TRANSITION_NAMES.heroTitle}
+      >
+        I’m Dani Akash
+      </h1>
+      <div class="prose mt-6 space-y-7 dark:prose-invert">
+        <Content />
+      </div>
+    </div>
+
+    <div class="lg:pl-20">
+      <ul role="list">
+        <li class="flex">
+          <a
+            href={social.data.twitter}
+            class="group flex text-sm font-medium text-zinc-800 transition hover:text-teal-500 dark:text-zinc-200 dark:hover:text-teal-500"
+            target="_blank"
+            rel="noopener noreferrer"
+            ><TwitterIcon /><span class="ml-4">Follow on Twitter</span></a
+          >
+        </li><li class="mt-4 flex">
+          <a
+            href={social.data.instagram}
+            class="group flex text-sm font-medium text-zinc-800 transition hover:text-teal-500 dark:text-zinc-200 dark:hover:text-teal-500"
+            target="_blank"
+            rel="noopener noreferrer"
+            ><InstagramIcon /><span class="ml-4">Follow on Instagram</span></a
+          >
+        </li><li class="mt-4 flex">
+          <a
+            href={social.data.github}
+            class="group flex text-sm font-medium text-zinc-800 transition hover:text-teal-500 dark:text-zinc-200 dark:hover:text-teal-500"
+            target="_blank"
+            rel="noopener noreferrer"
+            ><GithubIcon /><span class="ml-4">Follow on GitHub</span></a
+          >
+        </li><li class="mt-4 flex">
+          <a
+            href={social.data.linkedIn}
+            class="group flex text-sm font-medium text-zinc-800 transition hover:text-teal-500 dark:text-zinc-200 dark:hover:text-teal-500"
+            target="_blank"
+            rel="noopener noreferrer"
+            ><LinkedinIcon /><span class="ml-4">Follow on LinkedIn</span></a
+          >
+        </li><li
+          class="mt-8 flex border-t border-zinc-100 pt-8 dark:border-zinc-700/40"
+        >
+          <a
+            href={`mailto:${social.data.email}`}
+            class="group flex text-sm font-medium text-zinc-800 transition hover:text-teal-500 dark:text-zinc-200 dark:hover:text-teal-500"
+            rel="noopener noreferrer"
+            ><MailDarkIcon /><span class="ml-4">{social.data.email}</span></a
+          >
+        </li>
+      </ul>
+    </div>
+  </div>
+</MainLayout>

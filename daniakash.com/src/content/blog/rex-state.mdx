@@ -1,0 +1,84 @@
+---
+title: Rex State - a handy utility to convert your hooks into shared states
+subtitle: Version 1.0 launched
+date: Sat Sep 12 2020 00:00:00 GMT+0530 (India Standard Time)
+tags: ["react", "state-management", "react-hooks"]
+---
+
+## Introducing [Rex State](https://github.com/react-native-toolkit/rex-state) v1.0
+
+I initially built rex-state as a state management library, however, since it was using the Context API it wasn't very efficient with handling re-renders.
+
+But then its another feature became more prominent. It can easily convert any hook into a shared state!
+
+Focusing on this functionality, Today I'm releasing Rex State 1.0. This tool is easy to use and will work with your existing hooks.
+
+## Usage
+
+Add rex-state to your project
+
+```sh
+yarn add rex-state
+
+# or
+
+npm i rex-state
+```
+
+Consider you have the following counter hook ﹣
+
+```jsx
+const useCounterHook = (initialCount) => {
+  const [count, setCount] = useState(initialCount || 0);
+
+  const increaseCount = () => setCount(count + 1);
+  const decreaseCount = () => setCount(count - 1);
+
+  return {
+    count,
+    increaseCount,
+    decreaseCount,
+  };
+};
+```
+
+You can use rex-state to create a provider and a shared hook using the following code ﹣
+
+```jsx
+import { createRexStore } from "rex-state";
+
+const { useStore: useCounter, RexProvider: CountProvider } =
+  createRexStore(useCounterHook);
+```
+
+Wrap your application inside the `CountProvider` ﹣
+
+```jsx
+export default function App() {
+  // Starting off with an initial count of 10
+  return (
+    <CountProvider value={10}>
+      <CountDisplay />
+      <Controls />
+    </CountProvider>
+  );
+}
+```
+
+Now you can use `useCounter` hook inside both `<CountDisplay/>` & `<Controls/>` components. When the count changes in the `<Controls/>` component, it will cause the `<CountProvider/>` to re-render & will also update the `<CountDisplay/>` component.
+
+This is based on the React.Context API. I have written a detailed page on its [performance](https://rex-state.netlify.app/?path=/story/intro-performance--page) & when to use it in your application.
+
+Following is a working codesandbox of the counter app ﹣
+
+<iframe
+  src="https://codesandbox.io/embed/2m4zy?view=editor+%2B+preview&module=%2Fsrc%2FApp.js&hidenavigation=1&expanddevtools=1"
+  style="width:100%; height: 500px; border:0; border-radius: 4px; overflow:hidden;"
+  title="rex-counter"
+  allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+></iframe>
+
+Read about it detail on [Github](https://github.com/react-native-toolkit/rex-state)
+
+Share your thoughts about using this library. I'm open to feedbacks & ideas ✌🏽

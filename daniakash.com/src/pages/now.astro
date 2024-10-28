@@ -1,0 +1,23 @@
+---
+import { getCollection } from "astro:content";
+import MainLayout from "../layouts/MainLayout.astro";
+import ContentContainer from "./components/ContentContainer.astro";
+import Header from "./components/Header.astro";
+
+const now = (await getCollection("now"))[0]!;
+const { Content } = await now.render();
+---
+
+<MainLayout>
+  <ContentContainer>
+    <Header
+      title="What’s Up Right Now"
+      subtitle="Spoiler: Mostly working, with a dash of scrolling and coffee breaks."
+    />
+    <div class="mt-16 sm:mt-20">
+      <div class="prose dark:prose-invert">
+        <Content />
+      </div>
+    </div>
+  </ContentContainer>
+</MainLayout>

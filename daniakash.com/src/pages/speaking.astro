@@ -1,0 +1,91 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import { getCollection } from "astro:content";
+import Header from "./components/Header.astro";
+import ContentContainer from "./components/ContentContainer.astro";
+const events = await getCollection("speaking");
+const eventsList = events[0]!;
+---
+
+<MainLayout>
+  <ContentContainer>
+    <Header
+      title="Words I’ve Said"
+      subtitle="You can actually hear me talk, not just type."
+    />
+    <div class="mt-16 sm:mt-20">
+      <div class="space-y-20">
+        {
+          eventsList.data.map((each) => {
+            return (
+              <section
+                aria-labelledby=":r0R6:"
+                class="md:border-l md:border-zinc-100 md:pl-6 md:dark:border-zinc-700/40"
+              >
+                <div class="grid max-w-3xl grid-cols-1 items-baseline gap-y-8 md:grid-cols-4">
+                  <h2
+                    id=":r0R6:"
+                    class="text-sm font-semibold text-zinc-800 dark:text-zinc-100"
+                  >
+                    {each.year}
+                  </h2>
+                  <div class="md:col-span-3">
+                    <div class="space-y-16">
+                      {each.events.map((event) => {
+                        return (
+                          <>
+                            <article class="group relative flex flex-col items-start">
+                              <h3 class="text-base font-semibold tracking-tight text-zinc-800 dark:text-zinc-100">
+                                <div class="absolute -inset-x-4 -inset-y-6 z-0 scale-95 bg-zinc-50 opacity-0 transition group-hover:scale-100 group-hover:opacity-100 dark:bg-zinc-800/50 sm:-inset-x-6 sm:rounded-2xl" />
+                                <a
+                                  href={event.video}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                >
+                                  <span class="absolute -inset-x-4 -inset-y-6 z-20 sm:-inset-x-6 sm:rounded-2xl" />
+                                  <span class="relative z-10">
+                                    {event.title}
+                                  </span>
+                                </a>
+                              </h3>
+                              <p class="relative z-10 order-first mb-3 flex items-center pl-3.5 text-sm text-zinc-400 dark:text-zinc-500">
+                                <span
+                                  class="absolute inset-y-0 left-0 flex items-center"
+                                  aria-hidden="true"
+                                >
+                                  <span class="h-4 w-0.5 rounded-full bg-zinc-200 dark:bg-zinc-500" />
+                                </span>
+                                {event.name}
+                              </p>
+                              <p class="relative z-10 mt-2 text-sm text-zinc-600 dark:text-zinc-400">
+                                {event.description}
+                              </p>
+                            </article>
+                            <div style="margin-top:30px" class="flex gap-5">
+                              {event.cta?.map((cta) => {
+                                return (
+                                  <a
+                                    href={cta.url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    class="z-10 block text-sm font-medium text-teal-500"
+                                  >
+                                    {cta.title}
+                                  </a>
+                                );
+                              }) ?? null}
+                            </div>
+                          </>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </div>
+              </section>
+            );
+          })
+        }
+      </div>
+    </div>
+  </ContentContainer>
+</MainLayout>

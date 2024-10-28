@@ -1,0 +1,22 @@
+---
+title: React Native Responsive Dimensions updated to 3.1.0
+subtitle: Tool to deal with those foldable devices
+date: Sat Mar 21 2020 00:00:00 GMT+0530 (India Standard Time)
+tags: ["react-native", "responsive", "foldables"]
+---
+
+React Native Responsive Dimensions have been updated to version 3.1.0 with full typescript support & a whole bunch of new utilities quickly check out the new release at [github](https://github.com/DaniAkash/react-native-responsive-dimensions)
+
+First published three years ago as a simple utility to resize some views based on the device's screen size, responsive dimensions quickly became one of the favourite tools for my colleagues and many react native developers. I was updating it once a year with a few new things like the [responsive hooks](https://github.com/DaniAkash/react-native-responsive-dimensions/releases/tag/3.0.0) last year. But this update is quite important!
+
+I recently worked with [Rachel Nabors](https://dev.to/rachelnabors) on React Native [Component Docs Drive](https://github.com/facebook/react-native-website/issues/1579) where while documenting the actual react native's inbuilt [dimensions](https://github.com/facebook/react-native-website/pull/1671) module, I realized Responsive Dimensions has a great potential to simplify application development for foldables and react-native-web apps.
+
+With this new update, Responsive Dimensions now have
+
+- Separate utilities for Responsive "window" & "screen" sizes (screen sizes will be useful while working with foldables)
+- New responsive screen size hooks
+- `useDimensionsChange` hook to let your application respond to dimension changes
+
+See the [release notes](https://github.com/DaniAkash/react-native-responsive-dimensions/releases/tag/3.1.0) for a full list of changes and also checkout the example projects at [Snack](https://snack.expo.io/@daniakash/responsive-dimensions) & [CodeSandbox](https://codesandbox.io/s/react-native-responsive-dimensions-hooks-2cqm8)
+
+Do let me know if you have any feature requests or feedbacks ﹣ always happy to help 😁👍

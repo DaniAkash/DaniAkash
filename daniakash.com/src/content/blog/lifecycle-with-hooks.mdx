@@ -1,0 +1,79 @@
+---
+title: I recreated React's class component lifecycle methods with hooks
+subtitle: Was feeling a bit evil
+date: Fri May 22 2020 00:00:00 GMT+0530 (India Standard Time)
+tags: ["react", "react-hooks"]
+---
+
+<blockquote class="twitter-tweet">
+  <p lang="en" dir="ltr">
+    felt evil, so created this 😈{" "}
+    <a href="https://t.co/etX0sFJbVl">pic.twitter.com/etX0sFJbVl</a>
+  </p>
+  &mdash; Dani Akash 🧪💥 (@dani_akash_){" "}
+  <a href="https://twitter.com/dani_akash_/status/1263327984640946177?ref_src=twsrc%5Etfw">
+    May 21, 2020
+  </a>
+</blockquote> <script
+  async
+  src="https://platform.twitter.com/widgets.js"
+  charset="utf-8"
+></script>
+
+Project - [lifecycle-hooks](https://github.com/DaniAkash/lifecycle-hooks), also available in [npm](https://www.npmjs.com/package/@daniakash/lifecycle-hooks)
+
+I recently started working on an old react native project where I had to upgrade **react-navigation** from v3 to v5.
+
+To take advantage of the new **navigation hooks** in version 5, I had to migrate existing class components to react hooks.
+
+At first, it seemed like a straight forward case of refactoring some bit of code. However, I quickly realized how difficult the task at hand is...
+
+Class component to hooks conversion is just not straight forward. Hooks are _awesome when you are building new components_ but they are definitely not created with migrating class components in mind.
+
+As [react documentation](https://reactjs.org/docs/hooks-intro.html#no-breaking-changes) says, class components aren't going away, so you probably won't have to migrate your project to functional components in most cases.
+
+But if you run into a situation like me where you need the powerful hooks from _react-navigation_, _react-spring_ or any other similar library, [lifecycle-hooks](https://github.com/DaniAkash/lifecycle-hooks) will make your migration a lot easier.
+
+## traditional class state
+
+```jsx
+// Initialization
+this.state = {
+  name: "",
+  email: "",
+};
+
+// updating name
+this.setState({
+  name: "John Doe",
+});
+```
+
+## lifecycle-hook's `useState`
+
+```jsx
+import { useState } from "@daniakash/lifecycle-hooks";
+
+// Initialization
+const [state, setState] = useState({
+  name: "",
+  email: "",
+});
+
+// updating name
+setState({
+  name: "John Doe",
+});
+```
+
+Likewise, I have also created hooks for `componentDidMount`, `componentDidUpdate` & `componentWillUnmount` which will let you quickly move code without having to worry about dependency arrays of `useEffect`
+
+You can try these hooks in the following codesandbox playground. Let me know your thoughts! Feedbacks & PRs welcome ✨
+
+<iframe
+  src="https://codesandbox.io/embed/n6qes?view=editor+%2B+preview&module=%2Fsrc%2FApp.tsx&hidenavigation=1&expanddevtools=1"
+  style="width:100%; height: 500px; border:0; border-radius: 4px; overflow:hidden;"
+  title="lifecycle-hooks playground"
+  allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+></iframe>

@@ -1,0 +1,24 @@
+---
+import { Image } from "astro:assets";
+import { TRANSITION_NAMES } from "../../constants/transition-names";
+import { ASSET_PREFIX } from "../../constants/asset-prefix";
+
+interface Props {
+  isHomePage?: boolean;
+}
+
+const { isHomePage = false } = Astro.props;
+---
+
+<a class={isHomePage ? "h-16 w-16" : "h-10 w-10"} href="/">
+  <Image
+    height={96}
+    width={96}
+    transition:name={TRANSITION_NAMES.avatar}
+    alt="dani-akash"
+    class={`rounded-full bg-zinc-100 object-cover dark:bg-zinc-800 hover:transition-all hover:-translate-y-1 hover:scale-110 hover:shadow-teal-500 hover:shadow-2xl hover:dark:shadow-teal-400 ${
+      isHomePage ? "h-16 w-16" : "h-9 w-9"
+    }`}
+    src={`${ASSET_PREFIX}/avatar.jpg`}
+  />
+</a>

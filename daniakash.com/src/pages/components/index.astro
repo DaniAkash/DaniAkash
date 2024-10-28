@@ -1,0 +1,25 @@
+---
+import { readdir } from "node:fs/promises";
+import { dirname } from "node:path";
+import { fileURLToPath } from "node:url";
+import { CMDK } from "../../react/cmdk";
+
+async function listFilesInCurrentDirectory() {
+  // __dirname is not defined in ES module scope, so we need to derive it
+  const currentFile = fileURLToPath(import.meta.url);
+  const currentDir = dirname(currentFile);
+
+  // Reading the contents of the 'components' directory
+  const files = (await readdir(currentDir))
+    .filter((each) => each !== "index.astro")
+    .map((each) => each.replace(".astro", ""));
+
+  return files;
+}
+
+const files = await listFilesInCurrentDirectory();
+---
+
+<main class="flex h-screen w-screen items-center justify-center">
+  <CMDK client:load files={files} />
+</main>

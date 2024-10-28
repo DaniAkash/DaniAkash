@@ -1,0 +1,57 @@
+---
+import { getCollection } from "astro:content";
+import WorkIcon from "./icons/WorkIcon.astro";
+import { ASSET_PREFIX } from "../../constants/asset-prefix";
+import { Image } from "astro:assets";
+import ExternalIcon from "../../components/icons/ExternalIcon.astro";
+
+const experience = (await getCollection("career"))[0]!;
+const social = (await getCollection("social"))[0]!;
+---
+
+<div class="rounded-2xl border border-zinc-100 p-6 dark:border-zinc-700/40">
+  <h2 class="flex text-sm font-semibold text-zinc-900 dark:text-zinc-100">
+    <WorkIcon /><span class="ml-3">Work</span>
+  </h2>
+  <ol class="mt-6 space-y-4">
+    {
+      experience.data.map((each) => {
+        return (
+          <li class="flex gap-4">
+            <div class="mt-1 flex h-10 w-10 flex-none items-center justify-center rounded-full shadow-md shadow-zinc-800/5 ring-1 ring-zinc-900/5 dark:border dark:border-zinc-700/50 dark:bg-zinc-800 dark:ring-0">
+              <Image
+                src={`${ASSET_PREFIX}${each.logo}`}
+                alt={each.company}
+                width={28}
+                height={28}
+                class="h-7 w-7 rounded-full"
+              />
+            </div>
+            <dl class="flex flex-auto flex-wrap gap-x-2">
+              <dt class="sr-only">Company</dt>
+              <dd class="w-full text-sm font-medium text-zinc-900 dark:text-zinc-100">
+                {each.company}
+              </dd>
+              <dt class="sr-only">Role</dt>
+              <dd class="text-xs text-zinc-500 dark:text-zinc-400">
+                {each.role}
+              </dd>
+              <dt class="sr-only">Date</dt>
+              <dd class="ml-auto text-xs text-zinc-400 dark:text-zinc-500">
+                <time>{new Date(each.startDate).getFullYear()}</time>
+                <span> &mdash; </span>
+                <time>{new Date(each.endDate).getFullYear() || "Present"}</time>
+              </dd>
+            </dl>
+          </li>
+        );
+      })
+    }
+  </ol>
+  <a
+    href={social.data.linkedIn}
+    class="group mt-6 inline-flex w-full items-center justify-center gap-2 rounded-md bg-zinc-50 px-3 py-2 text-sm font-medium text-zinc-900 outline-offset-2 transition hover:bg-zinc-100 active:bg-zinc-100 active:text-zinc-900/60 active:transition-none dark:bg-zinc-800/50 dark:text-zinc-300 dark:hover:bg-zinc-800 dark:hover:text-zinc-50 dark:active:bg-zinc-800/50 dark:active:text-zinc-50/70"
+    target="_blank"
+    rel="noopener noreferrer">LinkedIn<ExternalIcon /></a
+  >
+</div>
