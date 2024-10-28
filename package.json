@@ -31,6 +31,7 @@
     "prettier": "^3.3.3",
     "prettier-plugin-astro": "^0.14.1",
     "prettier-plugin-tailwindcss": "^0.6.8",
+    "rss-to-json": "^2.1.1",
     "sharp": "^0.33.5"
   }
 }

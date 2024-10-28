@@ -4,6 +4,8 @@ import MainLayout from "../../layouts/MainLayout.astro";
 import { getCollection } from "astro:content";
 import ArrowLeftIcon from "../components/icons/ArrowLeftIcon.astro";
 import { TRANSITION_NAMES } from "../../constants/transition-names";
+import { getDateValue } from "../../utils/getDateValue";
+import { getDateDisplay } from "../../utils/getDateDisplay";
 export const getStaticPaths = (async () => {
   const posts = await getCollection("blog");
   return posts.map((post) => ({
@@ -17,13 +19,8 @@ type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 const { post } = Astro.props;
 const { Content } = await post.render();
 
-const date = new Date(post.data.date);
-const dateValue = date.toISOString().split("T")[0];
-const dateDisplay = date.toLocaleDateString("en-US", {
-  year: "numeric",
-  month: "long",
-  day: "numeric",
-});
+const dateValue = getDateValue(post.data.date);
+const dateDisplay = getDateDisplay(post.data.date);
 ---
 
 <MainLayout>

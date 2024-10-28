@@ -1,7 +1,14 @@
 ---
+import NewsLetterArticle from "../components/NewsLetterArticle.astro";
 import MainLayout from "../layouts/MainLayout.astro";
+import { getDateDisplay } from "../utils/getDateDisplay";
+import { getDateValue } from "../utils/getDateValue";
 import ContentContainer from "./components/ContentContainer.astro";
 import Header from "./components/Header.astro";
+import rssToJson from "rss-to-json";
+const { parse } = rssToJson as unknown as { parse: typeof rssToJson };
+
+const rss = await parse("https://buttondown.com/daniakash/rss");
 ---
 
 <MainLayout>
@@ -10,5 +17,29 @@ import Header from "./components/Header.astro";
       title="Letters of the News Kind"
       subtitle="Thoughts delivered straight to your inbox, with zero spam (I promise)."
     />
+    <div class="mt-16 sm:mt-20">
+      <div
+        class="md:border-l md:border-zinc-100 md:pl-6 md:dark:border-zinc-700/40"
+      >
+        <div class="flex max-w-3xl flex-col space-y-16">
+          {
+            rss.items.map((each) => {
+              const link = new URL(each.link);
+              const slug = link.pathname.split("/").filter(Boolean).pop()!;
+              const dateValue = getDateValue(each.published);
+              const dateDisplay = getDateDisplay(each.published);
+              return (
+                <NewsLetterArticle
+                  dateDisplay={dateDisplay}
+                  dateValue={dateValue}
+                  title={each.title}
+                  slug={slug}
+                />
+              );
+            })
+          }
+        </div>
+      </div>
+    </div>
   </ContentContainer>
 </MainLayout>

@@ -1,17 +1,14 @@
 ---
 import type { InferEntrySchema } from "astro:content";
 import { TRANSITION_NAMES } from "../constants/transition-names";
+import { getDateValue } from "../utils/getDateValue";
+import { getDateDisplay } from "../utils/getDateDisplay";
 
 export type Props = InferEntrySchema<"blog"> & { slug: string };
 
 const { date, subtitle, title, slug } = Astro.props;
-const dateObject = new Date(date);
-const dateDisplay = dateObject.toLocaleDateString("en-US", {
-  year: "numeric",
-  month: "long",
-  day: "numeric",
-});
-const dateValue = dateObject.toISOString().split("T")[0];
+const dateDisplay = getDateDisplay(date);
+const dateValue = getDateValue(date);
 ---
 
 <article class="group relative flex flex-col">
