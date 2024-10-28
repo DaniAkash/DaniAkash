@@ -4,6 +4,7 @@ import MainLayout from "../layouts/MainLayout.astro";
 import Article from "../components/Article.astro";
 import Experience from "./components/Experience.astro";
 import Hero from "./components/Hero.astro";
+import Newsletter from "../components/Newsletter.astro";
 const posts = (await getCollection("blog")).sort((a, b) => {
   const dateA = new Date(a.data.date).getTime();
   const dateB = new Date(b.data.date).getTime();
@@ -27,7 +28,8 @@ const posts = (await getCollection("blog")).sort((a, b) => {
         })
       }
     </div>
-    <div>
+    <div class="flex flex-col gap-y-10">
+      <Newsletter />
       <Experience />
     </div>
   </div>
