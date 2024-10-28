@@ -1,14 +1,17 @@
 ---
+import { Image } from "astro:assets";
 import { TRANSITION_NAMES } from "../../constants/transition-names";
+import { ASSET_PREFIX } from "../../constants/asset-prefix";
 ---
 
 <div class="flex flex-row gap-5 sm:gap-8">
   <div
     class="aspect-[9/10] w-44 flex-none -rotate-2 overflow-hidden rounded-xl bg-zinc-100 transition-all dark:bg-zinc-800 sm:w-72 sm:rounded-2xl lg:hover:relative lg:hover:z-10 lg:hover:rotate-0 lg:hover:scale-125"
   >
-    <img
+    <Image
       alt="dani-akash"
-      src="https://daniakash.pages.dev/_astro/image-3.a95969e9.jpg"
+      src={`${ASSET_PREFIX}/image-1.jpg`}
+      inferSize
       sizes="(min-width: 640px) 18rem, 11rem"
       class="h-full w-full object-cover"
     />
@@ -16,25 +19,28 @@ import { TRANSITION_NAMES } from "../../constants/transition-names";
   <div
     class="aspect-[9/10] w-44 flex-none rotate-2 overflow-hidden rounded-xl bg-zinc-100 transition-all dark:bg-zinc-800 sm:w-72 sm:rounded-2xl lg:hover:relative lg:hover:z-10 lg:hover:rotate-0 lg:hover:scale-125"
   >
-    <img
+    <Image
       alt="dani-akash"
-      src="https://daniakash.pages.dev/_astro/image-3.a95969e9.jpg"
+      src={`${ASSET_PREFIX}/image-2.jpg`}
+      inferSize
       sizes="(min-width: 640px) 18rem, 11rem"
       class="h-full w-full object-cover"
     />
   </div>
   <div
-    class="aspect-[9/10] w-44 flex-none -rotate-2 overflow-hidden rounded-xl bg-zinc-100 hover:transition-all dark:bg-zinc-800 sm:w-72 sm:rounded-2xl lg:hover:relative lg:hover:z-10 lg:hover:rotate-0 lg:hover:scale-125"
+    class="aspect-[9/10] w-44 flex-none -rotate-2 overflow-hidden rounded-xl bg-zinc-100 transition-all dark:bg-zinc-800 sm:w-72 sm:rounded-2xl lg:hover:relative lg:hover:z-10 lg:hover:rotate-0 lg:hover:scale-125"
   >
-    <img
+    <Image
       alt="dani-akash"
-      src="https://daniakash.pages.dev/_astro/image-3.a95969e9.jpg"
+      src={`${ASSET_PREFIX}/image-3.jpg`}
+      inferSize
       sizes="(min-width: 640px) 18rem, 11rem"
       class="h-full w-full object-cover"
     />
-    <img
+    <Image
       alt="dani-akash"
-      src="https://daniakash.pages.dev/_astro/image-3.a95969e9.jpg"
+      src={`${ASSET_PREFIX}/image-3.jpg`}
+      inferSize
       sizes="(min-width: 640px) 18rem, 11rem"
       class="fixed left-0 top-0 h-full w-full object-cover"
       transition:name={TRANSITION_NAMES.heroImage}
@@ -43,19 +49,21 @@ import { TRANSITION_NAMES } from "../../constants/transition-names";
   <div
     class="aspect-[9/10] w-44 flex-none rotate-2 overflow-hidden rounded-xl bg-zinc-100 transition-all dark:bg-zinc-800 sm:w-72 sm:rounded-2xl lg:hover:relative lg:hover:z-10 lg:hover:rotate-0 lg:hover:scale-125"
   >
-    <img
+    <Image
       alt="dani-akash"
-      src="https://daniakash.pages.dev/_astro/image-3.a95969e9.jpg"
+      src={`${ASSET_PREFIX}/image-4.jpg`}
+      inferSize
       sizes="(min-width: 640px) 18rem, 11rem"
       class="h-full w-full object-cover"
     />
   </div>
   <div
-    class="aspect-[9/10] w-44 flex-none -rotate-2 overflow-hidden rounded-xl bg-zinc-100 transition-all dark:bg-zinc-800 sm:w-72 sm:rounded-2xl lg:hover:rotate-0 lg:hover:scale-125"
+    class="aspect-[9/10] w-44 flex-none -rotate-2 overflow-hidden rounded-xl bg-zinc-100 transition-all dark:bg-zinc-800 sm:w-72 sm:rounded-2xl lg:hover:relative lg:hover:z-10 lg:hover:rotate-0 lg:hover:scale-125"
   >
-    <img
+    <Image
       alt="dani-akash"
-      src="https://daniakash.pages.dev/_astro/image-3.a95969e9.jpg"
+      src={`${ASSET_PREFIX}/image-5.jpg`}
+      inferSize
       sizes="(min-width: 640px) 18rem, 11rem"
       class="h-full w-full object-cover"
     />

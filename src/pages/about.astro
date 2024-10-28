@@ -2,6 +2,9 @@
 import { getCollection } from "astro:content";
 import { TRANSITION_NAMES } from "../constants/transition-names";
 import MainLayout from "../layouts/MainLayout.astro";
+import { ASSET_PREFIX } from "../constants/asset-prefix";
+import { Image } from "astro:assets";
+
 const about = (await getCollection("about"))[0]!;
 const { Content } = await about.render();
 ---
@@ -12,9 +15,10 @@ const { Content } = await about.render();
   >
     <div class="lg:pl-20">
       <div class="max-w-xs px-2.5 lg:max-w-none">
-        <img
-          src="https://daniakash.pages.dev/_astro/image-3.a95969e9.jpg"
+        <Image
+          src={`${ASSET_PREFIX}/image-3.jpg`}
           alt="about-image"
+          inferSize
           sizes="(min-width: 1024px) 32rem, 20rem"
           class="aspect-square rotate-3 rounded-2xl bg-zinc-100 object-cover transition-all hover:rotate-0 dark:bg-zinc-800"
           transition:name={TRANSITION_NAMES.heroImage}
