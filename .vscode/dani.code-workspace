@@ -1,16 +1,11 @@
 {
   "folders": [
     {
-      "name": "Project Root Config",
-      "path": "./"
-    },
-    {
       "name": "daniakash.com",
       "path": "../daniakash.com"
     }
   ],
   "settings": {
-    "editor.defaultFormatter": "EditorConfig.EditorConfig",
     "editor.formatOnSave": true,
     "editor.formatOnPaste": true,
     "files.autoSave": "onFocusChange",
