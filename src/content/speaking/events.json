@@ -172,6 +172,23 @@
           }
         ],
         "video": "https://www.youtube.com/watch?v=rU7qtmrm-TA"
+      },
+      {
+        "date": "Jan 31, 2020",
+        "name": "Guvi Special Event",
+        "title": "Building Universal Applications with Expo",
+        "description": "Ever wondered you could build your app once instead of thrice? ﹣ Meet Universal Apps in this tech talk organized with the help of GUVI learning platform",
+        "cta": [
+          {
+            "title": "Event Website",
+            "url": "https://www.facebook.com/events/515381902427407"
+          },
+          {
+            "title": "Slides",
+            "url": "https://speakerdeck.com/daniakash/building-universal-applications-with-expo"
+          }
+        ],
+        "video": "https://www.youtube.com/watch?v=4aiDekX4IiA"
       }
     ]
   },
