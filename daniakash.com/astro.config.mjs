@@ -1,5 +1,4 @@
 import { defineConfig } from "astro/config";
-import react from "@astrojs/react";
 import tailwind from "@astrojs/tailwind";
 import mdx from "@astrojs/mdx";
 import rehypeExternalLinks from "rehype-external-links";
@@ -34,5 +33,5 @@ export default defineConfig({
       },
     ],
   },
-  integrations: [react(), tailwind(), mdx(), metaTags()],
+  integrations: [tailwind(), mdx(), metaTags()],
 });
