@@ -15,7 +15,7 @@ const { Content } = await about.render();
 const social = (await getCollection("social"))[0]!;
 ---
 
-<MainLayout>
+<MainLayout title="About">
   <div
     class="mt-16 grid grid-cols-1 gap-y-16 lg:grid-cols-2 lg:grid-rows-[auto_1fr]"
   >
@@ -24,10 +24,12 @@ const social = (await getCollection("social"))[0]!;
         <Image
           src={`${ASSET_PREFIX}/image-3.jpg`}
           alt="about-image"
-          inferSize
+          height={450}
+          width={450}
           sizes="(min-width: 1024px) 32rem, 20rem"
           class="aspect-square rotate-3 rounded-2xl bg-zinc-100 object-cover transition-all hover:rotate-0 dark:bg-zinc-800"
           transition:name={TRANSITION_NAMES.heroImage}
+          loading="eager"
         />
       </div>
     </div>

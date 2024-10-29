@@ -24,8 +24,9 @@ const dateValue = getDateValue(date);
   </time>
   <a
     href={`/posts/${slug}/`}
-    class="absolute -inset-x-4 -inset-y-6 z-20 sm:-inset-x-6 sm:rounded-2xl"
-  ></a>
+    class="absolute -inset-x-4 -inset-y-6 z-20 text-[0px] sm:-inset-x-6 sm:rounded-2xl"
+    >{title}</a
+  >
   <h2
     class="text-base font-semibold tracking-tight text-zinc-800 dark:text-zinc-100"
     transition:name={`${TRANSITION_NAMES.blogTitle}-${slug}`}

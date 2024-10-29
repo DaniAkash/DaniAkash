@@ -37,7 +37,7 @@ const social = (await getCollection("social"))[0]!;
                 {each.role}
               </dd>
               <dt class="sr-only">Date</dt>
-              <dd class="ml-auto text-xs text-zinc-400 dark:text-zinc-500">
+              <dd class="ml-auto text-xs text-zinc-500 dark:text-zinc-400">
                 <time>{new Date(each.startDate).getFullYear()}</time>
                 <span> &mdash; </span>
                 <time>{new Date(each.endDate).getFullYear() || "Present"}</time>

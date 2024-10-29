@@ -10,7 +10,7 @@ import { ASSET_PREFIX } from "../constants/asset-prefix";
 const projects = (await getCollection("project"))[0]!;
 ---
 
-<MainLayout>
+<MainLayout title="Projects">
   <ContentContainer>
     <Header
       title="Things I’ve Built"
@@ -43,6 +43,7 @@ const projects = (await getCollection("project"))[0]!;
                         project.noBg || "h-8 w-8 rounded-full",
                         project.noBg && "h-16 w-12",
                       )}
+                      loading="eager"
                     />
                   </div>
                   <h2 class="mt-6 text-base font-semibold text-zinc-800 dark:text-zinc-100">

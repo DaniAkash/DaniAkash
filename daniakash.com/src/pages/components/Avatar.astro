@@ -12,6 +12,7 @@ const { isHomePage = false } = Astro.props;
 
 <a class={isHomePage ? "h-16 w-16" : "h-10 w-10"} href="/">
   <Image
+    loading={"eager"}
     height={96}
     width={96}
     transition:name={TRANSITION_NAMES.avatar}

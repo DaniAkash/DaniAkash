@@ -8,7 +8,7 @@ const now = (await getCollection("now"))[0]!;
 const { Content } = await now.render();
 ---
 
-<MainLayout>
+<MainLayout title="Now">
   <ContentContainer>
     <Header
       title="What’s Up Right Now"
