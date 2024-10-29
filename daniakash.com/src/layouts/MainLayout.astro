@@ -12,6 +12,7 @@ interface Props {
   description?: string;
   keywords?: string[];
   canonical?: string;
+  image?: string;
 }
 
 const {
@@ -20,6 +21,7 @@ const {
   keywords,
   description,
   canonical,
+  image,
 } = Astro.props;
 ---
 
@@ -88,14 +90,26 @@ const {
       icon="/favicon.ico"
       themeColor="#333333"
       colorScheme="light"
-      facebook={{
-        url: "https://daniakash.com",
-        type: "website",
-      }}
-      twitter={{
-        site: "@dani_akash_",
-        card: "summary",
-      }}
+      facebook={image
+        ? {
+            url: "https://daniakash.com",
+            type: "website",
+            image,
+          }
+        : {
+            url: "https://daniakash.com",
+            type: "website",
+          }}
+      twitter={image
+        ? {
+            site: "@dani_akash_",
+            card: "summary_large_image",
+            image,
+          }
+        : {
+            site: "@dani_akash_",
+            card: "summary",
+          }}
     />
     {canonical ? <link rel="canonical" href={canonical} /> : null}
     <ViewTransitions />

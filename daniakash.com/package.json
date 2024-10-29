@@ -14,7 +14,6 @@
     "@astrojs/mdx": "^3.1.8",
     "@astrojs/react": "^3.6.2",
     "@astrojs/tailwind": "^5.1.2",
-    "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
     "astro": "^4.16.7",
     "axios": "^1.7.7",
@@ -27,6 +26,8 @@
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.15",
     "@types/node": "^22.7.9",
+    "@types/react": "^18.3.12",
+    "@vercel/og": "^0.6.3",
     "astro-meta-tags": "^0.3.1",
     "astro-seo-meta": "^4.1.1",
     "prettier": "^3.3.3",

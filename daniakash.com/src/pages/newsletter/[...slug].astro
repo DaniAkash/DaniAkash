@@ -5,6 +5,8 @@ import ArticleContainer from "../../components/ArticleContainer.astro";
 import { TRANSITION_NAMES } from "../../constants/transition-names";
 import Newsletter from "../../components/Newsletter.astro";
 import { getCollection } from "astro:content";
+import { getOGImage } from "../../utils/getOGImage";
+import { writeFileToDist } from "../../utils/writeFileToDist";
 
 export const getStaticPaths = (async () => {
   const items = await getCollection("rss");
@@ -27,9 +29,21 @@ const description =
   "Get interesting reads delivered to your inbox. Subscribe to Dani's Newsletter.";
 const { content, dateDisplay, dateValue, title, canonical } = Astro.props;
 const { slug } = Astro.params;
+const ogImageBuffer = await getOGImage({
+  title: title,
+  description,
+});
+const image = `/og/newsletter/${slug}.png`;
+
+writeFileToDist(image, ogImageBuffer);
 ---
 
-<MainLayout title={title} description={description} canonical={canonical}>
+<MainLayout
+  title={title}
+  description={description}
+  image={image}
+  canonical={canonical}
+>
   <ArticleContainer>
     <header class="flex flex-col">
       <h1
