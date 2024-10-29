@@ -1,0 +1,45 @@
+---
+title: Drawing Triangles in React Native
+subtitle: React Native library to draw triangles with fine control over all aspects of the triangle view
+date: Fri Jun 05 2020 00:00:00 GMT+0530 (India Standard Time)
+tags: ["react-native", "expo", "triangle", "ui"]
+canonical: https://dev.to/dani_akash_/drawing-triangles-in-react-native-2akk
+---
+
+import PostImage from "../../components/PostImage.astro";
+
+<PostImage src="/toolkit-logos/triangle.png" alt="better-image-loading">
+  _React Native Triangle_
+</PostImage>
+
+<blockquote class="twitter-tweet">
+  <p lang="en" dir="ltr">
+    I have decided to focus on open-sourcing all the components I have built for
+    React Native. Starting with the Triangle!
+    <a href="https://t.co/F1ohUA9poE">https://t.co/F1ohUA9poE</a>
+  </p>
+  &mdash; Dani Akash 🧪💥 (@dani_akash_){" "}
+  <a href="https://twitter.com/dani_akash_/status/1268744578305110019?ref_src=twsrc%5Etfw">
+    June 5, 2020
+  </a>
+</blockquote> <script
+  async
+  src="https://platform.twitter.com/widgets.js"
+  charset="utf-8"
+></script>
+
+I always come across a scenario where my UI needs a triangle view. Also I needed fine control over all aspects of the triangle view. Hence I built [@react-native-toolkit/triangle](https://github.com/react-native-toolkit/triangle) view based on the well known CSS trick to create triangles on the web.
+
+As my requirements grew, I was adding more features to the library and now it supports almost all possible triangles you need. Hence I'm open sourcing it today for general use.
+
+<iframe
+  src="https://codesandbox.io/embed/m0z2l?view=editor+%2B+preview&module=%2Fsrc%2FApp.tsx&hidenavigation=1"
+  style="width:100%; height: 500px; border:0; border-radius: 4px; overflow:hidden;"
+  title="triangle"
+  allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+></iframe>
+
+I initially used [react-native-triangle](https://www.npmjs.com/package/react-native-triangle) but it's configuration is fairly limited and I couldn't control many of the triangle properties. Hence this library became a necessity.
+
+Also, I have started to work on open sourcing all the libraries I built for react native over the years for my personal projects. Will be slowly moving them over to [React Native Toolkit](https://github.com/react-native-toolkit). Stay tuned for future updates!

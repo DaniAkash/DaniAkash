@@ -1,0 +1,31 @@
+---
+title: A better Image component for React Native
+subtitle: Introducing a better image component for React Native with fallback & progressive loading
+tags: ["react-native", "image", "react", "expo", "ui"]
+date: Sat Sep 05 2020 00:00:00 GMT+0530 (India Standard Time)
+canonical: https://dev.to/dani_akash_/a-better-image-component-for-react-native-1bjb
+---
+
+import PostImage from "../../components/PostImage.astro";
+
+Introducing a [better image component](https://github.com/react-native-toolkit/react-native-better-image) for React Native!
+
+<PostImage
+  src="/toolkit-logos/better-image-loading.gif"
+  alt="better-image-loading"
+>
+  _Image loading with better-image library_
+</PostImage>
+
+React Native only includes a basic image component. However, I always needed two very important functionalities on the Image component:
+
+- A **fallback image** if the original source fails to load
+- **Progressive image loading** (especially for banners & cover images)
+
+So I customized the existing `<Image/>` component and have been using this `<BetterImage/>` component in my projects. Today, I'm open-sourcing my component to receive feedbacks & ideas from the community.
+
+Do try it out at [react-native-toolkit/react-native-better-image](https://github.com/react-native-toolkit/react-native-better-image)
+
+I have also created a storybook with detailed docs at [betterimage.netlify.app](https://betterimage.netlify.app/)
+
+What other features do you think are essential for the Image component? Share your ideas & I'll be happy to help 👍

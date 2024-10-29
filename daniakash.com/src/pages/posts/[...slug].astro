@@ -23,7 +23,12 @@ const dateValue = getDateValue(post.data.date);
 const dateDisplay = getDateDisplay(post.data.date);
 ---
 
-<MainLayout title={post.data.title}>
+<MainLayout
+  title={post.data.title}
+  description={post.data.subtitle}
+  keywords={post.data.tags}
+  canonical={post.data.canonical}
+>
   <ArticleContainer>
     <article>
       <header class="flex flex-col">

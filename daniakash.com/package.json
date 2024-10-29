@@ -30,6 +30,8 @@
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.15",
     "@types/node": "^22.7.9",
+    "astro-meta-tags": "^0.3.1",
+    "astro-seo-meta": "^4.1.1",
     "prettier": "^3.3.3",
     "prettier-plugin-astro": "^0.14.1",
     "prettier-plugin-tailwindcss": "^0.6.8",

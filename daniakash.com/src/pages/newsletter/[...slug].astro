@@ -15,18 +15,21 @@ export const getStaticPaths = (async () => {
     const slug = each.data.slug;
     const dateValue = each.data.dateValue;
     const dateDisplay = each.data.dateDisplay;
+    const canonical = each.data.canonical;
     return {
       params: { slug },
-      props: { content, dateValue, dateDisplay, title },
+      props: { content, dateValue, dateDisplay, title, canonical },
     };
   });
 }) satisfies GetStaticPaths;
 
-const { content, dateDisplay, dateValue, title } = Astro.props;
+const description =
+  "Get interesting reads delivered to your inbox. Subscribe to Dani's Newsletter.";
+const { content, dateDisplay, dateValue, title, canonical } = Astro.props;
 const { slug } = Astro.params;
 ---
 
-<MainLayout title={title}>
+<MainLayout title={title} description={description} canonical={canonical}>
   <ArticleContainer>
     <header class="flex flex-col">
       <h1

@@ -3,12 +3,13 @@ import react from "@astrojs/react";
 import tailwind from "@astrojs/tailwind";
 import mdx from "@astrojs/mdx";
 import rehypeExternalLinks from "rehype-external-links";
+import metaTags from "astro-meta-tags";
 
 // https://astro.build/config
 export default defineConfig({
   prefetch: {
     defaultStrategy: "viewport",
-    prefetchAll: true
+    prefetchAll: true,
   },
   markdown: {
     rehypePlugins: [
@@ -33,5 +34,5 @@ export default defineConfig({
       },
     ],
   },
-  integrations: [react(), tailwind(), mdx()],
+  integrations: [react(), tailwind(), mdx(), metaTags()],
 });

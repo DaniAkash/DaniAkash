@@ -4,13 +4,23 @@ import HeroImages from "../pages/components/HeroImages.astro";
 import ContentArea from "./ContentArea.astro";
 import Header from "./Header.astro";
 import { ViewTransitions } from "astro:transitions";
+import { Seo } from "astro-seo-meta";
 
 interface Props {
   isHomePage?: boolean;
   title: string;
+  description?: string;
+  keywords?: string[];
+  canonical?: string;
 }
 
-const { isHomePage = false, title = "" } = Astro.props;
+const {
+  isHomePage = false,
+  title = "",
+  keywords,
+  description,
+  canonical,
+} = Astro.props;
 ---
 
 <html lang="en" class="dark">
@@ -60,7 +70,34 @@ const { isHomePage = false, title = "" } = Astro.props;
     <meta name="msapplication-TileImage" content="/ms-icon-144x144.png" />
     <meta name="theme-color" content="#ffffff" />
     <meta name="generator" content={Astro.generator} />
-    <title>{title ? `${title} | Dani Akash` : "Dani Akash"}</title>
+    <Seo
+      title={title ? `${title} | Dani Akash` : "Dani Akash"}
+      description={description ||
+        "Dani Akash's personal website featuring insightful blogs, engaging talks, and innovative projects. Explore content on writing, speaking, and hacking, and stay updated with the latest trends in technology and creativity."}
+      keywords={keywords || [
+        "Dani Akash",
+        "Personal Blog",
+        "Tech Blog",
+        "Newsletter",
+        "Tech Newsletter",
+        "Writing",
+        "Speaking",
+        "Tech Talks",
+        "Web Development",
+      ]}
+      icon="/favicon.ico"
+      themeColor="#333333"
+      colorScheme="light"
+      facebook={{
+        url: "https://daniakash.com",
+        type: "website",
+      }}
+      twitter={{
+        site: "@dani_akash_",
+        card: "summary",
+      }}
+    />
+    {canonical ? <link rel="canonical" href={canonical} /> : null}
     <ViewTransitions />
   </head>
   <body class="flex h-full w-full overflow-x-hidden bg-zinc-50 dark:bg-black">

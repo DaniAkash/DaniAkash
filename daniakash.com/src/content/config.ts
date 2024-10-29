@@ -27,7 +27,8 @@ const blogCollection = defineCollection({
     title: z.string(),
     subtitle: z.string(),
     date: z.string(),
-    tags: z.array(z.string()),
+    tags: z.array(z.string()).max(9),
+    canonical: z.string(),
   }),
 });
 
@@ -119,6 +120,7 @@ const rssCollection = defineCollection({
         dateValue,
         dateDisplay,
         slug,
+        canonical: each.link,
       };
     });
   },
@@ -128,6 +130,7 @@ const rssCollection = defineCollection({
     dateValue: z.string(),
     dateDisplay: z.string(),
     slug: z.string(),
+    canonical: z.string(),
   }),
 });
 

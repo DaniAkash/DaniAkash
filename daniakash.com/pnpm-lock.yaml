@@ -63,6 +63,12 @@ importers:
       '@types/node':
         specifier: ^22.7.9
         version: 22.7.9
+      astro-meta-tags:
+        specifier: ^0.3.1
+        version: 0.3.1(astro@4.16.7(@types/node@22.7.9)(rollup@4.24.0)(typescript@5.6.3))
+      astro-seo-meta:
+        specifier: ^4.1.1
+        version: 4.1.1(astro@4.16.7(@types/node@22.7.9)(rollup@4.24.0)(typescript@5.6.3))
       prettier:
         specifier: ^3.3.3
         version: 3.3.3
@@ -1001,6 +1007,16 @@ packages:
   astring@1.9.0:
     resolution: {integrity: sha512-LElXdjswlqjWrPpJFg1Fx4wpkOCxj1TDHlSV4PlaRxHGWko024xICaa97ZkMfs6DRKlCguiAI+rbXv5GWwXIkg==}
     hasBin: true
+
+  astro-meta-tags@0.3.1:
+    resolution: {integrity: sha512-6g/SfAVTV7BsGlfWU+s/Kvo6atyn9DpfI7Dq3fE/ck3ppfg30aoeT2Uxu7UH4yla3QXAUWaJIher7fGjewf0ew==}
+    peerDependencies:
+      astro: ^4.0.0 || ^5.0.0-beta.0
+
+  astro-seo-meta@4.1.1:
+    resolution: {integrity: sha512-hZdqKLAgjRTW4LPcYMGfH5VuA4Zidv6gYmJgw0Dw7QmPExuSLnEqFHLreRzOdQibqH4JD6PHrHoIHrUb3HUs2A==}
+    peerDependencies:
+      astro: ^4.0.0
 
   astro@4.16.7:
     resolution: {integrity: sha512-nON+8MUEkWTFwXbS4zsQIq4t0Fs42eulM4x236AL+qNnWfqNAOOqAnFxO1dxfJ1q+XopIBbbT9Mtev+0zH47PQ==}
@@ -3746,6 +3762,14 @@ snapshots:
   array-iterate@2.0.1: {}
 
   astring@1.9.0: {}
+
+  astro-meta-tags@0.3.1(astro@4.16.7(@types/node@22.7.9)(rollup@4.24.0)(typescript@5.6.3)):
+    dependencies:
+      astro: 4.16.7(@types/node@22.7.9)(rollup@4.24.0)(typescript@5.6.3)
+
+  astro-seo-meta@4.1.1(astro@4.16.7(@types/node@22.7.9)(rollup@4.24.0)(typescript@5.6.3)):
+    dependencies:
+      astro: 4.16.7(@types/node@22.7.9)(rollup@4.24.0)(typescript@5.6.3)
 
   astro@4.16.7(@types/node@22.7.9)(rollup@4.24.0)(typescript@5.6.3):
     dependencies:
