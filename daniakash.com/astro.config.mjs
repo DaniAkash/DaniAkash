@@ -4,6 +4,8 @@ import mdx from "@astrojs/mdx";
 import rehypeExternalLinks from "rehype-external-links";
 import metaTags from "astro-meta-tags";
 
+import sitemap from "@astrojs/sitemap";
+
 // https://astro.build/config
 export default defineConfig({
   site: "https://daniakash.com",
@@ -34,5 +36,5 @@ export default defineConfig({
       },
     ],
   },
-  integrations: [tailwind(), mdx(), metaTags()],
+  integrations: [tailwind(), mdx(), metaTags(), sitemap()],
 });
