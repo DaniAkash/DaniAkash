@@ -6,6 +6,7 @@ import metaTags from "astro-meta-tags";
 
 // https://astro.build/config
 export default defineConfig({
+  site: "https://daniakash.com",
   prefetch: {
     defaultStrategy: "viewport",
     prefetchAll: true,

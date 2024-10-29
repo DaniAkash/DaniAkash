@@ -112,6 +112,12 @@ const {
           }}
     />
     {canonical ? <link rel="canonical" href={canonical} /> : null}
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="Dani Akash's RSS Feed"
+      href={new URL("rss.xml", Astro.site)}
+    />
     <ViewTransitions />
   </head>
   <body class="flex h-full w-full overflow-x-hidden bg-zinc-50 dark:bg-black">

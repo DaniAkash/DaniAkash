@@ -13,6 +13,7 @@
     "@astrojs/check": "^0.9.4",
     "@astrojs/mdx": "^3.1.8",
     "@astrojs/react": "^3.6.2",
+    "@astrojs/rss": "^4.0.9",
     "@astrojs/tailwind": "^5.1.2",
     "@types/react-dom": "^18.3.1",
     "astro": "^4.16.7",
@@ -25,16 +26,20 @@
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.15",
+    "@types/markdown-it": "^14.1.2",
     "@types/node": "^22.7.9",
     "@types/react": "^18.3.12",
+    "@types/sanitize-html": "^2.13.0",
     "@vercel/og": "^0.6.3",
     "astro-meta-tags": "^0.3.1",
     "astro-seo-meta": "^4.1.1",
+    "markdown-it": "^14.1.0",
     "prettier": "^3.3.3",
     "prettier-plugin-astro": "^0.14.1",
     "prettier-plugin-tailwindcss": "^0.6.8",
     "rehype-external-links": "^3.0.0",
     "rss-to-json": "^2.1.1",
+    "sanitize-html": "^2.13.1",
     "sharp": "^0.33.5"
   }
 }

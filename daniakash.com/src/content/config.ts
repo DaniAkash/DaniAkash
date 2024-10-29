@@ -121,6 +121,7 @@ const rssCollection = defineCollection({
         dateDisplay,
         slug,
         canonical: each.link,
+        dateMillis: each.published,
       };
     });
   },
@@ -131,6 +132,7 @@ const rssCollection = defineCollection({
     dateDisplay: z.string(),
     slug: z.string(),
     canonical: z.string(),
+    dateMillis: z.number(),
   }),
 });
 
