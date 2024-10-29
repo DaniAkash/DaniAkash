@@ -3,6 +3,7 @@ import { navLinks } from "../../constants/navLinks";
 import { TRANSITION_NAMES } from "../../constants/transition-names";
 
 const currentPath = Astro.url.pathname;
+const currentYear = new Date().getFullYear();
 ---
 
 <div
@@ -28,6 +29,17 @@ const currentPath = Astro.url.pathname;
     }
   </div>
   <p class="text-sm text-zinc-500 dark:text-zinc-400">
-    &#169;<!-- --> 2023<!-- --> Dani Akash. All rights reserved.
+    &#169;<!-- -->
+    <span id="footer-year">{currentYear}</span><!-- -->
+    <a
+      href="https://github.com/daniakash/daniakash"
+      target="_blank"
+      class="underline hover:text-teal-500 dark:hover:text-teal-400"
+      rel="noopener noreferrer">Dani Akash</a
+    >. All rights reserved.
   </p>
+  <script type="text/javascript" is:inline data-astro-rerun>
+    document.getElementById("footer-year").textContent =
+      new Date().getFullYear();
+  </script>
 </div>
