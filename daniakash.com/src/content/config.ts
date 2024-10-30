@@ -51,6 +51,7 @@ const eventsCollection = defineCollection({
               }),
             ),
           ),
+          thumbnail: z.optional(z.string()),
           video: z.optional(z.string()),
         }),
       ),

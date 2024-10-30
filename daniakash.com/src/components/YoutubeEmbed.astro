@@ -1,0 +1,18 @@
+---
+export interface Props {
+  src: string;
+}
+
+const { src } = Astro.props;
+const embedUrl = src.replace("watch?v=", "embed/");
+---
+
+<iframe
+  class="w-full"
+  height="315"
+  src={embedUrl}
+  title="YouTube video player"
+  frameborder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+  referrerpolicy="strict-origin-when-cross-origin"
+  allowfullscreen></iframe>

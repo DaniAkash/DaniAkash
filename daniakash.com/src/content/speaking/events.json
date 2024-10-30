@@ -104,7 +104,7 @@
             "url": "https://daniakash.github.io/Qubits-and-Quantum-Mechanics-Explained/"
           }
         ],
-        "video": "https://youtu.be/-AtUeVgRFLg?t=45"
+        "video": "https://www.youtube.com/watch?v=-AtUeVgRFLg"
       },
       {
         "date": "Apr 26, 2020",
@@ -213,7 +213,8 @@
         "name": "PYT Talks Episode 1",
         "title": "React.js Best Practices",
         "description": "Sharing the best practices on building applications with React based on my experience in building the Pickyourtrail mobile app & the web app.",
-        "video": "https://fb.watch/hLQWn-53Ju"
+        "video": "https://fb.watch/hLQWn-53Ju",
+        "thumbnail": "/pyt-talks/ep-1-thumbnail.jpg"
       }
     ]
   },
@@ -277,7 +278,7 @@
             "url": "https://github.com/DaniAkash/Todo-List-App-with-React-Native-and-Angular"
           }
         ],
-        "video": "https://youtu.be/ajB8nQBgj88?t=208"
+        "video": "https://www.youtube.com/watch?v=ajB8nQBgj88&t=208s"
       },
       {
         "date": "Mar 11, 2017",

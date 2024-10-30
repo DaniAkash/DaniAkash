@@ -9,6 +9,7 @@ canonical: https://medium.com/node-modules/what-is-prototype-pollution-and-why-i
 import { Image } from "astro:assets";
 import { inferRemoteSize } from "astro:assets";
 import PostImage from "../../components/PostImage.astro";
+import YoutubeEmbed from "../../components/YoutubeEmbed.astro";
 
 <PostImage src="/pollution.webp" alt="prototype-pollution">
   _Photo by [Thomas Millot](https://unsplash.com/@tomlaudiophile) on
@@ -80,16 +81,7 @@ if (user.isAdmin) {
 Then it will let the attacker get access to sensitive information by polluting the scope with the `isAdmin` property. If the attacker changes some existing attribute to an unexpected return type (say toString attribute to return type integer) it will cause your application to crash (**Denial of Service**) or if you are using your server for code execution like **node.js** `exec` or `eval` then it might even lead to **Remote code execution(RCE)**.
 
 <figure className="flex flex-col items-center justify-center">
-  <iframe
-    width="560"
-    height="315"
-    src="https://www.youtube.com/embed/LUsiFV3dsK8?si=rm4KqRuIFMSgv5B9"
-    title="YouTube video player"
-    frameborder="0"
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-    referrerpolicy="strict-origin-when-cross-origin"
-    allowfullscreen
-  ></iframe>
+  <YoutubeEmbed src="https://www.youtube.com/watch?v=LUsiFV3dsK8" />
   <figcaption>
     Olivier Arteau explaining RCE with prototype pollution on GHOST CMS
   </figcaption>
