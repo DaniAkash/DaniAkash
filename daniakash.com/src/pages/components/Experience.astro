@@ -3,10 +3,8 @@ import { getCollection } from "astro:content";
 import WorkIcon from "./icons/WorkIcon.astro";
 import { ASSET_PREFIX } from "../../constants/asset-prefix";
 import { Image } from "astro:assets";
-import ExternalIcon from "../../components/icons/ExternalIcon.astro";
 
 const experience = (await getCollection("career"))[0]!;
-const social = (await getCollection("social"))[0]!;
 ---
 
 <div class="rounded-2xl border border-zinc-100 p-6 dark:border-zinc-700/40">
@@ -49,9 +47,8 @@ const social = (await getCollection("social"))[0]!;
     }
   </ol>
   <a
-    href={social.data.linkedIn}
+    href="/resume"
     class="group mt-6 inline-flex w-full items-center justify-center gap-2 rounded-md bg-zinc-50 px-3 py-2 text-sm font-medium text-zinc-900 outline-offset-2 transition hover:bg-zinc-100 active:bg-zinc-100 active:text-zinc-900/60 active:transition-none dark:bg-zinc-800/50 dark:text-zinc-300 dark:hover:bg-zinc-800 dark:hover:text-zinc-50 dark:active:bg-zinc-800/50 dark:active:text-zinc-50/70"
-    target="_blank"
-    rel="noopener noreferrer">LinkedIn<ExternalIcon /></a
+    >Resume</a
   >
 </div>

@@ -1,0 +1,25 @@
+---
+import { getCollection } from "astro:content";
+import MainLayout from "../layouts/MainLayout.astro";
+import ArticleContainer from "../components/ArticleContainer.astro";
+
+const resume = (await getCollection("resume"))[0]!;
+const { Content } = await resume.render();
+---
+
+<MainLayout title="Resume">
+  <ArticleContainer>
+    <article>
+      <header class="flex flex-col">
+        <h1
+          class="mt-6 text-4xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-5xl"
+        >
+          Dani Akash
+        </h1>
+      </header>
+      <div class="prose dark:prose-invert">
+        <Content />
+      </div>
+    </article>
+  </ArticleContainer>
+</MainLayout>
