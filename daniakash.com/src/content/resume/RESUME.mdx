@@ -1,4 +1,13 @@
-![dani-akash](https://gravatar.com/avatar/8707f3e3522f2ba10aa3cafbcd011ffd?s=400&d=robohash&r=x)
+import { Image } from "astro:assets";
+import { ASSET_PREFIX } from "../../constants/asset-prefix";
+
+<Image
+  src={`${ASSET_PREFIX}/avatar.jpg`}
+  width={256}
+  height={256}
+  alt={"dani-akash"}
+  class={"h-64 w-64 rounded-3xl"}
+/>
 
 ## About
 
