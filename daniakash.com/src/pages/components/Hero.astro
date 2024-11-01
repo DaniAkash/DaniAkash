@@ -6,6 +6,7 @@ import TwitterIcon from "../../components/icons/TwitterIcon.astro";
 import InstagramIcon from "../../components/icons/InstagramIcon.astro";
 import GithubIcon from "../../components/icons/GithubIcon.astro";
 import LinkedinIcon from "../../components/icons/LinkedinIcon.astro";
+import BlueskyIcon from "../../components/icons/BlueskyIcon.astro";
 const social = (await getCollection("social"))[0]!;
 ---
 
@@ -26,6 +27,15 @@ const social = (await getCollection("social"))[0]!;
       rel="noopener noreferrer"
     >
       <TwitterIcon />
+    </a>
+    <a
+      class="group -m-1 p-1"
+      href={social.data.bluesky}
+      aria-label="Follow on Bluesky"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <BlueskyIcon />
     </a>
     <a
       class="group -m-1 p-1"

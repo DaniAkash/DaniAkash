@@ -67,6 +67,7 @@ const socialCollection = defineCollection({
     github: z.string(),
     linkedIn: z.string(),
     email: z.string(),
+    bluesky: z.string(),
   }),
 });
 
