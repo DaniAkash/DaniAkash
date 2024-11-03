@@ -25,3 +25,6 @@ pnpm-debug.log*
 
 # Temp OG Images during development
 public/og/
+
+# log files
+*.log
