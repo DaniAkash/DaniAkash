@@ -39,6 +39,7 @@ if (!image) {
   });
   fallbackImage = image;
 }
+const ogImage = image || fallbackImage;
 ---
 
 <html lang="en" class="dark">
@@ -106,21 +107,21 @@ if (!image) {
       icon="/favicon.ico"
       themeColor="#333333"
       colorScheme="light"
-      facebook={image || fallbackImage
+      facebook={ogImage
         ? {
             url: "https://daniakash.com",
             type: "website",
-            image: image || fallbackImage,
+            image: ogImage,
           }
         : {
             url: "https://daniakash.com",
             type: "website",
           }}
-      twitter={image || fallbackImage
+      twitter={ogImage
         ? {
             site: "@dani_akash_",
             card: "summary_large_image",
-            image: image || fallbackImage,
+            image: ogImage,
           }
         : {
             site: "@dani_akash_",
