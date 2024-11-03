@@ -5,6 +5,8 @@ import ContentArea from "./ContentArea.astro";
 import Header from "./Header.astro";
 import { ViewTransitions } from "astro:transitions";
 import { Seo } from "astro-seo-meta";
+import { getOGImage } from "../utils/getOGImage";
+import { ASSET_PREFIX } from "../constants/asset-prefix";
 
 interface Props {
   isHomePage?: boolean;
@@ -23,6 +25,20 @@ const {
   canonical,
   image,
 } = Astro.props;
+
+let fallbackImage: string = "";
+if (!image) {
+  const image = `/og/general/${encodeURI(Astro.url.pathname.split("/").join("-"))}.png`;
+  await getOGImage({
+    title: title || "Dani Akash",
+    description:
+      description ||
+      "Dani Akash's personal website featuring insightful blogs, engaging talks, and innovative projects.",
+    path: image,
+    cover: `${ASSET_PREFIX}/image-3.jpg`,
+  });
+  fallbackImage = image;
+}
 ---
 
 <html lang="en" class="dark">
@@ -90,21 +106,21 @@ const {
       icon="/favicon.ico"
       themeColor="#333333"
       colorScheme="light"
-      facebook={image
+      facebook={image || fallbackImage
         ? {
             url: "https://daniakash.com",
             type: "website",
-            image,
+            image: image || fallbackImage,
           }
         : {
             url: "https://daniakash.com",
             type: "website",
           }}
-      twitter={image
+      twitter={image || fallbackImage
         ? {
             site: "@dani_akash_",
             card: "summary_large_image",
-            image,
+            image: image || fallbackImage,
           }
         : {
             site: "@dani_akash_",

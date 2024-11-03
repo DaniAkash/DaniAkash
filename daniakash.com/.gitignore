@@ -22,3 +22,6 @@ pnpm-debug.log*
 
 # pnpm store
 .pnpm-store
+
+# Temp OG Images during development
+public/og/

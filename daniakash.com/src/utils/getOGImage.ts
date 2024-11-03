@@ -1,13 +1,18 @@
 import { ImageResponse } from "@vercel/og";
 import type { ReactElement } from "react";
 import { ASSET_PREFIX } from "../constants/asset-prefix";
+import { writeFileToDist } from "./writeFileToDist";
 
 export const getOGImage = async ({
   title,
   description,
+  path,
+  cover,
 }: {
   title: string;
   description: string;
+  path: string;
+  cover?: string;
 }) => {
   const Roboto = Buffer.from(
     await fetch(
@@ -19,46 +24,66 @@ export const getOGImage = async ({
     key: "0",
     type: "div",
     props: {
-      tw: "flex h-full w-full flex-col items-center justify-center bg-zinc-900 font-[Roboto] text-white",
+      tw: "flex h-[600px] w-[1200px] flex-col justify-between overflow-hidden bg-zinc-900 p-12 font-[Roboto] text-white",
       children: [
         {
-          key: "1",
-          type: "span",
-          props: {
-            tw: "text-[48px]",
-            children: title,
-          },
-        },
-        {
-          key: "2",
-          type: "span",
-          props: {
-            tw: "mt-4 text-[24px]",
-            children: description,
-          },
-        },
-        {
-          key: "3",
           type: "div",
           props: {
-            tw: "mt-4 flex items-center justify-center gap-2",
+            tw: "flex flex-col space-y-4",
             children: [
               {
-                key: "4",
-                type: "img",
+                type: "h1",
                 props: {
-                  tw: "h-7 w-7 rounded-full",
-                  src: `${ASSET_PREFIX}/avatar.jpg`,
+                  tw: "text-6xl font-bold leading-tight",
+                  children: title,
                 },
               },
               {
-                key: "5",
-                type: "span",
+                type: "p",
                 props: {
-                  tw: "ml-2 text-[20px]",
-                  children: ["Dani Akash"],
+                  tw: "max-w-3xl text-2xl text-zinc-300",
+                  children: description,
                 },
               },
+            ],
+          },
+        },
+        {
+          type: "div",
+          props: {
+            tw: "flex items-end justify-between",
+            children: [
+              {
+                type: "div",
+                props: {
+                  tw: "flex items-center space-x-4",
+                  children: [
+                    {
+                      type: "img",
+                      props: {
+                        src: `${ASSET_PREFIX}/avatar.jpg`,
+                        tw: "h-20 w-20 rounded-full border-2 border-zinc-500",
+                      },
+                    },
+                    {
+                      type: "span",
+                      props: {
+                        tw: "text-3xl font-semibold ml-4",
+                        children: "Dani Akash",
+                      },
+                    },
+                  ],
+                },
+              },
+              cover
+                ? {
+                    type: "img",
+                    props: {
+                      src: cover,
+                      tw: "aspect-square h-[250px] w-[250px] rotate-3 rounded-2xl bg-zinc-800 object-cover",
+                    },
+                  }
+                : null,
             ],
           },
         },
@@ -80,5 +105,5 @@ export const getOGImage = async ({
 
   const imageFile = Buffer.from(await image.arrayBuffer());
 
-  return imageFile;
+  writeFileToDist(path, imageFile);
 };

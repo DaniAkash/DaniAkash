@@ -2,17 +2,28 @@
 import { ASSET_PREFIX } from "../../constants/asset-prefix";
 ---
 
-<div class="h-[600px] w-[1200px]">
-  <div
-    class="flex h-full w-full flex-col items-center justify-center bg-zinc-900 font-[Roboto] text-white"
-  >
-    <span class="text-[48px]">The Periodic Table & The Stars</span>
-    <span class="mt-4 text-[24px]"
-      >Appreciating the creation of every element known to man</span
-    >
-    <div class="mt-4 flex items-center justify-center gap-2">
-      <img src={`${ASSET_PREFIX}/avatar.jpg`} class="h-7 w-7 rounded-full" />
-      <span class="ml-2 text-[20px]">Dani Akash</span>
+<div
+  class="flex h-[600px] w-[1200px] flex-col justify-between overflow-hidden bg-gradient-to-br from-zinc-900 via-zinc-800 to-zinc-700 p-12 font-[Roboto] text-white"
+>
+  <div class="flex flex-col space-y-4">
+    <h1 class="text-6xl font-bold leading-tight">
+      The Periodic Table & The Stars
+    </h1>
+    <p class="max-w-3xl text-2xl text-zinc-300">
+      Appreciating the creation of every element known to man
+    </p>
+  </div>
+  <div class="flex items-end justify-between">
+    <div class="flex items-center space-x-4">
+      <img
+        src={`${ASSET_PREFIX}/avatar.jpg`}
+        class="h-20 w-20 rounded-full border-2 border-zinc-500"
+      />
+      <span class="text-3xl font-semibold">Dani Akash</span>
     </div>
+    <img
+      src={`${ASSET_PREFIX}/image-3.jpg`}
+      class="aspect-square h-[250px] w-[250px] rotate-3 rounded-2xl bg-zinc-800 object-cover"
+    />
   </div>
 </div>

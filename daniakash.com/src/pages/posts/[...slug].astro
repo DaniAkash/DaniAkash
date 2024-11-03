@@ -7,7 +7,7 @@ import { getDateValue } from "../../utils/getDateValue";
 import { getDateDisplay } from "../../utils/getDateDisplay";
 import ArticleContainer from "../../components/ArticleContainer.astro";
 import { getOGImage } from "../../utils/getOGImage";
-import { writeFileToDist } from "../../utils/writeFileToDist";
+
 export const getStaticPaths = (async () => {
   const posts = await getCollection("blog");
   return posts.map((post) => ({
@@ -23,13 +23,12 @@ const { Content } = await post.render();
 
 const dateValue = getDateValue(post.data.date);
 const dateDisplay = getDateDisplay(post.data.date);
-const ogImageBuffer = await getOGImage({
+const image = `/og/${post.slug}.png`;
+await getOGImage({
   title: post.data.title,
   description: post.data.subtitle,
+  path: image,
 });
-const image = `/og/${post.slug}.png`;
-
-writeFileToDist(image, ogImageBuffer);
 ---
 
 <MainLayout

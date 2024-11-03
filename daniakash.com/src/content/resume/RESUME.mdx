@@ -3,10 +3,11 @@ import { ASSET_PREFIX } from "../../constants/asset-prefix";
 
 <Image
   src={`${ASSET_PREFIX}/avatar.jpg`}
-  width={256}
-  height={256}
+  width={300}
+  height={300}
+  loading={"eager"}
   alt={"dani-akash"}
-  class={"h-64 w-64 rounded-3xl"}
+  class={"h-64 w-64 -rotate-3 rounded-3xl transition-all hover:rotate-0"}
 />
 
 ## About

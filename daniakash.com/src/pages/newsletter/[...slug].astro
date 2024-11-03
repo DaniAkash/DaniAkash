@@ -6,7 +6,6 @@ import { TRANSITION_NAMES } from "../../constants/transition-names";
 import Newsletter from "../../components/Newsletter.astro";
 import { getCollection } from "astro:content";
 import { getOGImage } from "../../utils/getOGImage";
-import { writeFileToDist } from "../../utils/writeFileToDist";
 
 export const getStaticPaths = (async () => {
   const items = await getCollection("rss");
@@ -29,13 +28,12 @@ const description =
   "Get interesting reads delivered to your inbox. Subscribe to Dani's Newsletter.";
 const { content, dateDisplay, dateValue, title, canonical } = Astro.props;
 const { slug } = Astro.params;
-const ogImageBuffer = await getOGImage({
+const image = `/og/newsletter/${slug}.png`;
+await getOGImage({
   title: title,
   description,
+  path: image,
 });
-const image = `/og/newsletter/${slug}.png`;
-
-writeFileToDist(image, ogImageBuffer);
 ---
 
 <MainLayout
