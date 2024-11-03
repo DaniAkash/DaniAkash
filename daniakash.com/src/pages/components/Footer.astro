@@ -10,7 +10,9 @@ const currentYear = new Date().getFullYear();
   class="flex flex-col items-center justify-between gap-y-6 border-t border-zinc-100 px-4 pb-16 pt-10 dark:border-zinc-700/40 sm:flex-row"
   transition:name={TRANSITION_NAMES.footer}
 >
-  <div class="flex gap-6 text-sm font-medium text-zinc-800 dark:text-zinc-200">
+  <div
+    class="flex w-full flex-wrap justify-center gap-6 text-sm font-medium text-zinc-800 dark:text-zinc-200 md:w-[unset] md:justify-start"
+  >
     {
       navLinks.map((link) => {
         const isActive = currentPath.startsWith(link.href);
@@ -34,9 +36,9 @@ const currentYear = new Date().getFullYear();
     <a
       href="https://github.com/daniakash/daniakash"
       target="_blank"
-      class="underline hover:text-teal-500 dark:hover:text-teal-400"
-      rel="noopener noreferrer">Dani Akash</a
-    >. All rights reserved.
+      class="font-calorie text-2xl underline hover:text-teal-500 dark:hover:text-teal-400"
+      rel="noopener noreferrer">Dani Akash.</a
+    > All rights reserved.
   </p>
   <script type="text/javascript" is:inline data-astro-rerun>
     document.getElementById("footer-year").textContent =
