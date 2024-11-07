@@ -20,16 +20,7 @@ const social = (await getCollection("social"))[0]!;
   <TypeWriter />
   <div class="mt-6 flex gap-6">
     <a
-      class="group -m-1 p-1"
-      href={social.data.twitter}
-      aria-label="Follow on Twitter"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      <TwitterIcon />
-    </a>
-    <a
-      class="group -m-1 p-1"
+      class="group relative z-10 -m-1 -mt-[6px] inline-block p-1"
       href={social.data.bluesky}
       aria-label="Follow on Bluesky"
       target="_blank"
@@ -38,7 +29,17 @@ const social = (await getCollection("social"))[0]!;
       <BlueskyIcon />
     </a>
     <a
-      class="group -m-1 p-1"
+      role="button"
+      class="group relative z-10 -m-1 inline-block p-1"
+      href={social.data.twitter}
+      aria-label="Follow on Twitter"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <TwitterIcon />
+    </a>
+    <a
+      class="group relative z-10 -m-1 inline-block p-1"
       href={social.data.instagram}
       aria-label="Follow on Instagram"
       target="_blank"
@@ -47,7 +48,7 @@ const social = (await getCollection("social"))[0]!;
       <InstagramIcon />
     </a>
     <a
-      class="group -m-1 p-1"
+      class="group relative z-10 -m-1 inline-block p-1"
       href={social.data.github}
       aria-label="Follow on GitHub"
       target="_blank"
@@ -56,7 +57,7 @@ const social = (await getCollection("social"))[0]!;
       <GithubIcon />
     </a>
     <a
-      class="group -m-1 p-1"
+      class="group relative z-10 -m-1 inline-block p-1"
       href="https://www.linkedin.com/in/daniakash/"
       aria-label="Follow on LinkedIn"
       target="_blank"
