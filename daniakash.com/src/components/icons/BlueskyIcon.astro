@@ -2,7 +2,7 @@
 
 ---
 
-<style>
+<style is:global>
   .bluesky-flutter {
     display: inline-flex;
     gap: 0.5em;
@@ -22,16 +22,19 @@
     transform-origin: center;
     transform: scale(-1, 1);
   }
+  .group:hover .bluesky-flutter .left,
   .bluesky-flutter:hover .left,
   .bluesky-flutter:focus .left {
     animation: flutter 430ms ease-in-out;
     --flip: 1;
   }
+  .group:hover .bluesky-flutter .right,
   .bluesky-flutter:hover .right,
   .bluesky-flutter:focus .right {
     animation: flutter 500ms ease-in-out;
     --flip: -1;
   }
+  .group:hover .bluesky-flutter svg,
   .bluesky-flutter:hover svg,
   .bluesky-flutter:focus svg {
     transform: rotate(-5deg);
@@ -39,6 +42,8 @@
   }
 
   @media (prefers-reduced-motion) {
+    .group:hover .bluesky-flutter .left,
+    .group:hover .bluesky-flutter .right,
     .bluesky-flutter:hover .left,
     .bluesky-flutter:focus .left,
     .bluesky-flutter:hover .right,
