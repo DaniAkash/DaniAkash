@@ -30,7 +30,7 @@ export const GET: APIRoute = async (context) => {
           title: news.data.title,
           pubDate: new Date(news.data.dateMillis),
           description:
-            "Get interesting reads delivered to your inbox. Subscribe to Dani's Newsletter.",
+            "🌐 Explore the future of tech, science, and sustainability—one insight-packed issue at a time!",
           link: `/newsletter/${news.data.slug}`,
           content: sanitizeHtml(news.data.description, {
             allowedTags: sanitizeHtml.defaults.allowedTags.concat(["img"]),

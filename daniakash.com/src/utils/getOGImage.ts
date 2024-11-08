@@ -24,7 +24,7 @@ export const getOGImage = async ({
     key: "0",
     type: "div",
     props: {
-      tw: "flex h-[600px] w-[1200px] flex-col justify-between overflow-hidden bg-zinc-900 p-12 font-[Roboto] text-white",
+      tw: "flex h-[600px] w-[1200px] flex-col justify-between overflow-hidden bg-zinc-900 p-16 font-[Roboto] text-white",
       children: [
         {
           type: "div",
