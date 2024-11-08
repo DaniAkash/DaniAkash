@@ -9,7 +9,10 @@ import { getCollection } from "astro:content";
 const rss = await getCollection("rss");
 ---
 
-<MainLayout title="Newsletter">
+<MainLayout
+  title="Newsletter"
+  description="🌐 Explore the future of tech, science, and sustainability—one insight-packed issue at a time!"
+>
   <ContentContainer>
     <Header
       title="Letters of the News Kind"

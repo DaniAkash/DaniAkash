@@ -6,6 +6,7 @@ import { TRANSITION_NAMES } from "../../constants/transition-names";
 import Newsletter from "../../components/Newsletter.astro";
 import { getCollection } from "astro:content";
 import { getOGImage } from "../../utils/getOGImage";
+import { ASSET_PREFIX } from "../../constants/asset-prefix";
 
 export const getStaticPaths = (async () => {
   const items = await getCollection("rss");
@@ -33,6 +34,7 @@ await getOGImage({
   title: title,
   description,
   path: image,
+  cover: `${ASSET_PREFIX}/newsletter/icon.png`,
 });
 ---
 
