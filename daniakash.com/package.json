@@ -7,7 +7,8 @@
     "start": "astro dev",
     "build": "astro check && astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "wrangler": "wrangler pages dev ."
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
@@ -19,20 +20,27 @@
     "@types/react-dom": "^18.3.1",
     "astro": "^4.16.7",
     "clsx": "^2.1.1",
+    "dotenv": "^16.4.5",
+    "drizzle-orm": "^0.36.3",
+    "pg": "^8.13.1",
     "tailwind-merge": "^2.5.4",
     "tailwindcss": "^3.4.14",
     "tailwindcss-content-visibility": "^1.0.0",
-    "typescript": "^5.6.3"
+    "typescript": "^5.6.3",
+    "valibot": "^1.0.0-beta.7"
   },
   "devDependencies": {
+    "@cloudflare/workers-types": "^4.20241112.0",
     "@tailwindcss/typography": "^0.5.15",
     "@types/markdown-it": "^14.1.2",
     "@types/node": "^22.7.9",
+    "@types/pg": "^8.11.10",
     "@types/react": "^18.3.12",
     "@types/sanitize-html": "^2.13.0",
     "@vercel/og": "^0.6.3",
     "astro-meta-tags": "^0.3.1",
     "astro-seo-meta": "^4.1.1",
+    "drizzle-kit": "^0.28.1",
     "markdown-it": "^14.1.0",
     "prettier": "^3.3.3",
     "prettier-plugin-astro": "^0.14.1",
@@ -40,6 +48,8 @@
     "rehype-external-links": "^3.0.0",
     "rss-to-json": "^2.1.1",
     "sanitize-html": "^2.13.1",
-    "sharp": "^0.33.5"
+    "sharp": "^0.33.5",
+    "tsx": "^4.19.2",
+    "wrangler": "^3.87.0"
   }
 }

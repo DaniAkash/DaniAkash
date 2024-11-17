@@ -28,3 +28,7 @@ public/og/
 
 # log files
 *.log
+
+# cloudflare wrangler
+.wrangler
+.dev.vars
