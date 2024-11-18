@@ -1,7 +1,8 @@
 import { embedMany } from "ai";
 import { openai } from "@ai-sdk/openai";
+import { embeddingModelType } from "./embedding-model";
 
-const embeddingModel = openai.embedding("text-embedding-3-small");
+const embeddingModel = openai.embedding(embeddingModelType);
 
 const cleanHtml = (input: string) => {
   return input

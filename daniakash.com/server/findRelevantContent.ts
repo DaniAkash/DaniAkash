@@ -3,6 +3,7 @@ import { embeddings } from "./db/schema/embeddings";
 import { cosineDistance, desc, gt, sql } from "drizzle-orm";
 import { createOpenAI } from "@ai-sdk/openai";
 import { getDb } from "./db/getDb";
+import { embeddingModelType } from "./utils/embedding-model";
 
 const generateEmbedding = async ({
   value,
@@ -16,7 +17,7 @@ const generateEmbedding = async ({
     apiKey,
   });
   const input = value.replaceAll("\\n", " ");
-  const embeddingModel = openai.embedding("text-embedding-3-small");
+  const embeddingModel = openai.embedding(embeddingModelType);
   const { embedding } = await embed({
     model: embeddingModel,
     value: input,

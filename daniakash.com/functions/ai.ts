@@ -28,11 +28,11 @@ export const onRequestPost: PagesFunction = async ({ env, request }) => {
 
         const result = await streamText({
           model: openai("gpt-4o"),
-          system: `You are a helpful assistant. Check your knowledge base before answering any questions. Only respond to questions using information from tool calls. if no relevant information is found in the tool calls, respond, "Sorry, I don't know."`,
+          system: `You are a helpful assistant for Dani Akash's portfolio website. You should only answer questions based on the data retrieved using the "getInformation" tool, which queries information exclusively from the website. Do not use any outside knowledge or make assumptions. If no relevant information is found in the tool calls, respond with "Sorry, I don't know."`,
           messages,
           tools: {
             getInformation: tool({
-              description: `get information from your knowledge base to answer questions.`,
+              description: `Query information exclusively from the portfolio website to answer user questions. This tool retrieves data from the website and returns relevant content based on the user's query. If the data does not answer the question, you should not respond.`,
               parameters: z.object({
                 question: z.string().describe("the users question"),
               }),
