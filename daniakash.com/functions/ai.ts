@@ -9,11 +9,7 @@ const allowedOrigins = ["https://daniakash.com", "chrome-extension://"];
 const isAllowedOrigin = (origin?: string | null) =>
   origin && allowedOrigins.some((allowed) => origin.startsWith(allowed));
 
-export const onRequestPost: PagesFunction = async ({
-  env,
-  request,
-  waitUntil,
-}) => {
+export const onRequestPost: PagesFunction = async ({ env, request }) => {
   const { DB_URL, OPENAI_API_KEY } = getEnv(env);
 
   const contentType = request.headers.get("content-type") || "";
