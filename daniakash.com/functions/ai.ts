@@ -1,6 +1,6 @@
 import { getEnv } from "../server/env/env";
 import { createOpenAI } from "@ai-sdk/openai";
-import { streamText, tool } from "ai";
+import { streamText, tool, type CoreMessage } from "ai";
 import { z } from "zod";
 import { findRelevantContent } from "../server/findRelevantContent";
 
@@ -18,7 +18,7 @@ export const onRequestPost: PagesFunction = async ({ env, request }) => {
   if (isAllowedOrigin(origin)) {
     if (contentType.includes("application/json")) {
       const json = await request.json();
-      const { messages } = json as { messages: string };
+      const { messages } = json as { messages: CoreMessage[] };
 
       if (messages.length) {
         const openai = createOpenAI({
@@ -29,12 +29,7 @@ export const onRequestPost: PagesFunction = async ({ env, request }) => {
         const result = await streamText({
           model: openai("gpt-4o"),
           system: `You are a helpful assistant. Check your knowledge base before answering any questions. Only respond to questions using information from tool calls. if no relevant information is found in the tool calls, respond, "Sorry, I don't know."`,
-          messages: [
-            {
-              role: "user",
-              content: messages,
-            },
-          ],
+          messages,
           tools: {
             getInformation: tool({
               description: `get information from your knowledge base to answer questions.`,

@@ -3,8 +3,8 @@ import tailwind from "@astrojs/tailwind";
 import mdx from "@astrojs/mdx";
 import rehypeExternalLinks from "rehype-external-links";
 import metaTags from "astro-meta-tags";
-
 import sitemap from "@astrojs/sitemap";
+import react from "@astrojs/react";
 
 // https://astro.build/config
 export default defineConfig({
@@ -36,5 +36,5 @@ export default defineConfig({
       },
     ],
   },
-  integrations: [tailwind(), mdx(), metaTags(), sitemap()],
+  integrations: [tailwind(), mdx(), metaTags(), sitemap(), react()],
 });
