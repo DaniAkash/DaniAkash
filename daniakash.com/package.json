@@ -32,6 +32,7 @@
     "dotenv": "^16.4.5",
     "drizzle-orm": "^0.36.3",
     "drizzle-zod": "^0.5.1",
+    "motion": "^11.11.17",
     "nanoid": "^5.0.8",
     "pg": "^8.13.1",
     "postgres": "^3.4.5",
