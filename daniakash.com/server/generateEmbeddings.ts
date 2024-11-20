@@ -1,15 +1,12 @@
 import { db } from "./db";
-import {
-  insertResourceSchema,
-  resources,
-  type NewResourceParams,
-} from "./db/schema/resources";
+import { resources } from "./db/schema/resources";
 import { embeddings as embeddingsTable } from "./db/schema/embeddings";
 import { generateEmbeddings } from "./utils/embedding";
+import type { AIDocumentType } from "./utils/ai-document-type";
 
-export const createResource = async (input: NewResourceParams) => {
+export const createResource = async (input: AIDocumentType) => {
   try {
-    const { content } = insertResourceSchema.parse(input);
+    const { document_text: content } = input;
     const [resource] = await db
       .insert(resources)
       .values({ content })
@@ -17,7 +14,7 @@ export const createResource = async (input: NewResourceParams) => {
 
     if (!resource) throw new Error("Resource not created");
 
-    const embeddings = await generateEmbeddings(content);
+    const embeddings = await generateEmbeddings(input);
     await db.insert(embeddingsTable).values(
       embeddings.map((embedding) => ({
         resourceId: resource.id,

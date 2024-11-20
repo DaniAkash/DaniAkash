@@ -8,8 +8,9 @@ import { resumeContent } from "./parse-content/resume-content";
 import { socialContent } from "./parse-content/social-content";
 import { speakingContent } from "./parse-content/speaking-content";
 import { usesContent } from "./parse-content/uses-content";
+import type { AIDocumentType } from "./utils/ai-document-type";
 
-const about = aboutContent();
+const about = await aboutContent();
 const blog = await blogContent();
 const career = careerContent();
 const now = await nowContent();
@@ -19,10 +20,10 @@ const social = socialContent();
 const speaking = speakingContent();
 const uses = usesContent();
 
-const index = async (data: string[]) => {
+const index = async (data: AIDocumentType[]) => {
   return Promise.all(
     data.map(async (each) => {
-      return await createResource({ content: each });
+      return await createResource(each);
     }),
   );
 };
@@ -56,3 +57,5 @@ console.log("Speaking content indexed.");
 console.log("Indexing uses content...");
 await index(uses);
 console.log("Uses content indexed.");
+
+process.exit(0);

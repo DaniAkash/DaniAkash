@@ -1,53 +1,35 @@
 import { embedMany } from "ai";
 import { openai } from "@ai-sdk/openai";
 import { embeddingModelType } from "./embedding-model";
+// @ts-ignore - types not available for this package :(
+import { chunkit } from "semantic-chunking";
+import type { AIDocumentChunk, AIDocumentType } from "./ai-document-type";
 
 const embeddingModel = openai.embedding(embeddingModelType);
 
-const cleanHtml = (input: string) => {
-  return input
-    .replace(/<[^>]*>/g, "") // Remove HTML tags
-    .replace(/&[^;\s]+;/g, "") // Remove HTML entities (e.g., &amp;)
-    .trim();
+const chunkitOptions = {
+  maxTokenSize: 600,
+  similarityThreshold: 0.5,
+  combineChunks: true,
+  logging: true,
 };
 
-const blockTags = [
-  "p",
-  "div",
-  "section",
-  "article",
-  "blockquote",
-  "li",
-  "ul",
-  "ol",
-  "h1",
-  "h2",
-  "h3",
-  "h4",
-  "h5",
-  "h6",
-  "table",
-  "tr",
-  "td",
-];
-
-const generateChunks = (input: string) => {
-  const blockRegex = new RegExp(`</(?:${blockTags.join("|")})>`, "gi");
-
-  return input
-    .split(blockRegex) // Split by paragraph, list item, or header boundaries
-    .map(cleanHtml) // Remove HTML tags and entities
-    .flatMap((chunk) => chunk.split(/(?<=[.?!])\s+/)) // Split further by sentence endings
-    .filter((chunk) => chunk.length > 0); // Remove empty chunks
+const generateChunks = async (input: AIDocumentType) => {
+  const chunks: AIDocumentChunk[] = await chunkit([input], chunkitOptions);
+  return chunks;
 };
 
 export const generateEmbeddings = async (
-  value: string,
+  value: AIDocumentType,
 ): Promise<Array<{ embedding: number[]; content: string }>> => {
-  const chunks = generateChunks(value);
+  const chunks = await generateChunks(value);
+  const chunkText = chunks.map((each) => each.text);
   const { embeddings } = await embedMany({
     model: embeddingModel,
-    values: chunks,
+    values: chunkText,
   });
-  return embeddings.map((e, i) => ({ content: chunks[i] ?? "", embedding: e }));
+  return embeddings.map((e, i) => ({
+    content: chunkText[i] ?? "",
+    embedding: e,
+  }));
 };
