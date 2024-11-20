@@ -31,7 +31,7 @@ const blockTags = [
   "td",
 ];
 
-export const generateChunks = (input: string) => {
+const generateChunks = (input: string) => {
   const blockRegex = new RegExp(`</(?:${blockTags.join("|")})>`, "gi");
 
   return input

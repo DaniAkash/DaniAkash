@@ -61,10 +61,18 @@
     "prettier-plugin-astro": "^0.14.1",
     "prettier-plugin-tailwindcss": "^0.6.8",
     "rehype-external-links": "^3.0.0",
+    "rehype-sanitize": "^6.0.0",
+    "rehype-stringify": "^10.0.1",
+    "remark-frontmatter": "^5.0.0",
+    "remark-gfm": "^4.0.0",
+    "remark-mdx": "^3.1.0",
+    "remark-parse": "^11.0.0",
+    "remark-rehype": "^11.1.1",
     "rss-to-json": "^2.1.1",
     "sanitize-html": "^2.13.1",
     "sharp": "^0.33.5",
     "tsx": "^4.19.2",
+    "unified": "^11.0.5",
     "wrangler": "^3.87.0"
   }
 }
