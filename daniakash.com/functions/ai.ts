@@ -4,10 +4,33 @@ import { streamText, tool, type CoreMessage } from "ai";
 import { z } from "zod";
 import { findRelevantContent } from "../server/findRelevantContent";
 
-const allowedOrigins = ["https://daniakash.com", "chrome-extension://"];
+const allowedOrigins = [
+  "https://daniakash.com",
+  "chrome-extension://",
+  "http://localhost",
+];
 
 const isAllowedOrigin = (origin?: string | null) =>
   origin && allowedOrigins.some((allowed) => origin.startsWith(allowed));
+
+const setCorsHeaders = (origin: string | null) => {
+  const headers = new Headers();
+  if (isAllowedOrigin(origin)) {
+    headers.set("Access-Control-Allow-Origin", origin!);
+    headers.set("Access-Control-Allow-Methods", "POST, OPTIONS");
+    headers.set("Access-Control-Allow-Headers", "Content-Type");
+  }
+  return headers;
+};
+
+export const onRequestOptions: PagesFunction = async ({ request }) => {
+  const origin = request.headers.get("Origin");
+  if (isAllowedOrigin(origin)) {
+    const corsHeaders = setCorsHeaders(origin);
+    return new Response(null, { status: 204, headers: corsHeaders });
+  }
+  return new Response(null, { status: 400 });
+};
 
 export const onRequestPost: PagesFunction = async ({ env, request }) => {
   const { DB_URL, OPENAI_API_KEY } = getEnv(env);
@@ -16,6 +39,7 @@ export const onRequestPost: PagesFunction = async ({ env, request }) => {
   const origin = request.headers.get("Origin");
 
   if (isAllowedOrigin(origin)) {
+    const corsHeaders = setCorsHeaders(origin);
     if (contentType.includes("application/json")) {
       const json = await request.json();
       const { messages } = json as { messages: CoreMessage[] };
@@ -46,7 +70,9 @@ export const onRequestPost: PagesFunction = async ({ env, request }) => {
           },
         });
 
-        return result.toDataStreamResponse();
+        const response = result.toDataStreamResponse();
+        corsHeaders.forEach((value, key) => response.headers.set(key, value));
+        return response;
       }
     }
   }

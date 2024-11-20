@@ -10,6 +10,7 @@ const MessageCircleMoreIcon = lazy(() =>
 export const Chat = () => {
   const { messages, input, handleInputChange, handleSubmit } = useChat({
     api: "http://localhost:8788/ai",
+    maxSteps: 3,
   });
 
   return (
@@ -17,7 +18,7 @@ export const Chat = () => {
       <MessageCircleMoreIcon className="fixed bottom-7 right-7 z-40 cursor-pointer items-center justify-center rounded-full bg-white p-3 text-zinc-600 shadow-md ring-1 ring-zinc-100 dark:bg-zinc-900 dark:text-zinc-400 dark:ring-zinc-300/20" />
       <div className="fixed bottom-0 right-0 z-50 flex h-screen min-h-96 w-screen overflow-clip text-zinc-600 shadow-md ring-1 ring-zinc-100 dark:bg-zinc-900 dark:text-zinc-400 dark:ring-zinc-300/20 xl:bottom-7 xl:right-7 xl:h-[calc(100vh/2)] xl:w-[calc(100vw/3)] xl:min-w-96 xl:max-w-[28rem] xl:rounded-xl">
         <div className="flex flex-1 flex-col items-stretch justify-between">
-          <div className="space-y-4 bg-green-500">
+          <div className="h-full space-y-4 overflow-auto xl:space-y-2">
             {messages.map((m) => (
               <div key={m.id} className="whitespace-pre-wrap">
                 <div>
