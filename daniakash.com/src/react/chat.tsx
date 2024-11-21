@@ -1,5 +1,6 @@
 import { useChat } from "ai/react";
-import { lazy } from "react";
+import { lazy, useEffect, useRef } from "react";
+import { cn } from "../utils/cn";
 
 const MessageCircleMoreIcon = lazy(() =>
   import("./icon/MessageCircleMoreIcon").then((res) => ({
@@ -13,28 +14,52 @@ export const Chat = () => {
     maxSteps: 3,
   });
 
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
   return (
     <>
       <MessageCircleMoreIcon className="fixed bottom-7 right-7 z-40 cursor-pointer items-center justify-center rounded-full bg-white p-3 text-zinc-600 shadow-md ring-1 ring-zinc-100 dark:bg-zinc-900 dark:text-zinc-400 dark:ring-zinc-300/20" />
-      <div className="fixed bottom-0 right-0 z-50 flex h-screen min-h-96 w-screen overflow-clip text-zinc-600 shadow-md ring-1 ring-zinc-100 dark:bg-zinc-900 dark:text-zinc-400 dark:ring-zinc-300/20 xl:bottom-7 xl:right-7 xl:h-[calc(100vh/2)] xl:w-[calc(100vw/3)] xl:min-w-96 xl:max-w-[28rem] xl:rounded-xl">
+      <div className="fixed bottom-0 right-0 z-50 flex h-screen min-h-96 w-screen overflow-clip bg-white text-zinc-600 shadow-md ring-1 ring-zinc-100 dark:bg-zinc-900 dark:text-zinc-400 dark:ring-zinc-300/20 xl:bottom-7 xl:right-7 xl:h-[calc(100vh/2)] xl:w-[calc(100vw/3)] xl:min-w-96 xl:max-w-[28rem] xl:rounded-xl">
         <div className="flex flex-1 flex-col items-stretch justify-between">
-          <div className="h-full space-y-4 overflow-auto xl:space-y-2">
-            {messages.map((m) => (
-              <div key={m.id} className="whitespace-pre-wrap">
-                <div>
-                  <div className="font-bold">{m.role}</div>
+          <div className="flex h-full flex-col space-y-4 overflow-auto p-4 xl:space-y-2 xl:p-2">
+            {messages.map((m, mIndex) => {
+              const isUser = m.role === "user";
+              const content = m.content.length > 0 ? m.content : "";
+              const isFetchingData = m.toolInvocations?.[0]?.state !== "result";
+              const isLastMessage = mIndex === messages.length - 1;
+              if (!content && !isFetchingData) return null;
+              return (
+                <div
+                  key={m.id}
+                  ref={isLastMessage ? messagesEndRef : undefined}
+                  className={cn(
+                    "flex flex-col gap-4 whitespace-pre-wrap rounded-xl bg-zinc-50 p-4 shadow-sm dark:bg-black xl:gap-2 xl:p-2",
+                    isUser ? "items-end" : "items-start",
+                  )}
+                >
+                  <div className="font-semibold">
+                    {!isUser ? "🤖 daniakash.com" : "You"}
+                  </div>
                   <p>
-                    {m.content.length > 0 ? (
-                      m.content
+                    {content ? (
+                      content
                     ) : (
                       <span className="font-light italic">
-                        {"calling tool: " + m?.toolInvocations?.[0]?.toolName}
+                        {"⏳ Retrieving Data..."}
                       </span>
                     )}
                   </p>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
 
           <form onSubmit={handleSubmit}>
