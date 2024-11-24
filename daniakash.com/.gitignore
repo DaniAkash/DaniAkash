@@ -28,3 +28,10 @@ public/og/
 
 # log files
 *.log
+
+# cloudflare wrangler
+.wrangler
+.dev.vars
+
+# Ignore locally installed models
+models/

@@ -24,10 +24,8 @@ const { isHomePage = false } = Astro.props;
   </div>
   {
     isHomePage && (
-      <>
-        <div class="mt-[calc(theme(spacing.16)-theme(spacing.3))]" />
-        <Avatar isHomePage={isHomePage} />
-      </>
+      <div class="mt-[calc(theme(spacing.16)-theme(spacing.3))]" />
+      <Avatar isHomePage={isHomePage} />
     )
   }
   <div class="absolute right-0 top-6">
