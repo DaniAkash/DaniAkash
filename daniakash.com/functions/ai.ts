@@ -1,6 +1,6 @@
 import { getEnv } from "../server/env/env";
 import { createOpenAI } from "@ai-sdk/openai";
-import { streamText, tool, type CoreMessage } from "ai";
+import { streamText, tool, type Message } from "ai";
 import { z } from "zod";
 import { findRelevantContent } from "../server/findRelevantContent";
 
@@ -42,7 +42,7 @@ export const onRequestPost: PagesFunction = async ({ env, request }) => {
     const corsHeaders = setCorsHeaders(origin);
     if (contentType.includes("application/json")) {
       const json = await request.json();
-      const { messages } = json as { messages: CoreMessage[] };
+      const { messages } = json as { messages: Message[] };
 
       if (messages.length) {
         const openai = createOpenAI({
