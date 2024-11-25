@@ -16,6 +16,6 @@ const { title, subtitle } = Astro.props;
   >
     {title}
   </h1><p class="mt-6 text-base text-zinc-600 dark:text-zinc-400">
-    {subtitle}
+    {subtitle}<slot />
   </p>
 </header>
