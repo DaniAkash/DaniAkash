@@ -28,17 +28,30 @@ const dotVariants: Variants = {
   }),
 };
 
-const MessageCircleMoreIcon = ({ className }: { className?: string }) => {
+const MessageCircleMoreIcon = ({
+  className,
+  onClick,
+}: {
+  className?: string;
+  onClick?: () => unknown;
+}) => {
   const controls = useAnimation();
 
   return (
-    <div
+    <motion.div
+      whileHover={{
+        scale: 1.1,
+        transition: { duration: 0.2 },
+      }}
+      exit={{ opacity: 0 }}
       className={cn(
         "hover:bg-accent flex cursor-pointer select-none items-center justify-center overflow-hidden rounded-md p-2 transition-colors duration-200",
         className,
       )}
+      role="button"
       onMouseEnter={() => controls.start("animate")}
       onMouseLeave={() => controls.start("normal")}
+      onClick={onClick}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -71,7 +84,7 @@ const MessageCircleMoreIcon = ({ className }: { className?: string }) => {
           custom={2}
         />
       </svg>
-    </div>
+    </motion.div>
   );
 };
 
