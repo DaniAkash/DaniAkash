@@ -1,5 +1,65 @@
 [
   {
+    "year": 2024,
+    "events": [
+      {
+        "date": "Dec 19, 2024",
+        "name": "Thoughtworks Geeknight 102nd edition",
+        "title": "Making boring websites exciting with View Transitions API",
+        "description": "Tutorial on how to make simple website elements transition and make them exciting",
+        "video": "https://www.youtube.com/watch?v=8SLPweAE73o",
+        "cta": [
+          {
+            "title": "Slides",
+            "url": "https://daniakash.github.io/view-transitions/"
+          },
+          {
+            "title": "Code",
+            "url": "https://github.com/daniakash/view-transitions"
+          }
+        ]
+      },
+      {
+        "date": "Nov 30, 2024",
+        "name": "React Bangalore Meetup #83",
+        "title": "AI for Frontend Developers",
+        "description": "A quick tutorial on how to add AI to your frontend apps",
+        "video": "https://www.youtube.com/live/wO2kisWSd6w?t=7968s",
+        "cta": [
+          {
+            "title": "Event Website",
+            "url": "https://www.meetup.com/reactjs-bangalore/events/304339695/"
+          },
+          {
+            "title": "Chat Widget App for personal website",
+            "url": "https://github.com/DaniAkash/DaniAkash/releases/tag/v0.0.1-ai"
+          },
+          {
+            "title": "Slides + Demo chat App",
+            "url": "https://github.com/DaniAkash/ai-for-frontend-developers"
+          }
+        ]
+      },
+      {
+        "date": "Apr 27, 2024",
+        "name": "React India - Chennai Meetup",
+        "title": "Building Web Components with React",
+        "description": "A beginner friendly talk on how to build web components with React & how to leverage them in your existing applications.",
+        "cta": [
+          {
+            "title": "Code",
+            "url": "https://github.com/DaniAkash/web-components-with-react"
+          },
+          {
+            "title": "Event Website",
+            "url": "https://lu.ma/react-india-chennai-meetup-2024"
+          }
+        ],
+        "video": "https://www.youtube.com/watch?v=_hVbeInTQKU&t=9111s"
+      }
+    ]
+  },
+  {
     "year": 2023,
     "events": [
       {
