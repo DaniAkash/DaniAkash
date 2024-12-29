@@ -1,16 +1,29 @@
-<img align="left" width="150" height="150" alt="Dani Akash" src="https://sdk.bitmoji.com/render/panel/dc878a02-6c0d-4366-ab3b-b86a397e31ad-9abca207-e196-4c3e-8932-0fae4ce0c737-v1.png?transparent=1&palette=1"/>
+# 👋 Hi, I'm Dani Akash
 
-## I'm [Dani Akash][homepage]
+I'm a JavaScript developer based in Chennai, India, passionate about building high-performance web and mobile applications. I enjoy exploring modern JavaScript frameworks and contributing to the developer community.
 
-A JavaScript developer from [bangalore][about-bangalore]. I currently manage the engineering team at [OSlash][oslash]. I love building applications & discussing new product ideas. Reach out to me on [twitter][twitter] if you'd like to talk ✌️
+- 🔭 **Current Role**: Senior Frontend Developer at [Clarifai](https://www.clarifai.com/)
+- 🌐 **Website**: [daniakash.com](https://daniakash.com/)
+- 🦋 **Bluesky**: [@daniakash.com](https://bsky.app/profile/daniakash.com)
+- 🐦 **Twitter**: [@dani_akash_](https://twitter.com/dani_akash_)
+- 💼 **LinkedIn**: [Dani Akash](https://www.linkedin.com/in/daniakash/)
 
-[![Twitter Follow](https://img.shields.io/twitter/follow/dani_akash_?color=%20%2300acee&label=Follow%20me%20on%20Twitter&style=for-the-badge)][twitter] [![Twitch Status](https://img.shields.io/twitch/status/dani_akash_?label=LiveStream&style=for-the-badge)][twitch] [![Reddit User Karma](https://img.shields.io/reddit/user-karma/combined/dani_akash_?style=for-the-badge)][reddit]
+## 🛠️ Technologies & Tools
 
+- **Languages**: TypeScript, JavaScript
+- **Frameworks/Libraries**: React, React Native, Next.js, GraphQL, tRPC
+- **UI Libraries**: Tailwind CSS, Chakra UI
+- **Build Tools**: Webpack, Vite, TurboRepo
+- **Serverless**: Cloudflare Workers, Deno Deploy
 
-[homepage]: https://daniakash.com
-[twitter]: https://twitter.com/dani_akash_
-[twitch]: https://www.twitch.tv/dani_akash_
-[reddit]: https://www.reddit.com/user/dani_akash_
-[github]: https://github.com/daniakash
-[about-bangalore]: https://www.google.com/search?q=bangalore
-[oslash]: https://oslash.com
+## 📈 GitHub Stats
+
+![Dani's GitHub stats](https://github-readme-stats.vercel.app/api?username=DaniAkash&show_icons=true&theme=radical)
+
+## 📫 Get in Touch
+
+I'm always open to discussing new projects, creative ideas, or opportunities to be part of your visions. Feel free to reach out through [Twitter](https://twitter.com/dani_akash_), [Bluesky](https://bsky.app/profile/daniakash.com) or [LinkedIn](https://www.linkedin.com/in/daniakash/).
+
+---
+
+*This README was generated with ❤️ by [Dani Akash](https://daniakash.com/).*
