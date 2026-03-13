@@ -21,7 +21,7 @@ Currently also building [Inaily](https://inaily.com) — an app for AI-driven ne
 
 Expert in vibe coding and prompt engineering — but I've been shipping complete products solo long before the age of AI.
 
-I will automate any and all boring stuff. I live by this rule.
+I will automate any and all boring stuff (I live by this rule).
 
 ## Connect
 
