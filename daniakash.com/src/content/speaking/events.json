@@ -1,5 +1,31 @@
 [
   {
+    "year": 2026,
+    "events": [
+      {
+        "date": "Mar 7, 2026",
+        "name": "JSLovers Chennai Meetup #9",
+        "title": "AI driven Web Development with Chrome DevTools Protocol",
+        "description": "A practical session on using AI with the Chrome DevTools Protocol to inspect websites, debug issues, and accelerate real web development workflows.",
+        "video": "https://www.youtube.com/live/ZThlst8vC60?si=tInBbLan4hGHrFJy&t=1992",
+        "cta": [
+          {
+            "title": "Event Website",
+            "url": "https://luma.com/kbsp31bs"
+          },
+          {
+            "title": "Community",
+            "url": "https://guild.host/jslovers-chennai"
+          },
+          {
+            "title": "Slides + Demo",
+            "url": "https://github.com/DaniAkash/ai-development-with-cdp"
+          }
+        ]
+      }
+    ]
+  },
+  {
     "year": 2024,
     "events": [
       {
