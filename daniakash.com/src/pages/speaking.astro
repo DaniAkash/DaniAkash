@@ -49,12 +49,11 @@ const eventsList = events[0]!;
                                 class={"w-full"}
                               />
                             ) : event.video && youtubeThumbnail ? (
-                              <Image
-                                height={360}
-                                width={480}
+                              <img
                                 src={youtubeThumbnail}
                                 alt={event.title}
-                                class={"w-full"}
+                                class="w-full"
+                                loading="lazy"
                               />
                             ) : null}
                             <h3 class="mt-4 text-base font-semibold tracking-tight text-zinc-800 dark:text-zinc-100">
