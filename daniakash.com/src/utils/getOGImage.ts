@@ -18,7 +18,7 @@ export const getOGImage = async ({
     "https://github.com/openmaptiles/fonts/raw/refs/heads/master/roboto/Roboto-Regular.ttf",
   );
   const robotoArrayBuffer: ArrayBuffer = await robotoResponse.arrayBuffer();
-  const Roboto = new Uint8Array(robotoArrayBuffer);
+  const Roboto = Buffer.from(new Uint8Array(robotoArrayBuffer));
 
   const html: ReactElement = {
     key: "0",
