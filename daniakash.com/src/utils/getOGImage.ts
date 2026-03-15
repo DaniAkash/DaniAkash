@@ -14,11 +14,11 @@ export const getOGImage = async ({
   path: string;
   cover?: string;
 }) => {
-  const Roboto = Buffer.from(
-    await fetch(
-      "https://github.com/openmaptiles/fonts/raw/refs/heads/master/roboto/Roboto-Regular.ttf",
-    ).then((res) => res.arrayBuffer()),
+  const robotoResponse = await fetch(
+    "https://github.com/openmaptiles/fonts/raw/refs/heads/master/roboto/Roboto-Regular.ttf",
   );
+  const robotoArrayBuffer: ArrayBuffer = await robotoResponse.arrayBuffer();
+  const Roboto = Buffer.from(new Uint8Array(robotoArrayBuffer));
 
   const html: ReactElement = {
     key: "0",
@@ -97,7 +97,7 @@ export const getOGImage = async ({
     fonts: [
       {
         name: "Roboto",
-        data: Roboto.buffer,
+        data: Roboto,
         style: "normal",
       },
     ],

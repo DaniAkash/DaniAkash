@@ -38,6 +38,7 @@ const eventsList = events[0]!;
                         const youtubeThumbnail = getYoutubeThumbnail(
                           event.video ?? "",
                         );
+                        const primaryLink = event.video ?? event.cta?.[0]?.url;
                         return (
                           <article class="group relative flex flex-col items-start">
                             {event.thumbnail ? (
@@ -49,26 +50,29 @@ const eventsList = events[0]!;
                                 class={"w-full"}
                               />
                             ) : event.video && youtubeThumbnail ? (
-                              <Image
-                                height={360}
-                                width={480}
+                              <img
                                 src={youtubeThumbnail}
                                 alt={event.title}
-                                class={"w-full"}
+                                class="w-full"
+                                loading="lazy"
                               />
                             ) : null}
                             <h3 class="mt-4 text-base font-semibold tracking-tight text-zinc-800 dark:text-zinc-100">
                               <div class="absolute -inset-x-4 -inset-y-6 z-0 scale-95 bg-zinc-50 opacity-0 transition group-hover:scale-100 group-hover:opacity-100 dark:bg-zinc-800/50 sm:-inset-x-6 sm:rounded-2xl" />
-                              <a
-                                href={event.video}
-                                target="_blank"
-                                rel="noopener"
-                              >
-                                <span class="absolute -inset-x-4 -inset-y-6 z-20 sm:-inset-x-6 sm:rounded-2xl" />
-                                <span class="relative z-10">
-                                  {event.title}
-                                </span>
-                              </a>
+                              {primaryLink ? (
+                                <a
+                                  href={primaryLink}
+                                  target="_blank"
+                                  rel="noopener"
+                                >
+                                  <span class="absolute -inset-x-4 -inset-y-6 z-20 sm:-inset-x-6 sm:rounded-2xl" />
+                                  <span class="relative z-10">
+                                    {event.title}
+                                  </span>
+                                </a>
+                              ) : (
+                                <span class="relative z-10">{event.title}</span>
+                              )}
                             </h3>
                             <p class="relative z-10 order-first mb-3 flex items-center pl-3.5 text-sm text-zinc-400 dark:text-zinc-500">
                               <span

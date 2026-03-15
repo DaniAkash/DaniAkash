@@ -1,20 +1,21 @@
 const extractYouTubeVideoId = (url: string) => {
   try {
     const parsedUrl = new URL(url);
+    const hostname = parsedUrl.hostname.replace(/^www\./, "");
 
     // Check if it's a YouTube URL
-    if (
-      parsedUrl.hostname === "www.youtube.com" ||
-      parsedUrl.hostname === "youtube.com"
-    ) {
+    if (hostname === "youtube.com") {
+      if (parsedUrl.pathname.startsWith("/live/")) {
+        return parsedUrl.pathname.split("/")[2] ?? null; // for "youtube.com/live/VIDEO_ID" format
+      }
+
+      if (parsedUrl.pathname.startsWith("/embed/")) {
+        return parsedUrl.pathname.split("/")[2] ?? null; // for "youtube.com/embed/VIDEO_ID" format
+      }
+
       return parsedUrl.searchParams.get("v"); // for "watch?v=VIDEO_ID" format
-    } else if (parsedUrl.hostname === "youtu.be") {
+    } else if (hostname === "youtu.be") {
       return parsedUrl.pathname.slice(1); // for "youtu.be/VIDEO_ID" format
-    } else if (
-      parsedUrl.hostname === "www.youtube.com" &&
-      parsedUrl.pathname.startsWith("/embed/")
-    ) {
-      return parsedUrl.pathname.split("/")[2]; // for "youtube.com/embed/VIDEO_ID" format
     }
 
     return null; // Return null if URL is not a recognized YouTube format
