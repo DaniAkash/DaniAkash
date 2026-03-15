@@ -26,6 +26,52 @@
     ]
   },
   {
+    "year": 2025,
+    "events": [
+      {
+        "date": "Dec 13, 2025",
+        "name": "React Meetup #96",
+        "title": "Building an AI Agent",
+        "description": "A live coding session on building a Claude or Codex-style CLI agent from scratch using simple JavaScript and terminal-first tooling.",
+        "cta": [
+          {
+            "title": "Event Website",
+            "url": "https://www.meetup.com/reactjs-bangalore/events/311744342/?eventOrigin=group_events_list"
+          },
+          {
+            "title": "Community",
+            "url": "https://www.meetup.com/reactjs-bangalore/"
+          },
+          {
+            "title": "Code",
+            "url": "https://github.com/DaniAkash/building-an-agent"
+          }
+        ]
+      },
+      {
+        "date": "Nov 29, 2025",
+        "name": "Chennai React Meetup #15",
+        "title": "Unlock Server Side Rendering with Nitro",
+        "description": "A simple walkthrough of converting a legacy site to SSR with Vite and Nitro, using a before-and-after app structure to explain the migration path.",
+        "video": "https://www.youtube.com/live/0NYbRQtaYhs?si=oDyUTKSDwHWI0E92&t=208",
+        "cta": [
+          {
+            "title": "Event Website",
+            "url": "https://luma.com/g6aqpnb2"
+          },
+          {
+            "title": "Community",
+            "url": "https://www.chennaireact.in/socials"
+          },
+          {
+            "title": "Code",
+            "url": "https://github.com/DaniAkash/unlock-server-rendering"
+          }
+        ]
+      }
+    ]
+  },
+  {
     "year": 2024,
     "events": [
       {
