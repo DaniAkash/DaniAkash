@@ -1,5 +1,6 @@
 ---
 import { navLinks } from "../../constants/navLinks";
+import { fade } from "astro:transitions";
 import { TRANSITION_NAMES } from "../../constants/transition-names";
 
 const currentPath = Astro.url.pathname;
@@ -7,11 +8,14 @@ const currentYear = new Date().getFullYear();
 ---
 
 <div
-  class="flex flex-col items-center justify-between gap-y-6 border-t border-zinc-100 px-4 pb-16 pt-10 dark:border-zinc-700/40 sm:flex-row"
+  class="flex flex-col gap-6 border-t pb-14 pt-8 sm:flex-row sm:items-center sm:justify-between"
+  style="border-color: var(--page-border);"
   transition:name={TRANSITION_NAMES.footer}
+  transition:animate={fade({ duration: 180 })}
 >
   <div
-    class="flex w-full flex-wrap justify-center gap-6 text-sm font-medium text-zinc-800 dark:text-zinc-200 md:w-[unset] md:justify-start"
+    class="font-editorial-sans flex w-full flex-wrap gap-x-5 gap-y-2 text-[0.72rem] font-medium uppercase tracking-[0.16em] md:w-[unset]"
+    style="color: var(--page-muted);"
   >
     {
       navLinks.map((link) => {
@@ -20,9 +24,7 @@ const currentYear = new Date().getFullYear();
         return (
           <a
             href={link.href}
-            class={`hover:text-teal-500 dark:hover:text-teal-400 ${
-              isActive && "text-teal-500 dark:text-teal-400"
-            }`}
+            style={isActive ? "color: var(--page-heading);" : undefined}
           >
             {link.title}
           </a>
@@ -30,13 +32,14 @@ const currentYear = new Date().getFullYear();
       })
     }
   </div>
-  <p class="text-sm text-zinc-500 dark:text-zinc-400">
+  <p class="text-sm leading-7" style="color: var(--page-muted);">
     &#169;<!-- -->
     <span id="footer-year">{currentYear}</span><!-- -->
     <a
       href="https://github.com/daniakash/daniakash"
       target="_blank"
-      class="font-calorie text-2xl underline hover:text-teal-500 dark:hover:text-teal-400"
+      class="font-calorie ml-1 text-2xl underline"
+      style="color: var(--page-heading);"
       rel="noopener">Dani Akash.</a
     > All rights reserved.
   </p>

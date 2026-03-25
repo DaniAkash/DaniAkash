@@ -1,34 +1,31 @@
 ---
+import { fade } from "astro:transitions";
 import Avatar from "../pages/components/Avatar.astro";
 import DarkModeToggle from "../pages/components/DarkModeToggle.astro";
 import Nav from "../pages/components/nav.astro";
-
-interface Props {
-  isHomePage?: boolean;
-}
-
-const { isHomePage = false } = Astro.props;
 ---
 
 <header class="relative m-auto flex w-full max-w-7xl flex-none flex-col">
-  <div
-    class={isHomePage
-      ? "mr-[calc(theme(spacing.4)+48px)] mt-6 flex flex-row self-end sm:px-8 md:mr-[unset] md:self-center"
-      : "flex justify-between mt-6 items-center"}
-  >
-    {!isHomePage && <Avatar isHomePage={isHomePage} />}
-    <div>
-      <Nav />
+  <div class="flex items-center justify-between gap-4 border-b py-5 sm:py-6" style="border-color: var(--page-border);">
+    <div class="flex min-w-0 items-center gap-3">
+      <Avatar isHomePage={false} />
+      <div class="hidden min-w-0 sm:block">
+        <a
+          href="/"
+          class="font-editorial-sans text-sm font-medium tracking-[0.12em] uppercase"
+          style="color: var(--page-heading);"
+          transition:animate={fade({ duration: 180 })}
+        >
+          Dani Akash
+        </a>
+        <p class="font-editorial-mono text-[0.68rem] tracking-[0.2em] uppercase" style="color: var(--page-faint);">
+          Writer / Speaker / Hacker
+        </p>
+      </div>
     </div>
-    {!isHomePage && <div class="w-10" />}
-  </div>
-  {
-    isHomePage && (
-      <div class="mt-[calc(theme(spacing.16)-theme(spacing.3))]" />
-      <Avatar isHomePage={isHomePage} />
-    )
-  }
-  <div class="absolute right-0 top-6">
-    <DarkModeToggle />
+    <div class="flex items-center gap-3">
+      <Nav />
+      <DarkModeToggle />
+    </div>
   </div>
 </header>

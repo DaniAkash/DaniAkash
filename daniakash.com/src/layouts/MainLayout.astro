@@ -1,7 +1,6 @@
 ---
 import "../styles/global.css";
 import Footer from "../pages/components/Footer.astro";
-import HeroImages from "../pages/components/HeroImages.astro";
 import ContentArea from "./ContentArea.astro";
 import Header from "./Header.astro";
 import { ClientRouter } from "astro:transitions";
@@ -142,23 +141,14 @@ const ogImage = image || fallbackImage;
   </head>
   <body class="flex h-full w-full overflow-x-hidden bg-zinc-50 dark:bg-black">
     <ContentArea />
-    <div
-      class="relative m-auto flex w-full max-w-7xl flex-col overflow-visible md:px-8 lg:px-16"
-    >
-      <div class="px-4 md:px-8 lg:px-12">
+    <div class="relative m-auto flex w-full max-w-5xl flex-col overflow-visible">
+      <div class="px-4 sm:px-6 lg:px-10">
         <Header isHomePage={isHomePage} />
         <main><slot /></main>
-        <div class="mt-40">
+        <div class="mt-28 sm:mt-36">
           <Footer />
         </div>
       </div>
-      {
-        isHomePage && (
-          <div class="z-100 absolute top-[36rem] hidden w-screen overflow-clip mobile:block sm:block md:left-[-1rem] md:top-[30rem] md:w-[calc(100vw+1rem)] lg:left-[-8rem] lg:top-[28rem] lg:w-[calc(100vw+8rem)] lg:py-16 xl:left-[-16rem] xl:w-[calc(100vw+16rem)] xl:pl-28">
-            <HeroImages />
-          </div>
-        )
-      }
     </div>
   </body>
 </html>

@@ -1,3 +1,103 @@
 @import "tailwindcss";
 @config "../../tailwind.config.mjs";
 @plugin "@tailwindcss/typography";
+
+:root {
+  --page-bg: #f6f1e8;
+  --page-bg-accent: rgba(224, 213, 195, 0.35);
+  --page-panel: rgba(255, 251, 245, 0.86);
+  --page-border: rgba(68, 58, 43, 0.14);
+  --page-strong-border: rgba(68, 58, 43, 0.22);
+  --page-text: #201b16;
+  --page-muted: #6e665d;
+  --page-faint: #938a80;
+  --page-link: #0f766e;
+  --page-link-hover: #115e59;
+  --page-heading: #17120e;
+}
+
+html.dark {
+  --page-bg: #12100d;
+  --page-bg-accent: rgba(96, 80, 63, 0.18);
+  --page-panel: rgba(25, 22, 19, 0.84);
+  --page-border: rgba(223, 213, 199, 0.1);
+  --page-strong-border: rgba(223, 213, 199, 0.18);
+  --page-text: #e6ddd2;
+  --page-muted: #b3a89b;
+  --page-faint: #8f857b;
+  --page-link: #5eead4;
+  --page-link-hover: #99f6e4;
+  --page-heading: #fbf6ef;
+}
+
+html {
+  background:
+    radial-gradient(circle at top, var(--page-bg-accent), transparent 38%),
+    var(--page-bg);
+  color: var(--page-text);
+  scroll-behavior: smooth;
+}
+
+body {
+  color: var(--page-text);
+  font-family:
+    "Iowan Old Style",
+    "Palatino Linotype",
+    "Book Antiqua",
+    "New York",
+    "Times New Roman",
+    serif;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--page-link) 22%, transparent);
+}
+
+a {
+  transition:
+    color 180ms ease,
+    border-color 180ms ease,
+    opacity 180ms ease,
+    background-color 180ms ease;
+}
+
+.font-editorial-sans {
+  font-family:
+    "Avenir Next",
+    "Segoe UI",
+    "Helvetica Neue",
+    sans-serif;
+}
+
+.font-editorial-mono {
+  font-family:
+    "SFMono-Regular",
+    "JetBrains Mono",
+    "IBM Plex Mono",
+    "Menlo",
+    monospace;
+}
+
+::view-transition-old(hero-title),
+::view-transition-new(hero-title) {
+  animation-duration: 320ms;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+::view-transition-old(avatar),
+::view-transition-new(avatar) {
+  animation-duration: 260ms;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+::view-transition-old(active-nav-highlight),
+::view-transition-new(active-nav-highlight),
+::view-transition-old(dark-mode-toggle),
+::view-transition-new(dark-mode-toggle),
+::view-transition-old(footer),
+::view-transition-new(footer) {
+  animation-duration: 220ms;
+  animation-timing-function: ease;
+}

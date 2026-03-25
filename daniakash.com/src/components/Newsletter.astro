@@ -8,15 +8,16 @@ import MailIcon from "./icons/MailIcon.astro";
   method="post"
   target="popupwindow"
   onsubmit="window.open('https://buttondown.com/daniakash', 'popupwindow')"
-  class="rounded-2xl border border-zinc-100 p-6 dark:border-zinc-700/40"
+  class="border p-5 sm:p-6"
+  style="border-color: var(--page-border); background-color: color-mix(in srgb, var(--page-panel) 68%, transparent);"
   transition:name={TRANSITION_NAMES.newsletterForm}
 >
-  <h2 class="flex text-sm font-semibold text-zinc-900 dark:text-zinc-100">
+  <h2 class="flex items-center text-sm font-semibold" style="color: var(--page-heading);">
     <MailIcon class="h-6 w-6 flex-none" />
     <span class="ml-3">Stay up to date</span>
   </h2>
-  <p class="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
-    Get notified when I publish something new, and unsubscribe at any time.
+  <p class="mt-3 text-sm leading-7" style="color: var(--page-muted);">
+    Short notes when I publish something new. No feed spam, no busywork.
   </p>
   <div class="mt-6 flex">
     <input
@@ -26,10 +27,12 @@ import MailIcon from "./icons/MailIcon.astro";
       placeholder="Email address"
       aria-label="Email address"
       required
-      class="min-w-0 flex-auto appearance-none rounded-md border border-zinc-900/10 bg-white px-3 py-[calc(theme(spacing.2)-1px)] shadow-md shadow-zinc-800/5 placeholder:text-zinc-400 focus:border-teal-500 focus:outline-none focus:ring-4 focus:ring-teal-500/10 dark:border-zinc-700 dark:bg-zinc-700/[0.15] dark:text-zinc-200 dark:placeholder:text-zinc-500 dark:focus:border-teal-400 dark:focus:ring-teal-400/10 sm:text-sm"
+      class="min-w-0 flex-auto appearance-none border px-3 py-2 shadow-none focus:outline-none sm:text-sm"
+      style="border-color: var(--page-border); background-color: color-mix(in srgb, var(--page-panel) 92%, transparent); color: var(--page-text);"
     />
     <button
-      class="ml-4 inline-flex flex-none items-center justify-center gap-2 rounded-md bg-zinc-800 px-3 py-2 text-sm font-semibold text-zinc-100 outline-offset-2 transition hover:bg-zinc-700 active:bg-zinc-800 active:text-zinc-100/70 active:transition-none dark:bg-zinc-700 dark:hover:bg-zinc-600 dark:active:bg-zinc-700 dark:active:text-zinc-100/70"
+      class="font-editorial-sans ml-3 inline-flex flex-none items-center justify-center gap-2 border px-4 py-2 text-[0.72rem] font-semibold uppercase tracking-[0.16em] outline-offset-2 transition"
+      style="border-color: var(--page-heading); background-color: var(--page-heading); color: var(--page-bg);"
       type="submit">Join</button
     >
   </div>

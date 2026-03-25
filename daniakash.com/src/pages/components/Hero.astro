@@ -1,69 +1,82 @@
 ---
 import { getCollection } from "astro:content";
+import { fade } from "astro:transitions";
 import { TRANSITION_NAMES } from "../../constants/transition-names";
-import TypeWriter from "./TypeWriter.astro";
-import TwitterIcon from "../../components/icons/TwitterIcon.astro";
-import InstagramIcon from "../../components/icons/InstagramIcon.astro";
-import GithubIcon from "../../components/icons/GithubIcon.astro";
-import LinkedinIcon from "../../components/icons/LinkedinIcon.astro";
-import BlueskyIcon from "../../components/icons/BlueskyIcon.astro";
 const social = (await getCollection("social"))[0]!;
 ---
 
-<div class="max-w-2xl">
-  <h1
-    class="text-4xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-5xl"
-    transition:name={TRANSITION_NAMES.heroTitle}
+<div class="max-w-3xl">
+  <p
+    class="font-editorial-mono text-[0.7rem] font-medium uppercase tracking-[0.2em]"
+    style="color: var(--page-faint);"
   >
-    Writer, Speaker, Hacker
+    Personal site / notebook / archive
+  </p>
+  <h1
+    class="mt-4 max-w-2xl text-4xl font-semibold tracking-tight sm:text-5xl"
+    style="color: var(--page-heading);"
+    transition:name={TRANSITION_NAMES.heroTitle}
+    transition:animate={fade({ duration: 240 })}
+  >
+    I’m Dani Akash
   </h1>
-  <TypeWriter />
-  <div class="mt-6 flex gap-6">
+  <div class="mt-6 max-w-2xl space-y-4 text-[1.03rem] leading-8 sm:text-[1.08rem]">
+    <p style="color: var(--page-text);">
+      I write about web development, build software for developers, and speak
+      about frontend systems, React Native, and the weird little details that
+      make products feel sharp.
+    </p>
+    <p style="color: var(--page-muted);">
+      This site is a quieter index of what I’m making:
+      <a href="/blog/" style="color: var(--page-link);"> writing</a>,
+      <a href="/newsletter/" style="color: var(--page-link);"> newsletters</a>,
+      <a href="/projects/" style="color: var(--page-link);"> projects</a>,
+      <a href="/speaking/" style="color: var(--page-link);"> talks</a>, and a
+      living
+      <a href="/now/" style="color: var(--page-link);"> now page</a>.
+    </p>
+  </div>
+  <div class="mt-8 flex flex-wrap gap-x-5 gap-y-3 text-sm" style="color: var(--page-muted);">
+    <a href={social.data.github} target="_blank" rel="noopener" style="color: var(--page-link);">
+      GitHub
+    </a>
+    <a href={social.data.linkedIn} target="_blank" rel="noopener" style="color: var(--page-link);">
+      LinkedIn
+    </a>
+    <a href={social.data.bluesky} target="_blank" rel="noopener" style="color: var(--page-link);">
+      Bluesky
+    </a>
+    <a href={`mailto:${social.data.email}`} style="color: var(--page-link);">
+      {social.data.email}
+    </a>
+  </div>
+  <div
+    class="mt-8 grid gap-4 border-t pt-6 sm:grid-cols-3"
+    style="border-color: var(--page-border);"
+  >
     <a
-      class="bluesky-flutter group relative z-10 -m-1 -mt-[6px] inline-block p-1"
-      href={social.data.bluesky}
-      aria-label="Follow on Bluesky"
-      target="_blank"
-      rel="noopener"
+      href="/about/"
+      class="block border p-4"
+      style="border-color: var(--page-border); background-color: color-mix(in srgb, var(--page-panel) 68%, transparent);"
     >
-      <BlueskyIcon />
+      <p class="font-editorial-mono text-[0.68rem] uppercase tracking-[0.18em]" style="color: var(--page-faint);">About</p>
+      <p class="mt-2 text-sm" style="color: var(--page-text);">Background, experience, and contact links.</p>
     </a>
     <a
-      role="button"
-      class="group relative z-10 -m-1 inline-block p-1"
-      href={social.data.twitter}
-      aria-label="Follow on Twitter"
-      target="_blank"
-      rel="noopener"
+      href="/resume/"
+      class="block border p-4"
+      style="border-color: var(--page-border); background-color: color-mix(in srgb, var(--page-panel) 68%, transparent);"
     >
-      <TwitterIcon />
+      <p class="font-editorial-mono text-[0.68rem] uppercase tracking-[0.18em]" style="color: var(--page-faint);">Resume</p>
+      <p class="mt-2 text-sm" style="color: var(--page-text);">Work history, roles, and the longer career timeline.</p>
     </a>
     <a
-      class="group relative z-10 -m-1 inline-block p-1"
-      href={social.data.instagram}
-      aria-label="Follow on Instagram"
-      target="_blank"
-      rel="noopener"
+      href="/now/"
+      class="block border p-4"
+      style="border-color: var(--page-border); background-color: color-mix(in srgb, var(--page-panel) 68%, transparent);"
     >
-      <InstagramIcon />
-    </a>
-    <a
-      class="group relative z-10 -m-1 inline-block p-1"
-      href={social.data.github}
-      aria-label="Follow on GitHub"
-      target="_blank"
-      rel="noopener"
-    >
-      <GithubIcon />
-    </a>
-    <a
-      class="group relative z-10 -m-1 inline-block p-1"
-      href="https://www.linkedin.com/in/daniakash/"
-      aria-label="Follow on LinkedIn"
-      target="_blank"
-      rel="noopener"
-    >
-      <LinkedinIcon />
+      <p class="font-editorial-mono text-[0.68rem] uppercase tracking-[0.18em]" style="color: var(--page-faint);">Now</p>
+      <p class="mt-2 text-sm" style="color: var(--page-text);">What I’m paying attention to right now.</p>
     </a>
   </div>
 </div>

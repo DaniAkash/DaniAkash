@@ -32,7 +32,10 @@ export const getOGImage = async ({
         {
           type: "div",
           props: {
-            tw: "flex flex-col gap-4",
+            tw: "flex flex-col",
+            style: {
+              gap: "16px",
+            },
             children: [
               {
                 type: "h1",
@@ -59,7 +62,10 @@ export const getOGImage = async ({
               {
                 type: "div",
                 props: {
-                  tw: "flex items-center gap-4",
+                  tw: "flex items-center",
+                  style: {
+                    gap: "16px",
+                  },
                   children: [
                     {
                       type: "img",

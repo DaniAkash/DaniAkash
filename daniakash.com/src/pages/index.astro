@@ -2,35 +2,209 @@
 import { getCollection } from "astro:content";
 import MainLayout from "../layouts/MainLayout.astro";
 import Article from "../components/Article.astro";
-import Experience from "./components/Experience.astro";
 import Hero from "./components/Hero.astro";
 import Newsletter from "../components/Newsletter.astro";
+import { TRANSITION_NAMES } from "../constants/transition-names";
 const posts = (await getCollection("blog")).sort((a, b) => {
   const dateA = new Date(a.data.date).getTime();
   const dateB = new Date(b.data.date).getTime();
   return dateB - dateA;
 });
+const featuredPosts = posts.slice(0, 5);
+const newsletters = (await getCollection("rss"))
+  .sort((a, b) => b.data.dateMillis - a.data.dateMillis)
+  .slice(0, 3);
+const projects = (await getCollection("project"))[0]!.data.items.slice(0, 4);
+const experience = (await getCollection("career"))[0]!.data.items.slice(0, 3);
+const talks = (await getCollection("speaking"))
+  .sort((a, b) => b.data.year - a.data.year)
+  .flatMap((entry) =>
+    entry.data.events.map((event) => ({
+      year: entry.data.year,
+      ...event,
+    })),
+  )
+  .slice(0, 4);
+const social = (await getCollection("social"))[0]!;
 ---
 
 <MainLayout isHomePage={true} title="">
-  <div class="mt-9">
+  <div class="mx-auto max-w-3xl pb-8 pt-10 sm:pt-14">
     <Hero />
-  </div>
-  <!-- Placeholder for images section -->
-  <div class="hidden h-[320px] mobile:block md:h-[400px] lg:h-[448px]"></div>
-  <div
-    class="mt-12 flex flex-col-reverse gap-12 mobile:mt-0 lg:flex-row lg:items-stretch lg:justify-between"
-  >
-    <div class="flex max-w-xl flex-col gap-12">
-      {
-        posts.map((each) => {
-          return <Article {...each.data} slug={each.id} />;
-        })
-      }
-    </div>
-    <div class="flex flex-col gap-y-10">
-      <Newsletter />
-      <Experience />
-    </div>
+    <section class="mt-16 border-t pt-8" style="border-color: var(--page-border);">
+      <div class="flex flex-col gap-3 sm:flex-row sm:items-baseline sm:justify-between">
+        <h2 class="font-editorial-sans text-sm font-semibold uppercase tracking-[0.16em]" style="color: var(--page-heading);">
+          Selected Writing
+        </h2>
+        <a href="/blog/" class="font-editorial-mono text-[0.72rem] uppercase tracking-[0.18em]" style="color: var(--page-link);">
+          Browse all posts
+        </a>
+      </div>
+      <div class="mt-8 space-y-10">
+        {
+          featuredPosts.map((each) => {
+            return <Article {...each.data} slug={each.id} />;
+          })
+        }
+      </div>
+    </section>
+
+    <section class="mt-16 border-t pt-8" style="border-color: var(--page-border);">
+      <div class="grid gap-12 lg:grid-cols-[minmax(0,1fr)_18rem]">
+        <div>
+          <h2 class="font-editorial-sans text-sm font-semibold uppercase tracking-[0.16em]" style="color: var(--page-heading);">
+            Currently Shipping
+          </h2>
+          <p class="mt-4 max-w-2xl text-[1rem] leading-7" style="color: var(--page-muted);">
+            Recent work, things I’ve built, and the projects that still show up
+            in conversations long after shipping.
+          </p>
+
+          <div class="mt-8 space-y-6">
+            {
+              experience.map((item) => (
+                <article class="border-b pb-6" style="border-color: var(--page-border);">
+                  <div class="flex flex-col gap-2 sm:flex-row sm:items-baseline sm:justify-between">
+                    <h3 class="text-lg font-semibold" style="color: var(--page-heading);">
+                      {item.role}
+                    </h3>
+                    <p class="font-editorial-mono text-[0.72rem] uppercase tracking-[0.18em]" style="color: var(--page-faint);">
+                      {item.startDate} → {item.endDate}
+                    </p>
+                  </div>
+                  <p class="mt-1 text-sm" style="color: var(--page-link);">{item.company}</p>
+                  <p class="mt-3 text-[0.98rem] leading-7" style="color: var(--page-muted);">
+                    {item.description}
+                  </p>
+                </article>
+              ))
+            }
+          </div>
+        </div>
+
+        <aside class="space-y-4">
+          <p class="font-editorial-mono text-[0.72rem] uppercase tracking-[0.18em]" style="color: var(--page-faint);">
+            Selected Projects
+          </p>
+          <ul class="space-y-3">
+            {
+              projects.map((project) => (
+                <li class="border p-4" style="border-color: var(--page-border); background-color: color-mix(in srgb, var(--page-panel) 68%, transparent);">
+                  <a href={project.link.href} target="_blank" rel="noopener">
+                    <span class="text-base font-semibold" style="color: var(--page-heading);">
+                      {project.name}
+                    </span>
+                    <span class="mt-2 block text-sm leading-7" style="color: var(--page-muted);">
+                      {project.description}
+                    </span>
+                    <span class="font-editorial-sans mt-3 block text-[0.72rem] font-medium uppercase tracking-[0.16em]" style="color: var(--page-link);">
+                      {project.link.label}
+                    </span>
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+          <a href="/projects/" class="font-editorial-mono inline-block text-[0.72rem] uppercase tracking-[0.18em]" style="color: var(--page-link);">
+            See the full projects list
+          </a>
+        </aside>
+      </div>
+    </section>
+
+    <section class="mt-16 border-t pt-8" style="border-color: var(--page-border);">
+      <div class="grid gap-12 lg:grid-cols-[minmax(0,1fr)_18rem]">
+        <div>
+          <h2 class="font-editorial-sans text-sm font-semibold uppercase tracking-[0.16em]" style="color: var(--page-heading);">
+            Speaking & Notes
+          </h2>
+          <div class="mt-8 space-y-6">
+            {
+              talks.map((talk) => (
+                <article class="border-b pb-6" style="border-color: var(--page-border);">
+                  <div class="flex flex-col gap-2 sm:flex-row sm:items-baseline sm:justify-between">
+                    <h3 class="text-lg font-semibold" style="color: var(--page-heading);">
+                      {talk.title}
+                    </h3>
+                    <p class="font-editorial-mono text-[0.72rem] uppercase tracking-[0.18em]" style="color: var(--page-faint);">
+                      {talk.year}
+                    </p>
+                  </div>
+                  <p class="mt-1 text-sm" style="color: var(--page-link);">{talk.name}</p>
+                  <p class="mt-3 text-[0.98rem] leading-7" style="color: var(--page-muted);">
+                    {talk.description}
+                  </p>
+                </article>
+              ))
+            }
+          </div>
+          <a href="/speaking/" class="font-editorial-mono mt-6 inline-block text-[0.72rem] uppercase tracking-[0.18em]" style="color: var(--page-link);">
+            Browse all talks
+          </a>
+        </div>
+
+        <aside class="space-y-4">
+          <p class="font-editorial-mono text-[0.72rem] uppercase tracking-[0.18em]" style="color: var(--page-faint);">
+            Recent newsletters
+          </p>
+          <div class="space-y-4">
+            {
+              newsletters.map((entry) => (
+                <article class="border p-4" style="border-color: var(--page-border); background-color: color-mix(in srgb, var(--page-panel) 68%, transparent);">
+                  <time
+                    class="font-editorial-mono text-[0.68rem] uppercase tracking-[0.18em]"
+                    style="color: var(--page-faint);"
+                    datetime={entry.data.dateValue}
+                    transition:name={`${TRANSITION_NAMES.newsletterTime}-${entry.id}`}
+                  >
+                    {entry.data.dateDisplay}
+                  </time>
+                  <h3
+                    class="mt-2 text-base font-semibold leading-7"
+                    style="color: var(--page-heading);"
+                    transition:name={`${TRANSITION_NAMES.newsletterTitle}-${entry.id}`}
+                  >
+                    <a href={`/newsletter/${entry.id}/`}>{entry.data.title}</a>
+                  </h3>
+                </article>
+              ))
+            }
+          </div>
+          <a href="/newsletter/" class="font-editorial-mono inline-block text-[0.72rem] uppercase tracking-[0.18em]" style="color: var(--page-link);">
+            Read the archive
+          </a>
+        </aside>
+      </div>
+    </section>
+
+    <section class="mt-16 border-t pt-8" style="border-color: var(--page-border);">
+      <div class="grid gap-10 lg:grid-cols-[minmax(0,1fr)_18rem]">
+        <div>
+          <h2 class="font-editorial-sans text-sm font-semibold uppercase tracking-[0.16em]" style="color: var(--page-heading);">
+            Newsletter
+          </h2>
+          <p class="mt-4 max-w-2xl text-[1rem] leading-7" style="color: var(--page-muted);">
+            I send occasional notes when something is worth sharing:
+            experiments, shipped work, talk recordings, and the odd technical
+            rabbit hole.
+          </p>
+          <div class="mt-6 max-w-xl">
+            <Newsletter />
+          </div>
+        </div>
+
+        <aside>
+          <p class="font-editorial-mono text-[0.72rem] uppercase tracking-[0.18em]" style="color: var(--page-faint);">
+            Elsewhere
+          </p>
+          <ul class="mt-4 space-y-3 text-sm">
+            <li><a href={social.data.github} target="_blank" rel="noopener" style="color: var(--page-link);">GitHub</a></li>
+            <li><a href={social.data.linkedIn} target="_blank" rel="noopener" style="color: var(--page-link);">LinkedIn</a></li>
+            <li><a href={social.data.bluesky} target="_blank" rel="noopener" style="color: var(--page-link);">Bluesky</a></li>
+            <li><a href={`mailto:${social.data.email}`} style="color: var(--page-link);">{social.data.email}</a></li>
+          </ul>
+        </aside>
+      </div>
+    </section>
   </div>
 </MainLayout>

@@ -1,5 +1,6 @@
 ---
 import { Image } from "astro:assets";
+import { fade } from "astro:transitions";
 import { TRANSITION_NAMES } from "../../constants/transition-names";
 import { ASSET_PREFIX } from "../../constants/asset-prefix";
 
@@ -16,10 +17,13 @@ const { isHomePage = false } = Astro.props;
     height={96}
     width={96}
     transition:name={TRANSITION_NAMES.avatar}
+    transition:animate={fade({ duration: 220 })}
     alt="dani-akash"
-    class={`rounded-full bg-zinc-100 object-cover dark:bg-zinc-800 hover:transition-all hover:-translate-y-1 hover:scale-110 hover:shadow-teal-500 hover:shadow-2xl hover:dark:shadow-teal-400 ${
-      isHomePage ? "h-16 w-16" : "h-9 w-9"
+    class={`rounded-full border object-cover transition-transform duration-200 hover:-translate-y-0.5 ${
+      isHomePage ? "h-12 w-12" : "h-10 w-10"
     }`}
+    style={`background-color: color-mix(in srgb, var(--page-panel) 70%, transparent);
+      border-color: var(--page-strong-border);`}
     src={`${ASSET_PREFIX}/avatar.jpg`}
   />
 </a>
