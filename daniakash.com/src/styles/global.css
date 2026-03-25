@@ -42,6 +42,7 @@ html.dark {
 }
 
 html {
+  font-size: 15px;
   background:
     radial-gradient(circle at top, var(--page-bg-accent), transparent 38%),
     var(--page-bg);
