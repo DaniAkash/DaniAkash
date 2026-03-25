@@ -1,4 +1,15 @@
 @import "tailwindcss";
+@import "@fontsource/monaspace-neon/400.css";
+@import "@fontsource/monaspace-neon/400-italic.css";
+@import "@fontsource/monaspace-neon/500.css";
+@import "@fontsource/monaspace-neon/500-italic.css";
+@import "@fontsource/monaspace-neon/600.css";
+@import "@fontsource/monaspace-radon/500.css";
+@import "@fontsource/monaspace-radon/600.css";
+@import "@fontsource/monaspace-radon/700.css";
+@import "@fontsource/monaspace-xenon/500.css";
+@import "@fontsource/monaspace-xenon/600.css";
+@import "@fontsource/monaspace-xenon/700.css";
 @config "../../tailwind.config.mjs";
 @plugin "@tailwindcss/typography";
 
@@ -40,15 +51,50 @@ html {
 
 body {
   color: var(--page-text);
-  font-family:
-    "Iowan Old Style",
-    "Palatino Linotype",
-    "Book Antiqua",
-    "New York",
-    "Times New Roman",
-    serif;
+  font-family: "Monaspace Neon", monospace;
+  font-feature-settings:
+    "calt" 1,
+    "liga" 1,
+    "ss01" 1,
+    "ss02" 1,
+    "ss03" 1,
+    "ss04" 1,
+    "ss05" 1,
+    "ss06" 1;
+  font-variant-ligatures: common-ligatures contextual discretionary-ligatures;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
+}
+
+h1 {
+  font-family: "Monaspace Radon", monospace;
+  font-feature-settings:
+    "calt" 1,
+    "liga" 1,
+    "ss01" 1,
+    "ss02" 1,
+    "ss03" 1,
+    "ss07" 1,
+    "ss08" 1,
+    "ss09" 1,
+    "ss10" 1;
+}
+
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Monaspace Xenon", monospace;
+  font-feature-settings:
+    "calt" 1,
+    "liga" 1,
+    "ss01" 1,
+    "ss02" 1,
+    "ss03" 1,
+    "ss04" 1,
+    "ss05" 1,
+    "ss06" 1;
 }
 
 ::selection {
@@ -132,20 +178,29 @@ a {
 }
 
 .font-editorial-sans {
-  font-family:
-    "Avenir Next",
-    "Segoe UI",
-    "Helvetica Neue",
-    sans-serif;
+  font-family: "Monaspace Neon", monospace;
+  font-feature-settings:
+    "calt" 1,
+    "liga" 1,
+    "ss01" 1,
+    "ss02" 1,
+    "ss03" 1,
+    "ss04" 1,
+    "ss05" 1,
+    "ss06" 1;
 }
 
 .font-editorial-mono {
-  font-family:
-    "SFMono-Regular",
-    "JetBrains Mono",
-    "IBM Plex Mono",
-    "Menlo",
-    monospace;
+  font-family: "Monaspace Neon", monospace;
+  font-feature-settings:
+    "calt" 1,
+    "liga" 1,
+    "ss01" 1,
+    "ss02" 1,
+    "ss03" 1,
+    "ss04" 1,
+    "ss05" 1,
+    "ss06" 1;
 }
 
 ::view-transition-old(hero-title),

@@ -42,6 +42,15 @@ importers:
         specifier: ^6.0.2
         version: 6.0.2
     devDependencies:
+      '@fontsource/monaspace-neon':
+        specifier: ^5.2.5
+        version: 5.2.5
+      '@fontsource/monaspace-radon':
+        specifier: ^5.2.5
+        version: 5.2.5
+      '@fontsource/monaspace-xenon':
+        specifier: ^5.2.5
+        version: 5.2.5
       '@tailwindcss/typography':
         specifier: ^0.5.19
         version: 0.5.19(tailwindcss@4.2.2)
@@ -433,6 +442,15 @@ packages:
     engines: {node: '>=18'}
     cpu: [x64]
     os: [win32]
+
+  '@fontsource/monaspace-neon@5.2.5':
+    resolution: {integrity: sha512-TjSSuHC37DroyhP5YCKRCAxdUb3In/uqHzqqW/8Ul+JWilz37d8lr8jFeapnbD3QdYXgiQoU2Rf/CmTdyl06DA==}
+
+  '@fontsource/monaspace-radon@5.2.5':
+    resolution: {integrity: sha512-mG6ltrFW5BYmcoRvVIKboCORZu8BeGg6h5zV5rnwEmFcjv8Bltua3KOj6aOxWbrR4PYnKyR17lNqSsjR8kx4bQ==}
+
+  '@fontsource/monaspace-xenon@5.2.5':
+    resolution: {integrity: sha512-k10RCF5nek9ee/rKSALaeYgOcJjjvzxxGkIlPwkSAoasjrsEeVKOSJ6ii1dMXOZwL9ZtW3p56Dxhgaw0Gtwvaw==}
 
   '@img/colour@1.1.0':
     resolution: {integrity: sha512-Td76q7j57o/tLVdgS746cYARfSyxk8iEfRxewL9h4OMzYhbW4TAcppl0mT4eyqXddh6L/jwoM75mo7ixa/pCeQ==}
@@ -3066,6 +3084,12 @@ snapshots:
 
   '@esbuild/win32-x64@0.27.4':
     optional: true
+
+  '@fontsource/monaspace-neon@5.2.5': {}
+
+  '@fontsource/monaspace-radon@5.2.5': {}
+
+  '@fontsource/monaspace-xenon@5.2.5': {}
 
   '@img/colour@1.1.0': {}
 
