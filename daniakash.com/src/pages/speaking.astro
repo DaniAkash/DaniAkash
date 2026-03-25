@@ -17,17 +17,17 @@ const events = (await getCollection("speaking")).sort(
       title="Words I’ve Said"
       subtitle="You can actually hear me talk, not just type."
     />
-    <div class="mt-20 sm:mt-24">
-      <div class="space-y-28">
+    <div class="mt-16 sm:mt-20">
+      <div class="space-y-20">
         {
           events.map((each) => {
             const sectionId = `speaking-year-${each.data.year}`;
             return (
               <section
                 aria-labelledby={sectionId}
-                class=""
+                class="md:border-l md:border-zinc-100 md:pl-6 md:dark:border-zinc-700/40"
               >
-                <div class="grid max-w-4xl grid-cols-1 items-baseline gap-y-10 md:grid-cols-[7rem_minmax(0,1fr)] md:gap-x-10">
+                <div class="grid max-w-3xl grid-cols-1 items-baseline gap-y-8 md:grid-cols-4">
                   <h2
                     id={sectionId}
                     class="text-sm font-semibold text-zinc-800 dark:text-zinc-100"
@@ -35,7 +35,7 @@ const events = (await getCollection("speaking")).sort(
                     {each.data.year}
                   </h2>
                   <div class="md:col-span-3">
-                    <div class="space-y-20">
+                    <div class="space-y-16">
                       {each.data.events.map((event) => {
                         const youtubeThumbnail = getYoutubeThumbnail(
                           event.video ?? "",
@@ -59,9 +59,9 @@ const events = (await getCollection("speaking")).sort(
                                 loading="lazy"
                               />
                             ) : null}
-                            <h3 class="mt-5 text-base font-semibold tracking-tight text-zinc-800 dark:text-zinc-100">
+                            <h3 class="mt-4 text-base font-semibold tracking-tight text-zinc-800 dark:text-zinc-100">
                               <div
-                                class="absolute -inset-x-4 -inset-y-7 z-0 border opacity-0 transition group-hover:opacity-100 sm:-inset-x-6"
+                                class="absolute -inset-x-4 -inset-y-6 z-0 border opacity-0 transition group-hover:opacity-100 sm:-inset-x-6"
                                 style="border-color: var(--page-border); background-color: color-mix(in srgb, var(--page-panel) 80%, transparent);"
                               />
                               {primaryLink ? (
@@ -70,7 +70,7 @@ const events = (await getCollection("speaking")).sort(
                                   target="_blank"
                                   rel="noopener"
                                 >
-                                  <span class="absolute -inset-x-4 -inset-y-7 z-20 sm:-inset-x-6" />
+                                  <span class="absolute -inset-x-4 -inset-y-6 z-20 sm:-inset-x-6" />
                                   <span class="relative z-10">
                                     {event.title}
                                   </span>
@@ -88,11 +88,11 @@ const events = (await getCollection("speaking")).sort(
                               </span>
                               {event.name}
                             </p>
-                            <p class="relative z-10 mt-3 text-sm leading-7 text-zinc-600 dark:text-zinc-400">
+                            <p class="relative z-10 mt-2 text-sm text-zinc-600 dark:text-zinc-400">
                               {event.description}
                             </p>
                           </article>
-                          <div class="mt-7 flex flex-wrap gap-x-5 gap-y-3">
+                          <div style="margin-top:30px" class="flex gap-5">
                             {event.cta?.map((cta) => {
                               return (
                                 <a
