@@ -15,7 +15,7 @@ const uses = (await getCollection("uses"))[0]!;
     <div class="mt-16 sm:mt-20">
       <div class="space-y-20">
         {
-          uses.data.map((each) => {
+          uses.data.items.map((each) => {
             return (
               <section
                 aria-labelledby={each.title}

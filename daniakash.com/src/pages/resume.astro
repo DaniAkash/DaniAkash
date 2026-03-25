@@ -1,10 +1,10 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection, render } from "astro:content";
 import MainLayout from "../layouts/MainLayout.astro";
 import ArticleContainer from "../components/ArticleContainer.astro";
 
 const resume = (await getCollection("resume"))[0]!;
-const { Content } = await resume.render();
+const { Content } = await render(resume);
 ---
 
 <MainLayout title="Resume">

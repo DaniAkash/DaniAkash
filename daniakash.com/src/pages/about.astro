@@ -1,5 +1,5 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection, render } from "astro:content";
 import { TRANSITION_NAMES } from "../constants/transition-names";
 import MainLayout from "../layouts/MainLayout.astro";
 import { ASSET_PREFIX } from "../constants/asset-prefix";
@@ -12,7 +12,7 @@ import MailDarkIcon from "../components/icons/MailDarkIcon.astro";
 import BlueskyIcon from "../components/icons/BlueskyIcon.astro";
 
 const about = (await getCollection("about"))[0]!;
-const { Content } = await about.render();
+const { Content } = await render(about);
 const social = (await getCollection("social"))[0]!;
 ---
 

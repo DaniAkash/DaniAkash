@@ -2,7 +2,6 @@ import typographyStyles from "./typography";
 
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ["./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}"],
   darkMode: "class",
   theme: {
     extend: {
@@ -30,8 +29,4 @@ export default {
       typography: typographyStyles,
     },
   },
-  plugins: [
-    require("tailwindcss-content-visibility"),
-    require("@tailwindcss/typography"),
-  ],
 };
