@@ -1,4 +1,4 @@
-type ThemeResolver = (path: string) => string;
+type ThemeResolver = (path: string) => any;
 
 export default function typographyStyles({ theme }: { theme: ThemeResolver }) {
   return {
