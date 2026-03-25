@@ -6,7 +6,9 @@ import ContentContainer from "./components/ContentContainer.astro";
 import { Image } from "astro:assets";
 import { ASSET_PREFIX } from "../constants/asset-prefix";
 import { getYoutubeThumbnail } from "../utils/getYoutubeThumbnail";
-const events = await getCollection("speaking");
+const events = (await getCollection("speaking")).sort(
+  (a, b) => b.data.year - a.data.year,
+);
 ---
 
 <MainLayout title="Speaking">

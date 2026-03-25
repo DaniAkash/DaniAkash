@@ -6,7 +6,9 @@ import Header from "./components/Header.astro";
 import NewsletterForm from "../components/Newsletter.astro";
 import { getCollection } from "astro:content";
 
-const rss = await getCollection("rss");
+const rss = (await getCollection("rss")).sort(
+  (a, b) => b.data.dateMillis - a.data.dateMillis,
+);
 ---
 
 <MainLayout
