@@ -3,6 +3,7 @@ import { getCollection } from "astro:content";
 import MainLayout from "../layouts/MainLayout.astro";
 import Article from "../components/Article.astro";
 import Hero from "./components/Hero.astro";
+import HeroImages from "./components/HeroImages.astro";
 import Newsletter from "../components/Newsletter.astro";
 import { TRANSITION_NAMES } from "../constants/transition-names";
 const posts = (await getCollection("blog")).sort((a, b) => {
@@ -31,6 +32,11 @@ const social = (await getCollection("social"))[0]!;
 <MainLayout isHomePage={true} title="">
   <div class="mx-auto max-w-3xl pb-8 pt-10 sm:pt-14">
     <Hero />
+
+    <div class="mt-16">
+      <HeroImages />
+    </div>
+
     <section class="mt-16 border-t pt-8" style="border-color: var(--page-border);">
       <div class="flex flex-col gap-3 sm:flex-row sm:items-baseline sm:justify-between">
         <h2 class="font-editorial-sans text-sm font-semibold uppercase tracking-[0.16em]" style="color: var(--page-heading);">

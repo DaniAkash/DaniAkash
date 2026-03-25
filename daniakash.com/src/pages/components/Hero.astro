@@ -1,6 +1,12 @@
 ---
 import { getCollection } from "astro:content";
 import { fade } from "astro:transitions";
+import GithubIcon from "../../components/icons/GithubIcon.astro";
+import InstagramIcon from "../../components/icons/InstagramIcon.astro";
+import LinkedinIcon from "../../components/icons/LinkedinIcon.astro";
+import MailDarkIcon from "../../components/icons/MailDarkIcon.astro";
+import TwitterIcon from "../../components/icons/TwitterIcon.astro";
+import BlueskyIcon from "../../components/icons/BlueskyIcon.astro";
 import { TRANSITION_NAMES } from "../../constants/transition-names";
 const social = (await getCollection("social"))[0]!;
 ---
@@ -36,18 +42,64 @@ const social = (await getCollection("social"))[0]!;
       <a href="/now/" style="color: var(--page-link);"> now page</a>.
     </p>
   </div>
-  <div class="mt-8 flex flex-wrap gap-x-5 gap-y-3 text-sm" style="color: var(--page-muted);">
-    <a href={social.data.github} target="_blank" rel="noopener" style="color: var(--page-link);">
-      GitHub
+  <div class="mt-8 flex flex-wrap gap-3 text-sm">
+    <a
+      href={social.data.github}
+      target="_blank"
+      rel="noopener"
+      class="group inline-flex items-center gap-2 border px-3 py-2"
+      style="border-color: var(--page-border); color: var(--page-link); background-color: color-mix(in srgb, var(--page-panel) 72%, transparent);"
+    >
+      <GithubIcon />
+      <span>GitHub</span>
     </a>
-    <a href={social.data.linkedIn} target="_blank" rel="noopener" style="color: var(--page-link);">
-      LinkedIn
+    <a
+      href={social.data.linkedIn}
+      target="_blank"
+      rel="noopener"
+      class="group inline-flex items-center gap-2 border px-3 py-2"
+      style="border-color: var(--page-border); color: var(--page-link); background-color: color-mix(in srgb, var(--page-panel) 72%, transparent);"
+    >
+      <LinkedinIcon />
+      <span>LinkedIn</span>
     </a>
-    <a href={social.data.bluesky} target="_blank" rel="noopener" style="color: var(--page-link);">
-      Bluesky
+    <a
+      href={social.data.bluesky}
+      target="_blank"
+      rel="noopener"
+      class="group inline-flex items-center gap-2 border px-3 py-2"
+      style="border-color: var(--page-border); color: var(--page-link); background-color: color-mix(in srgb, var(--page-panel) 72%, transparent);"
+    >
+      <BlueskyIcon />
+      <span>Bluesky</span>
     </a>
-    <a href={`mailto:${social.data.email}`} style="color: var(--page-link);">
-      {social.data.email}
+    <a
+      href={social.data.twitter}
+      target="_blank"
+      rel="noopener"
+      class="group inline-flex items-center gap-2 border px-3 py-2"
+      style="border-color: var(--page-border); color: var(--page-link); background-color: color-mix(in srgb, var(--page-panel) 72%, transparent);"
+    >
+      <TwitterIcon />
+      <span>X</span>
+    </a>
+    <a
+      href={social.data.instagram}
+      target="_blank"
+      rel="noopener"
+      class="group inline-flex items-center gap-2 border px-3 py-2"
+      style="border-color: var(--page-border); color: var(--page-link); background-color: color-mix(in srgb, var(--page-panel) 72%, transparent);"
+    >
+      <InstagramIcon />
+      <span>Instagram</span>
+    </a>
+    <a
+      href={`mailto:${social.data.email}`}
+      class="group inline-flex items-center gap-2 border px-3 py-2"
+      style="border-color: var(--page-border); color: var(--page-link); background-color: color-mix(in srgb, var(--page-panel) 72%, transparent);"
+    >
+      <MailDarkIcon />
+      <span>{social.data.email}</span>
     </a>
   </div>
   <div

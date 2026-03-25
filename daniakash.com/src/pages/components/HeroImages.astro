@@ -4,79 +4,82 @@ import { TRANSITION_NAMES } from "../../constants/transition-names";
 import { ASSET_PREFIX } from "../../constants/asset-prefix";
 ---
 
-<div class="flex flex-row gap-5 sm:gap-8">
-  <div
-    class="aspect-[9/10] w-44 flex-none -rotate-2 overflow-hidden rounded-xl bg-zinc-100 transition-all dark:bg-zinc-800 sm:w-72 sm:rounded-2xl lg:hover:relative lg:hover:z-10 lg:hover:rotate-0 lg:hover:scale-125"
-  >
-    <Image
-      alt="dani-akash"
-      src={`${ASSET_PREFIX}/image-1.jpg`}
-      width={300}
-      height={320}
-      sizes="(min-width: 640px) 18rem, 11rem"
-      class="h-full w-full object-cover"
-      loading="eager"
-    />
+<section class="border-y py-8" style="border-color: var(--page-border);">
+  <div class="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+    <div>
+      <p class="font-editorial-sans text-sm font-semibold uppercase tracking-[0.16em]" style="color: var(--page-heading);">
+        Photo Log
+      </p>
+      <p class="mt-2 max-w-2xl text-sm leading-7" style="color: var(--page-muted);">
+        A few frames from the personal side of this site. Less hero banner, more
+        contact sheet.
+      </p>
+    </div>
+    <p class="font-editorial-mono text-[0.7rem] uppercase tracking-[0.18em]" style="color: var(--page-faint);">
+      /images/dani/archive
+    </p>
   </div>
-  <div
-    class="aspect-[9/10] w-44 flex-none rotate-2 overflow-hidden rounded-xl bg-zinc-100 transition-all dark:bg-zinc-800 sm:w-72 sm:rounded-2xl lg:hover:relative lg:hover:z-10 lg:hover:rotate-0 lg:hover:scale-125"
-  >
-    <Image
-      alt="dani-akash"
-      src={`${ASSET_PREFIX}/image-2.jpg`}
-      width={450}
-      height={470}
-      sizes="(min-width: 640px) 18rem, 11rem"
-      class="h-full w-full object-cover"
-      loading="eager"
-    />
+
+  <div class="mt-8 grid gap-5 md:grid-cols-12">
+    <figure class="md:col-span-4">
+      <div class="overflow-hidden border" style="border-color: var(--page-border); background-color: color-mix(in srgb, var(--page-panel) 70%, transparent);">
+        <Image
+          alt="Dani portrait photograph"
+          src={`${ASSET_PREFIX}/image-1.jpg`}
+          width={300}
+          height={320}
+          sizes="(min-width: 768px) 28vw, 100vw"
+          class="aspect-[4/5] h-full w-full object-cover"
+          loading="eager"
+        />
+      </div>
+      <figcaption class="mt-3 flex items-center justify-between gap-3">
+        <span class="font-editorial-mono text-[0.68rem] uppercase tracking-[0.18em]" style="color: var(--page-faint);">
+          frame_01
+        </span>
+        <span class="text-sm" style="color: var(--page-muted);">homepage portrait</span>
+      </figcaption>
+    </figure>
+
+    <figure class="md:col-span-4">
+      <div class="overflow-hidden border" style="border-color: var(--page-border); background-color: color-mix(in srgb, var(--page-panel) 70%, transparent);">
+        <Image
+          alt="Dani lifestyle photograph"
+          src={`${ASSET_PREFIX}/image-3.jpg`}
+          width={300}
+          height={320}
+          sizes="(min-width: 768px) 28vw, 100vw"
+          class="aspect-[4/5] h-full w-full object-cover"
+          loading="eager"
+          transition:name={TRANSITION_NAMES.heroImage}
+        />
+      </div>
+      <figcaption class="mt-3 flex items-center justify-between gap-3">
+        <span class="font-editorial-mono text-[0.68rem] uppercase tracking-[0.18em]" style="color: var(--page-faint);">
+          frame_02
+        </span>
+        <span class="text-sm" style="color: var(--page-muted);">about-page bridge image</span>
+      </figcaption>
+    </figure>
+
+    <figure class="md:col-span-4">
+      <div class="overflow-hidden border" style="border-color: var(--page-border); background-color: color-mix(in srgb, var(--page-panel) 70%, transparent);">
+        <Image
+          alt="Dani portrait photograph"
+          src={`${ASSET_PREFIX}/image-5.jpg`}
+          width={300}
+          height={320}
+          sizes="(min-width: 768px) 28vw, 100vw"
+          class="aspect-[4/5] h-full w-full object-cover"
+          loading="eager"
+        />
+      </div>
+      <figcaption class="mt-3 flex items-center justify-between gap-3">
+        <span class="font-editorial-mono text-[0.68rem] uppercase tracking-[0.18em]" style="color: var(--page-faint);">
+          frame_03
+        </span>
+        <span class="text-sm" style="color: var(--page-muted);">personal notes section</span>
+      </figcaption>
+    </figure>
   </div>
-  <div
-    class="aspect-[9/10] w-44 flex-none -rotate-2 overflow-hidden rounded-xl bg-zinc-100 transition-all dark:bg-zinc-800 sm:w-72 sm:rounded-2xl lg:hover:relative lg:hover:z-10 lg:hover:rotate-0 lg:hover:scale-125"
-  >
-    <Image
-      alt="dani-akash"
-      src={`${ASSET_PREFIX}/image-3.jpg`}
-      width={300}
-      height={320}
-      sizes="(min-width: 640px) 18rem, 11rem"
-      class="h-full w-full object-cover"
-      loading="eager"
-    />
-    <Image
-      alt="dani-akash"
-      src={`${ASSET_PREFIX}/image-3.jpg`}
-      width={300}
-      height={320}
-      sizes="(min-width: 640px) 18rem, 11rem"
-      class="fixed left-0 top-0 h-full w-full object-cover"
-      transition:name={TRANSITION_NAMES.heroImage}
-    />
-  </div>
-  <div
-    class="aspect-[9/10] w-44 flex-none rotate-2 overflow-hidden rounded-xl bg-zinc-100 transition-all dark:bg-zinc-800 sm:w-72 sm:rounded-2xl lg:hover:relative lg:hover:z-10 lg:hover:rotate-0 lg:hover:scale-125"
-  >
-    <Image
-      alt="dani-akash"
-      src={`${ASSET_PREFIX}/image-4.jpg`}
-      width={300}
-      height={320}
-      sizes="(min-width: 640px) 18rem, 11rem"
-      class="h-full w-full object-cover"
-      loading="eager"
-    />
-  </div>
-  <div
-    class="aspect-[9/10] w-44 flex-none -rotate-2 overflow-hidden rounded-xl bg-zinc-100 transition-all dark:bg-zinc-800 sm:w-72 sm:rounded-2xl lg:hover:relative lg:hover:z-10 lg:hover:rotate-0 lg:hover:scale-125"
-  >
-    <Image
-      alt="dani-akash"
-      src={`${ASSET_PREFIX}/image-5.jpg`}
-      width={300}
-      height={320}
-      sizes="(min-width: 640px) 18rem, 11rem"
-      class="h-full w-full object-cover"
-      loading="eager"
-    />
-  </div>
-</div>
+</section>
