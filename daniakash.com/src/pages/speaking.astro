@@ -60,14 +60,17 @@ const events = (await getCollection("speaking")).sort(
                               />
                             ) : null}
                             <h3 class="mt-4 text-base font-semibold tracking-tight text-zinc-800 dark:text-zinc-100">
-                              <div class="absolute -inset-x-4 -inset-y-6 z-0 scale-95 bg-zinc-50 opacity-0 transition group-hover:scale-100 group-hover:opacity-100 dark:bg-zinc-800/50 sm:-inset-x-6 sm:rounded-2xl" />
+                              <div
+                                class="absolute -inset-x-4 -inset-y-6 z-0 border opacity-0 transition group-hover:opacity-100 sm:-inset-x-6"
+                                style="border-color: var(--page-border); background-color: color-mix(in srgb, var(--page-panel) 80%, transparent);"
+                              />
                               {primaryLink ? (
                                 <a
                                   href={primaryLink}
                                   target="_blank"
                                   rel="noopener"
                                 >
-                                  <span class="absolute -inset-x-4 -inset-y-6 z-20 sm:-inset-x-6 sm:rounded-2xl" />
+                                  <span class="absolute -inset-x-4 -inset-y-6 z-20 sm:-inset-x-6" />
                                   <span class="relative z-10">
                                     {event.title}
                                   </span>
