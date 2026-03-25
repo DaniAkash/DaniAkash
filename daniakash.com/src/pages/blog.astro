@@ -33,7 +33,7 @@ const posts = (await getCollection("blog")).sort((a, b) => {
                   post={post.data}
                   dateDisplay={dateDisplay}
                   dateValue={dateValue}
-                  slug={post.slug}
+                  slug={post.id}
                 />
               );
             })

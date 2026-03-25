@@ -7,7 +7,6 @@ import { Image } from "astro:assets";
 import { ASSET_PREFIX } from "../constants/asset-prefix";
 import { getYoutubeThumbnail } from "../utils/getYoutubeThumbnail";
 const events = await getCollection("speaking");
-const eventsList = events[0]!;
 ---
 
 <MainLayout title="Speaking">
@@ -19,7 +18,7 @@ const eventsList = events[0]!;
     <div class="mt-16 sm:mt-20">
       <div class="space-y-20">
         {
-          eventsList.data.map((each) => {
+          events.map((each) => {
             return (
               <section
                 aria-labelledby=":r0R6:"
@@ -30,11 +29,11 @@ const eventsList = events[0]!;
                     id=":r0R6:"
                     class="text-sm font-semibold text-zinc-800 dark:text-zinc-100"
                   >
-                    {each.year}
+                    {each.data.year}
                   </h2>
                   <div class="md:col-span-3">
                     <div class="space-y-16">
-                      {each.events.map((event) => {
+                      {each.data.events.map((event) => {
                         const youtubeThumbnail = getYoutubeThumbnail(
                           event.video ?? "",
                         );

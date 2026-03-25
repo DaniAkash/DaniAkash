@@ -1,11 +1,11 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection, render } from "astro:content";
 import MainLayout from "../layouts/MainLayout.astro";
 import ContentContainer from "./components/ContentContainer.astro";
 import Header from "./components/Header.astro";
 
 const now = (await getCollection("now"))[0]!;
-const { Content } = await now.render();
+const { Content } = await render(now);
 ---
 
 <MainLayout title="Now">

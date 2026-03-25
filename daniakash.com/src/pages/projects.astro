@@ -22,7 +22,7 @@ const projects = (await getCollection("project"))[0]!;
         class="grid grid-cols-1 gap-x-12 gap-y-16 sm:grid-cols-2 lg:grid-cols-3"
       >
         {
-          projects.data.map((project) => {
+          projects.data.items.map((project) => {
             return (
               <li class="group relative flex flex-col items-start">
                 <div

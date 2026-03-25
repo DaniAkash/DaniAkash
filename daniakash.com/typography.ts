@@ -1,6 +1,6 @@
-import { type PluginUtils } from "tailwindcss/types/config";
+type ThemeResolver = (path: string) => string;
 
-export default function typographyStyles({ theme }: PluginUtils) {
+export default function typographyStyles({ theme }: { theme: ThemeResolver }) {
   return {
     invert: {
       css: {

@@ -24,7 +24,7 @@ const posts = (await getCollection("blog")).sort((a, b) => {
     <div class="flex max-w-xl flex-col gap-12">
       {
         posts.map((each) => {
-          return <Article {...each.data} slug={each.slug} />;
+          return <Article {...each.data} slug={each.id} />;
         })
       }
     </div>
