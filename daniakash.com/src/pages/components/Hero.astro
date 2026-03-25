@@ -34,12 +34,12 @@ const social = (await getCollection("social"))[0]!;
     </p>
     <p style="color: var(--page-muted);">
       This site is a quieter index of what I’m making:
-      <a href="/blog/" style="color: var(--page-link);"> writing</a>,
-      <a href="/newsletter/" style="color: var(--page-link);"> newsletters</a>,
-      <a href="/projects/" style="color: var(--page-link);"> projects</a>,
-      <a href="/speaking/" style="color: var(--page-link);"> talks</a>, and a
+      <a href="/blog/" class="page-inline-link"> writing</a>,
+      <a href="/newsletter/" class="page-inline-link"> newsletters</a>,
+      <a href="/projects/" class="page-inline-link"> projects</a>,
+      <a href="/speaking/" class="page-inline-link"> talks</a>, and a
       living
-      <a href="/now/" style="color: var(--page-link);"> now page</a>.
+      <a href="/now/" class="page-inline-link"> now page</a>.
     </p>
   </div>
   <div class="mt-8 flex flex-wrap gap-3 text-sm">
@@ -47,8 +47,7 @@ const social = (await getCollection("social"))[0]!;
       href={social.data.github}
       target="_blank"
       rel="noopener"
-      class="group inline-flex items-center gap-2 border px-3 py-2"
-      style="border-color: var(--page-border); color: var(--page-link); background-color: color-mix(in srgb, var(--page-panel) 72%, transparent);"
+      class="page-action-chip"
     >
       <GithubIcon />
       <span>GitHub</span>
@@ -57,8 +56,7 @@ const social = (await getCollection("social"))[0]!;
       href={social.data.linkedIn}
       target="_blank"
       rel="noopener"
-      class="group inline-flex items-center gap-2 border px-3 py-2"
-      style="border-color: var(--page-border); color: var(--page-link); background-color: color-mix(in srgb, var(--page-panel) 72%, transparent);"
+      class="page-action-chip"
     >
       <LinkedinIcon />
       <span>LinkedIn</span>
@@ -67,8 +65,7 @@ const social = (await getCollection("social"))[0]!;
       href={social.data.bluesky}
       target="_blank"
       rel="noopener"
-      class="group inline-flex items-center gap-2 border px-3 py-2"
-      style="border-color: var(--page-border); color: var(--page-link); background-color: color-mix(in srgb, var(--page-panel) 72%, transparent);"
+      class="page-action-chip"
     >
       <BlueskyIcon />
       <span>Bluesky</span>
@@ -77,8 +74,7 @@ const social = (await getCollection("social"))[0]!;
       href={social.data.twitter}
       target="_blank"
       rel="noopener"
-      class="group inline-flex items-center gap-2 border px-3 py-2"
-      style="border-color: var(--page-border); color: var(--page-link); background-color: color-mix(in srgb, var(--page-panel) 72%, transparent);"
+      class="page-action-chip"
     >
       <TwitterIcon />
       <span>X</span>
@@ -87,16 +83,14 @@ const social = (await getCollection("social"))[0]!;
       href={social.data.instagram}
       target="_blank"
       rel="noopener"
-      class="group inline-flex items-center gap-2 border px-3 py-2"
-      style="border-color: var(--page-border); color: var(--page-link); background-color: color-mix(in srgb, var(--page-panel) 72%, transparent);"
+      class="page-action-chip"
     >
       <InstagramIcon />
       <span>Instagram</span>
     </a>
     <a
       href={`mailto:${social.data.email}`}
-      class="group inline-flex items-center gap-2 border px-3 py-2"
-      style="border-color: var(--page-border); color: var(--page-link); background-color: color-mix(in srgb, var(--page-panel) 72%, transparent);"
+      class="page-action-chip"
     >
       <MailDarkIcon />
       <span>{social.data.email}</span>
@@ -108,24 +102,21 @@ const social = (await getCollection("social"))[0]!;
   >
     <a
       href="/about/"
-      class="block border p-4"
-      style="border-color: var(--page-border); background-color: color-mix(in srgb, var(--page-panel) 68%, transparent);"
+      class="page-action-card"
     >
       <p class="font-editorial-mono text-[0.68rem] uppercase tracking-[0.18em]" style="color: var(--page-faint);">About</p>
       <p class="mt-2 text-sm" style="color: var(--page-text);">Background, experience, and contact links.</p>
     </a>
     <a
       href="/resume/"
-      class="block border p-4"
-      style="border-color: var(--page-border); background-color: color-mix(in srgb, var(--page-panel) 68%, transparent);"
+      class="page-action-card"
     >
       <p class="font-editorial-mono text-[0.68rem] uppercase tracking-[0.18em]" style="color: var(--page-faint);">Resume</p>
       <p class="mt-2 text-sm" style="color: var(--page-text);">Work history, roles, and the longer career timeline.</p>
     </a>
     <a
       href="/now/"
-      class="block border p-4"
-      style="border-color: var(--page-border); background-color: color-mix(in srgb, var(--page-panel) 68%, transparent);"
+      class="page-action-card"
     >
       <p class="font-editorial-mono text-[0.68rem] uppercase tracking-[0.18em]" style="color: var(--page-faint);">Now</p>
       <p class="mt-2 text-sm" style="color: var(--page-text);">What I’m paying attention to right now.</p>

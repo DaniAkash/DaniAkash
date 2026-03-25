@@ -63,6 +63,74 @@ a {
     background-color 180ms ease;
 }
 
+@layer components {
+  .page-inline-link {
+    @apply underline decoration-1 underline-offset-4;
+    color: var(--page-link);
+    text-decoration-color: color-mix(in srgb, var(--page-link) 45%, transparent);
+  }
+
+  .page-inline-link:hover {
+    color: var(--page-link-hover);
+    text-decoration-color: color-mix(
+      in srgb,
+      var(--page-link-hover) 70%,
+      transparent
+    );
+  }
+
+  .page-section-link {
+    @apply inline-block border-b text-[0.72rem] uppercase tracking-[0.18em];
+    font-family:
+      "SFMono-Regular",
+      "JetBrains Mono",
+      "IBM Plex Mono",
+      "Menlo",
+      monospace;
+    color: var(--page-link);
+    border-color: color-mix(in srgb, var(--page-link) 70%, transparent);
+  }
+
+  .page-section-link:hover {
+    color: var(--page-link-hover);
+    border-color: var(--page-link-hover);
+  }
+
+  .page-action-chip {
+    @apply inline-flex items-center gap-2 border px-3 py-2 transition duration-200 hover:-translate-y-0.5;
+    color: var(--page-link);
+    border-color: var(--page-border);
+    background-color: color-mix(in srgb, var(--page-panel) 72%, transparent);
+  }
+
+  .page-action-chip:hover {
+    color: var(--page-link-hover);
+    border-color: var(--page-strong-border);
+    background-color: color-mix(in srgb, var(--page-panel) 92%, transparent);
+  }
+
+  .page-action-card {
+    @apply block border p-4 transition duration-200 hover:-translate-y-0.5;
+    border-color: var(--page-border);
+    background-color: color-mix(in srgb, var(--page-panel) 68%, transparent);
+  }
+
+  .page-action-card:hover {
+    border-color: var(--page-strong-border);
+    background-color: color-mix(in srgb, var(--page-panel) 90%, transparent);
+  }
+
+  .page-hover-frame {
+    @apply border opacity-0 transition duration-200;
+    border-color: var(--page-strong-border);
+    background-color: color-mix(in srgb, var(--page-panel) 82%, transparent);
+  }
+
+  .group:hover .page-hover-frame {
+    @apply opacity-100;
+  }
+}
+
 .font-editorial-sans {
   font-family:
     "Avenir Next",

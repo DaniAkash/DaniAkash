@@ -42,7 +42,7 @@ const social = (await getCollection("social"))[0]!;
         <h2 class="font-editorial-sans text-sm font-semibold uppercase tracking-[0.16em]" style="color: var(--page-heading);">
           Selected Writing
         </h2>
-        <a href="/blog/" class="font-editorial-mono text-[0.72rem] uppercase tracking-[0.18em]" style="color: var(--page-link);">
+        <a href="/blog/" class="page-section-link">
           Browse all posts
         </a>
       </div>
@@ -95,7 +95,9 @@ const social = (await getCollection("social"))[0]!;
           <ul class="space-y-3">
             {
               projects.map((project) => (
-                <li class="border p-4" style="border-color: var(--page-border); background-color: color-mix(in srgb, var(--page-panel) 68%, transparent);">
+                <li
+                  class="page-action-card"
+                >
                   <a href={project.link.href} target="_blank" rel="noopener">
                     <span class="text-base font-semibold" style="color: var(--page-heading);">
                       {project.name}
@@ -111,7 +113,7 @@ const social = (await getCollection("social"))[0]!;
               ))
             }
           </ul>
-          <a href="/projects/" class="font-editorial-mono inline-block text-[0.72rem] uppercase tracking-[0.18em]" style="color: var(--page-link);">
+          <a href="/projects/" class="page-section-link">
             See the full projects list
           </a>
         </aside>
@@ -144,7 +146,7 @@ const social = (await getCollection("social"))[0]!;
               ))
             }
           </div>
-          <a href="/speaking/" class="font-editorial-mono mt-6 inline-block text-[0.72rem] uppercase tracking-[0.18em]" style="color: var(--page-link);">
+          <a href="/speaking/" class="page-section-link mt-6">
             Browse all talks
           </a>
         </div>
@@ -156,7 +158,9 @@ const social = (await getCollection("social"))[0]!;
           <div class="space-y-4">
             {
               newsletters.map((entry) => (
-                <article class="border p-4" style="border-color: var(--page-border); background-color: color-mix(in srgb, var(--page-panel) 68%, transparent);">
+                <article
+                  class="page-action-card"
+                >
                   <time
                     class="font-editorial-mono text-[0.68rem] uppercase tracking-[0.18em]"
                     style="color: var(--page-faint);"
@@ -176,7 +180,7 @@ const social = (await getCollection("social"))[0]!;
               ))
             }
           </div>
-          <a href="/newsletter/" class="font-editorial-mono inline-block text-[0.72rem] uppercase tracking-[0.18em]" style="color: var(--page-link);">
+          <a href="/newsletter/" class="page-section-link">
             Read the archive
           </a>
         </aside>
@@ -204,10 +208,10 @@ const social = (await getCollection("social"))[0]!;
             Elsewhere
           </p>
           <ul class="mt-4 space-y-3 text-sm">
-            <li><a href={social.data.github} target="_blank" rel="noopener" style="color: var(--page-link);">GitHub</a></li>
-            <li><a href={social.data.linkedIn} target="_blank" rel="noopener" style="color: var(--page-link);">LinkedIn</a></li>
-            <li><a href={social.data.bluesky} target="_blank" rel="noopener" style="color: var(--page-link);">Bluesky</a></li>
-            <li><a href={`mailto:${social.data.email}`} style="color: var(--page-link);">{social.data.email}</a></li>
+            <li><a href={social.data.github} target="_blank" rel="noopener" class="page-inline-link">GitHub</a></li>
+            <li><a href={social.data.linkedIn} target="_blank" rel="noopener" class="page-inline-link">LinkedIn</a></li>
+            <li><a href={social.data.bluesky} target="_blank" rel="noopener" class="page-inline-link">Bluesky</a></li>
+            <li><a href={`mailto:${social.data.email}`} class="page-inline-link">{social.data.email}</a></li>
           </ul>
         </aside>
       </div>
