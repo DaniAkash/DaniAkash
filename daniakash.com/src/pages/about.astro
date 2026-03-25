@@ -19,10 +19,10 @@ const social = (await getCollection("social"))[0]!;
 
 <MainLayout title="About">
   <div
-    class="mt-16 grid grid-cols-1 gap-y-16 lg:grid-cols-2 lg:grid-rows-[auto_1fr]"
+    class="mt-20 grid grid-cols-1 gap-x-18 gap-y-20 lg:grid-cols-[minmax(0,1.15fr)_22rem] lg:grid-rows-[auto_1fr] sm:mt-24 sm:gap-y-24"
   >
-    <div class="lg:pl-20">
-      <div class="max-w-xs px-2.5 lg:max-w-none">
+    <div class="lg:pl-8">
+      <div class="max-w-sm px-2.5 lg:max-w-none">
         <Image
           src={`${ASSET_PREFIX}/image-3.jpg`}
           alt="about-image"
@@ -44,12 +44,12 @@ const social = (await getCollection("social"))[0]!;
       >
         I’m Dani Akash
       </h1>
-      <div class="prose mt-6 space-y-7 dark:prose-invert">
+      <div class="prose mt-10 max-w-3xl space-y-9 dark:prose-invert">
         <Content />
       </div>
     </div>
 
-    <div class="lg:pl-20">
+    <div class="lg:pl-8">
       <ul role="list">
         <li class="flex">
           <a
@@ -60,7 +60,7 @@ const social = (await getCollection("social"))[0]!;
             ><BlueskyIcon /><span class="ml-4">Follow on Bluesky</span></a
           >
         </li>
-        <li class="mt-4 flex">
+        <li class="mt-5 flex">
           <a
             href={social.data.twitter}
             class="group flex text-sm font-medium text-zinc-800 transition hover:text-teal-500 dark:text-zinc-200 dark:hover:text-teal-500"
@@ -69,7 +69,7 @@ const social = (await getCollection("social"))[0]!;
             ><TwitterIcon /><span class="ml-4">Follow on X</span></a
           >
         </li>
-        <li class="mt-4 flex">
+        <li class="mt-5 flex">
           <a
             href={social.data.instagram}
             class="group flex text-sm font-medium text-zinc-800 transition hover:text-teal-500 dark:text-zinc-200 dark:hover:text-teal-500"
@@ -77,7 +77,7 @@ const social = (await getCollection("social"))[0]!;
             rel="noopener"
             ><InstagramIcon /><span class="ml-4">Follow on Instagram</span></a
           >
-        </li><li class="mt-4 flex">
+        </li><li class="mt-5 flex">
           <a
             href={social.data.github}
             class="group flex text-sm font-medium text-zinc-800 transition hover:text-teal-500 dark:text-zinc-200 dark:hover:text-teal-500"
@@ -85,7 +85,7 @@ const social = (await getCollection("social"))[0]!;
             rel="noopener"
             ><GithubIcon /><span class="ml-4">Follow on GitHub</span></a
           >
-        </li><li class="mt-4 flex">
+        </li><li class="mt-5 flex">
           <a
             href={social.data.linkedIn}
             class="group flex text-sm font-medium text-zinc-800 transition hover:text-teal-500 dark:text-zinc-200 dark:hover:text-teal-500"
@@ -94,7 +94,7 @@ const social = (await getCollection("social"))[0]!;
             ><LinkedinIcon /><span class="ml-4">Follow on LinkedIn</span></a
           >
         </li><li
-          class="mt-8 flex border-t border-zinc-100 pt-8 dark:border-zinc-700/40"
+          class="mt-10 flex border-t border-zinc-100 pt-10 dark:border-zinc-700/40"
         >
           <a
             href={`mailto:${social.data.email}`}

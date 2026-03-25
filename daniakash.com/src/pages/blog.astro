@@ -19,11 +19,9 @@ const posts = (await getCollection("blog")).sort((a, b) => {
       title="The Blog Zone"
       subtitle="Where my thoughts get some air time (and occasionally make sense)."
     />
-    <div class="mt-16 sm:mt-20">
-      <div
-        class="md:border-l md:border-zinc-100 md:pl-6 md:dark:border-zinc-700/40"
-      >
-        <div class="flex max-w-3xl flex-col space-y-16">
+    <div class="mt-20 sm:mt-24">
+      <div>
+        <div class="flex max-w-4xl flex-col space-y-20">
           {
             posts.map((post) => {
               const dateValue = getDateValue(post.data.date);

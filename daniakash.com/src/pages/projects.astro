@@ -16,10 +16,10 @@ const projects = (await getCollection("project"))[0]!;
       title="Things I’ve Built"
       subtitle="From tiny experiments to giant time-sinks, here’s what’s kept me busy."
     />
-    <div class="mt-16 sm:mt-20">
+    <div class="mt-20 sm:mt-24">
       <ul
         role="list"
-        class="grid grid-cols-1 gap-x-12 gap-y-16 sm:grid-cols-2 lg:grid-cols-3"
+        class="grid grid-cols-1 gap-x-16 gap-y-24 sm:grid-cols-2 lg:grid-cols-3"
       >
         {
           projects.data.items.map((project) => {
@@ -45,23 +45,23 @@ const projects = (await getCollection("project"))[0]!;
                     loading="eager"
                   />
                 </div>
-                <h2 class="mt-6 text-base font-semibold text-zinc-800 dark:text-zinc-100">
+                <h2 class="mt-7 text-base font-semibold text-zinc-800 dark:text-zinc-100">
                   <div
                     class="absolute -inset-x-4 -inset-y-6 z-0 border opacity-0 transition group-hover:opacity-100 sm:-inset-x-6"
                     style="border-color: var(--page-border); background-color: color-mix(in srgb, var(--page-panel) 80%, transparent);"
                   />
                   <a href={project.link.href} target="_blank" rel="noopener">
-                    <span class="absolute -inset-x-4 -inset-y-6 z-20 sm:-inset-x-6" />
+                    <span class="absolute -inset-x-4 -inset-y-7 z-20 sm:-inset-x-6" />
                     <span class="relative z-10">{project.name}</span>
                   </a>
                 </h2>
-                <p class="relative z-10 mt-2 text-sm text-zinc-600 dark:text-zinc-400">
+                <p class="relative z-10 mt-3 text-sm leading-7 text-zinc-600 dark:text-zinc-400">
                   {project.description}{" "}
                   {project.info ? (
                     <span class="text-[0.7rem] italic">{project.info}</span>
                   ) : null}
                 </p>
-                <p class="relative z-10 mt-6 flex text-sm font-medium text-zinc-400 transition group-hover:text-teal-500 dark:text-zinc-200">
+                <p class="relative z-10 mt-7 flex text-sm font-medium text-zinc-400 transition group-hover:text-teal-500 dark:text-zinc-200">
                   <LinkIcon />
                   <span class="ml-2">{project.link.label}</span>
                 </p>

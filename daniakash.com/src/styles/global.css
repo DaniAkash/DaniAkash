@@ -144,7 +144,7 @@ a {
   }
 
   .page-action-chip {
-    @apply inline-flex items-center gap-2 border px-3 py-2 transition duration-200 hover:-translate-y-0.5;
+    @apply inline-flex items-center gap-2 border px-3.5 py-2.5 transition duration-200 hover:-translate-y-0.5;
     color: var(--page-link);
     border-color: var(--page-border);
     background-color: color-mix(in srgb, var(--page-panel) 72%, transparent);
@@ -157,7 +157,7 @@ a {
   }
 
   .page-action-card {
-    @apply block border p-4 transition duration-200 hover:-translate-y-0.5;
+    @apply block border p-5 transition duration-200 hover:-translate-y-0.5 sm:p-6;
     border-color: var(--page-border);
     background-color: color-mix(in srgb, var(--page-panel) 68%, transparent);
   }

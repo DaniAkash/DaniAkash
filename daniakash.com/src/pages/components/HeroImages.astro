@@ -4,24 +4,24 @@ import { TRANSITION_NAMES } from "../../constants/transition-names";
 import { ASSET_PREFIX } from "../../constants/asset-prefix";
 ---
 
-<section class="border-y py-8" style="border-color: var(--page-border);">
-  <div class="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+<section class="border-t py-10 sm:py-12" style="border-color: var(--page-border);">
+  <div class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
     <div>
       <p class="font-editorial-sans text-sm font-semibold uppercase tracking-[0.16em]" style="color: var(--page-heading);">
         Photo Log
       </p>
-      <p class="mt-2 max-w-2xl text-sm leading-7" style="color: var(--page-muted);">
+      <p class="mt-3 max-w-2xl text-sm leading-8" style="color: var(--page-muted);">
         A few frames from the personal side of this site. Less hero banner, more
         contact sheet.
       </p>
     </div>
-    <p class="font-editorial-mono text-[0.7rem] uppercase tracking-[0.18em]" style="color: var(--page-faint);">
-      /images/dani/archive
+    <p class="font-editorial-mono whitespace-nowrap text-[0.7rem] uppercase tracking-[0.18em]" style="color: var(--page-faint);">
+      /images/dani
     </p>
   </div>
 
-  <div class="mt-8 grid gap-5 md:grid-cols-12">
-    <figure class="md:col-span-4">
+  <div class="mt-10 grid gap-6 md:grid-cols-12">
+    <figure class="hidden md:col-span-4 md:block">
       <div class="overflow-hidden border" style="border-color: var(--page-border); background-color: color-mix(in srgb, var(--page-panel) 70%, transparent);">
         <Image
           alt="Dani portrait photograph"
@@ -33,11 +33,10 @@ import { ASSET_PREFIX } from "../../constants/asset-prefix";
           loading="eager"
         />
       </div>
-      <figcaption class="mt-3 flex items-center justify-between gap-3">
+      <figcaption class="mt-4 flex items-center justify-between gap-3">
         <span class="font-editorial-mono text-[0.68rem] uppercase tracking-[0.18em]" style="color: var(--page-faint);">
           frame_01
         </span>
-        <span class="text-sm" style="color: var(--page-muted);">homepage portrait</span>
       </figcaption>
     </figure>
 
@@ -54,15 +53,14 @@ import { ASSET_PREFIX } from "../../constants/asset-prefix";
           transition:name={TRANSITION_NAMES.heroImage}
         />
       </div>
-      <figcaption class="mt-3 flex items-center justify-between gap-3">
+      <figcaption class="mt-4 flex items-center justify-between gap-3">
         <span class="font-editorial-mono text-[0.68rem] uppercase tracking-[0.18em]" style="color: var(--page-faint);">
           frame_02
         </span>
-        <span class="text-sm" style="color: var(--page-muted);">about-page bridge image</span>
       </figcaption>
     </figure>
 
-    <figure class="md:col-span-4">
+    <figure class="hidden md:col-span-4 md:block">
       <div class="overflow-hidden border" style="border-color: var(--page-border); background-color: color-mix(in srgb, var(--page-panel) 70%, transparent);">
         <Image
           alt="Dani portrait photograph"
@@ -74,11 +72,10 @@ import { ASSET_PREFIX } from "../../constants/asset-prefix";
           loading="eager"
         />
       </div>
-      <figcaption class="mt-3 flex items-center justify-between gap-3">
+      <figcaption class="mt-4 flex items-center justify-between gap-3">
         <span class="font-editorial-mono text-[0.68rem] uppercase tracking-[0.18em]" style="color: var(--page-faint);">
           frame_03
         </span>
-        <span class="text-sm" style="color: var(--page-muted);">personal notes section</span>
       </figcaption>
     </figure>
   </div>

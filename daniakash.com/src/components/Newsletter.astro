@@ -8,7 +8,7 @@ import MailIcon from "./icons/MailIcon.astro";
   method="post"
   target="popupwindow"
   onsubmit="window.open('https://buttondown.com/daniakash', 'popupwindow')"
-  class="border p-5 sm:p-6"
+  class="border p-6 sm:p-7"
   style="border-color: var(--page-border); background-color: color-mix(in srgb, var(--page-panel) 68%, transparent);"
   transition:name={TRANSITION_NAMES.newsletterForm}
 >
@@ -16,10 +16,10 @@ import MailIcon from "./icons/MailIcon.astro";
     <MailIcon class="h-6 w-6 flex-none" />
     <span class="ml-3">Stay up to date</span>
   </h2>
-  <p class="mt-3 text-sm leading-7" style="color: var(--page-muted);">
+  <p class="mt-4 text-sm leading-7" style="color: var(--page-muted);">
     Short notes when I publish something new. No feed spam, no busywork.
   </p>
-  <div class="mt-6 flex">
+  <div class="mt-7 flex">
     <input
       type="email"
       name="email"

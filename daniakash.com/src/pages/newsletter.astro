@@ -29,14 +29,12 @@ const rss = (await getCollection("rss")).sort(
         (I promise).</a
       >
     </Header>
-    <div class="mt-16 max-w-2xl sm:mt-20">
+    <div class="mt-20 max-w-3xl sm:mt-24">
       <NewsletterForm />
     </div>
-    <div class="mt-16 sm:mt-20">
-      <div
-        class="md:border-l md:border-zinc-100 md:pl-6 md:dark:border-zinc-700/40"
-      >
-        <div class="flex max-w-3xl flex-col space-y-16">
+    <div class="mt-20 sm:mt-24">
+      <div>
+        <div class="flex max-w-4xl flex-col space-y-20">
           {
             rss.map((each) => {
               return (

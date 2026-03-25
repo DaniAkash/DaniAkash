@@ -15,7 +15,7 @@ const { post, dateValue, dateDisplay, slug } = Astro.props;
   <div class="group relative flex flex-col items-start md:col-span-3">
     <a
       href={`/posts/${slug}/`}
-      class="absolute -inset-x-4 -inset-y-6 z-20 text-[0px] sm:-inset-x-6"
+      class="absolute -inset-x-4 -inset-y-7 z-20 text-[0px] sm:-inset-x-6"
       >{post.title}</a
     >
     <h2
@@ -23,7 +23,7 @@ const { post, dateValue, dateDisplay, slug } = Astro.props;
       transition:name={`${TRANSITION_NAMES.blogTitle}-${slug}`}
     >
       <div
-        class="absolute -inset-x-4 -inset-y-6 z-0 border opacity-0 transition group-hover:opacity-100 sm:-inset-x-6"
+        class="absolute -inset-x-4 -inset-y-7 z-0 border opacity-0 transition group-hover:opacity-100 sm:-inset-x-6"
         style="border-color: var(--page-border); background-color: color-mix(in srgb, var(--page-panel) 80%, transparent);"
       >
       </div>
@@ -33,7 +33,7 @@ const { post, dateValue, dateDisplay, slug } = Astro.props;
       </span>
     </h2>
     <time
-      class="relative z-10 order-first mb-3 flex items-center pl-3.5 text-sm text-zinc-400 dark:text-zinc-500 md:hidden"
+      class="relative z-10 order-first mb-4 flex items-center pl-3.5 text-sm text-zinc-400 dark:text-zinc-500 md:hidden"
       datetime={dateValue}
     >
       <span
@@ -45,11 +45,11 @@ const { post, dateValue, dateDisplay, slug } = Astro.props;
       </span>
       {dateDisplay}
     </time>
-    <p class="relative z-10 mt-2 text-sm text-zinc-600 dark:text-zinc-400">
+    <p class="relative z-10 mt-3 max-w-2xl text-sm leading-7 text-zinc-600 dark:text-zinc-400">
       {post.subtitle}
     </p>
     <div
-      class="relative z-10 mt-4 flex items-center text-sm font-medium text-teal-500"
+      class="relative z-10 mt-5 flex items-center text-sm font-medium text-teal-500"
     >
       Read article
       <svg
@@ -67,7 +67,7 @@ const { post, dateValue, dateDisplay, slug } = Astro.props;
     </div>
   </div>
   <time
-    class="relative z-10 order-first mb-3 mt-1 flex hidden items-center text-sm text-zinc-400 dark:text-zinc-500 md:block"
+    class="relative z-10 order-first mb-4 mt-1 hidden items-center text-sm text-zinc-400 dark:text-zinc-500 md:block"
     datetime={dateValue}
     transition:name={`${TRANSITION_NAMES.blogTime}-${slug}`}
   >
