@@ -41,8 +41,7 @@ const currentPath = Astro.url.pathname;
 
 <button
   transition:name={TRANSITION_NAMES.responsiveNavButton}
-  class="font-editorial-sans group flex items-center border px-3 py-2 text-[0.72rem] font-medium uppercase tracking-[0.16em] md:hidden"
-  style="border-color: var(--page-border); color: var(--page-heading); background-color: color-mix(in srgb, var(--page-panel) 75%, transparent);"
+  class="font-editorial-sans group flex items-center border border-[color:var(--page-border)] bg-[linear-gradient(135deg,color-mix(in_srgb,var(--page-accent-primary)_14%,var(--page-panel)),color-mix(in_srgb,var(--page-accent-secondary)_12%,var(--page-panel)))] px-3 py-2 text-[0.72rem] font-medium uppercase tracking-[0.16em] text-[color:var(--page-heading)] md:hidden"
   id="primary-nav-button"
   >Menu<svg
     xmlns="http://www.w3.org/2000/svg"
@@ -66,8 +65,7 @@ const currentPath = Astro.url.pathname;
 >
   <div
     id="primary-nav-content"
-    class="fixed inset-x-4 top-6 border p-6"
-    style="background-color: var(--page-panel); border-color: var(--page-border);"
+    class="fixed inset-x-4 top-6 border border-[color:var(--page-border)] bg-[linear-gradient(160deg,color-mix(in_srgb,var(--page-panel)_88%,transparent),color-mix(in_srgb,var(--page-accent-primary)_10%,var(--page-panel)))] p-6"
   >
     <div class="flex flex-row items-center justify-between">
       <h2 class="font-editorial-mono text-[0.68rem] font-medium uppercase tracking-[0.18em]" style="color: var(--page-faint);">
@@ -81,8 +79,7 @@ const currentPath = Astro.url.pathname;
             viewBox="0 0 24 24"
             stroke-width="1.5"
             stroke="currentColor"
-            class="h-6 w-6"
-            style="color: var(--page-faint);"
+            class="h-6 w-6 text-[color:var(--page-faint)]"
           >
             <path
               stroke-linecap="round"

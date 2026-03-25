@@ -1,38 +1,120 @@
 @import "tailwindcss";
+@import "@catppuccin/tailwindcss/mocha.css";
+@import "@fontsource/monaspace-radon/400.css";
+@import "@fontsource/monaspace-radon/400-italic.css";
+@import "@fontsource/monaspace-radon/500.css";
+@import "@fontsource/monaspace-radon/500-italic.css";
+@import "@fontsource/monaspace-radon/600.css";
+@import "@fontsource/monaspace-radon/600-italic.css";
+@import "@fontsource/monaspace-radon/700.css";
 @config "../../tailwind.config.mjs";
 @plugin "@tailwindcss/typography";
 
 :root {
-  --page-bg: #f6f1e8;
-  --page-bg-accent: rgba(224, 213, 195, 0.35);
-  --page-panel: rgba(255, 251, 245, 0.86);
-  --page-border: rgba(68, 58, 43, 0.14);
-  --page-strong-border: rgba(68, 58, 43, 0.22);
-  --page-text: #201b16;
-  --page-muted: #6e665d;
-  --page-faint: #938a80;
-  --page-link: #0f766e;
-  --page-link-hover: #115e59;
-  --page-heading: #17120e;
+  --page-bg: color-mix(
+    in srgb,
+    var(--catppuccin-color-base) 92%,
+    var(--catppuccin-color-rosewater) 8%
+  );
+  --page-bg-accent: color-mix(
+    in srgb,
+    var(--catppuccin-color-lavender) 20%,
+    transparent
+  );
+  --page-panel: color-mix(
+    in srgb,
+    var(--catppuccin-color-base) 72%,
+    var(--catppuccin-color-surface0) 28%
+  );
+  --page-border: color-mix(
+    in srgb,
+    var(--catppuccin-color-lavender) 22%,
+    var(--catppuccin-color-overlay0) 78%
+  );
+  --page-strong-border: color-mix(
+    in srgb,
+    var(--catppuccin-color-sapphire) 32%,
+    var(--catppuccin-color-overlay1) 68%
+  );
+  --page-text: var(--catppuccin-color-text);
+  --page-muted: var(--catppuccin-color-subtext0);
+  --page-faint: var(--catppuccin-color-overlay1);
+  --page-link: var(--catppuccin-color-sapphire);
+  --page-link-hover: var(--catppuccin-color-blue);
+  --page-heading: color-mix(
+    in srgb,
+    var(--catppuccin-color-crust) 80%,
+    var(--catppuccin-color-mauve) 20%
+  );
+  --page-accent-primary: var(--catppuccin-color-lavender);
+  --page-accent-secondary: var(--catppuccin-color-sky);
+  --page-accent-tertiary: var(--catppuccin-color-peach);
+  --page-selection: color-mix(
+    in srgb,
+    var(--catppuccin-color-lavender) 28%,
+    transparent
+  );
 }
 
 html.dark {
-  --page-bg: #12100d;
-  --page-bg-accent: rgba(96, 80, 63, 0.18);
-  --page-panel: rgba(25, 22, 19, 0.84);
-  --page-border: rgba(223, 213, 199, 0.1);
-  --page-strong-border: rgba(223, 213, 199, 0.18);
-  --page-text: #e6ddd2;
-  --page-muted: #b3a89b;
-  --page-faint: #8f857b;
-  --page-link: #5eead4;
-  --page-link-hover: #99f6e4;
-  --page-heading: #fbf6ef;
+  --page-bg: color-mix(
+    in srgb,
+    var(--catppuccin-color-base) 88%,
+    var(--catppuccin-color-crust) 12%
+  );
+  --page-bg-accent: color-mix(
+    in srgb,
+    var(--catppuccin-color-mauve) 26%,
+    transparent
+  );
+  --page-panel: color-mix(
+    in srgb,
+    var(--catppuccin-color-surface0) 74%,
+    var(--catppuccin-color-base) 26%
+  );
+  --page-border: color-mix(
+    in srgb,
+    var(--catppuccin-color-lavender) 16%,
+    var(--catppuccin-color-surface2) 84%
+  );
+  --page-strong-border: color-mix(
+    in srgb,
+    var(--catppuccin-color-sky) 24%,
+    var(--catppuccin-color-surface2) 76%
+  );
+  --page-text: var(--catppuccin-color-text);
+  --page-muted: var(--catppuccin-color-subtext0);
+  --page-faint: var(--catppuccin-color-overlay1);
+  --page-link: var(--catppuccin-color-lavender);
+  --page-link-hover: var(--catppuccin-color-sky);
+  --page-heading: color-mix(
+    in srgb,
+    var(--catppuccin-color-text) 78%,
+    var(--catppuccin-color-rosewater) 22%
+  );
+  --page-accent-primary: var(--catppuccin-color-lavender);
+  --page-accent-secondary: var(--catppuccin-color-teal);
+  --page-accent-tertiary: var(--catppuccin-color-peach);
+  --page-selection: color-mix(
+    in srgb,
+    var(--catppuccin-color-lavender) 24%,
+    transparent
+  );
 }
 
 html {
   background:
-    radial-gradient(circle at top, var(--page-bg-accent), transparent 38%),
+    radial-gradient(circle at top left, var(--page-bg-accent), transparent 34%),
+    radial-gradient(
+      circle at top right,
+      color-mix(in srgb, var(--page-accent-secondary) 18%, transparent),
+      transparent 32%
+    ),
+    radial-gradient(
+      circle at 18% 72%,
+      color-mix(in srgb, var(--page-accent-tertiary) 14%, transparent),
+      transparent 28%
+    ),
     var(--page-bg);
   color: var(--page-text);
   scroll-behavior: smooth;
@@ -40,19 +122,28 @@ html {
 
 body {
   color: var(--page-text);
-  font-family:
-    "Iowan Old Style",
-    "Palatino Linotype",
-    "Book Antiqua",
-    "New York",
-    "Times New Roman",
-    serif;
+  font-family: "Monaspace Radon", monospace;
+  font-feature-settings:
+    "calt" 1,
+    "liga" 1,
+    "ss01" 1,
+    "ss02" 1,
+    "ss03" 1,
+    "ss04" 1,
+    "ss05" 1,
+    "ss06" 1,
+    "ss07" 1,
+    "ss08" 1,
+    "ss09" 1,
+    "ss10" 1;
+  font-variant-ligatures: common-ligatures contextual discretionary-ligatures;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
+  letter-spacing: -0.012em;
 }
 
 ::selection {
-  background: color-mix(in srgb, var(--page-link) 22%, transparent);
+  background: var(--page-selection);
 }
 
 a {
@@ -67,63 +158,114 @@ a {
   .page-inline-link {
     @apply underline decoration-1 underline-offset-4;
     color: var(--page-link);
-    text-decoration-color: color-mix(in srgb, var(--page-link) 45%, transparent);
+    text-decoration-color: color-mix(
+      in srgb,
+      var(--page-link) 55%,
+      transparent
+    );
+    text-shadow: 0 0 0
+      color-mix(in srgb, var(--page-accent-primary) 0%, transparent);
   }
 
   .page-inline-link:hover {
     color: var(--page-link-hover);
     text-decoration-color: color-mix(
       in srgb,
-      var(--page-link-hover) 70%,
+      var(--page-link-hover) 82%,
       transparent
     );
+    text-shadow: 0.12rem 0 0
+      color-mix(in srgb, var(--page-accent-primary) 16%, transparent);
   }
 
   .page-section-link {
     @apply inline-block border-b text-[0.72rem] uppercase tracking-[0.18em];
     font-family:
-      "SFMono-Regular",
-      "JetBrains Mono",
-      "IBM Plex Mono",
-      "Menlo",
+      "Monaspace Radon",
       monospace;
     color: var(--page-link);
-    border-color: color-mix(in srgb, var(--page-link) 70%, transparent);
+    border-color: color-mix(in srgb, var(--page-link) 64%, transparent);
+    background-image: linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--page-accent-primary) 0%, transparent),
+      color-mix(in srgb, var(--page-accent-secondary) 0%, transparent)
+    );
   }
 
   .page-section-link:hover {
     color: var(--page-link-hover);
     border-color: var(--page-link-hover);
+    background-image: linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--page-accent-primary) 18%, transparent),
+      color-mix(in srgb, var(--page-accent-secondary) 18%, transparent)
+    );
   }
 
   .page-action-chip {
     @apply inline-flex items-center gap-2 border px-3 py-2 transition duration-200 hover:-translate-y-0.5;
     color: var(--page-link);
     border-color: var(--page-border);
-    background-color: color-mix(in srgb, var(--page-panel) 72%, transparent);
+    background:
+      linear-gradient(
+        135deg,
+        color-mix(in srgb, var(--page-accent-primary) 14%, var(--page-panel)),
+        color-mix(in srgb, var(--page-accent-secondary) 14%, var(--page-panel))
+      );
+    box-shadow: inset 0 0 0 1px
+      color-mix(in srgb, var(--page-accent-primary) 8%, transparent);
   }
 
   .page-action-chip:hover {
     color: var(--page-link-hover);
     border-color: var(--page-strong-border);
-    background-color: color-mix(in srgb, var(--page-panel) 92%, transparent);
+    background:
+      linear-gradient(
+        135deg,
+        color-mix(in srgb, var(--page-accent-primary) 24%, var(--page-panel)),
+        color-mix(in srgb, var(--page-accent-secondary) 22%, var(--page-panel))
+      );
   }
 
   .page-action-card {
     @apply block border p-4 transition duration-200 hover:-translate-y-0.5;
     border-color: var(--page-border);
-    background-color: color-mix(in srgb, var(--page-panel) 68%, transparent);
+    background:
+      linear-gradient(
+        160deg,
+        color-mix(in srgb, var(--page-panel) 76%, transparent),
+        color-mix(in srgb, var(--page-accent-primary) 8%, var(--page-panel))
+      );
+    box-shadow:
+      inset 0 1px 0
+        color-mix(in srgb, var(--page-accent-secondary) 14%, transparent),
+      0 0 0 1px color-mix(in srgb, var(--page-accent-primary) 4%, transparent);
   }
 
   .page-action-card:hover {
     border-color: var(--page-strong-border);
-    background-color: color-mix(in srgb, var(--page-panel) 90%, transparent);
+    background:
+      linear-gradient(
+        160deg,
+        color-mix(in srgb, var(--page-panel) 72%, transparent),
+        color-mix(in srgb, var(--page-accent-primary) 18%, var(--page-panel))
+      );
+    box-shadow:
+      inset 0 1px 0
+        color-mix(in srgb, var(--page-accent-secondary) 24%, transparent),
+      0 0 0 1px color-mix(in srgb, var(--page-accent-secondary) 10%, transparent);
   }
 
   .page-hover-frame {
     @apply border opacity-0 transition duration-200;
     border-color: var(--page-strong-border);
-    background-color: color-mix(in srgb, var(--page-panel) 82%, transparent);
+    background:
+      linear-gradient(
+        135deg,
+        color-mix(in srgb, var(--page-accent-primary) 10%, transparent),
+        color-mix(in srgb, var(--page-accent-secondary) 10%, transparent)
+      ),
+      color-mix(in srgb, var(--page-panel) 86%, transparent);
   }
 
   .group:hover .page-hover-frame {
@@ -132,20 +274,27 @@ a {
 }
 
 .font-editorial-sans {
-  font-family:
-    "Avenir Next",
-    "Segoe UI",
-    "Helvetica Neue",
-    sans-serif;
+  font-family: "Monaspace Radon", monospace;
+  font-feature-settings:
+    "calt" 1,
+    "liga" 1,
+    "ss01" 1,
+    "ss02" 1,
+    "ss03" 1;
 }
 
 .font-editorial-mono {
-  font-family:
-    "SFMono-Regular",
-    "JetBrains Mono",
-    "IBM Plex Mono",
-    "Menlo",
-    monospace;
+  font-family: "Monaspace Radon", monospace;
+  font-feature-settings:
+    "calt" 1,
+    "liga" 1,
+    "ss01" 1,
+    "ss02" 1,
+    "ss03" 1,
+    "ss07" 1,
+    "ss08" 1,
+    "ss09" 1,
+    "ss10" 1;
 }
 
 ::view-transition-old(hero-title),

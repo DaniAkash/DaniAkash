@@ -6,8 +6,7 @@ import { TRANSITION_NAMES } from "../../constants/transition-names";
 <button
   aria-label="dark mode toggle"
   id="dev-theme-mode-toggle"
-  class="group border px-3 py-2 transition"
-  style="background-color: color-mix(in srgb, var(--page-panel) 78%, transparent); border-color: var(--page-border);"
+  class="group border border-[color:var(--page-border)] bg-[linear-gradient(135deg,color-mix(in_srgb,var(--page-accent-primary)_14%,var(--page-panel)),color-mix(in_srgb,var(--page-accent-secondary)_12%,var(--page-panel)))] px-3 py-2 transition hover:border-[color:var(--page-strong-border)]"
   transition:name={TRANSITION_NAMES.darkModeToggle}
   transition:animate={fade({ duration: 500 })}
 >
@@ -16,7 +15,7 @@ import { TRANSITION_NAMES } from "../../constants/transition-names";
     stroke-width="1.5"
     stroke-linecap="round"
     stroke-linejoin="round"
-    class="h-6 w-6 fill-zinc-100 stroke-zinc-500 transition group-hover:fill-zinc-200 group-hover:stroke-zinc-700 dark:hidden [@media(prefers-color-scheme:dark)]:fill-teal-50 [@media(prefers-color-scheme:dark)]:stroke-teal-500 [@media(prefers-color-scheme:dark)]:group-hover:fill-teal-50 [@media(prefers-color-scheme:dark)]:group-hover:stroke-teal-600"
+    class="h-6 w-6 fill-ctp-crust stroke-ctp-overlay1 transition group-hover:fill-ctp-mauve group-hover:stroke-ctp-blue dark:hidden"
     ><path
       d="M8 12.25A4.25 4.25 0 0 1 12.25 8v0a4.25 4.25 0 0 1 4.25 4.25v0a4.25 4.25 0 0 1-4.25 4.25v0A4.25 4.25 0 0 1 8 12.25v0Z"
     ></path><path
@@ -24,7 +23,7 @@ import { TRANSITION_NAMES } from "../../constants/transition-names";
       fill="none"></path>
   </svg><svg
     viewBox="0 0 24 24"
-    class="hidden h-6 w-6 fill-zinc-700 stroke-zinc-500 transition dark:block [@media(prefers-color-scheme:dark)]:group-hover:stroke-zinc-400 [@media_not_(prefers-color-scheme:dark)]:fill-teal-400/10 [@media_not_(prefers-color-scheme:dark)]:stroke-teal-500"
+    class="hidden h-6 w-6 fill-ctp-text stroke-ctp-lavender transition group-hover:fill-ctp-rosewater group-hover:stroke-ctp-sky dark:block"
     ><path
       d="M17.25 16.22a6.937 6.937 0 0 1-9.47-9.47 7.451 7.451 0 1 0 9.47 9.47ZM12.75 7C17 7 17 2.75 17 2.75S17 7 21.25 7C17 7 17 11.25 17 11.25S17 7 12.75 7Z"
       stroke-width="1.5"
@@ -37,6 +36,16 @@ import { TRANSITION_NAMES } from "../../constants/transition-names";
   (() => {
     const $html = document.querySelector("html");
     const themeKey = "@page/theme";
+
+    const applyTheme = (theme) => {
+      $html.classList.remove("dark", "latte", "mocha");
+
+      if (theme === "dark") {
+        $html.classList.add("dark", "mocha");
+      } else {
+        $html.classList.add("latte");
+      }
+    };
 
     const theme = (() => {
       if (
@@ -51,20 +60,15 @@ import { TRANSITION_NAMES } from "../../constants/transition-names";
       return "light";
     })();
 
-    if (theme === "light") {
-      $html.classList.remove("dark");
-    } else {
-      $html.classList.add("dark");
-    }
+    applyTheme(theme);
 
     window.localStorage.setItem(themeKey, theme);
 
     const handleToggleClick = () => {
-      const element = $html;
-      element.classList.toggle("dark");
-
-      const isDark = element.classList.contains("dark");
-      localStorage.setItem(themeKey, isDark ? "dark" : "light");
+      const isDark = $html.classList.contains("dark");
+      const nextTheme = isDark ? "light" : "dark";
+      applyTheme(nextTheme);
+      localStorage.setItem(themeKey, nextTheme);
     };
 
     document

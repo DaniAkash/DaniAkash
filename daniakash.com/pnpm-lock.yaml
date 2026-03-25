@@ -42,6 +42,12 @@ importers:
         specifier: ^6.0.2
         version: 6.0.2
     devDependencies:
+      '@catppuccin/tailwindcss':
+        specifier: ^1.0.0
+        version: 1.0.0
+      '@fontsource/monaspace-radon':
+        specifier: ^5.2.5
+        version: 5.2.5
       '@tailwindcss/typography':
         specifier: ^0.5.19
         version: 0.5.19(tailwindcss@4.2.2)
@@ -248,6 +254,10 @@ packages:
     resolution: {integrity: sha512-VERIM64vtTP1C4mxQ5thVT9fK0apjPFobqybMtA1UdUujWka24ERHbRHFGmpbbhp73MhV+KSsHQH9C6uOTdEQA==}
     engines: {node: '>=18'}
 
+  '@catppuccin/tailwindcss@1.0.0':
+    resolution: {integrity: sha512-l8pOlcYe2ncGd8a1gUmL5AHmKlxR2+CHuG5kt4Me6IZwzntW1DoLmj89BH+DcsPHBsdDGLrTSv35emlYyU3FeQ==}
+    engines: {node: '>=22.0.0'}
+
   '@clack/core@1.1.0':
     resolution: {integrity: sha512-SVcm4Dqm2ukn64/8Gub2wnlA5nS2iWJyCkdNHcvNHPIeBTGojpdJ+9cZKwLfmqy7irD4N5qLteSilJlE0WLAtA==}
 
@@ -433,6 +443,9 @@ packages:
     engines: {node: '>=18'}
     cpu: [x64]
     os: [win32]
+
+  '@fontsource/monaspace-radon@5.2.5':
+    resolution: {integrity: sha512-mG6ltrFW5BYmcoRvVIKboCORZu8BeGg6h5zV5rnwEmFcjv8Bltua3KOj6aOxWbrR4PYnKyR17lNqSsjR8kx4bQ==}
 
   '@img/colour@1.1.0':
     resolution: {integrity: sha512-Td76q7j57o/tLVdgS746cYARfSyxk8iEfRxewL9h4OMzYhbW4TAcppl0mT4eyqXddh6L/jwoM75mo7ixa/pCeQ==}
@@ -2952,6 +2965,8 @@ snapshots:
     dependencies:
       fontkitten: 1.0.3
 
+  '@catppuccin/tailwindcss@1.0.0': {}
+
   '@clack/core@1.1.0':
     dependencies:
       sisteransi: 1.0.5
@@ -3066,6 +3081,8 @@ snapshots:
 
   '@esbuild/win32-x64@0.27.4':
     optional: true
+
+  '@fontsource/monaspace-radon@5.2.5': {}
 
   '@img/colour@1.1.0': {}
 

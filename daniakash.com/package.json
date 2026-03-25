@@ -24,6 +24,8 @@
     "typescript": "^6.0.2"
   },
   "devDependencies": {
+    "@catppuccin/tailwindcss": "^1.0.0",
+    "@fontsource/monaspace-radon": "^5.2.5",
     "@tailwindcss/typography": "^0.5.19",
     "@tailwindcss/vite": "^4.2.2",
     "@types/markdown-it": "^14.1.2",

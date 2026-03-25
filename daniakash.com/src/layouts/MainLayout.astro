@@ -42,7 +42,7 @@ if (!image) {
 const ogImage = image || fallbackImage;
 ---
 
-<html lang="en" class="dark">
+<html lang="en" class="mocha dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
@@ -85,7 +85,6 @@ const ogImage = image || fallbackImage;
     <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="manifest" href="/manifest.json" />
-    <link href="https://fonts.cdnfonts.com/css/calorie" rel="stylesheet" />
     <meta name="msapplication-TileColor" content="#ffffff" />
     <meta name="msapplication-TileImage" content="/ms-icon-144x144.png" />
     <meta name="theme-color" content="#ffffff" />
@@ -106,7 +105,7 @@ const ogImage = image || fallbackImage;
         "Web Development",
       ]}
       icon="/favicon.ico"
-      themeColor="#333333"
+      themeColor="#1e1e2e"
       colorScheme="light"
       facebook={ogImage
         ? {
@@ -139,7 +138,7 @@ const ogImage = image || fallbackImage;
     />
     <ClientRouter />
   </head>
-  <body class="flex h-full w-full overflow-x-hidden bg-zinc-50 dark:bg-black">
+  <body class="flex min-h-screen w-full overflow-x-hidden bg-ctp-base text-ctp-text">
     <ContentArea />
     <div class="relative m-auto flex w-full max-w-5xl flex-col overflow-visible">
       <div class="px-4 sm:px-6 lg:px-10">
