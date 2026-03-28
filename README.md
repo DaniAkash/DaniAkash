@@ -19,14 +19,14 @@
 
 I design and develop intelligent systems — from browser-native AI agents that navigate the web autonomously, to tools that make AI practical for everyday workflows. My work sits at the intersection of browser engineering, AI agents, and developer tooling.
 
-Expert in vibe coding and prompt engineering — but I've been shipping complete products solo long before the age of AI.
+> Expert in vibe coding and prompt engineering — but I've been shipping complete products solo long before the age of AI.
 
 ## Current Projects
 
-- 🌐 **[BrowserOS](https://github.com/browseros-ai/BrowserOS)** — AI-powered browser platform that gives agents a real browser to work with
-- 🧬 **[Inaily](https://inaily.com/)** — AI-native personal wellness
-- 🧠 **[Skills](https://github.com/DaniAkash/skills)** — Teaching AI agents how to use React's useEffect correctly
-- 🧱 **[Wikiwall](https://github.com/2dapps/wikiwall)** — Collaborative wiki walls
+- 🌐 **[BrowserOS](https://github.com/browseros-ai/BrowserOS)** — The Open Source Agentic Browser
+- 🤝 **[Inaily](https://inaily.com/)** — Meet the right people at every conference
+- 🧠 **[Skills](https://github.com/DaniAkash/skills)** — Teaching AI agents how to code in my style
+- 🧱 **[Wikiwall](https://github.com/2dapps/wikiwall)** — Display wikipedia articles as wallpapers
 
 ## Previously Worked On
 
@@ -38,16 +38,7 @@ Expert in vibe coding and prompt engineering — but I've been shipping complete
 - 🌍 **[Pickyourtrail Travel Guide](https://pickyourtrail.com/guides/)** — Destination travel guides
 - 📦 **[React Native Toolkit](https://github.com/react-native-toolkit)** — Collection of React Native utilities and tools
 - 📖 **[React Native Docs](https://github.com/facebook/react-native-website/issues/1579)** — Contributed to React Native documentation
-- 📚 **[JavaScript By Example](https://www.oreilly.com/library/view/javascript-by-example/9781788293969/)** — Author, O'Reilly
-
-## Open Source Libraries
-
-- 📐 **[react-native-responsive-dimensions](https://github.com/DaniAkash/react-native-responsive-dimensions)** — Responsive fontSize, height & width for React Native (473⭐)
-- ✏️ **[react-native-draftjs](https://github.com/DaniAkash/react-native-draftjs)** — Full-fledged React Native rich text editor based on Draft.js (133⭐)
-- 🔄 **[rex-state](https://github.com/DaniAkash/rex-state)** — Convert hooks into shared states between React components (30⭐)
-- 📱 **[react-native-masonry-scrollview](https://github.com/DaniAkash/react-native-masonry-scrollview)** — Pinterest-style masonry layout for React Native
-- 🔌 **[lifecycle-hooks](https://github.com/DaniAkash/lifecycle-hooks)** — React lifecycle as hooks
-- ⚡ **[vite-plugin-esm.sh](https://github.com/DaniAkash/vite-plugin-esm.sh)** — Rewrite imports with esm.sh at build time
+- 📚 **[JavaScript By Example](https://www.oreilly.com/library/view/javascript-by-example/9781788293969/)** — Book Author
 
 ## Latest Blog Posts
 
