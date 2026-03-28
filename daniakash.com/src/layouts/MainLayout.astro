@@ -40,7 +40,7 @@ if (!image) {
   });
   fallbackImage = image;
 }
-const ogImage = image || fallbackImage;
+const ogImage = new URL(image || fallbackImage, Astro.site).href;
 ---
 
 <html lang="en" class="dark">
