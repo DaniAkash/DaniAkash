@@ -7,8 +7,10 @@
 ![React](https://img.shields.io/badge/-React-61DAFB?style=flat-square&logo=react&logoColor=black)
 ![React Native](https://img.shields.io/badge/-React_Native-61DAFB?style=flat-square&logo=react&logoColor=black)
 ![Node.js](https://img.shields.io/badge/-Node.js-339933?style=flat-square&logo=node.js&logoColor=white)
-![Python](https://img.shields.io/badge/-Python-3776AB?style=flat-square&logo=python&logoColor=white)
+![Expo](https://img.shields.io/badge/-Expo-000020?style=flat-square&logo=expo&logoColor=white)
 ![Claude](https://img.shields.io/badge/-Claude-000000?style=flat-square&logo=anthropic&logoColor=white)
+![Codex](https://img.shields.io/badge/-Codex-121212?style=flat-square&logo=openai&logoColor=white)
+![Gemini CLI](https://img.shields.io/badge/-Gemini_CLI-8E75B2?style=flat-square&logo=google&logoColor=white)
 ![Astro](https://img.shields.io/badge/-Astro-FF5D01?style=flat-square&logo=astro&logoColor=white)
 ![Vite](https://img.shields.io/badge/-Vite-646CFF?style=flat-square&logo=vite&logoColor=white)
 ![Web](https://img.shields.io/badge/-Web-4285F4?style=flat-square&logo=google-chrome&logoColor=white)
@@ -26,15 +28,6 @@ Expert in vibe coding and prompt engineering — but I've been shipping complete
 - 🧠 **[Skills](https://github.com/DaniAkash/skills)** — Teaching AI agents how to use React's useEffect correctly
 - 🧱 **[Wikiwall](https://github.com/2dapps/wikiwall)** — Collaborative wiki walls
 
-## Open Source Libraries
-
-- 📐 **[react-native-responsive-dimensions](https://github.com/DaniAkash/react-native-responsive-dimensions)** — Responsive fontSize, height & width for React Native (473⭐)
-- ✏️ **[react-native-draftjs](https://github.com/DaniAkash/react-native-draftjs)** — Full-fledged React Native rich text editor based on Draft.js (133⭐)
-- 🔄 **[rex-state](https://github.com/DaniAkash/rex-state)** — Convert hooks into shared states between React components (30⭐)
-- 📱 **[react-native-masonry-scrollview](https://github.com/DaniAkash/react-native-masonry-scrollview)** — Pinterest-style masonry layout for React Native
-- 🔌 **[lifecycle-hooks](https://github.com/DaniAkash/lifecycle-hooks)** — React lifecycle as hooks
-- ⚡ **[vite-plugin-esm.sh](https://github.com/DaniAkash/vite-plugin-esm.sh)** — Rewrite imports with esm.sh at build time
-
 ## Previously Worked On
 
 - 🧠 **[Clarifai Node.js](https://github.com/Clarifai/clarifai-nodejs)** — Official Node.js client for the Clarifai AI platform
@@ -45,20 +38,25 @@ Expert in vibe coding and prompt engineering — but I've been shipping complete
 - 🌍 **[Pickyourtrail Travel Guide](https://pickyourtrail.com/guides/)** — Destination travel guides
 - 📦 **[React Native Toolkit](https://github.com/react-native-toolkit)** — Collection of React Native utilities and tools
 - 📖 **[React Native Docs](https://github.com/facebook/react-native-website/issues/1579)** — Contributed to React Native documentation
-- 📚 **[JavaScript By Example](https://www.oreilly.com/library/view/javascript-by-example/9781788293969/)** — Technical reviewer for O'Reilly book
+- 📚 **[JavaScript By Example](https://www.oreilly.com/library/view/javascript-by-example/9781788293969/)** — Author, O'Reilly
 
-## GitHub Activity
+## Open Source Libraries
 
-![GitHub Contribution Graph](https://ghchart.rshah.org/DaniAkash)
+- 📐 **[react-native-responsive-dimensions](https://github.com/DaniAkash/react-native-responsive-dimensions)** — Responsive fontSize, height & width for React Native (473⭐)
+- ✏️ **[react-native-draftjs](https://github.com/DaniAkash/react-native-draftjs)** — Full-fledged React Native rich text editor based on Draft.js (133⭐)
+- 🔄 **[rex-state](https://github.com/DaniAkash/rex-state)** — Convert hooks into shared states between React components (30⭐)
+- 📱 **[react-native-masonry-scrollview](https://github.com/DaniAkash/react-native-masonry-scrollview)** — Pinterest-style masonry layout for React Native
+- 🔌 **[lifecycle-hooks](https://github.com/DaniAkash/lifecycle-hooks)** — React lifecycle as hooks
+- ⚡ **[vite-plugin-esm.sh](https://github.com/DaniAkash/vite-plugin-esm.sh)** — Rewrite imports with esm.sh at build time
 
 ## Latest Blog Posts
 
 ### From [daniakash.com](https://daniakash.com)
-- [Wrapping up 2024](https://daniakash.com/newsletter/wrapping-up-2024/)
-- [The Developer Edition](https://daniakash.com/newsletter/the-developer-edition/)
-- [Swimming Robots in Space](https://daniakash.com/newsletter/swimming-robots-in-space/)
-- [AI needs water — a lot!](https://daniakash.com/newsletter/ai-needs-water-a-lot/)
-- [$1 Trillion Dollar Goal](https://daniakash.com/newsletter/1-trillion-dollar-goal/)
+- [Less on the Client, more on the Edge](https://daniakash.com/posts/less-on-the-client/)
+- [Maintaining a React Native Library](https://daniakash.com/posts/maintaining-react-native-library/)
+- [Rex State - a handy utility to convert your hooks into shared states](https://daniakash.com/posts/rex-state/)
+- [A better Image component for React Native](https://daniakash.com/posts/better-image/)
+- [I recreated React's class component lifecycle methods with hooks](https://daniakash.com/posts/lifecycle-with-hooks/)
 
 ### From [browseros.com](https://www.browseros.com)
 - [Have a ChatGPT Subscription and a Windows PC? Now Give It a Browser.](https://www.browseros.com/blog/bring-your-own-agent)
@@ -81,14 +79,13 @@ Expert in vibe coding and prompt engineering — but I've been shipping complete
 I'm a regular speaker at tech communities in Chennai and Bangalore — talking about AI agents, browser internals, and building products with small teams.
 
 Latest talks:
+- 🎤 [AI driven Web Development with Chrome DevTools Protocol](https://www.youtube.com/live/ZThlst8vC60?si=tInBbLan4hGHrFJy) — JSLovers Chennai Meetup #9
+- 🎤 [Building an AI Agent](https://www.youtube.com/live/0NYbRQtaYhs?si=oDyUTKSDwHWI0E92) — React Meetup #96
+- 🎤 [Unlock Server Side Rendering with Nitro](https://www.youtube.com/watch?v=8SLPweAE73o) — Chennai React Meetup #15
+- 🎤 [AI for Frontend Developers](https://www.youtube.com/watch?v=_hVbeInTQKU) — React Bangalore Meetup #83
+- 🎤 [Signal Boosting](https://www.youtube.com/watch?v=Gx83aU1uT9k) — React Nexus 2023
 
-
-### By the Numbers
-
-- 🗓️ On GitHub since **2014**
-- 📦 **166** public repositories
-- ⭐ **600+** stars across projects
-- 🤝 **217** followers
+[See all talks →](https://daniakash.com/speaking)
 
 ### Philosophy
 
@@ -97,10 +94,10 @@ I build what I need, open source what I can, automate any and all boring stuff.
 <details>
 <summary>Random Facts</summary>
 
-- 🎮 PlayStation gamer — built an app to track my backlog
+- 🎮 PlayStation gamer — [built an app to track my backlog](https://github.com/DaniAkash/playstation-backlogs)
 - 🤖 Runs multiple AI coding agents concurrently
 - ☕ Powered by Chennai filter coffee
-- 📚 Technical reviewer for O'Reilly
 - 🧪 Believes in learning by building
+- 💡 Always working on random ideas
 
 </details>
