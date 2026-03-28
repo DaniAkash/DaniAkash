@@ -1,0 +1,207 @@
+---
+title: When The Bill Comes Due
+subtitle: A realistic look at what happens when AI coding subsidies end, and why the falling cost curve means it'll be okay
+date: Sat Mar 29 2026 00:00:00 GMT+0530 (India Standard Time)
+tags:
+  [
+    "ai",
+    "coding",
+    "economics",
+    "vibe-coding",
+    "llm",
+    "developer-tools",
+    "claude",
+    "openai",
+    "infrastructure",
+  ]
+canonical: https://daniakash.com/blog/when-the-bill-comes-due
+---
+
+import PostImage from "../../components/PostImage.astro";
+
+<PostImage src="/bill-comes-due/cover.jpg" alt="when-the-bill-comes-due">
+  _Photo by [Towfiqu barbhuiya](https://unsplash.com/@towfiqu999999) on
+  [Unsplash](https://unsplash.com)_
+</PostImage>
+
+I fired up Claude Code this morning, gave it a rough idea for a feature, and watched it read through my codebase, plan the implementation, write the code, run the tests, and fix the errors, all while I was making coffee. Fifteen minutes later, I had a working feature that would've taken me half a day to build manually. And this entire thing cost me... well, somewhere between nothing and nothing. It's all covered under my $200/month subscription.
+
+I do this every day now. On a typical morning I'll have Claude Code, Codex, and Gemini CLI all running at the same time, each building different features in different worktrees. Sometimes I lose track of what's even happening across all of them. "Wait, what are the active tasks again?" is something I ask more often than I'd like to admit. I'll use one agent to review the code another agent wrote, because honestly, I don't trust any of them until I've understood the logic myself. And half the projects I spin up with these tools? They never make it past the first couple of screens before I move on to the next idea.
+
+And here's the thing. I know the math doesn't add up. I've seen the API pricing pages. I've done the napkin math on how many tokens (the units AI companies use to measure and bill for every chunk of text the model reads or writes) a single coding session actually consumes. The number I'm paying and the number it actually costs to serve me are not the same number. Not even close.
+
+We're living in the golden age of subsidized AI. And like every golden age before it, there's a bill somewhere with our name on it.
+
+## The $200 illusion
+
+Let's start with what we know.
+
+Sam Altman, CEO of OpenAI, [said this](https://techcrunch.com/2025/01/05/openai-is-losing-money-on-its-pricey-chatgpt-pro-plan-ceo-sam-altman-says/) about their $200/month ChatGPT Pro plan back in January 2025: **"People use it much more than we expected."** He confirmed the plan was losing money. Not breaking even, not slim margins. Losing money. On every single user.
+
+This wasn't a slip. OpenAI [lost **$5 billion** in 2024](https://www.cnbc.com/2024/09/27/openai-sees-5-billion-loss-this-year-on-3point7-billion-in-revenue.html) on $3.7 billion in revenue. [$2.25 spent for every $1 earned](https://www.lesswrong.com/posts/CCQsQnCMWhJcCFY9x/openai-lost-usd5-billion-in-2024-and-its-losses-are). Read that again.
+
+Their inference costs on Azure alone [hit **$3.7 billion** in 2024, and then nearly doubled to **$8.67 billion**](https://www.wheresyoured.at/oai_docs/) in just the first nine months of 2025. That's $12.4 billion spent on inference in under two years. And that's just one company.
+
+Anthropic, the company behind Claude (the tool I was just raving about), tells a slightly different story but the same punchline. They went from [$1 billion in annual revenue in December 2024 to roughly $20 billion by March 2026](https://www.bloomberg.com/news/articles/2026-03-03/anthropic-nears-20-billion-revenue-run-rate-amid-pentagon-feud). But they also burned **$5.6 billion** in cash in 2024 and have [**$80 billion** in projected cloud infrastructure costs](https://www.saastr.com/anthropic-just-hit-14-billion-in-arr-up-from-1-billion-just-14-months-ago/) through 2029. That's not product revenue funding the business. That's investor money.
+
+And GitHub Copilot? When it launched at $10/month, Microsoft was [**losing an average of $20 per user per month**](https://www.tomshardware.com/news/microsoft-lost-money-on-ai). Some heavy users were costing them $80/month. A $10 product that costs $30 to serve. That's not a business model. That's a subsidy.
+
+Then there's Cursor, which [hit $2 billion in annualized revenue](https://techcrunch.com/2026/03/02/cursor-has-reportedly-surpassed-2b-in-annualized-revenue/) by March 2026. Sounds healthy until you hear what an investor [told Newcomer's Tom Dotan](https://www.newcomer.co/p/cursors-popularity-has-come-at-a): **"Cursor is spending 100% of its revenue on Anthropic."** Every dollar coming in goes straight to API costs. Zero gross margin. They've [raised billions in funding](https://www.cnbc.com/2025/11/13/cursor-ai-startup-funding-round-valuation.html) and are now racing to build proprietary models just to escape the economics.
+
+> "Almost each time you or I ordered a pizza or hailed a taxi, the company behind that app lost money. In effect, these start-ups, backed by venture capital, were paying us, the consumers, to buy their products.", [The Atlantic](https://www.theatlantic.com/newsletters/archive/2022/06/uber-ride-share-prices-high-inflation/661250/)
+
+That quote was about Uber and DoorDash. But it fits AI coding tools perfectly.
+
+## We've seen this movie before
+
+If you were an adult in any major city between 2012 and 2020, you lived through the [**millennial lifestyle subsidy**](https://www.planetizen.com/news/2022/06/117482-say-goodbye-millennial-lifestyle-subsidy), a period where venture capital quietly underwrote the cost of urban living. Your Uber rides, your Netflix subscription, your food delivery, your Spotify. All priced below cost, funded by investors betting that growth would eventually turn into profit.
+
+The pattern is always the same:
+
+1. A VC-backed company prices its product below cost to acquire users
+2. Users build habits around the artificially cheap service
+3. The subsidy becomes unsustainable
+4. Prices correct upward
+5. Users grumble, some leave, but most stay, and the company becomes profitable
+
+Let me show you how this played out.
+
+**Uber**: In 2015, riders were paying only [**41% of the actual cost**](https://www.nakedcapitalism.com/2016/11/can-uber-ever-deliver-part-one-understanding-ubers-bleak-operating-economics.html) of their trips. Investors covered the other 59%. Uber accumulated [**$30 billion** in losses](https://arthnova.com/how-uber-turned-losses-into-profits/) before finally turning a profit in 2023. Prices [rose 92%](https://slate.com/business/2022/05/uber-subsidy-lyft-cheap-rides.html) between 2018 and 2021. People complained. People also kept using Uber.
+
+**Spotify**: This one is my favourite. Spotify held its Premium price at **$9.99/month for 13 years**. Thirteen years! Never once profitable. Then they raised the price three times in two and a half years, from $9.99 to $12.99, a 30% increase. They swung from [**losing EUR 500 million in 2023 to earning EUR 1.1 billion in 2024**](https://www.pricing-evolution.com/p/spotify-the-2-price-change-which). A $2 price increase literally turned the entire company profitable. Premium subscribers [kept growing at 10% year-over-year](https://markets.financialcontent.com/wral/article/marketminute-2026-2-10-spotify-earnings-q4-2025-record-profitability-and-subscriber-growth). Turns out when the product is good enough, people don't leave over a couple of dollars.
+
+**AWS**: And then there's the outlier, the optimistic precedent. AWS has [cut prices **134 times**](https://docs.aws.amazon.com/wellarchitected/latest/cost-optimization-pillar/cost_cloud_financial_management_scheduled.html) since 2006. The correction never came. Why? Because the efficiency gains were real. Hardware got cheaper, software got better, scale economics kicked in. The cloud market grew from $6 billion to over $600 billion without prices ever going up.
+
+And then there's **MoviePass**, which offered one movie per day for $9.95/month when a single ticket cost up to $17. They [burned through $200 million and went bankrupt](https://thebigcollapse.medium.com/moviepass-the-9-95-miracle-that-burned-through-200-million-and-changed-an-industry-6387d4c2e9b2). That's what happens when there is no path to efficiency gains. The subsidy is pure loss with no mechanism to ever close the gap.
+
+<PostImage src="/bill-comes-due/bill-comes-due-crossroads.jpg" alt="crossroads">
+  _Photo by [Jens Lelie](https://unsplash.com/@madebyjens) on
+  [Unsplash](https://unsplash.com)_
+</PostImage>
+
+So the question for AI coding tools is: **Are we in an AWS situation, where real efficiency gains will keep prices low? Or an Uber situation, where the subsidy is masking unsustainable economics?**
+
+The honest answer is: probably both. And to understand why, we need to do some math.
+
+## The true cost of a coding session
+
+Here's where it gets concrete. Let me walk through what a typical AI coding session actually costs in tokens and what those tokens are worth at API rates.
+
+A median Claude Code session involves about [**592,000 tokens** across 24 API requests](https://www.simonpcouch.com/blog/2026-01-20-cc-impact/). That's 5 user messages and 19 tool call responses (file reads, searches, terminal commands). Just the system prompt and tool definitions eat about **22,000 tokens** on every single turn, before you even ask your question.
+
+But here's the thing that makes this less scary than it sounds: over **90% of those tokens are cache reads**. The AI re-reading context it's already seen, which providers charge at a fraction of the normal price. Caching is the unsung hero of AI coding economics. Without it, every session would cost 5-10x more.
+
+With caching, a typical session on Claude Sonnet [costs about **$0.20 to $0.65**](https://vexp.dev/blog/claude-code-cost-per-month) at API rates (that's the per-token price you'd pay if you used the AI directly instead of through a subscription). Not bad. But here's where vibe coding changes the equation. When you start using AI agents for everything, exploring codebases, regenerating entire files, running multi-step workflows with retries, the token usage explodes. A single code exploration query can burn [**45,000 to 120,000 tokens**](https://dev.to/deusdata/how-i-cut-my-ai-coding-agents-token-usage-by-120x-with-a-code-knowledge-graph-4a3d), most of it reading files that turn out to be irrelevant.
+
+A heavy power user can easily hit **$15-20 per day** at API rates. That's **$400-480/month** of actual compute, served for $200. An [analysis of Claude Code economics](https://martinalderson.com/posts/no-it-doesnt-cost-anthropic-5k-per-claude-code-user/) estimated actual compute costs of around **$500/month** for extreme power users. Meanwhile, Anthropic is [adjusting usage limits to "manage growing demand"](https://www.theregister.com/2026/03/26/anthropic_tweaks_usage_limits/). The throttling, the peak-hour limits, the usage meters jumping unpredictably. These aren't bugs. They're the system groaning under the weight of the subsidy.
+
+<PostImage src="/bill-comes-due/bill-comes-due-pressure.jpg" alt="pressure-gauge">
+  _Photo by [Crystal Kwok](https://unsplash.com/@spacexuan) on
+  [Unsplash](https://unsplash.com)_
+</PostImage>
+
+## Three developers walk into a post-subsidy world
+
+So what happens when the subsidy ends? Or more precisely, what would development look like if every token cost what it actually costs? Let me paint three pictures. And I'll be honest, I see myself in all three.
+
+### The Unlimited Prompter
+
+You know this developer. Maybe you are this developer. (I definitely am this developer.)
+
+Three agents running simultaneously in different worktrees. Spinning up new projects on a whim, most of which never make it past the second screen before the next idea hits. Half-formed thought? Fire off a prompt. Code doesn't compile? "Try again." Not sure about the architecture? "Just build it both ways and I'll pick one."
+
+I've literally lost track of what my agents are doing and had to ask one of them: "Wait, what are all the active worktrees and tasks right now?" That's how casually I treat the compute.
+
+At true cost? A single feature built this way, with the explorations, the regenerations, the "actually, let's try a different approach" pivots, could easily cost **$50 to $200+** in tokens. Do that a few times a week and you're looking at a monthly AI bill that rivals a junior developer's salary.
+
+### The Intentional Builder
+
+This developer plans before prompting. Clear spec, well-defined steps, precise instructions. They write the simple stuff themselves and bring in the AI for the hard parts: architectural decisions, complex algorithms, unfamiliar APIs.
+
+They don't trust a line of AI-generated code until they've understood the logic themselves. Not because they're paranoid, because they've been burned. They might even use a second agent to review the first agent's work, catching common mistakes before they compound.
+
+At true cost, the same feature costs **$2-10** instead of $50-200. Not because they're using AI less, but because they're using it better. And here's the thing. This developer actually writes better software, subsidy or no subsidy.
+
+### The Hybrid Pragmatist
+
+This is where most experienced developers will land. AI for the 20% of tasks where it provides 80% of the value: debugging weird edge cases, generating boilerplate, exploring unfamiliar codebases. Everything else? They write it themselves.
+
+At true cost, their monthly spend is modest, maybe **$30-80/month**, and the ROI is obvious because every dollar of compute goes toward work where AI genuinely saves time.
+
+## The cultural shift nobody wants to talk about
+
+I'll be honest, I've been as guilty of this as anyone. I've spun up projects on a whim, let three agents run wild across worktrees, and abandoned half of them before they had a functioning homepage. Vibe coding is intoxicating. You just... go with the flow, let the model figure it out, and something appears on screen. It feels like a superpower.
+
+But vibe coding is a product of a very specific economic moment. It exists because the compute feels unlimited. The flat-rate subscription creates an illusion of infinite resources, and we've all rationally adapted our workflows to match.
+
+When cost becomes visible, behaviour changes. We've seen this everywhere:
+
+- When Uber prices doubled, people started checking transit schedules again
+- When streaming got expensive, people started being pickier about what they watched
+- When food delivery fees hit $13, people started cooking more
+
+The same thing will happen with AI coding. Not because the technology gets worse, but because the economics become real.
+
+And here's the part nobody wants to hear: **that's actually a good thing.**
+
+I know that because I've seen it in my own workflow. The times I've produced the best work with AI are the times I've been intentional: planning before prompting, reviewing the output critically, not trusting the code until I understood it. The times I've wasted the most tokens are the times I threw half-baked thoughts at an agent and hoped for the best. Those abandoned side projects? Mostly vibes, very little intention.
+
+When the bill comes due, the waste gets squeezed out. What remains is the stuff that actually matters: AI as a force multiplier for human expertise, not a replacement for thinking.
+
+I don't think that's a regression. If anything, it might be the opposite.
+
+<PostImage src="/bill-comes-due/bill-comes-due-dawn.jpg" alt="dawn-sunrise">
+  _Photo by [Dori](https://commons.wikimedia.org/wiki/User:Dori) on [Wikimedia
+  Commons](https://commons.wikimedia.org/wiki/File:North_Point_Sunrise_20090201_0622.jpg),
+  CC BY-SA 3.0_
+</PostImage>
+
+## But here's why I'm not worried
+
+Everything I just described sounds concerning. And if the story ended here, it would be. But there's a second force at play that changes everything, and it's moving even faster than the subsidy problem.
+
+**Token prices are falling off a cliff.**
+
+Not gradually. Not linearly. Exponentially. In March 2023, GPT-4 input tokens cost **$30 per million tokens**. Today, GPT-5 Nano offers comparable performance for **$0.05 per million tokens**. That's a **99.8% price drop in three years**. Six hundred times cheaper.
+
+Andreessen Horowitz calls this [**"LLMflation"**](https://a16z.com/llmflation-llm-inference-cost/), the rate at which the cost of equivalent AI capability falls. Their analysis shows roughly a **10x cost reduction per year**. [Epoch AI's research](https://epoch.ai/data-insights/llm-inference-price-trends) is even more aggressive, finding a median of **50x per year** across benchmarks. LLM inference costs are [dropping several times faster than Moore's Law](https://tinycomputers.io/posts/moores-law-for-intelligence-what-happens-when-thinking-gets-cheap.html). And there's a good reason for that. Moore's Law had one driver (transistor density). The AI cost curve has at least six, all pushing in the same direction at the same time:
+
+1. **Hardware**: [Every major cloud provider now has custom AI silicon](https://nerdleveltech.com/the-custom-ai-chip-race-2026-meta-google-amazon-microsoft-vs-nvidia), delivering [30-60% savings](https://www.cnbc.com/2025/11/21/nvidia-gpus-google-tpus-aws-trainium-comparing-the-top-ai-chips.html) over equivalent GPUs.
+2. **Quantization**: Running models at lower precision [cuts costs significantly](https://developer.nvidia.com/blog/top-5-ai-model-optimization-techniques-for-faster-smarter-inference/) with minimal quality loss.
+3. **Software optimization**: GPU utilization improved from 30-40% to 70-80% through better batching. A 2x gain from software alone.
+4. **Smaller models, same quality**: Llama 4 has 400 billion parameters but only 17 billion are active per token.
+5. **Distillation**: Small specialized models replacing large general ones.
+6. **Open-source competition**: [DeepSeek V3 rivals frontier models](https://www.aipricingmaster.com/blog/self-hosting-ai-models-cost-vs-api) at a **fraction of the cost**. Meta releases Llama for free specifically to commoditize inference.
+
+Each of these drivers contributes independently. And they compound. The combined result: GPT-4-equivalent performance cost [**$20 per million tokens** in late 2022. By early 2026, the same performance costs **$0.40 per million tokens**](https://www.gpunex.com/blog/ai-inference-economics-2026/). That's a **50x reduction in about three years**.
+
+What does that mean for those three developers? At a [conservative 5-10x cost reduction per year](https://arxiv.org/html/2511.23455v1), the Intentional Builder's $5-10 per feature becomes **$0.50-$1.00** within two years. That's less than the electricity your laptop uses while you're coding. The Hybrid Pragmatist's $30-80/month drops to **$3-16/month**. Less than a Spotify subscription. Even the Unlimited Prompter's $50-200 per feature lands at **$5-20** by 2028. Not free, but firmly within "reasonable professional tool" territory.
+
+**By 2028-2029, even unsubsidized AI coding at aggressive usage levels may genuinely cost less than today's subsidized subscription prices.** The subsidy isn't permanent. But it doesn't need to be. It just needs to last long enough for the cost curve to catch up.
+
+Is AI coding more like AWS or more like Uber? I think it's becoming clear: **it's more like AWS**. Unlike Uber, which had no mechanism to make rides fundamentally cheaper, AI inference has multiple independent cost drivers all pushing in the same direction. Google has already crossed the threshold. [Google Cloud is now profitable](https://www.mahersaham.com/blogs/why-ai-companies-losing-billions-endgame). They reduced serving costs by 78% through 2025 alone. Anthropic projects cash-flow break-even by 2027.
+
+There's a nuance though. Reasoning models, the ones that coding agents need most, haven't followed the same steep cost curve as standard inference. The price of raw intelligence is falling fast, but the price of deep reasoning is falling slower. So the future probably isn't "everything becomes free." It's more like: **routine AI coding becomes essentially free, while the hard stuff (complex architecture, deep debugging, multi-step reasoning) settles at a modest but real cost.**
+
+That's not a bad world. That's actually a pretty great world.
+
+<PostImage src="/bill-comes-due/bill-comes-due-open-road.jpg" alt="open-road-ahead">
+  _Photo by [King of
+  Hearts](https://commons.wikimedia.org/wiki/User:King_of_Hearts) on [Wikimedia
+  Commons](https://commons.wikimedia.org/wiki/File:Forrest_Gump_Point_Monument_Valley_November_2018_001.jpg),
+  CC BY-SA 4.0_
+</PostImage>
+
+## So, what's the move?
+
+There's a period coming, maybe we're already in it, where the subsidy starts to thin but the cost curve hasn't fully caught up yet. A transition window. The developers who navigate it well won't be the ones who panic and stop using AI. And they won't be the ones who ignore the economics and hope it'll be fine. They'll be the ones who understand what's happening and adjust accordingly.
+
+They'll know when to use the frontier reasoning model and when the small fast model is good enough. They'll write better prompts because each prompt costs something. They'll plan before they prompt. They'll maintain their core skills so they're never fully dependent on a service they don't control.
+
+And here's the beautiful irony: **the habits that make you cost-efficient with AI also make you a better developer.** Planning before coding, being specific about what you want, understanding the code well enough to know when the AI is wrong. These are just good engineering practices that we dressed up in flat-rate subscriptions and forgot about.
+
+I've started doing this more myself. Using one agent to review another's code. Not trusting the output until I can explain the logic back to myself. Breaking tasks into smaller, clearer prompts instead of throwing a vague idea at the model and hoping. The code is better for it. And honestly, I'm learning more this way than I was during the "just let the AI figure it out" phase.
+
+The bill will come due. It always does. Spotify charged $9.99 for 13 years and then raised it to $12.99 and everyone survived. Uber rides cost 8x what they used to and people still use Uber. But AI has something none of those had: a cost curve that's falling faster than any technology in history. I could be wrong about this. Ask me again in two years. But the trajectory is hard to argue with. The bill comes due, but it doesn't stay high for long.
+
+Build the skill. Not just the habit.
