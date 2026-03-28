@@ -1,6 +1,6 @@
 # Hi, I'm Dani 👋
 
-📍 **Chennai, India** | 🤖 **A Simple Developer Building AI Agents for Humans** | 🌐 **[BrowserOS](https://github.com/browseros-ai/BrowserOS)**
+📍 **Chennai, India** | 🤖 **A simple developer building AI agents for humans** | 🌐 **[BrowserOS](https://github.com/browseros-ai/BrowserOS)**
 
 ![TypeScript](https://img.shields.io/badge/-TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/-JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black)
@@ -13,7 +13,11 @@
 ![Vite](https://img.shields.io/badge/-Vite-646CFF?style=flat-square&logo=vite&logoColor=white)
 ![Web](https://img.shields.io/badge/-Web-4285F4?style=flat-square&logo=google-chrome&logoColor=white)
 
-> A simple developer building AI agents for humans. I believe the best tools are the ones that get out of your way — and the best agents are the ones that actually do things.
+## What I do
+
+I design and develop intelligent systems — from browser-native AI agents that navigate the web autonomously, to tools that make AI practical for everyday workflows. My work sits at the intersection of browser engineering, AI agents, and developer tooling.
+
+Expert in vibe coding and prompt engineering — but I've been shipping complete products solo long before the age of AI.
 
 ## Current Projects
 
@@ -72,6 +76,13 @@
 
 ---
 
+## Beyond code
+
+I'm a regular speaker at tech communities in Chennai and Bangalore — talking about AI agents, browser internals, and building products with small teams.
+
+Latest talks:
+
+
 ### By the Numbers
 
 - 🗓️ On GitHub since **2014**
@@ -81,7 +92,7 @@
 
 ### Philosophy
 
-> "A simple developer building AI agents for humans." — I build what I need, open source what I can, and keep shipping every day.
+I build what I need, open source what I can, automate any and all boring stuff.
 
 <details>
 <summary>Random Facts</summary>
