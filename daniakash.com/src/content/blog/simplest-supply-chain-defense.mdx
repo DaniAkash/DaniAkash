@@ -1,0 +1,283 @@
+---
+title: Minimum Release Age is an Underrated Supply Chain Defense
+subtitle: A 7-day package delay would have blocked installs in most short-lived malicious publish attacks from the last 8 years
+date: Mon Mar 31 2026 00:00:00 GMT+0530 (India Standard Time)
+tags:
+  [
+    "security",
+    "supply-chain",
+    "npm",
+    "javascript",
+    "python",
+    "package-managers",
+    "open-source",
+    "devtools",
+  ]
+canonical: https://daniakash.com/blog/simplest-supply-chain-defense
+---
+
+import PostImage from "../../components/PostImage.astro";
+
+On March 31, 2026, axios got compromised.
+
+Axios, the HTTP library that lives in basically every JavaScript project on the planet. Someone stole a maintainer's npm token, published two poisoned versions, and within 2 seconds of running `npm install`, a cross-platform RAT was phoning home to a command-and-control server. macOS, Windows, Linux. All of them. The malicious code even deleted itself after execution and swapped its own `package.json` to cover its tracks.
+
+100 million weekly downloads. Present in 80% of cloud environments. And the poisoned versions were live for about 4 hours before npm pulled them.
+
+Here's the thing though. My default package policy would have rejected those compromised versions. Not because of any fancy scanning tool, but because of one line in my config:
+
+```toml
+# ~/.bunfig.toml
+[install]
+minimumReleaseAge = 604800 # 7 days in seconds
+```
+
+My package manager simply refuses to install any package version that was published less than 7 days ago. By the time 7 days pass, compromised versions like those axios releases are long gone. Detected, reported, and yanked from the registry.
+
+One line. No scanning tools. No enterprise subscription. Just... patience.
+
+<PostImage src="/supply-chain-security/hour-glass.jpg" alt="hourglass-on-stones">
+  _Photo by [Aron Visuals](https://unsplash.com/@aronvisuals?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on
+  [Unsplash](https://unsplash.com/photos/selective-focus-photo-of-brown-and-blue-hourglass-on-stones-BXOXnQ26B7o?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)_
+</PostImage>
+
+## How well does this actually work?
+
+I got curious. If a 7-day delay would have filtered out the axios compromise, how many other attacks would it have caught?
+
+So I went through 21 widely discussed supply chain incidents from the last 8 years, from the SolarWinds breach in December 2020 to the March 2026 axios compromise. For each one, I looked at the exposure window: how long was the malicious code live before someone caught it and pulled it down?
+
+Here's what I found:
+
+| Attack | Exposure Window | 7-Day Delay? |
+|--------|----------------|-------------|
+| [**Axios**](https://socket.dev/blog/axios-npm-package-compromised) (Mar 2026) | ~4 hours | Would have blocked |
+| [**Trivy-Action**](https://www.paloaltonetworks.com/blog/cloud-security/trivy-supply-chain-attack/) (Mar 2026) | ~12 hours | Would have blocked |
+| [**Nx / S1ngularity**](https://www.wiz.io/blog/s1ngularity-supply-chain-attack) (Aug 2025) | ~1 day | Would have blocked |
+| [**Gluestack / React Native ARIA**](https://www.aikido.dev/blog/supply-chain-attack-on-react-native-aria-ecosystem) (Jun 2025) | ~days | Would have blocked |
+| [**tj-actions/changed-files**](https://www.wiz.io/blog/github-action-tj-actions-changed-files-supply-chain-attack-cve-2025-30066) (Mar 2025) | ~3 days | Would have blocked |
+| [**reviewdog/action-setup**](https://www.cisa.gov/news-events/alerts/2025/03/18/supply-chain-compromise-third-party-tj-actionschanged-files-cve-2025-30066-and-reviewdogaction) (Mar 2025) | ~2 hours | Would have blocked |
+| [**Ultralytics YOLO**](https://blog.pypi.org/posts/2024-12-11-ultralytics-attack-analysis/) (Dec 2024) | ~1-2 days | Would have blocked |
+| [**Solana web3.js**](https://www.bleepingcomputer.com/news/security/solana-web3js-library-backdoored-to-steal-secret-private-keys/) (Dec 2024) | ~5 hours | Would have blocked |
+| [**Polyfill.io**](https://blog.qualys.com/vulnerabilities-threat-research/2024/06/28/polyfill-io-supply-chain-attack) (Jun 2024) | ~4 months | Not helped |
+| [**XZ Utils**](https://www.crowdstrike.com/en-us/blog/cve-2024-3094-xz-upstream-supply-chain-attack/) (Mar 2024) | 2+ years | Not helped |
+| [**Ledger Connect Kit**](https://www.ledger.com/blog/a-letter-from-ledger-chairman-ceo-pascal-gauthier-regarding-ledger-connect-kit-exploit) (Dec 2023) | ~5 hours | Would have blocked |
+| [**3CX**](https://www.crowdstrike.com/en-us/blog/crowdstrike-detects-and-prevents-active-intrusion-campaign-targeting-3cxdesktopapp-customers/) (Mar 2023) | Weeks | Not helped |
+| [**PyTorch torchtriton**](https://pytorch.org/blog/compromised-nightly-dependency/) (Dec 2022) | ~5 days | Would have blocked |
+| [**node-ipc**](https://snyk.io/blog/peacenotwar-malicious-npm-node-ipc-package-vulnerability/) (Mar 2022) | Weeks+ | Not helped |
+| [**colors/faker**](https://snyk.io/blog/open-source-npm-packages-colors-702-faker-6/) (Jan 2022) | Days to weeks | Reduced window |
+| [**Log4Shell**](https://www.cisa.gov/news-events/alerts/2021/12/10/apache-log4j-vulnerability-guidance) (Dec 2021) | N/A (vulnerability, not injection) | Not helped |
+| [**ua-parser-js**](https://github.com/nicksimpson/ua-parser-js/issues/536) (Oct 2021) | ~4 hours | Would have blocked |
+| [**Codecov**](https://about.codecov.io/security-update/) (Apr 2021) | ~2 months | Not helped |
+| [**Dependency Confusion**](https://medium.com/@alex.birsan/dependency-confusion-4a5d60fec610) (Feb 2021) | Varied | Reduced window |
+| [**SolarWinds**](https://www.crowdstrike.com/en-us/blog/sunspot-malware-technical-analysis/) (Dec 2020) | ~9 months | Not helped |
+| [**event-stream**](https://blog.npmjs.org/post/180565383195/details-about-the-event-stream-incident) (Nov 2018) | ~2 months | Not helped |
+
+In this sample, **a 7-day release-age gate would likely have blocked installs in 11 short-lived malicious publish cases**, while doing little against long-running infiltrations, maintainer sabotage, or build-system compromises. Two more incidents would have had a narrowed exposure window.
+
+### A note on methodology
+
+This isn't a controlled study. It's a survey of 21 incidents that were widely reported across security advisories, CISA alerts, and vendor blogs between 2018 and 2026. I picked them because they're the ones developers are most likely to have heard of.
+
+"Exposure window" means the time between the malicious version being published and it being removed or flagged by the registry. I classified an attack as "would have blocked" if the compromised release was yanked within 7 days, meaning a release-age policy would have filtered it out during normal `install` or `update` resolution. "Not helped" means the attack either persisted longer than 7 days, wasn't a registry package at all, or was a vulnerability in legitimate code rather than a malicious injection.
+
+The sample deliberately includes non-registry incidents (SolarWinds, 3CX, Polyfill.io, Codecov) and a pure vulnerability (Log4Shell) for completeness. These inflate the denominator against the release-age policy. If you only look at malicious package publish attacks, the hit rate is higher.
+
+## Why does this work so well?
+
+Most malicious package attacks follow the same playbook. An attacker steals a maintainer's credentials (phishing, leaked tokens, compromised CI), publishes a malicious version, and then it's a race. The community notices something weird. Security tools flag it. The registry pulls the package.
+
+This whole cycle, from poison to cleanup, almost always completes within hours to days. The axios attack lasted 4 hours. Solana web3.js was 5 hours. ua-parser-js was 4 hours. Ledger Connect Kit was 5 hours.
+
+These are smash-and-grab operations. The attacker knows the clock is ticking.
+
+A 7-day delay means you're always installing packages that have already survived a week of community scrutiny. If something was malicious, it's been caught and removed. You never even see it.
+
+Think of it like this. You're not the first person to walk through the door. You're letting thousands of other developers go first. If the floor is trapped, someone else will find out before you step on it.
+
+## When this helps, and when it's annoying
+
+Before I get into the setup, some honest caveats. This isn't a universal fix.
+
+**It works best when:**
+- You regularly update dependencies (the delay applies during resolution, so it catches you at `install` and `update` time)
+- You use semver ranges (`^` or `~`) where your package manager resolves the latest matching version
+- You're pulling from public registries where the community is actively watching for compromises
+
+**It's less relevant when:**
+- You rely entirely on pinned lockfiles and only update on a deliberate schedule (though the delay still protects you at update time)
+- You publish and consume your own internal packages (you'll want an allowlist/bypass for those)
+- You need emergency security patches immediately (all tools that support this also support a bypass for exactly this reason)
+
+**It's not a substitute for:**
+- Lockfiles and `npm ci` / `pnpm install --frozen-lockfile`
+- `--ignore-scripts` in CI/CD to block postinstall hooks
+- SHA-pinned GitHub Actions
+- Provenance verification and artifact attestations
+- Behavioral analysis tools like Socket.dev
+
+Think of release-age as one layer in defense-in-depth. It happens to be the layer that's trivially easy to add and surprisingly effective against the most common attack pattern.
+
+## So how do I set this up?
+
+Here's where it gets both exciting and slightly absurd. Most major JavaScript package managers now support this. But they couldn't agree on a name. Or a unit. Or anything really.
+
+**Bun** (seconds):
+```toml
+# bunfig.toml
+[install]
+minimumReleaseAge = 604800
+```
+
+**npm** (v11.10+, days):
+```ini
+# .npmrc
+min-release-age=7
+```
+
+**pnpm** (v10.16+, minutes):
+```yaml
+# pnpm-workspace.yaml
+minimumReleaseAge: 10080
+```
+
+**Yarn 4** (v4.10+, duration string):
+```yaml
+# .yarnrc.yml
+npmMinimalAgeGate: "7d"
+```
+
+Same concept. Four different config names. Four different units. `minimumReleaseAge`, `min-release-age`, `minimumReleaseAge` (again but in minutes this time), `npmMinimalAgeGate`. Seconds, days, minutes, duration strings.
+
+I wish I was making this up.
+
+## Beyond JavaScript
+
+The Python ecosystem has caught on too.
+
+**uv** (v0.9.17+):
+```toml
+# pyproject.toml
+[tool.uv]
+exclude-newer = "7d"
+```
+
+**pip** (v26.0+):
+```bash
+pip install --uploaded-prior-to=2026-03-24T00:00:00Z package-name
+```
+
+pip only supports absolute timestamps though, not relative durations. So you'd have to update the date manually each time. Not ideal.
+
+**Deno** has it as a CLI flag:
+```bash
+deno update --minimum-dependency-age=7d
+```
+
+**Cargo** (Rust) has an experimental unstable flag, and there's a third-party tool called `cargo-cooldown`.
+
+**Go, Maven, Gradle, Composer, Bundler?** Nothing. No support. No proposals for some of them. If you're in the Java, Go, or PHP ecosystems, you're out of luck at the package manager level.
+
+## Don't forget your dependency bots
+
+If you use Renovate or Dependabot to keep dependencies up to date, they have their own delay mechanisms:
+
+**Renovate:**
+```json
+{
+  "minimumReleaseAge": "7 days",
+  "packageRules": [
+    {
+      "matchPackageNames": ["*"],
+      "minimumReleaseAge": "14 days"
+    }
+  ]
+}
+```
+
+**Dependabot:**
+```yaml
+# .github/dependabot.yml
+cooldown:
+  default-days: 7
+  semver-major-days: 14
+  semver-minor-days: 7
+  semver-patch-days: 3
+```
+
+Both of them bypass the delay for security updates, which is the right call. If a CVE patch drops, you want it immediately.
+
+## What this doesn't catch
+
+8 out of 21 incidents in my sample wouldn't have been helped by a release age policy. These fall into a few distinct categories:
+
+**Long-running infiltrations.** The XZ Utils backdoor was planted by someone who spent 2 years building trust as a maintainer. The event-stream attack took 2 months to discover. When the attacker is patient enough to wait, a 7-day hold doesn't help.
+
+**Maintainer sabotage.** When the legitimate owner of colors.js decided to break it in protest, or when node-ipc's maintainer added code that wiped files on Russian machines, no delay would have caught that. The maintainer IS the trusted party.
+
+**Build system compromises.** SolarWinds and 3CX weren't attacks on package registries. The malware was injected during the build process of proprietary software. No package manager config can help there.
+
+**CDN and infrastructure attacks.** Polyfill.io was a domain takeover. Codecov was a modified bash script on their own servers. These aren't registry packages at all.
+
+**Vulnerabilities in legitimate code.** Log4Shell was a bug in a real library that had been there since 2013. The release wasn't malicious. The code was just broken.
+
+For these categories, you need different tools: lockfile pinning, behavioral analysis from tools like Socket.dev, SBOM generation, SHA-pinned GitHub Actions, and reproducible builds.
+
+## Half the ecosystem is still unprotected
+
+JavaScript and Python developers can set this up today. But if you're writing Go, Java, PHP, or Ruby? You're out of luck.
+
+| Ecosystem | Support |
+|-----------|---------|
+| npm, pnpm, Yarn 4, Bun, Deno | Full support |
+| uv, pip | Supported (pip is clunky) |
+| Cargo (Rust) | Experimental / third-party |
+| RubyGems | Community registry beta only |
+| **Go modules** | **Nothing** |
+| **Maven / Gradle** | **Nothing** |
+| **Composer** | **Nothing** |
+
+Go doesn't even have an open proposal. Maven and Gradle have no known discussions. Composer has a feature request sitting in the repo. These are ecosystems powering massive production infrastructure, and they have zero built-in protection against the most common attack pattern in supply chain security.
+
+If you maintain a package manager that's missing from the "supported" list, this is the feature request to prioritize. Not another scanning integration. Not another attestation spec. A simple, configurable delay on fresh packages.
+
+## Can we at least agree on a name?
+
+Even among the tools that support this, the naming situation is genuinely painful:
+
+| Tool | Config | Unit |
+|------|--------|------|
+| Bun | `minimumReleaseAge` | seconds |
+| pnpm | `minimumReleaseAge` | minutes |
+| npm | `min-release-age` | days |
+| Yarn 4 | `npmMinimalAgeGate` | duration string |
+| uv | `exclude-newer` | duration / absolute date |
+| pip | `--uploaded-prior-to` | absolute timestamp |
+| Renovate | `minimumReleaseAge` | duration string |
+| Dependabot | `cooldown` | days |
+
+Bun and pnpm use the same config name but different units. npm uses the same concept but kebab-case. Yarn went with `npmMinimalAgeGate` for some reason. pip requires you to manually calculate a date instead of just saying "7 days."
+
+If you're configuring this across a polyglot monorepo, you have to mentally convert between seconds, minutes, days, and duration strings. For the same feature. That does the same thing.
+
+There's room for a lightweight spec here. Even just an informal convention. Call it `minimumReleaseAge`, use ISO 8601 durations or plain day counts, and move on.
+
+## Why isn't this the default?
+
+npm actually has an open proposal to make 7 days the default. That makes sense. The vast majority of developers don't need packages the instant they're published. They can wait a week. For the rare cases where you genuinely need a fresh release (a critical hotfix, a security patch), every tool that supports this also supports a bypass.
+
+But defaults matter. Right now, every package manager ships with an implicit `minimumReleaseAge = 0`. You get whatever was published 30 seconds ago, no questions asked. The entire security posture of the ecosystem is opt-in, and most developers have never heard of these settings.
+
+We've been building increasingly sophisticated scanning tools, provenance systems, and attestation frameworks. And those are important. But we've also been overlooking one of the simplest defenses available: **just wait a bit**.
+
+The axios attacker had a window of 4 hours. The Solana web3.js attacker had 5 hours. The Ledger Connect Kit attacker had 5 hours. ua-parser-js was 4 hours.
+
+Every single one of those windows closes before day 7. Every single time.
+
+---
+
+If your package manager supports it, consider defaulting to a 3-7 day release age for third-party packages. Keep an escape hatch for emergency updates. Treat it as one layer in defense-in-depth.
+
+And if your package manager doesn't support it yet, go open that issue.
+
+The best security isn't always the most complex. Sometimes it's just giving the world enough time to notice something's wrong before you install it.
