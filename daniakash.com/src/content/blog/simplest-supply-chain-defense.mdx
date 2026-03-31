@@ -16,6 +16,8 @@ tags:
 canonical: https://daniakash.com/blog/simplest-supply-chain-defense
 ---
 
+import PostImage from "../../components/PostImage.astro";
+
 I woke up to chaos this morning.
 
 Axios, the HTTP library that lives in basically every JavaScript project on the planet, got compromised. Someone stole a maintainer's npm token, published two poisoned versions, and within 2 seconds of running `npm install`, a cross-platform RAT was phoning home to a command-and-control server. macOS, Windows, Linux. All of them. The malicious code even deleted itself after execution and swapped its own `package.json` to cover its tracks.
@@ -34,6 +36,11 @@ That's it. That's the whole defense. My package manager simply refuses to instal
 
 One line. No scanning tools. No enterprise subscription. Just... patience.
 
+<PostImage src="/supply-chain-security/hour-glass.jpg" alt="hourglass-on-stones">
+  _Photo by [Aron Visuals](https://unsplash.com/@aronvisuals?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on
+  [Unsplash](https://unsplash.com/photos/selective-focus-photo-of-brown-and-blue-hourglass-on-stones-BXOXnQ26B7o?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)_
+</PostImage>
+
 ## Wait, does this actually work?
 
 I got curious. If a 7-day delay saved me from axios, how many other attacks would it have caught?
@@ -44,27 +51,27 @@ The results surprised me.
 
 | Attack | Exposure Window | 7-Day Delay? |
 |--------|----------------|-------------|
-| **Axios** (Mar 2026) | ~4 hours | Prevented |
-| **Trivy-Action** (Mar 2026) | ~12 hours | Prevented |
-| **Nx / S1ngularity** (Aug 2025) | ~1 day | Prevented |
-| **Gluestack / React Native ARIA** (Jun 2025) | ~days | Prevented |
-| **tj-actions/changed-files** (Mar 2025) | ~3 days | Prevented |
-| **reviewdog/action-setup** (Mar 2025) | ~2 hours | Prevented |
-| **Ultralytics YOLO** (Dec 2024) | ~1-2 days | Prevented |
-| **Solana web3.js** (Dec 2024) | ~5 hours | Prevented |
-| **Ledger Connect Kit** (Dec 2023) | ~5 hours | Prevented |
-| **PyTorch torchtriton** (Dec 2022) | ~5 days | Prevented |
-| **ua-parser-js** (Oct 2021) | ~4 hours | Prevented |
-| **colors/faker** (Jan 2022) | Days to weeks | Reduced impact |
-| **Dependency Confusion** (Feb 2021) | Varied | Reduced impact |
-| **Polyfill.io** (2024) | ~4 months | Not helped |
-| **XZ Utils** (2024) | 2+ years | Not helped |
-| **3CX** (2023) | Weeks | Not helped |
-| **node-ipc** (2022) | Weeks+ | Not helped |
-| **Log4Shell** (2021) | N/A (vulnerability, not injection) | Not helped |
-| **Codecov** (2021) | ~2 months | Not helped |
-| **SolarWinds** (2020) | ~9 months | Not helped |
-| **event-stream** (2018) | ~2 months | Not helped |
+| [**Axios**](https://socket.dev/blog/axios-npm-package-compromised) (Mar 2026) | ~4 hours | Prevented |
+| [**Trivy-Action**](https://www.paloaltonetworks.com/blog/cloud-security/trivy-supply-chain-attack/) (Mar 2026) | ~12 hours | Prevented |
+| [**Nx / S1ngularity**](https://www.wiz.io/blog/s1ngularity-supply-chain-attack) (Aug 2025) | ~1 day | Prevented |
+| [**Gluestack / React Native ARIA**](https://www.aikido.dev/blog/supply-chain-attack-on-react-native-aria-ecosystem) (Jun 2025) | ~days | Prevented |
+| [**tj-actions/changed-files**](https://www.wiz.io/blog/github-action-tj-actions-changed-files-supply-chain-attack-cve-2025-30066) (Mar 2025) | ~3 days | Prevented |
+| [**reviewdog/action-setup**](https://www.cisa.gov/news-events/alerts/2025/03/18/supply-chain-compromise-third-party-tj-actionschanged-files-cve-2025-30066-and-reviewdogaction) (Mar 2025) | ~2 hours | Prevented |
+| [**Ultralytics YOLO**](https://blog.pypi.org/posts/2024-12-11-ultralytics-attack-analysis/) (Dec 2024) | ~1-2 days | Prevented |
+| [**Solana web3.js**](https://www.bleepingcomputer.com/news/security/solana-web3js-library-backdoored-to-steal-secret-private-keys/) (Dec 2024) | ~5 hours | Prevented |
+| [**Polyfill.io**](https://blog.qualys.com/vulnerabilities-threat-research/2024/06/28/polyfill-io-supply-chain-attack) (Jun 2024) | ~4 months | Not helped |
+| [**XZ Utils**](https://www.crowdstrike.com/en-us/blog/cve-2024-3094-xz-upstream-supply-chain-attack/) (Mar 2024) | 2+ years | Not helped |
+| [**Ledger Connect Kit**](https://www.ledger.com/blog/a-letter-from-ledger-chairman-ceo-pascal-gauthier-regarding-ledger-connect-kit-exploit) (Dec 2023) | ~5 hours | Prevented |
+| [**3CX**](https://www.crowdstrike.com/en-us/blog/crowdstrike-detects-and-prevents-active-intrusion-campaign-targeting-3cxdesktopapp-customers/) (Mar 2023) | Weeks | Not helped |
+| [**PyTorch torchtriton**](https://pytorch.org/blog/compromised-nightly-dependency/) (Dec 2022) | ~5 days | Prevented |
+| [**node-ipc**](https://snyk.io/blog/peacenotwar-malicious-npm-node-ipc-package-vulnerability/) (Mar 2022) | Weeks+ | Not helped |
+| [**colors/faker**](https://snyk.io/blog/open-source-npm-packages-colors-702-faker-6/) (Jan 2022) | Days to weeks | Reduced impact |
+| [**Log4Shell**](https://www.cisa.gov/news-events/alerts/2021/12/10/apache-log4j-vulnerability-guidance) (Dec 2021) | N/A (vulnerability, not injection) | Not helped |
+| [**ua-parser-js**](https://github.com/nicksimpson/ua-parser-js/issues/536) (Oct 2021) | ~4 hours | Prevented |
+| [**Codecov**](https://about.codecov.io/security-update/) (Apr 2021) | ~2 months | Not helped |
+| [**Dependency Confusion**](https://medium.com/@alex.birsan/dependency-confusion-4a5d60fec610) (Feb 2021) | Varied | Reduced impact |
+| [**SolarWinds**](https://www.crowdstrike.com/en-us/blog/sunspot-malware-technical-analysis/) (Dec 2020) | ~9 months | Not helped |
+| [**event-stream**](https://blog.npmjs.org/post/180565383195/details-about-the-event-stream-incident) (Nov 2018) | ~2 months | Not helped |
 
 **11 out of 21 attacks (52%) would have been fully prevented.** Two more would have had reduced impact. All from a single config line.
 
