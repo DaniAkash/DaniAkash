@@ -9,6 +9,10 @@ import sitemap from "@astrojs/sitemap";
 // https://astro.build/config
 export default defineConfig({
   site: "https://daniakash.com",
+  redirects: {
+    "/blog/simplest-supply-chain-defense":
+      "/posts/simplest-supply-chain-defense",
+  },
   prefetch: {
     defaultStrategy: "viewport",
     prefetchAll: true,
