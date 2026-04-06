@@ -10,8 +10,7 @@ import sitemap from "@astrojs/sitemap";
 export default defineConfig({
   site: "https://daniakash.com",
   redirects: {
-    "/blog/simplest-supply-chain-defense":
-      "/posts/simplest-supply-chain-defense",
+    "/blog/[...slug]": "/posts/[...slug]",
   },
   prefetch: {
     defaultStrategy: "viewport",
