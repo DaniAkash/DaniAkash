@@ -111,12 +111,12 @@ const ogImage = new URL(image || fallbackImage, Astro.site).href;
   </head>
   <body class="min-h-screen overflow-x-hidden bg-background text-foreground">
     <Nav />
-    <main class="mx-auto max-w-7xl px-6 pt-24">
+    <main class="relative z-1 mx-auto max-w-7xl px-6 pt-24">
       <slot />
     </main>
     {
       !hideFooter && (
-        <div class="mx-auto max-w-7xl px-6">
+        <div class="relative z-1 mx-auto max-w-7xl px-6">
           <SiteFooter />
         </div>
       )

@@ -1,5 +1,6 @@
 ---
 import { getCollection } from "astro:content";
+import AmbientCanvas from "../components/AmbientCanvas";
 import BlueskyIcon from "../components/icons/BlueskyIcon.astro";
 import GithubIcon from "../components/icons/GithubIcon.astro";
 import InstagramIcon from "../components/icons/InstagramIcon.astro";
@@ -64,20 +65,32 @@ const heroImages = [
 ---
 
 <MainLayout title="">
+  <!-- Ambient Background -->
+  <AmbientCanvas client:visible />
+
+  <!-- System Labels -->
+  <div class="pointer-events-none fixed bottom-6 left-6 z-50 hidden font-mono text-[10px] uppercase tracking-widest text-muted-foreground md:block">
+    CHENNAI, IN &middot; UTC+5:30
+  </div>
+  <div class="pointer-events-none fixed bottom-6 right-6 z-50 hidden font-mono text-[10px] uppercase tracking-widest text-muted-foreground md:block">
+    V4.0 // 2026
+  </div>
+
   <!-- ═══ HERO ═══ -->
-  <section class="relative min-h-screen overflow-hidden pb-80 pt-16">
+  <section class="relative min-h-screen overflow-hidden pb-80 pt-32">
     <div>
       <p
-        class="mb-6 font-mono text-xs uppercase tracking-widest text-muted-foreground"
+        class="mb-6 font-mono text-[11px] uppercase tracking-[0.15em] text-muted-foreground"
       >
         SYS.ROLE // AI_ENGINEER &middot; BUILDER &middot; SPEAKER
       </p>
       <h1
-        class="mb-6 text-5xl font-bold leading-tight tracking-tight md:text-7xl lg:text-8xl"
+        class="mb-6 font-bold leading-[1.05] tracking-[-0.03em]"
+        style="font-size: clamp(3rem, 8vw, 6rem);"
       >
         Dani Akash
       </h1>
-      <p class="mb-12 max-w-xl text-lg font-light leading-relaxed text-muted-foreground md:text-2xl">
+      <p class="mb-12 max-w-2xl font-light leading-[1.4] text-muted-foreground" style="font-size: clamp(1.125rem, 2.5vw, 1.75rem);">
         A simple developer building AI agents for humans. I build what I need,
         open source what I can, and keep shipping every day.
       </p>

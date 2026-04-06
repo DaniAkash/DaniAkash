@@ -52,6 +52,16 @@
   },
   "overrides": [
     {
+      "includes": ["**/AmbientCanvas.tsx", "**/PixelFactory.tsx"],
+      "linter": {
+        "rules": {
+          "complexity": {
+            "noExcessiveCognitiveComplexity": "off"
+          }
+        }
+      }
+    },
+    {
       "includes": ["**/*.astro"],
       "linter": {
         "rules": {
