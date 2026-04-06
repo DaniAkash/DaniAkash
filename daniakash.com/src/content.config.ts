@@ -44,7 +44,7 @@ const blog = defineCollection({
     subtitle: z.string(),
     date: z.string(),
     tags: z.array(z.string()).max(9),
-    canonical: z.string(),
+    canonical: z.string().optional(),
   }),
 });
 

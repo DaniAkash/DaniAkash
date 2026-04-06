@@ -23,6 +23,7 @@ const { Content } = await render(post);
 
 const dateValue = getDateValue(post.data.date);
 const dateDisplay = getDateDisplay(post.data.date);
+const canonical = post.data.canonical || new URL(`/posts/${post.id}`, Astro.site).href;
 const image = `/og/${post.id}.png`;
 await getOGImage({
   title: post.data.title,
@@ -35,7 +36,7 @@ await getOGImage({
   title={post.data.title}
   description={post.data.subtitle}
   keywords={post.data.tags}
-  canonical={post.data.canonical}
+  canonical={canonical}
   image={image}
 >
   <ArticleContainer>
