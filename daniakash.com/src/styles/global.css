@@ -9,13 +9,13 @@
    shadcn Design Tokens — Light Mode
    ═══════════════════════════════════════════ */
 :root {
-  --background: oklch(0.965 0.005 106.5);       /* #F5F5F0 */
-  --foreground: oklch(0.15 0.01 260);            /* #0A0A0F */
+  --background: oklch(0.965 0.005 106.5); /* #F5F5F0 */
+  --foreground: oklch(0.15 0.01 260); /* #0A0A0F */
   --card: oklch(0.96 0.004 106.5);
   --card-foreground: oklch(0.15 0.01 260);
   --popover: oklch(0.965 0.005 106.5);
   --popover-foreground: oklch(0.15 0.01 260);
-  --primary: oklch(0.58 0.14 175);               /* #0D9488 teal */
+  --primary: oklch(0.58 0.14 175); /* #0D9488 teal */
   --primary-foreground: oklch(0.98 0.005 175);
   --secondary: oklch(0.95 0.005 106.5);
   --secondary-foreground: oklch(0.25 0.01 260);
@@ -34,13 +34,13 @@
    shadcn Design Tokens — Dark Mode
    ═══════════════════════════════════════════ */
 .dark {
-  --background: oklch(0.13 0.015 270);           /* #08080D */
-  --foreground: oklch(0.95 0.005 260);           /* #F0F0F5 */
+  --background: oklch(0.13 0.015 270); /* #08080D */
+  --foreground: oklch(0.95 0.005 260); /* #F0F0F5 */
   --card: oklch(0.15 0.015 270);
   --card-foreground: oklch(0.95 0.005 260);
   --popover: oklch(0.15 0.015 270);
   --popover-foreground: oklch(0.95 0.005 260);
-  --primary: oklch(0.76 0.15 175);               /* #2DD4BF teal */
+  --primary: oklch(0.76 0.15 175); /* #2DD4BF teal */
   --primary-foreground: oklch(0.13 0.015 270);
   --secondary: oklch(0.18 0.015 270);
   --secondary-foreground: oklch(0.95 0.005 260);
@@ -131,7 +131,9 @@
 .prose a {
   color: var(--primary);
   text-decoration-color: oklch(from var(--primary) l c h / 30%);
-  transition: color 150ms, text-decoration-color 150ms;
+  transition:
+    color 150ms,
+    text-decoration-color 150ms;
 }
 
 .prose a:hover {

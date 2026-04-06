@@ -1,12 +1,12 @@
 ---
-import type { GetStaticPaths } from "astro";
-import MainLayout from "../../layouts/MainLayout.astro";
-import ArticleContainer from "../../components/ArticleContainer.astro";
-import { TRANSITION_NAMES } from "../../constants/transition-names";
-import Newsletter from "../../components/Newsletter.astro";
 import { getCollection } from "astro:content";
-import { getOGImage } from "../../utils/getOGImage";
+import type { GetStaticPaths } from "astro";
+import ArticleContainer from "../../components/ArticleContainer.astro";
+import Newsletter from "../../components/Newsletter.astro";
 import { ASSET_PREFIX } from "../../constants/asset-prefix";
+import { TRANSITION_NAMES } from "../../constants/transition-names";
+import MainLayout from "../../layouts/MainLayout.astro";
+import { getOGImage } from "../../utils/getOGImage";
 
 export const getStaticPaths = (async () => {
   const items = await getCollection("rss");

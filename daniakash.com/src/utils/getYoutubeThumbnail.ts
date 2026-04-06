@@ -19,7 +19,7 @@ const extractYouTubeVideoId = (url: string) => {
     }
 
     return null; // Return null if URL is not a recognized YouTube format
-  } catch (error) {
+  } catch (_error) {
     return null; // Return null if the URL is invalid
   }
 };

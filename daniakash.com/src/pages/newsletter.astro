@@ -1,10 +1,10 @@
 ---
+import { getCollection } from "astro:content";
 import NewsLetterArticle from "../components/NewsLetterArticle.astro";
+import NewsletterForm from "../components/Newsletter.astro";
 import MainLayout from "../layouts/MainLayout.astro";
 import ContentContainer from "./components/ContentContainer.astro";
 import Header from "./components/Header.astro";
-import NewsletterForm from "../components/Newsletter.astro";
-import { getCollection } from "astro:content";
 
 const rss = (await getCollection("rss")).sort(
   (a, b) => b.data.dateMillis - a.data.dateMillis,

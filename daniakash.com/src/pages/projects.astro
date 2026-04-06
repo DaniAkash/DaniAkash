@@ -1,12 +1,13 @@
 ---
+import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
+import LinkIcon from "../components/icons/LinkIcon.astro";
+import { ASSET_PREFIX } from "../constants/asset-prefix";
 import MainLayout from "../layouts/MainLayout.astro";
+import { cn } from "../utils/cn";
 import ContentContainer from "./components/ContentContainer.astro";
 import Header from "./components/Header.astro";
-import LinkIcon from "../components/icons/LinkIcon.astro";
-import { Image } from "astro:assets";
-import { cn } from "../utils/cn";
-import { ASSET_PREFIX } from "../constants/asset-prefix";
+
 const projects = (await getCollection("project"))[0]!;
 ---
 

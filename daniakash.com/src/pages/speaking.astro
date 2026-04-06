@@ -1,11 +1,12 @@
 ---
-import MainLayout from "../layouts/MainLayout.astro";
-import { getCollection } from "astro:content";
-import Header from "./components/Header.astro";
-import ContentContainer from "./components/ContentContainer.astro";
 import { Image } from "astro:assets";
+import { getCollection } from "astro:content";
 import { ASSET_PREFIX } from "../constants/asset-prefix";
+import MainLayout from "../layouts/MainLayout.astro";
 import { getYoutubeThumbnail } from "../utils/getYoutubeThumbnail";
+import ContentContainer from "./components/ContentContainer.astro";
+import Header from "./components/Header.astro";
+
 const events = (await getCollection("speaking")).sort(
   (a, b) => b.data.year - a.data.year,
 );

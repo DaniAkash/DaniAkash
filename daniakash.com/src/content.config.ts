@@ -1,7 +1,7 @@
 import { defineCollection } from "astro:content";
+import { readFile } from "node:fs/promises";
 import { glob } from "astro/loaders";
 import { z } from "astro/zod";
-import { readFile } from "node:fs/promises";
 import rssToJson from "rss-to-json";
 import { NEWSLETTER_RSS } from "./constants/newsletter-rss";
 import { getDateDisplay } from "./utils/getDateDisplay";

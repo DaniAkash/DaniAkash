@@ -1,11 +1,11 @@
 ---
-import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
-import MainLayout from "../../layouts/MainLayout.astro";
 import { getCollection, render } from "astro:content";
-import { TRANSITION_NAMES } from "../../constants/transition-names";
-import { getDateValue } from "../../utils/getDateValue";
-import { getDateDisplay } from "../../utils/getDateDisplay";
+import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
 import ArticleContainer from "../../components/ArticleContainer.astro";
+import { TRANSITION_NAMES } from "../../constants/transition-names";
+import MainLayout from "../../layouts/MainLayout.astro";
+import { getDateDisplay } from "../../utils/getDateDisplay";
+import { getDateValue } from "../../utils/getDateValue";
 import { getOGImage } from "../../utils/getOGImage";
 
 export const getStaticPaths = (async () => {
@@ -23,7 +23,8 @@ const { Content } = await render(post);
 
 const dateValue = getDateValue(post.data.date);
 const dateDisplay = getDateDisplay(post.data.date);
-const canonical = post.data.canonical || new URL(`/posts/${post.id}`, Astro.site).href;
+const canonical =
+  post.data.canonical || new URL(`/posts/${post.id}`, Astro.site).href;
 const image = `/og/${post.id}.png`;
 await getOGImage({
   title: post.data.title,

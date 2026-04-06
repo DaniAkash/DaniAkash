@@ -1,15 +1,15 @@
 ---
-import { getCollection, render } from "astro:content";
-import { TRANSITION_NAMES } from "../constants/transition-names";
-import MainLayout from "../layouts/MainLayout.astro";
-import { ASSET_PREFIX } from "../constants/asset-prefix";
 import { Image } from "astro:assets";
-import TwitterIcon from "../components/icons/TwitterIcon.astro";
-import InstagramIcon from "../components/icons/InstagramIcon.astro";
+import { getCollection, render } from "astro:content";
+import BlueskyIcon from "../components/icons/BlueskyIcon.astro";
 import GithubIcon from "../components/icons/GithubIcon.astro";
+import InstagramIcon from "../components/icons/InstagramIcon.astro";
 import LinkedinIcon from "../components/icons/LinkedinIcon.astro";
 import MailDarkIcon from "../components/icons/MailDarkIcon.astro";
-import BlueskyIcon from "../components/icons/BlueskyIcon.astro";
+import TwitterIcon from "../components/icons/TwitterIcon.astro";
+import { ASSET_PREFIX } from "../constants/asset-prefix";
+import { TRANSITION_NAMES } from "../constants/transition-names";
+import MainLayout from "../layouts/MainLayout.astro";
 
 const about = (await getCollection("about"))[0]!;
 const { Content } = await render(about);

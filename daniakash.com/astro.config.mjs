@@ -1,10 +1,9 @@
-import { defineConfig } from "astro/config";
-import tailwindcss from "@tailwindcss/vite";
 import mdx from "@astrojs/mdx";
-import rehypeExternalLinks from "rehype-external-links";
-import metaTags from "astro-meta-tags";
-
 import sitemap from "@astrojs/sitemap";
+import tailwindcss from "@tailwindcss/vite";
+import { defineConfig } from "astro/config";
+import metaTags from "astro-meta-tags";
+import rehypeExternalLinks from "rehype-external-links";
 
 // https://astro.build/config
 export default defineConfig({

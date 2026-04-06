@@ -3,6 +3,7 @@ import { getCollection } from "astro:content";
 import MainLayout from "../layouts/MainLayout.astro";
 import ContentContainer from "./components/ContentContainer.astro";
 import Header from "./components/Header.astro";
+
 const uses = (await getCollection("uses"))[0]!;
 ---
 

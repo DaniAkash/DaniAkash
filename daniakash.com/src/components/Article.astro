@@ -1,8 +1,8 @@
 ---
 import type { InferEntrySchema } from "astro:content";
 import { TRANSITION_NAMES } from "../constants/transition-names";
-import { getDateValue } from "../utils/getDateValue";
 import { getDateDisplay } from "../utils/getDateDisplay";
+import { getDateValue } from "../utils/getDateValue";
 
 export type Props = InferEntrySchema<"blog"> & { slug: string };
 

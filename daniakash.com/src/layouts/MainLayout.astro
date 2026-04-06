@@ -1,13 +1,13 @@
 ---
 import "../styles/global.css";
-import Footer from "../pages/components/Footer.astro";
-import HeroImages from "../pages/components/HeroImages.astro";
-import ContentArea from "./ContentArea.astro";
-import Header from "./Header.astro";
 import { ClientRouter } from "astro:transitions";
 import { Seo } from "astro-seo-meta";
-import { getOGImage } from "../utils/getOGImage";
 import { ASSET_PREFIX } from "../constants/asset-prefix";
+import Footer from "../pages/components/Footer.astro";
+import HeroImages from "../pages/components/HeroImages.astro";
+import { getOGImage } from "../utils/getOGImage";
+import ContentArea from "./ContentArea.astro";
+import Header from "./Header.astro";
 
 interface Props {
   isHomePage?: boolean;

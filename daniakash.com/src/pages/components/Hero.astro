@@ -1,12 +1,13 @@
 ---
 import { getCollection } from "astro:content";
+import BlueskyIcon from "../../components/icons/BlueskyIcon.astro";
+import GithubIcon from "../../components/icons/GithubIcon.astro";
+import InstagramIcon from "../../components/icons/InstagramIcon.astro";
+import LinkedinIcon from "../../components/icons/LinkedinIcon.astro";
+import TwitterIcon from "../../components/icons/TwitterIcon.astro";
 import { TRANSITION_NAMES } from "../../constants/transition-names";
 import TypeWriter from "./TypeWriter.astro";
-import TwitterIcon from "../../components/icons/TwitterIcon.astro";
-import InstagramIcon from "../../components/icons/InstagramIcon.astro";
-import GithubIcon from "../../components/icons/GithubIcon.astro";
-import LinkedinIcon from "../../components/icons/LinkedinIcon.astro";
-import BlueskyIcon from "../../components/icons/BlueskyIcon.astro";
+
 const social = (await getCollection("social"))[0]!;
 ---
 
