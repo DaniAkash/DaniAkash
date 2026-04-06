@@ -127,19 +127,20 @@ const heroImages = [
       </div>
     </div>
 
-    <!-- Photo gallery — anchored to bottom of hero -->
+    <!-- Photo gallery — anchored to bottom, bleeding off-screen -->
     <div
-      class="pointer-events-none absolute inset-x-0 bottom-0 flex h-96 items-end justify-center overflow-hidden"
+      class="pointer-events-none absolute inset-x-0 bottom-0 z-1 h-[380px] overflow-hidden"
     >
-      <div class="pointer-events-auto flex items-start gap-4">
+      <div class="pointer-events-auto absolute bottom-[-120px] left-1/2 flex -translate-x-1/2 items-start gap-4">
         {
           heroImages.map((img, i) => {
+            /* Center card tallest (300x400), flanking shorter and pushed down */
             const sizes = [
-              "w-60 h-80 mt-16",
-              "w-[17rem] h-[22rem] mt-8",
-              "w-72 h-96 mt-0",
-              "w-[17rem] h-[22rem] mt-8",
-              "w-60 h-80 mt-16",
+              "w-[240px] h-[340px] mt-[60px]",
+              "w-[260px] h-[370px] mt-[30px]",
+              "w-[300px] h-[400px] mt-0",
+              "w-[260px] h-[370px] mt-[30px]",
+              "w-[240px] h-[340px] mt-[60px]",
             ];
             const hideClasses = [
               "hidden lg:block",
@@ -151,7 +152,7 @@ const heroImages = [
             return (
               <div
                 class:list={[
-                  "flex-shrink-0 overflow-hidden rounded-3xl shadow-lg shadow-black/25 transition-transform duration-500 hover:-translate-y-3 hover:scale-[1.02]",
+                  "flex-shrink-0 overflow-hidden rounded-3xl shadow-lg shadow-black/25 transition-transform duration-500 hover:-translate-y-3 hover:shadow-2xl hover:shadow-black/40",
                   sizes[i],
                   hideClasses[i],
                 ]}
