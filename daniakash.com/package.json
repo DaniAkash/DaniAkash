@@ -16,9 +16,13 @@
     "@astrojs/react": "^5.0.1",
     "@astrojs/rss": "^4.0.17",
     "@astrojs/sitemap": "3.7.1",
+    "@fontsource-variable/jetbrains-mono": "^5.2.8",
+    "@fontsource-variable/space-grotesk": "^5.2.10",
     "@types/react-dom": "^19.2.3",
     "astro": "^6.0.8",
     "clsx": "^2.1.1",
+    "cobe": "^2.0.1",
+    "motion": "^12.38.0",
     "tailwind-merge": "^3.5.0",
     "tailwindcss": "^4.2.2",
     "typescript": "^6.0.2"
