@@ -2,43 +2,42 @@
 import "../styles/global.css";
 import { ClientRouter } from "astro:transitions";
 import { Seo } from "astro-seo-meta";
+import Nav from "../components/Nav.astro";
+import SiteFooter from "../components/SiteFooter.astro";
 import { ASSET_PREFIX } from "../constants/asset-prefix";
-import Footer from "../pages/components/Footer.astro";
-import HeroImages from "../pages/components/HeroImages.astro";
 import { getOGImage } from "../utils/getOGImage";
-import ContentArea from "./ContentArea.astro";
-import Header from "./Header.astro";
 
 interface Props {
-  isHomePage?: boolean;
   title: string;
   description?: string;
   keywords?: string[];
   canonical?: string;
   image?: string;
+  /** Hide footer (e.g. /now page which fills viewport) */
+  hideFooter?: boolean;
 }
 
 const {
-  isHomePage = false,
   title = "",
   keywords,
   description,
   canonical,
   image,
+  hideFooter = false,
 } = Astro.props;
 
 let fallbackImage: string = "";
 if (!image) {
-  const image = `/og/general/${encodeURI(Astro.url.pathname.split("/").join("-"))}.png`;
+  const ogPath = `/og/general/${encodeURI(Astro.url.pathname.split("/").join("-"))}.png`;
   await getOGImage({
     title: title || "Dani Akash",
     description:
       description ||
       "Empowering ideas and inspiring creativity – Discover more at daniakash.com",
-    path: image,
+    path: ogPath,
     cover: `${ASSET_PREFIX}/image-3.jpg`,
   });
-  fallbackImage = image;
+  fallbackImage = ogPath;
 }
 const ogImage = new URL(image || fallbackImage, Astro.site).href;
 ---
@@ -47,30 +46,6 @@ const ogImage = new URL(image || fallbackImage, Astro.site).href;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png" />
-    <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png" />
-    <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png" />
-    <link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png" />
-    <link
-      rel="apple-touch-icon"
-      sizes="114x114"
-      href="/apple-icon-114x114.png"
-    />
-    <link
-      rel="apple-touch-icon"
-      sizes="120x120"
-      href="/apple-icon-120x120.png"
-    />
-    <link
-      rel="apple-touch-icon"
-      sizes="144x144"
-      href="/apple-icon-144x144.png"
-    />
-    <link
-      rel="apple-touch-icon"
-      sizes="152x152"
-      href="/apple-icon-152x152.png"
-    />
     <link
       rel="apple-touch-icon"
       sizes="180x180"
@@ -79,17 +54,18 @@ const ogImage = new URL(image || fallbackImage, Astro.site).href;
     <link
       rel="icon"
       type="image/png"
-      sizes="192x192"
-      href="/android-icon-192x192.png"
+      sizes="32x32"
+      href="/favicon-32x32.png"
     />
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="/favicon-16x16.png"
+    />
     <link rel="manifest" href="/manifest.json" />
     <link href="https://fonts.cdnfonts.com/css/calorie" rel="stylesheet" />
-    <meta name="msapplication-TileColor" content="#ffffff" />
-    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png" />
-    <meta name="theme-color" content="#ffffff" />
+    <meta name="theme-color" content="#08080D" />
     <meta name="generator" content={Astro.generator} />
     <Seo
       title={title ? `${title} | Dani Akash` : "Dani Akash"}
@@ -99,36 +75,22 @@ const ogImage = new URL(image || fallbackImage, Astro.site).href;
         "Dani Akash",
         "Personal Blog",
         "Tech Blog",
-        "Newsletter",
-        "Tech Newsletter",
-        "Writing",
-        "Speaking",
-        "Tech Talks",
+        "AI Engineer",
         "Web Development",
       ]}
       icon="/favicon.ico"
-      themeColor="#333333"
-      colorScheme="light"
-      facebook={ogImage
-        ? {
-            url: "https://daniakash.com",
-            type: "website",
-            image: ogImage,
-          }
-        : {
-            url: "https://daniakash.com",
-            type: "website",
-          }}
-      twitter={ogImage
-        ? {
-            site: "@dani_akash_",
-            card: "summary_large_image",
-            image: ogImage,
-          }
-        : {
-            site: "@dani_akash_",
-            card: "summary",
-          }}
+      themeColor="#08080D"
+      colorScheme="dark"
+      facebook={{
+        url: "https://daniakash.com",
+        type: "website",
+        image: ogImage,
+      }}
+      twitter={{
+        site: "@dani_akash_",
+        card: "summary_large_image",
+        image: ogImage,
+      }}
     />
     {canonical ? <link rel="canonical" href={canonical} /> : null}
     <link rel="sitemap" href="/sitemap-index.xml" />
@@ -139,26 +101,25 @@ const ogImage = new URL(image || fallbackImage, Astro.site).href;
       href={new URL("rss.xml", Astro.site)}
     />
     <ClientRouter />
-  </head>
-  <body class="flex h-full w-full overflow-x-hidden bg-zinc-50 dark:bg-black">
-    <ContentArea />
-    <div
-      class="relative m-auto flex w-full max-w-7xl flex-col overflow-visible md:px-8 lg:px-16"
-    >
-      <div class="px-4 md:px-8 lg:px-12">
-        <Header isHomePage={isHomePage} />
-        <main><slot /></main>
-        <div class="mt-40">
-          <Footer />
-        </div>
-      </div>
-      {
-        isHomePage && (
-          <div class="z-100 absolute top-[36rem] hidden w-screen overflow-clip mobile:block sm:block md:left-[-1rem] md:top-[30rem] md:w-[calc(100vw+1rem)] lg:left-[-8rem] lg:top-[28rem] lg:w-[calc(100vw+8rem)] lg:py-16 xl:left-[-16rem] xl:w-[calc(100vw+16rem)] xl:pl-28">
-            <HeroImages />
-          </div>
-        )
+    <script is:inline>
+      // Restore theme before first paint
+      const theme = localStorage.getItem("theme");
+      if (theme === "light") {
+        document.documentElement.classList.remove("dark");
       }
-    </div>
+    </script>
+  </head>
+  <body class="min-h-screen overflow-x-hidden bg-background text-foreground">
+    <Nav />
+    <main class="mx-auto max-w-7xl px-6 pt-24">
+      <slot />
+    </main>
+    {
+      !hideFooter && (
+        <div class="mx-auto max-w-7xl px-6">
+          <SiteFooter />
+        </div>
+      )
+    }
   </body>
 </html>

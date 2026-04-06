@@ -1,0 +1,40 @@
+---
+const footerLinks = [
+  { label: "Blog", href: "/blog/" },
+  { label: "Resume", href: "/resume/" },
+  { label: "GitHub", href: "https://github.com/DaniAkash" },
+];
+---
+
+<footer class="border-t border-dashed border-border py-12">
+  <div
+    class="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-6 text-center sm:flex-row sm:text-left"
+  >
+    <span class="font-mono text-xs text-muted-foreground">
+      &copy; {new Date().getFullYear()}{" "}
+      <a
+        href="https://github.com/DaniAkash/DaniAkash"
+        class="font-calorie text-lg text-muted-foreground underline underline-offset-4 transition-colors hover:text-primary"
+      >
+        Dani Akash
+      </a>. All rights reserved.
+    </span>
+
+    <ul class="flex gap-4">
+      {
+        footerLinks.map((link) => (
+          <li>
+            <a
+              href={link.href}
+              class="font-mono text-xs text-muted-foreground transition-colors hover:text-primary"
+              target={link.href.startsWith("http") ? "_blank" : undefined}
+              rel={link.href.startsWith("http") ? "noopener" : undefined}
+            >
+              {link.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</footer>

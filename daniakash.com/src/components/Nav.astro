@@ -1,0 +1,43 @@
+---
+import { navLinks } from "../constants/navLinks";
+import ThemeToggle from "./ThemeToggle";
+
+const currentPath = Astro.url.pathname;
+---
+
+<nav
+  class="fixed inset-x-0 top-0 z-50 border-b border-border bg-background/70 backdrop-blur-xl transition-colors"
+>
+  <div
+    class="mx-auto flex max-w-7xl items-center justify-between px-6 py-3"
+  >
+    <a href="/" class="font-mono text-sm font-medium tracking-wide text-foreground">
+      dani_akash
+    </a>
+
+    <ul class="hidden gap-1 md:flex">
+      {
+        navLinks.map((link) => {
+          const isActive = currentPath.startsWith(link.href);
+          return (
+            <li>
+              <a
+                href={link.href}
+                class:list={[
+                  "rounded-full px-4 py-1 font-mono text-xs tracking-wide transition-all",
+                  isActive
+                    ? "text-primary"
+                    : "text-muted-foreground hover:bg-foreground/5 hover:text-foreground",
+                ]}
+              >
+                {link.title}
+              </a>
+            </li>
+          );
+        })
+      }
+    </ul>
+
+    <ThemeToggle client:idle />
+  </div>
+</nav>
