@@ -109,7 +109,7 @@ const ogImage = new URL(image || fallbackImage, Astro.site).href;
       }
     </script>
   </head>
-  <body class="min-h-screen overflow-x-hidden bg-background text-foreground">
+  <body class="min-h-screen overflow-x-clip bg-background text-foreground">
     <Nav />
     <main class="relative z-1 mx-auto max-w-7xl px-6 pt-24">
       <slot />
