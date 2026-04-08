@@ -281,4 +281,5 @@ const content = rawMd.replace(/^---[\s\S]*?---\n*/, "").trim();
 
   if (document.readyState === 'complete') initNowEditor();
   else window.addEventListener('load', initNowEditor);
+  document.addEventListener('astro:page-load', initNowEditor);
 </script>
