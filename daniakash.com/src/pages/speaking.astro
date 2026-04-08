@@ -82,27 +82,26 @@ const events = (await getCollection("speaking")).sort(
               return (
                 <div
                   class:list={[
-                    "group -mx-4 border-b border-dashed border-border px-4 py-4 transition-colors last:border-b-0 hover:rounded-sm hover:bg-foreground/5",
+                    "talk-card group relative -mx-4 border-b border-dashed border-border px-4 py-4 transition-colors last:border-b-0 hover:rounded-sm hover:bg-foreground/5",
                     hasThumbnail ? "flex items-start gap-6" : "block",
                   ]}
                 >
-                  <div class="min-w-0 flex-1">
+                  {/* Full-card click target (behind everything) */}
+                  {primaryLink && (
+                    <a
+                      href={primaryLink}
+                      target="_blank"
+                      rel="noopener"
+                      class="absolute inset-0 z-0"
+                      aria-label={event.title}
+                    />
+                  )}
+                  <div class="relative z-1 min-w-0 flex-1">
                     <div class="mb-1 font-mono text-xs tracking-wide text-muted-foreground">
                       {event.name}
                     </div>
-                    <h3 class="mb-1 text-[17px] font-medium leading-snug tracking-tight">
-                      {primaryLink ? (
-                        <a
-                          href={primaryLink}
-                          target="_blank"
-                          rel="noopener"
-                          class="transition-colors hover:text-primary"
-                        >
-                          {event.title}
-                        </a>
-                      ) : (
-                        event.title
-                      )}
+                    <h3 class="mb-1 text-[17px] font-medium leading-snug tracking-tight transition-colors group-hover:text-primary">
+                      {event.title}
                     </h3>
                     <p class="mb-2 text-sm leading-relaxed text-muted-foreground">
                       {event.description}
@@ -114,7 +113,7 @@ const events = (await getCollection("speaking")).sort(
                             href={cta.url}
                             target="_blank"
                             rel="noopener"
-                            class="font-mono text-[11px] tracking-wide text-primary hover:underline"
+                            class="relative z-2 font-mono text-[11px] tracking-wide text-primary hover:underline"
                           >
                             {cta.title}
                           </a>
@@ -123,12 +122,7 @@ const events = (await getCollection("speaking")).sort(
                     )}
                   </div>
                   {hasThumbnail && (
-                    <a
-                      href={primaryLink || "#"}
-                      target="_blank"
-                      rel="noopener"
-                      class="relative shrink-0 overflow-hidden rounded-lg border border-border w-[160px] aspect-video block"
-                    >
+                    <div class="relative z-1 shrink-0 overflow-hidden rounded-lg border border-border w-[160px] aspect-video">
                       {event.thumbnail ? (
                         <Image
                           height={90}
@@ -145,10 +139,10 @@ const events = (await getCollection("speaking")).sort(
                           loading="lazy"
                         />
                       )}
-                      <div class="absolute inset-0 flex items-center justify-center rounded-lg bg-black/30 text-xl text-white opacity-0 transition-opacity hover:opacity-100">
+                      <div class="absolute inset-0 flex items-center justify-center rounded-lg bg-black/30 text-xl text-white opacity-0 transition-opacity group-hover:opacity-100">
                         ▶
                       </div>
-                    </a>
+                    </div>
                   )}
                 </div>
               );
