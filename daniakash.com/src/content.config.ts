@@ -197,7 +197,41 @@ const now = defineCollection({
 });
 
 const resume = defineCollection({
-  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/resume" }),
+  loader: async () => [
+    {
+      id: "resume",
+      ...(await readJson("./content/resume/resume.json")),
+    },
+  ],
+  schema: z.object({
+    tagline: z.string(),
+    about: z.array(z.string()),
+    skills: z.array(
+      z.object({
+        label: z.string(),
+        text: z.string(),
+      }),
+    ),
+    jobs: z.array(
+      z.object({
+        title: z.string(),
+        duration: z.string(),
+        description: z.string().optional(),
+        contributions: z.array(z.string()),
+      }),
+    ),
+    community: z.array(
+      z.object({
+        title: z.string(),
+        description: z.string(),
+      }),
+    ),
+    education: z.object({
+      school: z.string(),
+      degree: z.string(),
+      description: z.string(),
+    }),
+  }),
 });
 
 export const collections = {
