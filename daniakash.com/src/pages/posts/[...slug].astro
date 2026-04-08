@@ -40,7 +40,7 @@ await getOGImage({
 >
   <!-- Reading progress bar -->
   <div class="fixed inset-x-0 top-0 z-[60] h-[2px]" id="readingProgress">
-    <div class="h-full w-0 bg-primary" id="readingBar" />
+    <div class="h-full w-0 bg-primary" id="readingBar"></div>
   </div>
 
   <article class="mx-auto max-w-[720px] pt-[120px] pb-20" id="article">
@@ -92,27 +92,23 @@ await getOGImage({
   </article>
 </MainLayout>
 
-<script>
-  function initReadingProgress() {
-    const article = document.getElementById("article");
-    const bar = document.getElementById("readingBar");
+<script is:inline>
+  (function() {
+    var article = document.getElementById("article");
+    var bar = document.getElementById("readingBar");
     if (!article || !bar) return;
 
     function update() {
-      if (!article || !bar) return;
-      const rect = article.getBoundingClientRect();
-      const total = rect.height - window.innerHeight;
+      var rect = article.getBoundingClientRect();
+      var total = rect.height - window.innerHeight;
       if (total <= 0) {
         bar.style.width = "100%";
         return;
       }
-      const pct = Math.max(0, Math.min(100, (-rect.top / total) * 100));
+      var pct = Math.max(0, Math.min(100, (-rect.top / total) * 100));
       bar.style.width = pct + "%";
       requestAnimationFrame(update);
     }
     requestAnimationFrame(update);
-  }
-
-  initReadingProgress();
-  document.addEventListener("astro:after-swap", initReadingProgress);
+  })();
 </script>
