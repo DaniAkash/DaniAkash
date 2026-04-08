@@ -4,6 +4,7 @@ import MainLayout from "../layouts/MainLayout.astro";
 import rawMd from "../content/now/now.md?raw";
 
 const content = rawMd.replace(/^---[\s\S]*?---\n*/, "").trim();
+const lines = content.split("\n");
 ---
 
 <MainLayout title="Now">
@@ -18,9 +19,18 @@ const content = rawMd.replace(/^---[\s\S]*?---\n*/, "").trim();
         <span class="now-badge">read-only</span>
       </div>
 
-      <!-- Editor body -->
+      <!-- Editor body — each line is a row -->
       <div class="now-body">
-        <pre class="line-numbers"><code class="language-markdown" id="codeBlock">{content}</code></pre>
+        <table class="now-table" id="codeTable">
+          <tbody>
+            {lines.map((line, i) => (
+              <tr class="now-row">
+                <td class="now-ln">{i + 1}</td>
+                <td class="now-code"><code>{line || "\u00A0"}</code></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
@@ -46,11 +56,7 @@ const content = rawMd.replace(/^---[\s\S]*?---\n*/, "").trim();
     background: var(--card);
   }
 
-  .now-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-  }
+  .now-dot { width: 10px; height: 10px; border-radius: 50%; }
 
   .now-filename {
     font-family: var(--font-mono);
@@ -73,149 +79,59 @@ const content = rawMd.replace(/^---[\s\S]*?---\n*/, "").trim();
     flex: 1;
     overflow: auto;
     min-height: 0;
+    background: var(--card);
   }
 
-  .now-body pre[class*="language-"] {
-    margin: 0 !important;
-    border-radius: 0 !important;
-    background: var(--card) !important;
-    font-family: var(--font-mono) !important;
-    font-size: 14px !important;
-    line-height: 1.8 !important;
-    padding: 24px 24px 24px 80px !important;
-    tab-size: 2;
-    min-height: 100%;
+  .now-table {
+    width: 100%;
+    border-collapse: collapse;
+    padding: 16px 0;
   }
 
-  /* Prism line-numbers plugin overrides */
-  .now-body .line-numbers .line-numbers-rows {
-    border-right: 1px solid var(--border) !important;
+  .now-row:first-child .now-ln,
+  .now-row:first-child .now-code {
+    padding-top: 24px;
   }
 
-  .now-body .line-numbers .line-numbers-rows > span::before {
-    color: var(--muted-foreground) !important;
-    opacity: 0.4;
+  .now-row:last-child .now-ln,
+  .now-row:last-child .now-code {
+    padding-bottom: 24px;
   }
 
-  .now-body .line-numbers .line-numbers-rows {
-    left: 0 !important;
-    width: 60px !important;
-    padding: 24px 12px 24px 0 !important;
+  .now-ln {
+    width: 60px;
+    min-width: 60px;
     text-align: right;
+    padding-right: 16px;
+    padding-left: 8px;
+    vertical-align: top;
+    font-family: var(--font-mono);
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--muted-foreground);
+    opacity: 0.25;
+    user-select: none;
+    border-right: 1px solid var(--border);
   }
 
-  /* Prism base text */
-  .now-body code[class*="language-"],
-  .now-body pre[class*="language-"] {
-    color: var(--muted-foreground) !important;
-    text-shadow: none !important;
+  .now-code {
+    padding-left: 20px;
+    padding-right: 24px;
+    vertical-align: top;
+    font-family: var(--font-mono);
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--muted-foreground);
+    word-break: break-word;
   }
 
-  /* Token overrides */
-  .now-body .token.title .token.important {
-    color: var(--foreground) !important;
-    font-weight: 600 !important;
-  }
-
-  .now-body .token.title .token.punctuation {
-    color: var(--primary) !important;
-  }
-
-  .now-body .token.bold {
-    color: var(--foreground) !important;
-    font-weight: 600 !important;
-  }
-
-  .now-body .token.italic {
-    color: var(--foreground) !important;
-    font-style: italic !important;
-  }
-
-  .now-body .token.url {
-    color: var(--primary) !important;
-  }
-
-  .now-body .token.list.punctuation {
-    color: var(--primary) !important;
-  }
-
-  .now-body .token.blockquote.punctuation {
-    color: var(--primary) !important;
-  }
-
-  .now-body .token.hr {
-    color: var(--foreground) !important;
-    opacity: 0.12;
-  }
-
-  .now-body .token.code-snippet {
-    color: var(--primary) !important;
-  }
-
-  /* Clickable links */
-  #codeBlock a.md-link {
-    color: inherit !important;
-    text-decoration: none;
-    cursor: pointer;
-    pointer-events: auto;
-  }
-
-  #codeBlock a.md-link:hover {
-    text-decoration: underline;
+  .now-code code {
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    background: none;
+    padding: 0;
+    white-space: pre-wrap;
+    word-break: break-word;
   }
 </style>
-
-<script is:inline>
-  (function() {
-    function loadCSS(href, id) {
-      if (document.getElementById(id)) return;
-      var link = document.createElement('link');
-      link.id = id;
-      link.rel = 'stylesheet';
-      link.href = href;
-      document.head.appendChild(link);
-    }
-
-    function loadScript(src, cb) {
-      var s = document.createElement('script');
-      s.src = src;
-      s.onload = cb;
-      document.head.appendChild(s);
-    }
-
-    function highlight() {
-      if (typeof Prism === 'undefined') return;
-      Prism.highlightAll();
-
-      setTimeout(function() {
-        document.querySelectorAll('#codeBlock .token.url').forEach(function(token) {
-          var text = token.textContent;
-          var match = text.match(/\(([^)]+)\)/);
-          if (match && match[1].startsWith('http')) {
-            var a = document.createElement('a');
-            a.href = match[1];
-            a.target = '_blank';
-            a.rel = 'noopener';
-            a.className = 'md-link';
-            while (token.firstChild) a.appendChild(token.firstChild);
-            token.appendChild(a);
-          }
-        });
-      }, 100);
-    }
-
-    // Load Prism CSS + line-numbers CSS
-    loadCSS('https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-tomorrow.min.css', 'prism-css');
-    loadCSS('https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/line-numbers/prism-line-numbers.min.css', 'prism-ln-css');
-
-    if (typeof Prism !== 'undefined') {
-      highlight();
-    } else {
-      loadScript('https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js', function() {
-        loadScript('https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-markdown.min.js', function() {
-          loadScript('https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/line-numbers/prism-line-numbers.min.js', highlight);
-        });
-      });
-    }
-  })();
-</script>
