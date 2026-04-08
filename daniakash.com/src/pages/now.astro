@@ -4,40 +4,27 @@ import MainLayout from "../layouts/MainLayout.astro";
 import rawMd from "../content/now/now.md?raw";
 
 const content = rawMd.replace(/^---[\s\S]*?---\n*/, "").trim();
-const lines = content.split("\n");
 ---
 
 <MainLayout title="Now">
   <div class="mx-auto max-w-[900px] pt-[120px] pb-20">
-    <div class="now-editor">
-      <!-- Title bar -->
-      <div class="now-titlebar">
-        <span class="now-dot" style="background:#FF5F57;"></span>
-        <span class="now-dot" style="background:#FFBD2E;"></span>
-        <span class="now-dot" style="background:#28C840;"></span>
-        <span class="now-filename">now.md</span>
-        <span class="now-badge">read-only</span>
+    <div class="md-editor">
+      <div class="md-editor__titlebar">
+        <span class="md-editor__dot md-editor__dot--red"></span>
+        <span class="md-editor__dot md-editor__dot--yellow"></span>
+        <span class="md-editor__dot md-editor__dot--green"></span>
+        <span class="md-editor__filename">now.md</span>
+        <span class="md-editor__badge">read-only</span>
       </div>
-
-      <!-- Editor body — each line is a row -->
-      <div class="now-body">
-        <table class="now-table" id="codeTable">
-          <tbody>
-            {lines.map((line, i) => (
-              <tr class="now-row">
-                <td class="now-ln">{i + 1}</td>
-                <td class="now-code"><code>{line || "\u00A0"}</code></td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+      <div class="md-editor__body">
+        <pre><div class="md-editor__gutter" id="gutter"></div><code class="language-markdown" id="codeBlock">{content}</code></pre>
       </div>
     </div>
   </div>
 </MainLayout>
 
 <style is:global>
-  .now-editor {
+  .md-editor {
     display: flex;
     flex-direction: column;
     height: 70vh;
@@ -47,7 +34,7 @@ const lines = content.split("\n");
     overflow: hidden;
   }
 
-  .now-titlebar {
+  .md-editor__titlebar {
     display: flex;
     align-items: center;
     gap: 8px;
@@ -56,16 +43,19 @@ const lines = content.split("\n");
     background: var(--card);
   }
 
-  .now-dot { width: 10px; height: 10px; border-radius: 50%; }
+  .md-editor__dot { width: 10px; height: 10px; border-radius: 50%; }
+  .md-editor__dot--red { background: #FF5F57; }
+  .md-editor__dot--yellow { background: #FFBD2E; }
+  .md-editor__dot--green { background: #28C840; }
 
-  .now-filename {
+  .md-editor__filename {
     font-family: var(--font-mono);
     font-size: 12px;
     color: var(--muted-foreground);
     margin-left: 8px;
   }
 
-  .now-badge {
+  .md-editor__badge {
     font-family: var(--font-mono);
     font-size: 10px;
     color: var(--primary);
@@ -75,63 +65,143 @@ const lines = content.split("\n");
     margin-left: auto;
   }
 
-  .now-body {
+  .md-editor__body {
     flex: 1;
     overflow: auto;
     min-height: 0;
-    background: var(--card);
+    position: relative;
   }
 
-  .now-table {
-    width: 100%;
-    border-collapse: collapse;
-    padding: 16px 0;
+  .md-editor__body pre[class*="language-"],
+  .md-editor__body pre {
+    margin: 0 !important;
+    border-radius: 0 !important;
+    background: var(--card) !important;
+    padding: 24px 24px 24px 80px !important;
+    font-family: var(--font-mono) !important;
+    font-size: 14px !important;
+    line-height: 1.8 !important;
+    tab-size: 2;
+    min-height: 100%;
+    position: relative;
   }
 
-  .now-row:first-child .now-ln,
-  .now-row:first-child .now-code {
-    padding-top: 24px;
-  }
-
-  .now-row:last-child .now-ln,
-  .now-row:last-child .now-code {
-    padding-bottom: 24px;
-  }
-
-  .now-ln {
+  .md-editor__gutter {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 60px;
-    min-width: 60px;
+    padding: 24px 0;
     text-align: right;
-    padding-right: 16px;
-    padding-left: 8px;
-    vertical-align: top;
-    font-family: var(--font-mono);
-    font-size: 14px;
-    line-height: 1.8;
-    color: var(--muted-foreground);
-    opacity: 0.25;
-    user-select: none;
     border-right: 1px solid var(--border);
+    background: var(--card);
+    user-select: none;
+    z-index: 1;
+    min-height: 100%;
   }
 
-  .now-code {
-    padding-left: 20px;
-    padding-right: 24px;
-    vertical-align: top;
+  .md-editor__gutter span {
+    display: block;
     font-family: var(--font-mono);
     font-size: 14px;
     line-height: 1.8;
+    padding-right: 12px;
     color: var(--muted-foreground);
-    word-break: break-word;
+    opacity: 0.2;
   }
 
-  .now-code code {
-    font-family: inherit;
-    font-size: inherit;
-    line-height: inherit;
-    background: none;
-    padding: 0;
-    white-space: pre-wrap;
-    word-break: break-word;
+  /* Prism base overrides */
+  .md-editor__body code[class*="language-"],
+  .md-editor__body pre[class*="language-"] {
+    color: var(--muted-foreground) !important;
+    text-shadow: none !important;
+    font-family: var(--font-mono) !important;
+  }
+
+  /* Token overrides */
+  .md-editor__body .token.title .token.important {
+    color: var(--foreground) !important;
+    font-weight: 600 !important;
+  }
+  .md-editor__body .token.title .token.punctuation {
+    color: var(--primary) !important;
+  }
+  .md-editor__body .token.bold {
+    color: var(--foreground) !important;
+    font-weight: 600 !important;
+  }
+  .md-editor__body .token.italic {
+    color: var(--foreground) !important;
+    font-style: italic !important;
+  }
+  .md-editor__body .token.url {
+    color: var(--primary) !important;
+  }
+  .md-editor__body .token.list.punctuation {
+    color: var(--primary) !important;
+  }
+  .md-editor__body .token.blockquote.punctuation {
+    color: var(--primary) !important;
+  }
+  .md-editor__body .token.hr {
+    color: var(--foreground) !important;
+    opacity: 0.12;
+  }
+  .md-editor__body .token.code-snippet {
+    color: var(--primary) !important;
+  }
+  .md-editor__body .token.punctuation {
+    color: var(--muted-foreground) !important;
+  }
+
+  /* Clickable links */
+  .md-editor__body a.md-link {
+    color: var(--primary) !important;
+    text-decoration: none;
+    pointer-events: auto;
+    cursor: pointer;
+  }
+  .md-editor__body a.md-link:hover {
+    text-decoration: underline;
   }
 </style>
+
+<script is:inline src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+<script is:inline src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-markdown.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-tomorrow.min.css" />
+<script is:inline>
+  function initNowEditor() {
+    if (typeof Prism !== 'undefined') Prism.highlightAll();
+
+    setTimeout(function() {
+      var code = document.querySelector('.md-editor__body code');
+      var gutter = document.getElementById('gutter');
+      if (code && gutter) {
+        var lineCount = code.textContent.split('\n').length;
+        var html = '';
+        for (var i = 1; i <= lineCount; i++) {
+          html += '<span>' + i + '</span>';
+        }
+        gutter.innerHTML = html;
+      }
+
+      // Make markdown links clickable
+      document.querySelectorAll('.md-editor__body code .token.url').forEach(function(token) {
+        var text = token.textContent;
+        var match = text.match(/\(([^)]+)\)/);
+        if (match && match[1].startsWith('http')) {
+          var a = document.createElement('a');
+          a.href = match[1];
+          a.target = '_blank';
+          a.rel = 'noopener';
+          a.className = 'md-link';
+          while (token.firstChild) a.appendChild(token.firstChild);
+          token.appendChild(a);
+        }
+      });
+    }, 100);
+  }
+
+  if (document.readyState === 'complete') initNowEditor();
+  else window.addEventListener('load', initNowEditor);
+</script>
