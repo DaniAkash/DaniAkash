@@ -1,44 +1,199 @@
 ---
-import { getCollection, render } from "astro:content";
 import MainLayout from "../layouts/MainLayout.astro";
 
-const resume = (await getCollection("resume"))[0]!;
-const { Content } = await render(resume);
+const skills = [
+  { label: "Front-End", text: "React, Next.js, Expo, React Router, shadcn/UI, TanStack libraries, Radix UI" },
+  { label: "Styling", text: "Tailwind CSS, CSS-in-JS (Linaria, Styled Components)" },
+  { label: "Build Tools", text: "Webpack, Vite, Rollup, Parcel, Rspack" },
+  { label: "Mobile", text: "React Native, Expo — cross-platform Android & iOS (100k+ downloads)" },
+  { label: "State Management", text: "Redux, Zustand, React Query, Signals, XState, Nano Stores" },
+  { label: "Rendering", text: "SSR, SSG, ISR, Server Components, Streaming SSR, Edge Rendering" },
+  { label: "Infrastructure", text: "AWS Lambda, Serverless Stack, Cloudflare Workers, Vercel Edge Middleware" },
+  { label: "API Design", text: "REST, GraphQL, Relay, urql, The Guild tooling" },
+  { label: "Frameworks", text: "Svelte, Solid, Astro, Remix, Qwik" },
+  { label: "Runtimes", text: "Node.js, Deno, Bun, WinterCG" },
+];
+
+const jobs = [
+  {
+    title: "Clarifai — Senior Frontend Engineer",
+    duration: "Oct 2023 — Present",
+    desc: "AI platform that helps users build complex AI workflows by combining various models.",
+    contributions: [
+      "<strong>Clarifai Node.js SDK:</strong> Created a fully tested, typesafe SDK for integrating Clarifai into Node.js backends with auto-generated API documentation.",
+      "<strong>AI Workflow Builder:</strong> Spearheaded the development of a drag-and-drop workflow builder using React Flow and shadcn/UI — one of Clarifai's core features.",
+      "<strong>API Documentation:</strong> Set up Swagger-based API documentation for gRPC APIs using grpc-gateway with detailed code snippets for core SDK functionalities.",
+      "<strong>Release Automation:</strong> Established automated release process with changelog updates, SEO best practices, and integrated analytics.",
+    ],
+  },
+  {
+    title: "Wundergraph — Senior Software Engineer",
+    duration: "Apr 2023 — Sep 2023",
+    desc: "GraphQL gateway for managing federated GraphQL, positioned as an alternative to Apollo Federation.",
+    contributions: [
+      "<strong>Client SDKs:</strong> Created client SDKs for Svelte, Relay, and Expo — well-documented, tested, and widely adopted by customers.",
+      "<strong>Open Previews:</strong> Built an internal tool similar to Vercel's preview comments feature, later open-sourced.",
+      "<strong>Community:</strong> Participated in Show & Tell videos on YouTube and actively engaged with the community on Discord.",
+    ],
+  },
+  {
+    title: "OSlash — Lead Frontend Engineer",
+    duration: "Dec 2020 — Mar 2023",
+    desc: "Started as founding lead engineer for the Chrome extension, promoted to Engineering Manager after successful v1 delivery.",
+    contributions: [
+      "<strong>Chrome Extension:</strong> Led development of OSlash's Chrome extension from inception to launch.",
+      "<strong>Full-Stack:</strong> Used Next.js as full-stack framework for the main dashboard, Astro for performance-critical micro frontends using Islands Architecture.",
+      "<strong>Design System:</strong> Developed and maintained a custom design system using Tailwind CSS.",
+      "<strong>GraphQL Federation:</strong> Designed a serverless GraphQL federation with edge caching, authorization, rate limiting, and comprehensive error/metrics visibility.",
+    ],
+  },
+  {
+    title: "Pickyourtrail — Software Engineer",
+    duration: "Oct 2017 — Dec 2020",
+    desc: "Digital travel assistant. Key role in building the mobile app and advancing the tech stack.",
+    contributions: [
+      "<strong>Mobile App:</strong> Built the Pickyourtrail app for Android & iOS using React Native — 5-star rating on Google Play, 100k+ downloads.",
+      "<strong>TypeScript Integration:</strong> Led the successful integration of TypeScript into the existing web app.",
+      "<strong>Open Source:</strong> Actively contributed by open-sourcing modules created for the app in React Native Toolkit.",
+    ],
+  },
+  {
+    title: "Redblacktree — Software Engineer",
+    duration: "Nov 2016 — Oct 2017",
+    contributions: [
+      "<strong>Cross-Platform Apps:</strong> Developed two cross-platform mobile apps using React Native with full offline functionality.",
+      "<strong>Windows App:</strong> Built a Windows app for UWP, published on the Windows Store, using a custom React.js-based framework.",
+      "<strong>Research:</strong> Assisted teams on Node.js and Vue.js projects while researching JavaScript development improvements.",
+    ],
+  },
+  {
+    title: "doodleblue — Web Developer",
+    duration: "Feb 2016 — Nov 2016",
+    contributions: [
+      "<strong>Full-Stack:</strong> Led the development of full-stack applications using Laravel and built APIs for web and mobile apps.",
+      "<strong>Team Leadership:</strong> Promoted to team lead for a company-wide initiative to adopt React.js, React Native, Laravel, and Node.js.",
+    ],
+  },
+];
+
+const community = [
+  { title: "Conference & Meetup Speaker", desc: 'Active speaker at public meetups and conferences since 2017. All talks available on <a href="/speaking/" class="text-primary hover:underline">the speaking page</a>.' },
+  { title: "React Native Docs Contributor", desc: 'Written updated documentation for many components of the <a href="https://github.com/facebook/react-native-website/issues/1579" target="_blank" rel="noopener" class="text-primary hover:underline">official React Native docs</a> including Animated and PanResponder.' },
+  { title: "Open Source Projects", desc: 'Built many projects for the React & React Native community including BetterImage, Rex State, Responsive Dimensions, and more at <a href="https://github.com/DaniAkash" target="_blank" rel="noopener" class="text-primary hover:underline">github.com/daniakash</a>.' },
+  { title: "Author — JavaScript By Example (2017)", desc: "Published by PACKT. A book covering modern JavaScript programming with real web apps." },
+];
 ---
 
 <MainLayout title="Resume">
   <article class="mx-auto max-w-[800px] pt-[120px] pb-20" id="article">
+
     <!-- Header -->
     <header class="mb-20 border-b border-dashed border-border pb-12">
       <p class="mb-12 font-mono text-[11px] uppercase tracking-[1.65px] text-muted-foreground">
         RESUME // DANI_AKASH
       </p>
-      <h1
-        class="mb-4 font-bold leading-[1.05] tracking-[-0.03em]"
-        style="font-size: clamp(42px, 6vw, 64px);"
-      >
+      <h1 class="mb-4 font-bold leading-[1.05] tracking-[-0.03em]" style="font-size: clamp(42px, 6vw, 64px);">
         Dani Akash
       </h1>
       <p class="mb-12 font-mono text-[15px] text-primary">
         Expert vibe coder, agent designer, and AI enthusiast
       </p>
       <div class="flex flex-col gap-4">
-        <p class="relative border-l-[3px] border-primary/20 pl-6 text-[17px] leading-relaxed text-muted-foreground">
+        <p class="border-l-[3px] border-primary/20 pl-6 text-[17px] leading-relaxed text-muted-foreground">
           Passionate about building high-impact products that solve real problems for real users.
         </p>
-        <p class="relative border-l-[3px] border-primary/20 pl-6 text-[17px] leading-relaxed text-muted-foreground">
+        <p class="border-l-[3px] border-primary/20 pl-6 text-[17px] leading-relaxed text-muted-foreground">
           Founding engineer behind BrowserOS, OSlash, and the Pickyourtrail mobile app.
         </p>
-        <p class="relative border-l-[3px] border-primary/20 pl-6 text-[17px] leading-relaxed text-muted-foreground">
+        <p class="border-l-[3px] border-primary/20 pl-6 text-[17px] leading-relaxed text-muted-foreground">
           Been architecting and shipping scalable products from scratch — long before AI started writing the code.
         </p>
       </div>
     </header>
 
-    <!-- Resume content from MDX -->
-    <div class="prose dark:prose-invert max-w-none">
-      <Content />
-    </div>
+    <!-- ═══ 01 Skills ═══ -->
+    <section class="mb-20">
+      <div class="mb-12 flex items-baseline gap-4 border-b border-dashed border-border pb-4">
+        <span class="font-mono text-4xl font-light text-foreground/10">01</span>
+        <span class="font-mono text-[11px] font-medium uppercase tracking-[0.2em] text-muted-foreground">Skills</span>
+      </div>
+      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        {skills.map((skill) => (
+          <div class="rounded-lg border border-border p-4 transition-colors hover:border-foreground/15 hover:bg-foreground/[0.025]">
+            <div class="mb-1 font-mono text-[11px] font-medium uppercase tracking-wide text-primary">
+              {skill.label}
+            </div>
+            <div class="text-sm leading-relaxed text-muted-foreground">
+              {skill.text}
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- ═══ 02 Work Experience ═══ -->
+    <section class="mb-20">
+      <div class="mb-12 flex items-baseline gap-4 border-b border-dashed border-border pb-4">
+        <span class="font-mono text-4xl font-light text-foreground/10">02</span>
+        <span class="font-mono text-[11px] font-medium uppercase tracking-[0.2em] text-muted-foreground">Work Experience</span>
+      </div>
+
+      {jobs.map((job) => (
+        <div class="border-b border-dashed border-border py-6 last:border-b-0">
+          <div class="mb-2 flex flex-wrap items-baseline justify-between gap-4">
+            <h3 class="text-xl font-semibold tracking-tight">{job.title}</h3>
+            <span class="shrink-0 font-mono text-xs text-muted-foreground">{job.duration}</span>
+          </div>
+          {job.desc && (
+            <p class="mb-4 text-[15px] leading-relaxed text-muted-foreground">{job.desc}</p>
+          )}
+          <div class="mb-2 font-mono text-[11px] uppercase tracking-wide text-muted-foreground">Key Contributions</div>
+          <ul class="flex flex-col gap-2">
+            {job.contributions.map((c) => (
+              <li class="relative pl-6 text-sm leading-relaxed text-muted-foreground before:absolute before:left-2 before:top-[10px] before:size-[5px] before:rounded-full before:bg-primary">
+                <Fragment set:html={c} />
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </section>
+
+    <!-- ═══ 03 Developer Community ═══ -->
+    <section class="mb-20">
+      <div class="mb-12 flex items-baseline gap-4 border-b border-dashed border-border pb-4">
+        <span class="font-mono text-4xl font-light text-foreground/10">03</span>
+        <span class="font-mono text-[11px] font-medium uppercase tracking-[0.2em] text-muted-foreground">Developer Community</span>
+      </div>
+
+      {community.map((item) => (
+        <div class="border-b border-dashed border-border py-4 last:border-b-0">
+          <h3 class="mb-1 text-[17px] font-medium">{item.title}</h3>
+          <p class="text-sm leading-relaxed text-muted-foreground">
+            <Fragment set:html={item.desc} />
+          </p>
+        </div>
+      ))}
+    </section>
+
+    <!-- ═══ 04 Education ═══ -->
+    <section class="mb-20">
+      <div class="mb-12 flex items-baseline gap-4 border-b border-dashed border-border pb-4">
+        <span class="font-mono text-4xl font-light text-foreground/10">04</span>
+        <span class="font-mono text-[11px] font-medium uppercase tracking-[0.2em] text-muted-foreground">Education</span>
+      </div>
+
+      <div class="py-6">
+        <h3 class="text-xl font-semibold">Jeppiaar Engineering College</h3>
+        <div class="mb-2 font-mono text-[13px] text-muted-foreground">
+          BE Computer Science &amp; Engineering — 2012 to 2016, Chennai
+        </div>
+        <p class="text-sm leading-relaxed text-muted-foreground">
+          Active participant in IEEE student council and Computer Society of India student team, helping with building websites for events and actively organizing contests and symposiums.
+        </p>
+      </div>
+    </section>
+
   </article>
 </MainLayout>
 
@@ -59,6 +214,7 @@ const { Content } = await render(resume);
     document.body.appendChild(container);
 
     function update() {
+      if (!article) return;
       var rect = article.getBoundingClientRect();
       var total = rect.height - window.innerHeight;
       if (total <= 0) { bar.style.width = "100%"; return; }
