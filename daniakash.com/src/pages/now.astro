@@ -154,6 +154,58 @@ const content = rawMd.replace(/^---[\s\S]*?---\n*/, "").trim();
     color: var(--muted-foreground) !important;
   }
 
+  /* Table layout (replaces pre after Prism highlights) */
+  .md-editor__table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--card);
+  }
+
+  .md-editor__table tr:first-child .md-editor__ln,
+  .md-editor__table tr:first-child .md-editor__code {
+    padding-top: 24px;
+  }
+
+  .md-editor__table tr:last-child .md-editor__ln,
+  .md-editor__table tr:last-child .md-editor__code {
+    padding-bottom: 24px;
+  }
+
+  .md-editor__ln {
+    width: 60px;
+    min-width: 60px;
+    text-align: right;
+    padding-right: 12px;
+    vertical-align: top;
+    font-family: var(--font-mono);
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--muted-foreground);
+    opacity: 0.2;
+    user-select: none;
+    border-right: 1px solid var(--border);
+  }
+
+  .md-editor__code {
+    padding-left: 20px;
+    padding-right: 24px;
+    vertical-align: top;
+    font-family: var(--font-mono);
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--muted-foreground);
+  }
+
+  .md-editor__code code {
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    background: none !important;
+    padding: 0;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
   /* Clickable links */
   .md-editor__body a.md-link {
     color: var(--primary) !important;
@@ -175,18 +227,43 @@ const content = rawMd.replace(/^---[\s\S]*?---\n*/, "").trim();
 
     setTimeout(function() {
       var code = document.querySelector('.md-editor__body code');
-      var gutter = document.getElementById('gutter');
-      if (code && gutter) {
-        var lineCount = code.textContent.split('\n').length;
-        var html = '';
-        for (var i = 1; i <= lineCount; i++) {
-          html += '<span>' + i + '</span>';
-        }
-        gutter.innerHTML = html;
-      }
+      var body = document.querySelector('.md-editor__body');
+      if (!code || !body) return;
+
+      // Get the highlighted HTML and split by newlines
+      var highlightedHTML = code.innerHTML;
+      var lines = highlightedHTML.split('\n');
+
+      // Build a table with line numbers + highlighted code per row
+      var table = document.createElement('table');
+      table.className = 'md-editor__table';
+      var tbody = document.createElement('tbody');
+
+      lines.forEach(function(lineHTML, i) {
+        var tr = document.createElement('tr');
+
+        var tdNum = document.createElement('td');
+        tdNum.className = 'md-editor__ln';
+        tdNum.textContent = i + 1;
+
+        var tdCode = document.createElement('td');
+        tdCode.className = 'md-editor__code';
+        tdCode.innerHTML = '<code>' + (lineHTML || '&nbsp;') + '</code>';
+
+        tr.appendChild(tdNum);
+        tr.appendChild(tdCode);
+        tbody.appendChild(tr);
+      });
+
+      table.appendChild(tbody);
+
+      // Replace the pre>code with the table
+      var pre = body.querySelector('pre');
+      if (pre) pre.remove();
+      body.appendChild(table);
 
       // Make markdown links clickable
-      document.querySelectorAll('.md-editor__body code .token.url').forEach(function(token) {
+      body.querySelectorAll('.token.url').forEach(function(token) {
         var text = token.textContent;
         var match = text.match(/\(([^)]+)\)/);
         if (match && match[1].startsWith('http')) {
