@@ -96,7 +96,7 @@ const events = (await getCollection("speaking")).sort(
                       aria-label={event.title}
                     />
                   )}
-                  <div class="relative z-1 min-w-0 flex-1">
+                  <div class="pointer-events-none relative z-1 min-w-0 flex-1">
                     <div class="mb-1 font-mono text-xs tracking-wide text-muted-foreground">
                       {event.name}
                     </div>
@@ -113,7 +113,7 @@ const events = (await getCollection("speaking")).sort(
                             href={cta.url}
                             target="_blank"
                             rel="noopener"
-                            class="relative z-2 font-mono text-[11px] tracking-wide text-primary hover:underline"
+                            class="pointer-events-auto relative z-2 font-mono text-[11px] tracking-wide text-primary hover:underline"
                           >
                             {cta.title}
                           </a>
@@ -122,7 +122,7 @@ const events = (await getCollection("speaking")).sort(
                     )}
                   </div>
                   {hasThumbnail && (
-                    <div class="relative z-1 shrink-0 overflow-hidden rounded-lg border border-border w-[160px] aspect-video">
+                    <div class="pointer-events-none relative z-1 shrink-0 overflow-hidden rounded-lg border border-border w-[160px] aspect-video">
                       {event.thumbnail ? (
                         <Image
                           height={90}
