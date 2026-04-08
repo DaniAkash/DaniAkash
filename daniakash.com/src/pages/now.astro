@@ -1,23 +1,130 @@
 ---
-import { getCollection, render } from "astro:content";
 import MainLayout from "../layouts/MainLayout.astro";
-import ContentContainer from "./components/ContentContainer.astro";
-import Header from "./components/Header.astro";
+// @ts-ignore — Vite raw import
+import rawMd from "../content/now/now.md?raw";
 
-const now = (await getCollection("now"))[0]!;
-const { Content } = await render(now);
+// Strip frontmatter
+const content = rawMd.replace(/^---[\s\S]*?---\n*/, "").trim();
+const lines = content.split("\n");
 ---
 
 <MainLayout title="Now">
-  <ContentContainer>
-    <Header
-      title="What’s Up Right Now"
-      subtitle="Spoiler: Mostly working, with a dash of scrolling and coffee breaks."
-    />
-    <div class="mt-16 sm:mt-20">
-      <div class="prose dark:prose-invert">
-        <Content />
+  <div class="pt-[120px] pb-20">
+    <!-- Markdown Editor Window -->
+    <div class="flex h-[70vh] min-h-[500px] flex-col overflow-hidden rounded-xl border border-border">
+      <!-- Title bar -->
+      <div class="flex items-center gap-2 border-b border-border bg-card px-4 py-2">
+        <span class="size-[10px] rounded-full bg-[#FF5F57]"></span>
+        <span class="size-[10px] rounded-full bg-[#FFBD2E]"></span>
+        <span class="size-[10px] rounded-full bg-[#28C840]"></span>
+        <span class="ml-2 font-mono text-xs text-muted-foreground">now.md</span>
+        <span class="ml-auto rounded-full bg-primary/15 px-2 py-0.5 font-mono text-[10px] text-primary">
+          read-only
+        </span>
+      </div>
+
+      <!-- Editor body — scrollable -->
+      <div class="flex flex-1 overflow-auto bg-card/50" id="editorBody">
+        <!-- Line numbers -->
+        <div class="shrink-0 select-none border-r border-border py-6 pr-3 text-right" style="min-width: 50px;">
+          {lines.map((_, i) => (
+            <div class="px-2 font-mono text-sm leading-[1.8] text-foreground/10">
+              {i + 1}
+            </div>
+          ))}
+        </div>
+
+        <!-- Code content -->
+        <pre class="flex-1 py-6 pl-6 pr-6 font-mono text-sm leading-[1.8] text-muted-foreground"><code class="language-markdown" id="codeBlock">{content}</code></pre>
       </div>
     </div>
-  </ContentContainer>
+
+    <!-- Label -->
+    <div class="mt-4 text-right font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
+      DESTINATIONS // WISHLIST
+    </div>
+  </div>
 </MainLayout>
+
+<style>
+  pre {
+    margin: 0;
+    background: transparent !important;
+    overflow-x: auto;
+    tab-size: 2;
+  }
+
+  /* Prism token overrides for design system */
+  :global(.token.title .token.important) {
+    color: var(--foreground) !important;
+    font-weight: 600 !important;
+  }
+  :global(.token.title .token.punctuation) {
+    color: var(--primary) !important;
+  }
+  :global(.token.bold) {
+    color: var(--foreground) !important;
+    font-weight: 600 !important;
+  }
+  :global(.token.italic) {
+    color: var(--foreground) !important;
+    font-style: italic !important;
+  }
+  :global(.token.url) {
+    color: var(--primary) !important;
+  }
+  :global(.token.list.punctuation) {
+    color: var(--primary) !important;
+  }
+  :global(.token.blockquote.punctuation) {
+    color: var(--primary) !important;
+  }
+  :global(.token.hr) {
+    color: var(--foreground) !important;
+    opacity: 0.1;
+  }
+  :global(.token.code-snippet) {
+    color: var(--primary) !important;
+  }
+</style>
+
+<script is:inline>
+  // Load Prism.js for markdown syntax highlighting
+  (function() {
+    if (document.getElementById('prism-css')) return;
+
+    var css = document.createElement('link');
+    css.id = 'prism-css';
+    css.rel = 'stylesheet';
+    css.href = 'https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-tomorrow.min.css';
+    document.head.appendChild(css);
+
+    var core = document.createElement('script');
+    core.src = 'https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js';
+    core.onload = function() {
+      var md = document.createElement('script');
+      md.src = 'https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-markdown.min.js';
+      md.onload = function() {
+        if (typeof Prism !== 'undefined') {
+          Prism.highlightAll();
+          // Make markdown links clickable
+          document.querySelectorAll('#codeBlock .token.url').forEach(function(token) {
+            var text = token.textContent;
+            var match = text.match(/\(([^)]+)\)/);
+            if (match && match[1].startsWith('http')) {
+              var a = document.createElement('a');
+              a.href = match[1];
+              a.target = '_blank';
+              a.rel = 'noopener';
+              a.style.cssText = 'color:inherit;text-decoration:none;cursor:pointer;';
+              while (token.firstChild) a.appendChild(token.firstChild);
+              token.appendChild(a);
+            }
+          });
+        }
+      };
+      document.head.appendChild(md);
+    };
+    document.head.appendChild(core);
+  })();
+</script>
