@@ -1,56 +1,121 @@
 ---
 import { getCollection } from "astro:content";
-import NewsLetterArticle from "../components/NewsLetterArticle.astro";
-import NewsletterForm from "../components/Newsletter.astro";
 import MainLayout from "../layouts/MainLayout.astro";
-import ContentContainer from "./components/ContentContainer.astro";
-import Header from "./components/Header.astro";
 
 const rss = (await getCollection("rss")).sort(
   (a, b) => b.data.dateMillis - a.data.dateMillis,
 );
+
+// Group issues by year
+const issuesByYear = new Map<number, typeof rss>();
+for (const issue of rss) {
+  const year = new Date(issue.data.dateValue).getFullYear();
+  if (!issuesByYear.has(year)) issuesByYear.set(year, []);
+  issuesByYear.get(year)?.push(issue);
+}
+const years = [...issuesByYear.keys()].sort((a, b) => b - a);
 ---
 
 <MainLayout
   title="Newsletter"
-  description="🌐 Explore the future of tech, science, and sustainability—one insight-packed issue at a time!"
+  description="Thoughts delivered straight to your inbox, with zero spam (I promise)."
 >
-  <ContentContainer>
-    <Header
-      title="Letters of the News Kind"
-      subtitle="Thoughts delivered straight to your inbox, with zero spam"
-    >
-      <a
-        href="https://colossal-polonium-267.notion.site/Privacy-Policy-for-Dani-s-Newsletter-dd81fb76ebb642a0bed53c4818df20e7"
-        target="_blank"
-        rel="noopener"
-        class="text-sm font-medium text-teal-500"
+  <div class="mx-auto max-w-[720px] pb-20 pt-[120px]">
+    <!-- Header -->
+    <header class="mb-20">
+      <p class="mb-6 font-mono text-[11px] uppercase tracking-[0.15em] text-muted-foreground">
+        06 // NEWSLETTER
+      </p>
+      <h1
+        class="mb-4 font-bold leading-[1.1] tracking-[-0.03em]"
+        style="font-size: clamp(32px, 5vw, 48px);"
       >
-        (I promise).</a
-      >
-    </Header>
-    <div class="mt-16 max-w-2xl sm:mt-20">
-      <NewsletterForm />
-    </div>
-    <div class="mt-16 sm:mt-20">
-      <div
-        class="md:border-l md:border-zinc-100 md:pl-6 md:dark:border-zinc-700/40"
-      >
-        <div class="flex max-w-3xl flex-col space-y-16">
-          {
-            rss.map((each) => {
-              return (
-                <NewsLetterArticle
-                  dateDisplay={each.data.dateDisplay}
-                  dateValue={each.data.dateValue}
-                  title={each.data.title}
-                  slug={each.data.slug}
-                />
-              );
-            })
-          }
-        </div>
+        Letters of the News Kind
+      </h1>
+      <p class="text-lg leading-relaxed text-muted-foreground">
+        Thoughts delivered straight to your inbox, with zero spam (I promise).
+      </p>
+    </header>
+
+    <!-- Subscribe box -->
+    <div class="nl-subscribe mb-20 rounded-2xl border border-border bg-foreground/[0.025] p-6">
+      <div class="mb-2 font-mono text-[11px] uppercase tracking-[0.1em] text-muted-foreground">
+        Stay up to date
       </div>
+      <h2 class="mb-1 text-xl font-semibold">Get notified when I publish something new</h2>
+      <p class="mb-6 text-sm text-muted-foreground">Unsubscribe at any time. No spam, ever.</p>
+      <form
+        action="https://buttondown.com/api/emails/embed-subscribe/daniakash"
+        method="post"
+        target="popupwindow"
+        onsubmit="window.open('https://buttondown.com/daniakash', 'popupwindow')"
+        class="nl-subscribe__form flex gap-2"
+      >
+        <input
+          type="email"
+          name="email"
+          id="bd-email"
+          placeholder="you@email.com"
+          required
+          aria-label="Email address"
+          class="h-11 flex-1 rounded-full border border-border bg-foreground/5 px-6 font-mono text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground focus:border-primary"
+        />
+        <button
+          type="submit"
+          class="h-11 rounded-full bg-primary px-6 font-mono text-[13px] font-medium text-primary-foreground transition-colors hover:bg-primary/80"
+        >
+          Subscribe
+        </button>
+      </form>
     </div>
-  </ContentContainer>
+
+    <!-- Issues list -->
+    <div>
+      <div class="mb-6 border-b border-dashed border-border pb-2 font-mono text-[11px] uppercase tracking-[0.1em] text-muted-foreground">
+        All Issues
+      </div>
+
+      {years.map((year) => {
+        const yearIssues = issuesByYear.get(year)!;
+        return (
+          <>
+            <div class="py-6 pb-2 font-mono text-xs tracking-[0.1em] text-foreground/10">
+              {year}
+            </div>
+            {yearIssues.map((issue) => {
+              const date = new Date(issue.data.dateValue);
+              const dateDisplay = date.toLocaleDateString("en-US", {
+                month: "short",
+                day: "numeric",
+              });
+              return (
+                <a
+                  href={`/newsletter/${issue.data.slug}/`}
+                  class="group -mx-4 flex items-baseline justify-between gap-6 rounded-lg border-b border-dashed border-border px-4 py-4 transition-colors last:border-b-0 hover:bg-foreground/5"
+                >
+                  <span class="text-[17px] font-medium leading-snug transition-colors group-hover:text-primary">
+                    {issue.data.title}
+                  </span>
+                  <span class="shrink-0 font-mono text-xs tracking-wide text-muted-foreground">
+                    {dateDisplay}
+                  </span>
+                </a>
+              );
+            })}
+          </>
+        );
+      })}
+    </div>
+  </div>
 </MainLayout>
+
+<style>
+  @media (max-width: 600px) {
+    .nl-subscribe__form {
+      flex-direction: column;
+    }
+    .nl-subscribe__form button {
+      width: 100%;
+    }
+  }
+</style>

@@ -1,33 +1,37 @@
 ---
 import { getCollection } from "astro:content";
 import type { GetStaticPaths } from "astro";
-import ArticleContainer from "../../components/ArticleContainer.astro";
-import Newsletter from "../../components/Newsletter.astro";
 import { ASSET_PREFIX } from "../../constants/asset-prefix";
-import { TRANSITION_NAMES } from "../../constants/transition-names";
 import MainLayout from "../../layouts/MainLayout.astro";
 import { getOGImage } from "../../utils/getOGImage";
 
 export const getStaticPaths = (async () => {
-  const items = await getCollection("rss");
+  const items = (await getCollection("rss")).sort(
+    (a, b) => b.data.dateMillis - a.data.dateMillis,
+  );
 
-  return items.map((each) => {
-    const content = each.data.description;
-    const title = each.data.title;
-    const slug = each.data.slug;
-    const dateValue = each.data.dateValue;
-    const dateDisplay = each.data.dateDisplay;
-    const canonical = each.data.canonical;
+  return items.map((each, index) => {
+    const prev = items[index + 1] ?? null;
+    const next = items[index - 1] ?? null;
     return {
-      params: { slug },
-      props: { content, dateValue, dateDisplay, title, canonical },
+      params: { slug: each.data.slug },
+      props: {
+        content: each.data.description,
+        dateValue: each.data.dateValue,
+        dateDisplay: each.data.dateDisplay,
+        title: each.data.title,
+        canonical: each.data.canonical,
+        prev: prev ? { slug: prev.data.slug, title: prev.data.title } : null,
+        next: next ? { slug: next.data.slug, title: next.data.title } : null,
+      },
     };
   });
 }) satisfies GetStaticPaths;
 
 const description =
-  "🌐 Explore the future of tech, science, and sustainability—one insight-packed issue at a time!";
-const { content, dateDisplay, dateValue, title, canonical } = Astro.props;
+  "Thoughts on AI, tech, science, and the web — delivered to your inbox.";
+const { content, dateDisplay, dateValue, title, canonical, prev, next } =
+  Astro.props;
 const { slug } = Astro.params;
 const image = `/og/newsletter/${slug}.png`;
 await getOGImage({
@@ -44,27 +48,140 @@ await getOGImage({
   image={image}
   canonical={canonical}
 >
-  <ArticleContainer>
-    <header class="flex flex-col">
-      <h1
-        class="mt-6 text-4xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-5xl"
-        transition:name={`${TRANSITION_NAMES.newsletterTitle}-${slug}`}
-      >
-        {title}
-      </h1>
-      <time
-        datetime={dateValue}
-        class="order-first flex items-center text-base text-zinc-400 dark:text-zinc-500"
-        transition:name={`${TRANSITION_NAMES.newsletterTime}-${slug}`}
-      >
-        <span class="h-4 w-0.5 rounded-full bg-zinc-200 dark:bg-zinc-500"
-        ></span>
-        <span class="ml-3">{dateDisplay}</span>
-      </time>
-    </header>
-    <div class="mt-6 max-w-2xl">
-      <Newsletter />
+  <article class="mx-auto max-w-[720px] pb-20 pt-[120px]" id="article">
+    <!-- Back link -->
+    <a
+      href="/newsletter/"
+      class="mb-12 inline-flex items-center gap-2 font-mono text-xs tracking-wide text-muted-foreground transition-colors hover:text-primary"
+    >
+      ← Back to newsletter
+    </a>
+
+    <!-- Issue badge -->
+    <span class="mb-4 inline-block rounded-full bg-primary/15 px-2.5 py-0.5 font-mono text-[11px] uppercase tracking-[0.08em] text-primary">
+      Newsletter
+    </span>
+
+    <!-- Date -->
+    <div class="mb-4 font-mono text-[13px] tracking-wide text-muted-foreground">
+      {dateDisplay}
     </div>
-    <div set:html={content} class="prose dark:prose-invert" />
-  </ArticleContainer>
+
+    <!-- Title -->
+    <h1
+      class="mb-12 border-b border-dashed border-border pb-12 font-bold leading-[1.15] tracking-[-0.03em]"
+      style="font-size: clamp(28px, 4vw, 40px);"
+    >
+      {title}
+    </h1>
+
+    <!-- Prose body -->
+    <div class="nl-prose prose dark:prose-invert max-w-none text-lg leading-[1.8]" set:html={content} />
+
+    <!-- Subscribe CTA -->
+    <div class="nl-subscribe mt-20 rounded-xl border border-border bg-foreground/[0.025] p-6 text-center">
+      <h3 class="mb-1 text-lg font-semibold">Enjoyed this issue?</h3>
+      <p class="mb-4 text-sm text-muted-foreground">Subscribe to get future issues delivered to your inbox.</p>
+      <form
+        action="https://buttondown.com/api/emails/embed-subscribe/daniakash"
+        method="post"
+        target="popupwindow"
+        onsubmit="window.open('https://buttondown.com/daniakash', 'popupwindow')"
+        class="nl-subscribe__form mx-auto flex max-w-[400px] gap-2"
+      >
+        <input
+          type="email"
+          name="email"
+          placeholder="you@email.com"
+          required
+          aria-label="Email address"
+          class="h-10 flex-1 rounded-full border border-border bg-foreground/5 px-6 font-mono text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground focus:border-primary"
+        />
+        <button
+          type="submit"
+          class="h-10 rounded-full bg-primary px-6 font-mono text-[13px] font-medium text-primary-foreground transition-colors hover:bg-primary/80"
+        >
+          Subscribe
+        </button>
+      </form>
+    </div>
+
+    <!-- Prev/Next navigation -->
+    <div class="mt-12 flex justify-between border-t border-dashed border-border pt-12">
+      {prev ? (
+        <a href={`/newsletter/${prev.slug}/`} class="font-mono text-[13px] text-muted-foreground transition-colors hover:text-primary">
+          ← {prev.title}
+        </a>
+      ) : <span />}
+      {next ? (
+        <a href={`/newsletter/${next.slug}/`} class="font-mono text-[13px] text-muted-foreground transition-colors hover:text-primary">
+          {next.title} →
+        </a>
+      ) : <span />}
+    </div>
+  </article>
 </MainLayout>
+
+<style>
+  /* Newsletter prose overrides to match original design */
+  .nl-prose :global(h2) {
+    margin-top: 2em;
+    padding-top: 1.5em;
+    border-top: 1px dashed var(--border);
+  }
+
+  .nl-prose :global(a) {
+    border-bottom: 1px dashed var(--primary);
+  }
+
+  .nl-prose :global(a:hover) {
+    border-bottom-style: solid;
+  }
+
+  .nl-prose :global(hr) {
+    border: none;
+    border-top: 1px dashed var(--border);
+    margin: 2.5em 0;
+  }
+
+  .nl-prose :global(li::marker) {
+    color: var(--primary);
+  }
+
+  @media (max-width: 600px) {
+    .nl-subscribe__form {
+      flex-direction: column;
+    }
+  }
+</style>
+
+<script is:inline>
+  (function() {
+    var article = document.getElementById("article");
+    if (!article) return;
+
+    var existing = document.getElementById("readingProgress");
+    if (existing) existing.remove();
+
+    var container = document.createElement("div");
+    container.id = "readingProgress";
+    container.style.cssText = "position:fixed;top:0;left:0;right:0;height:2px;z-index:9999;pointer-events:none;";
+    var bar = document.createElement("div");
+    bar.style.cssText = "height:100%;width:0;background:var(--primary);transition:none;";
+    container.appendChild(bar);
+    document.body.appendChild(container);
+
+    function update() {
+      var rect = article.getBoundingClientRect();
+      var total = rect.height - window.innerHeight;
+      if (total <= 0) {
+        bar.style.width = "100%";
+        return;
+      }
+      var pct = Math.max(0, Math.min(100, (-rect.top / total) * 100));
+      bar.style.width = pct + "%";
+      requestAnimationFrame(update);
+    }
+    requestAnimationFrame(update);
+  })();
+</script>
