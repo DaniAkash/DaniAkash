@@ -38,11 +38,6 @@ await getOGImage({
   canonical={canonical}
   image={image}
 >
-  <!-- Reading progress bar -->
-  <div class="fixed inset-x-0 top-0 z-[60] h-[2px]" id="readingProgress">
-    <div class="h-full w-0 bg-primary" id="readingBar"></div>
-  </div>
-
   <article class="mx-auto max-w-[720px] pt-[120px] pb-20" id="article">
     <!-- Back link -->
     <a
@@ -95,8 +90,19 @@ await getOGImage({
 <script is:inline>
   (function() {
     var article = document.getElementById("article");
-    var bar = document.getElementById("readingBar");
-    if (!article || !bar) return;
+    if (!article) return;
+
+    // Create progress bar at body level (above nav z-index stacking context)
+    var existing = document.getElementById("readingProgress");
+    if (existing) existing.remove();
+
+    var container = document.createElement("div");
+    container.id = "readingProgress";
+    container.style.cssText = "position:fixed;top:0;left:0;right:0;height:2px;z-index:9999;pointer-events:none;";
+    var bar = document.createElement("div");
+    bar.style.cssText = "height:100%;width:0;background:var(--primary);transition:none;";
+    container.appendChild(bar);
+    document.body.appendChild(container);
 
     function update() {
       var rect = article.getBoundingClientRect();
