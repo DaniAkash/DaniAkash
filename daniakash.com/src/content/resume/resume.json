@@ -6,14 +6,35 @@
     "Been architecting and shipping scalable products from scratch — long before AI started writing the code."
   ],
   "skills": [
-    { "label": "Front-End", "text": "React, Next.js, Expo, React Router, shadcn/UI, TanStack libraries, Radix UI" },
-    { "label": "Styling", "text": "Tailwind CSS, CSS-in-JS (Linaria, Styled Components)" },
+    {
+      "label": "Front-End",
+      "text": "React, Next.js, Expo, React Router, shadcn/UI, TanStack libraries, Radix UI"
+    },
+    {
+      "label": "Styling",
+      "text": "Tailwind CSS, CSS-in-JS (Linaria, Styled Components)"
+    },
     { "label": "Build Tools", "text": "Webpack, Vite, Rollup, Parcel, Rspack" },
-    { "label": "Mobile", "text": "React Native, Expo — cross-platform Android & iOS (100k+ downloads)" },
-    { "label": "State Management", "text": "Redux, Zustand, React Query, Signals, XState, Nano Stores" },
-    { "label": "Rendering", "text": "SSR, SSG, ISR, Server Components, Streaming SSR, Edge Rendering" },
-    { "label": "Infrastructure", "text": "AWS Lambda, Serverless Stack, Cloudflare Workers, Vercel Edge Middleware" },
-    { "label": "API Design", "text": "REST, GraphQL, Relay, urql, The Guild tooling" },
+    {
+      "label": "Mobile",
+      "text": "React Native, Expo — cross-platform Android & iOS (100k+ downloads)"
+    },
+    {
+      "label": "State Management",
+      "text": "Redux, Zustand, React Query, Signals, XState, Nano Stores"
+    },
+    {
+      "label": "Rendering",
+      "text": "SSR, SSG, ISR, Server Components, Streaming SSR, Edge Rendering"
+    },
+    {
+      "label": "Infrastructure",
+      "text": "AWS Lambda, Serverless Stack, Cloudflare Workers, Vercel Edge Middleware"
+    },
+    {
+      "label": "API Design",
+      "text": "REST, GraphQL, Relay, urql, The Guild tooling"
+    },
     { "label": "Frameworks", "text": "Svelte, Solid, Astro, Remix, Qwik" },
     { "label": "Runtimes", "text": "Node.js, Deno, Bun, WinterCG" }
   ],
