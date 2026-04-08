@@ -3,9 +3,7 @@ import MainLayout from "../layouts/MainLayout.astro";
 // @ts-ignore — Vite raw import
 import rawMd from "../content/now/now.md?raw";
 
-// Strip frontmatter
 const content = rawMd.replace(/^---[\s\S]*?---\n*/, "").trim();
-const lineCount = content.split("\n").length;
 ---
 
 <MainLayout title="Now">
@@ -22,9 +20,7 @@ const lineCount = content.split("\n").length;
 
       <!-- Editor body -->
       <div class="now-body">
-        <pre class="now-pre"><div class="now-gutter" id="gutter">{Array.from({ length: lineCount }, (_, i) => (
-          <span>{i + 1}</span>
-        ))}</div><code class="language-markdown" id="codeBlock">{content}</code></pre>
+        <pre class="line-numbers"><code class="language-markdown" id="codeBlock">{content}</code></pre>
       </div>
     </div>
   </div>
@@ -77,94 +73,82 @@ const lineCount = content.split("\n").length;
     flex: 1;
     overflow: auto;
     min-height: 0;
-    position: relative;
   }
 
-  .now-pre {
+  .now-body pre[class*="language-"] {
     margin: 0 !important;
     border-radius: 0 !important;
     background: var(--card) !important;
-    padding: 24px 24px 24px 80px !important;
     font-family: var(--font-mono) !important;
     font-size: 14px !important;
     line-height: 1.8 !important;
+    padding: 24px 24px 24px 80px !important;
     tab-size: 2;
     min-height: 100%;
-    position: relative;
-    overflow-x: auto;
+  }
+
+  /* Prism line-numbers plugin overrides */
+  .now-body .line-numbers .line-numbers-rows {
+    border-right: 1px solid var(--border) !important;
+  }
+
+  .now-body .line-numbers .line-numbers-rows > span::before {
     color: var(--muted-foreground) !important;
+    opacity: 0.4;
   }
 
-  .now-gutter {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 60px;
-    padding: 24px 0;
+  .now-body .line-numbers .line-numbers-rows {
+    left: 0 !important;
+    width: 60px !important;
+    padding: 24px 12px 24px 0 !important;
     text-align: right;
-    border-right: 1px solid var(--border);
-    background: var(--card);
-    user-select: none;
-    z-index: 1;
-    min-height: 100%;
   }
 
-  .now-gutter span {
-    display: block;
-    font-family: var(--font-mono);
-    font-size: 14px;
-    line-height: 1.8;
-    padding-right: 12px;
-    color: var(--muted-foreground);
-    opacity: 0.2;
-  }
-
-  /* Prism overrides */
-  .now-pre code[class*="language-"],
-  .now-pre pre[class*="language-"] {
+  /* Prism base text */
+  .now-body code[class*="language-"],
+  .now-body pre[class*="language-"] {
     color: var(--muted-foreground) !important;
     text-shadow: none !important;
-    font-family: var(--font-mono) !important;
-    background: transparent !important;
   }
 
-  .now-pre .token.title .token.important {
+  /* Token overrides */
+  .now-body .token.title .token.important {
     color: var(--foreground) !important;
     font-weight: 600 !important;
   }
 
-  .now-pre .token.title .token.punctuation {
+  .now-body .token.title .token.punctuation {
     color: var(--primary) !important;
   }
 
-  .now-pre .token.bold {
+  .now-body .token.bold {
     color: var(--foreground) !important;
     font-weight: 600 !important;
   }
 
-  .now-pre .token.italic {
+  .now-body .token.italic {
     color: var(--foreground) !important;
     font-style: italic !important;
   }
 
-  .now-pre .token.url {
+  .now-body .token.url {
     color: var(--primary) !important;
   }
 
-  .now-pre .token.list.punctuation {
+  .now-body .token.list.punctuation {
     color: var(--primary) !important;
   }
 
-  .now-pre .token.blockquote.punctuation {
+  .now-body .token.blockquote.punctuation {
     color: var(--primary) !important;
   }
 
-  .now-pre .token.hr {
+  .now-body .token.hr {
     color: var(--foreground) !important;
     opacity: 0.12;
   }
 
-  .now-pre .token.code-snippet {
+  .now-body .token.code-snippet {
     color: var(--primary) !important;
   }
 
@@ -183,16 +167,15 @@ const lineCount = content.split("\n").length;
 
 <script is:inline>
   (function() {
-    // Load Prism CSS
-    if (!document.getElementById('prism-css')) {
-      var css = document.createElement('link');
-      css.id = 'prism-css';
-      css.rel = 'stylesheet';
-      css.href = 'https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-tomorrow.min.css';
-      document.head.appendChild(css);
+    function loadCSS(href, id) {
+      if (document.getElementById(id)) return;
+      var link = document.createElement('link');
+      link.id = id;
+      link.rel = 'stylesheet';
+      link.href = href;
+      document.head.appendChild(link);
     }
 
-    // Load Prism JS
     function loadScript(src, cb) {
       var s = document.createElement('script');
       s.src = src;
@@ -204,7 +187,6 @@ const lineCount = content.split("\n").length;
       if (typeof Prism === 'undefined') return;
       Prism.highlightAll();
 
-      // Make links clickable after highlighting
       setTimeout(function() {
         document.querySelectorAll('#codeBlock .token.url').forEach(function(token) {
           var text = token.textContent;
@@ -222,11 +204,17 @@ const lineCount = content.split("\n").length;
       }, 100);
     }
 
+    // Load Prism CSS + line-numbers CSS
+    loadCSS('https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-tomorrow.min.css', 'prism-css');
+    loadCSS('https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/line-numbers/prism-line-numbers.min.css', 'prism-ln-css');
+
     if (typeof Prism !== 'undefined') {
       highlight();
     } else {
       loadScript('https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js', function() {
-        loadScript('https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-markdown.min.js', highlight);
+        loadScript('https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-markdown.min.js', function() {
+          loadScript('https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/line-numbers/prism-line-numbers.min.js', highlight);
+        });
       });
     }
   })();
