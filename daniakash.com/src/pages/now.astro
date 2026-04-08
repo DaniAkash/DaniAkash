@@ -10,130 +10,224 @@ const lineCount = content.split("\n").length;
 
 <MainLayout title="Now">
   <div class="mx-auto max-w-[900px] pt-[120px] pb-20">
-    <!-- Markdown Editor Window -->
-    <div class="flex h-[70vh] min-h-[500px] flex-col overflow-hidden rounded-xl border border-border bg-card/50">
-
+    <div class="now-editor">
       <!-- Title bar -->
-      <div class="flex items-center gap-2 border-b border-border bg-card px-4 py-2">
-        <span class="size-[10px] rounded-full bg-[#FF5F57]"></span>
-        <span class="size-[10px] rounded-full bg-[#FFBD2E]"></span>
-        <span class="size-[10px] rounded-full bg-[#28C840]"></span>
-        <span class="ml-2 font-mono text-xs text-muted-foreground">now.md</span>
-        <span class="ml-auto rounded-full bg-primary/15 px-2 py-[1px] font-mono text-[10px] text-primary">
-          read-only
-        </span>
+      <div class="now-titlebar">
+        <span class="now-dot" style="background:#FF5F57;"></span>
+        <span class="now-dot" style="background:#FFBD2E;"></span>
+        <span class="now-dot" style="background:#28C840;"></span>
+        <span class="now-filename">now.md</span>
+        <span class="now-badge">read-only</span>
       </div>
 
-      <!-- Editor body — single scroll container -->
-      <div class="relative flex-1 overflow-auto">
-        <!-- Gutter (absolute, inside pre for scroll sync) -->
-        <pre class="relative m-0 min-h-full border-0 bg-transparent p-0" style="background: transparent !important;"><div class="absolute top-0 left-0 z-1 min-h-full w-[60px] select-none border-r border-border bg-card/50 py-6 text-right" id="gutter">{Array.from({ length: lineCount }, (_, i) => (
-              <span class="block pr-3 font-mono text-[14px] leading-[1.8] text-foreground/10">
-                {i + 1}
-              </span>
-            ))}</div><code class="block py-6 pr-6 pl-[80px] font-mono text-[14px] leading-[1.8] text-muted-foreground" id="codeBlock">{content}</code></pre>
+      <!-- Editor body -->
+      <div class="now-body">
+        <pre class="now-pre"><div class="now-gutter" id="gutter">{Array.from({ length: lineCount }, (_, i) => (
+          <span>{i + 1}</span>
+        ))}</div><code class="language-markdown" id="codeBlock">{content}</code></pre>
       </div>
     </div>
   </div>
 </MainLayout>
 
-<style>
-  pre, pre code {
-    background: transparent !important;
-    margin: 0;
-    border: 0;
-    border-radius: 0;
-    tab-size: 2;
-    white-space: pre-wrap;
-    word-wrap: break-word;
+<style is:global>
+  .now-editor {
+    display: flex;
+    flex-direction: column;
+    height: 70vh;
+    min-height: 500px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
   }
 
-  /* Prism token overrides */
-  :global(.token.title .token.important) {
-    color: var(--foreground) !important;
-    font-weight: 600 !important;
+  .now-titlebar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border-bottom: 1px solid var(--border);
+    background: var(--card);
   }
-  :global(.token.title .token.punctuation) {
-    color: var(--primary) !important;
+
+  .now-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
   }
-  :global(.token.bold) {
-    color: var(--foreground) !important;
-    font-weight: 600 !important;
+
+  .now-filename {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--muted-foreground);
+    margin-left: 8px;
   }
-  :global(.token.italic) {
-    color: var(--foreground) !important;
-    font-style: italic !important;
+
+  .now-badge {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--primary);
+    background: oklch(from var(--primary) l c h / 15%);
+    padding: 1px 8px;
+    border-radius: 999px;
+    margin-left: auto;
   }
-  :global(.token.url) {
-    color: var(--primary) !important;
+
+  .now-body {
+    flex: 1;
+    overflow: auto;
+    min-height: 0;
+    position: relative;
   }
-  :global(.token.list.punctuation) {
-    color: var(--primary) !important;
-  }
-  :global(.token.blockquote.punctuation) {
-    color: var(--primary) !important;
-  }
-  :global(.token.hr) {
-    color: var(--foreground) !important;
-    opacity: 0.1;
-  }
-  :global(.token.code-snippet) {
-    color: var(--primary) !important;
-  }
-  :global(.token.punctuation) {
+
+  .now-pre {
+    margin: 0 !important;
+    border-radius: 0 !important;
+    background: var(--card) !important;
+    padding: 24px 24px 24px 80px !important;
+    font-family: var(--font-mono) !important;
+    font-size: 14px !important;
+    line-height: 1.8 !important;
+    tab-size: 2;
+    min-height: 100%;
+    position: relative;
+    overflow-x: auto;
     color: var(--muted-foreground) !important;
   }
 
-  /* Clickable links inside code */
-  :global(#codeBlock a.md-link) {
+  .now-gutter {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 60px;
+    padding: 24px 0;
+    text-align: right;
+    border-right: 1px solid var(--border);
+    background: var(--card);
+    user-select: none;
+    z-index: 1;
+    min-height: 100%;
+  }
+
+  .now-gutter span {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 14px;
+    line-height: 1.8;
+    padding-right: 12px;
+    color: var(--muted-foreground);
+    opacity: 0.2;
+  }
+
+  /* Prism overrides */
+  .now-pre code[class*="language-"],
+  .now-pre pre[class*="language-"] {
+    color: var(--muted-foreground) !important;
+    text-shadow: none !important;
+    font-family: var(--font-mono) !important;
+    background: transparent !important;
+  }
+
+  .now-pre .token.title .token.important {
+    color: var(--foreground) !important;
+    font-weight: 600 !important;
+  }
+
+  .now-pre .token.title .token.punctuation {
+    color: var(--primary) !important;
+  }
+
+  .now-pre .token.bold {
+    color: var(--foreground) !important;
+    font-weight: 600 !important;
+  }
+
+  .now-pre .token.italic {
+    color: var(--foreground) !important;
+    font-style: italic !important;
+  }
+
+  .now-pre .token.url {
+    color: var(--primary) !important;
+  }
+
+  .now-pre .token.list.punctuation {
+    color: var(--primary) !important;
+  }
+
+  .now-pre .token.blockquote.punctuation {
+    color: var(--primary) !important;
+  }
+
+  .now-pre .token.hr {
+    color: var(--foreground) !important;
+    opacity: 0.12;
+  }
+
+  .now-pre .token.code-snippet {
+    color: var(--primary) !important;
+  }
+
+  /* Clickable links */
+  #codeBlock a.md-link {
     color: inherit !important;
     text-decoration: none;
     cursor: pointer;
+    pointer-events: auto;
   }
-  :global(#codeBlock a.md-link:hover) {
+
+  #codeBlock a.md-link:hover {
     text-decoration: underline;
   }
 </style>
 
 <script is:inline>
   (function() {
-    if (document.getElementById('prism-css')) return;
+    // Load Prism CSS
+    if (!document.getElementById('prism-css')) {
+      var css = document.createElement('link');
+      css.id = 'prism-css';
+      css.rel = 'stylesheet';
+      css.href = 'https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-tomorrow.min.css';
+      document.head.appendChild(css);
+    }
 
-    var css = document.createElement('link');
-    css.id = 'prism-css';
-    css.rel = 'stylesheet';
-    css.href = 'https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-tomorrow.min.css';
-    document.head.appendChild(css);
+    // Load Prism JS
+    function loadScript(src, cb) {
+      var s = document.createElement('script');
+      s.src = src;
+      s.onload = cb;
+      document.head.appendChild(s);
+    }
 
-    var core = document.createElement('script');
-    core.src = 'https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js';
-    core.onload = function() {
-      var md = document.createElement('script');
-      md.src = 'https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-markdown.min.js';
-      md.onload = function() {
-        if (typeof Prism !== 'undefined') {
-          Prism.highlightAll();
+    function highlight() {
+      if (typeof Prism === 'undefined') return;
+      Prism.highlightAll();
 
-          // Make markdown links clickable
-          setTimeout(function() {
-            document.querySelectorAll('#codeBlock .token.url').forEach(function(token) {
-              var text = token.textContent;
-              var match = text.match(/\(([^)]+)\)/);
-              if (match && match[1].startsWith('http')) {
-                var a = document.createElement('a');
-                a.href = match[1];
-                a.target = '_blank';
-                a.rel = 'noopener';
-                a.className = 'md-link';
-                while (token.firstChild) a.appendChild(token.firstChild);
-                token.appendChild(a);
-              }
-            });
-          }, 100);
-        }
-      };
-      document.head.appendChild(md);
-    };
-    document.head.appendChild(core);
+      // Make links clickable after highlighting
+      setTimeout(function() {
+        document.querySelectorAll('#codeBlock .token.url').forEach(function(token) {
+          var text = token.textContent;
+          var match = text.match(/\(([^)]+)\)/);
+          if (match && match[1].startsWith('http')) {
+            var a = document.createElement('a');
+            a.href = match[1];
+            a.target = '_blank';
+            a.rel = 'noopener';
+            a.className = 'md-link';
+            while (token.firstChild) a.appendChild(token.firstChild);
+            token.appendChild(a);
+          }
+        });
+      }, 100);
+    }
+
+    if (typeof Prism !== 'undefined') {
+      highlight();
+    } else {
+      loadScript('https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js', function() {
+        loadScript('https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-markdown.min.js', highlight);
+      });
+    }
   })();
 </script>
