@@ -1,8 +1,6 @@
 ---
 import { getCollection, render } from "astro:content";
 import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
-import ArticleContainer from "../../components/ArticleContainer.astro";
-import { TRANSITION_NAMES } from "../../constants/transition-names";
 import MainLayout from "../../layouts/MainLayout.astro";
 import { getDateDisplay } from "../../utils/getDateDisplay";
 import { getDateValue } from "../../utils/getDateValue";
@@ -40,28 +38,81 @@ await getOGImage({
   canonical={canonical}
   image={image}
 >
-  <ArticleContainer>
-    <article>
-      <header class="flex flex-col">
-        <h1
-          class="mt-6 text-4xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-5xl"
-          transition:name={`${TRANSITION_NAMES.blogTitle}-${post.id}`}
-        >
-          {post.data.title}
-        </h1>
-        <time
-          datetime={dateValue}
-          class="order-first flex items-center text-base text-zinc-400 dark:text-zinc-500"
-          transition:name={`${TRANSITION_NAMES.blogTime}-${post.id}`}
-        >
-          <span class="h-4 w-0.5 rounded-full bg-zinc-200 dark:bg-zinc-500"
-          ></span>
-          <span class="ml-3">{dateDisplay}</span>
-        </time>
-      </header>
-      <div class="prose dark:prose-invert">
-        <Content />
-      </div>
-    </article>
-  </ArticleContainer>
+  <!-- Reading progress bar -->
+  <div class="fixed inset-x-0 top-0 z-[60] h-[2px]" id="readingProgress">
+    <div class="h-full w-0 bg-primary" id="readingBar" />
+  </div>
+
+  <article class="mx-auto max-w-[720px] pt-[120px] pb-20" id="article">
+    <!-- Back link -->
+    <a
+      href="/blog/"
+      class="mb-12 inline-flex items-center gap-2 font-mono text-xs tracking-wide text-muted-foreground transition-colors hover:text-primary"
+    >
+      ← Back to blog
+    </a>
+
+    <!-- Post header -->
+    <time
+      datetime={dateValue}
+      class="mb-4 block font-mono text-[13px] tracking-wide text-muted-foreground"
+    >
+      {dateDisplay}
+    </time>
+
+    <h1
+      class="mb-6 font-bold leading-[1.15] tracking-[-0.03em]"
+      style="font-size: clamp(32px, 5vw, 48px);"
+    >
+      {post.data.title}
+    </h1>
+
+    <p
+      class="mb-12 border-b border-dashed border-border pb-12 text-xl font-light leading-relaxed text-muted-foreground"
+    >
+      {post.data.subtitle}
+    </p>
+
+    <!-- Prose body -->
+    <div class="prose dark:prose-invert max-w-none text-lg leading-[1.8]">
+      <Content />
+    </div>
+
+    <!-- Article footer -->
+    <div
+      class="mt-20 flex items-center justify-between border-t border-dashed border-border pt-12"
+    >
+      <a
+        href="/blog/"
+        class="font-mono text-[13px] text-muted-foreground transition-colors hover:text-primary"
+      >
+        ← All posts
+      </a>
+    </div>
+  </article>
 </MainLayout>
+
+<script>
+  function initReadingProgress() {
+    const article = document.getElementById("article");
+    const bar = document.getElementById("readingBar");
+    if (!article || !bar) return;
+
+    function update() {
+      if (!article || !bar) return;
+      const rect = article.getBoundingClientRect();
+      const total = rect.height - window.innerHeight;
+      if (total <= 0) {
+        bar.style.width = "100%";
+        return;
+      }
+      const pct = Math.max(0, Math.min(100, (-rect.top / total) * 100));
+      bar.style.width = pct + "%";
+      requestAnimationFrame(update);
+    }
+    requestAnimationFrame(update);
+  }
+
+  initReadingProgress();
+  document.addEventListener("astro:after-swap", initReadingProgress);
+</script>
