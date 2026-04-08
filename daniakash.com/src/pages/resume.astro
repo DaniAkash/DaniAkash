@@ -1,6 +1,5 @@
 ---
 import { getCollection, render } from "astro:content";
-import ArticleContainer from "../components/ArticleContainer.astro";
 import MainLayout from "../layouts/MainLayout.astro";
 
 const resume = (await getCollection("resume"))[0]!;
@@ -8,18 +7,65 @@ const { Content } = await render(resume);
 ---
 
 <MainLayout title="Resume">
-  <ArticleContainer>
-    <article>
-      <header class="flex flex-col">
-        <h1
-          class="mt-6 text-4xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-5xl"
-        >
-          Dani Akash
-        </h1>
-      </header>
-      <div class="prose dark:prose-invert">
-        <Content />
+  <article class="mx-auto max-w-[800px] pt-[120px] pb-20" id="article">
+    <!-- Header -->
+    <header class="mb-20 border-b border-dashed border-border pb-12">
+      <p class="mb-12 font-mono text-[11px] uppercase tracking-[1.65px] text-muted-foreground">
+        RESUME // DANI_AKASH
+      </p>
+      <h1
+        class="mb-4 font-bold leading-[1.05] tracking-[-0.03em]"
+        style="font-size: clamp(42px, 6vw, 64px);"
+      >
+        Dani Akash
+      </h1>
+      <p class="mb-12 font-mono text-[15px] text-primary">
+        Expert vibe coder, agent designer, and AI enthusiast
+      </p>
+      <div class="flex flex-col gap-4">
+        <p class="relative border-l-[3px] border-primary/20 pl-6 text-[17px] leading-relaxed text-muted-foreground">
+          Passionate about building high-impact products that solve real problems for real users.
+        </p>
+        <p class="relative border-l-[3px] border-primary/20 pl-6 text-[17px] leading-relaxed text-muted-foreground">
+          Founding engineer behind BrowserOS, OSlash, and the Pickyourtrail mobile app.
+        </p>
+        <p class="relative border-l-[3px] border-primary/20 pl-6 text-[17px] leading-relaxed text-muted-foreground">
+          Been architecting and shipping scalable products from scratch — long before AI started writing the code.
+        </p>
       </div>
-    </article>
-  </ArticleContainer>
+    </header>
+
+    <!-- Resume content from MDX -->
+    <div class="prose dark:prose-invert max-w-none">
+      <Content />
+    </div>
+  </article>
 </MainLayout>
+
+<script is:inline>
+  (function() {
+    var article = document.getElementById("article");
+    if (!article) return;
+
+    var existing = document.getElementById("readingProgress");
+    if (existing) existing.remove();
+
+    var container = document.createElement("div");
+    container.id = "readingProgress";
+    container.style.cssText = "position:fixed;top:0;left:0;right:0;height:2px;z-index:9999;pointer-events:none;";
+    var bar = document.createElement("div");
+    bar.style.cssText = "height:100%;width:0;background:var(--primary);transition:none;";
+    container.appendChild(bar);
+    document.body.appendChild(container);
+
+    function update() {
+      var rect = article.getBoundingClientRect();
+      var total = rect.height - window.innerHeight;
+      if (total <= 0) { bar.style.width = "100%"; return; }
+      var pct = Math.max(0, Math.min(100, (-rect.top / total) * 100));
+      bar.style.width = pct + "%";
+      requestAnimationFrame(update);
+    }
+    requestAnimationFrame(update);
+  })();
+</script>
