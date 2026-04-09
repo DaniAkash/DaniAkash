@@ -127,11 +127,11 @@
     "variant": "software",
     "tools": [
       {
-        "title": "Tiles",
+        "title": "Rectangle",
         "tag": "Window Manager",
         "description": "Keyboard-driven window tiling. 2x faster at arranging windows, 2x slower at deciding where they go.",
-        "image": "http://127.0.0.1:8080/icons/tiles.png",
-        "link": "https://freemacsoft.net/tiles/"
+        "image": "http://127.0.0.1:8080/icons/rectangle.ico",
+        "link": "https://rectangleapp.com"
       },
       {
         "title": "Notion",
@@ -192,7 +192,7 @@
         "title": "Gemini CLI",
         "tag": "UI Agent",
         "description": "When the task is Material Design or mobile-first UI, Gemini gets it right out of the box.",
-        "image": "http://127.0.0.1:8080/icons/gemini.png",
+        "image": "http://127.0.0.1:8080/icons/gemini.svg",
         "link": "https://github.com/google-gemini/gemini-cli"
       },
       {
@@ -206,7 +206,7 @@
         "title": "GitHub Copilot",
         "tag": "Code Review",
         "description": "Handles reviews for side projects and open source. Keeps the quality bar up across everything I maintain.",
-        "image": "http://127.0.0.1:8080/icons/copilot.png",
+        "image": "http://127.0.0.1:8080/icons/copilot.svg",
         "link": "https://github.com/features/copilot"
       }
     ]
