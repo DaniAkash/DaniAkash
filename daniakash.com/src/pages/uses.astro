@@ -39,45 +39,77 @@ const sections = uses.data.items;
           </div>
 
           {isHardware ? (
-            /* Hardware grid — large cards with images */
-            <div class="hw-grid grid grid-cols-1 gap-6 md:grid-cols-2">
-              {section.tools.map((tool) => (
-                <div
-                  class:list={[
-                    "group overflow-hidden rounded-[20px] border border-border bg-foreground/[0.025] transition-all hover:-translate-y-0.5 hover:border-foreground/15 hover:shadow-lg hover:shadow-black/10",
-                    tool.wide && "md:col-span-2",
-                  ]}
-                >
-                  <div class:list={[tool.wide && "md:flex md:flex-row"]}>
-                    {/* Image area */}
-                    <div
-                      class:list={[
-                        "flex min-h-[180px] items-center justify-center overflow-hidden bg-foreground/5",
-                        tool.wide ? "md:w-[40%]" : "w-full",
-                      ]}
-                    >
-                      {tool.image ? (
-                        <img
-                          src={tool.image}
-                          alt={tool.title}
-                          loading="lazy"
-                          class="size-full object-cover"
-                        />
-                      ) : (
-                        <span class="text-5xl opacity-30">🖥</span>
-                      )}
-                    </div>
-                    {/* Body */}
-                    <div class:list={["flex flex-col gap-1 p-6", tool.wide && "md:flex-1 md:justify-center"]}>
-                      {tool.tag && (
-                        <span class="font-mono text-[11px] tracking-wide text-primary">{tool.tag}</span>
-                      )}
-                      <h3 class="text-lg font-semibold leading-snug tracking-tight">{tool.title}</h3>
-                      <p class="mt-1 text-sm leading-relaxed text-muted-foreground">{tool.description}</p>
-                    </div>
+            /* Hardware grid — 4-col strict grid */
+            <div class="hw-grid">
+              {section.tools.map((tool) => {
+                const size = tool.size ?? "square";
+                return (
+                  <div
+                    class:list={[
+                      "hw-card group overflow-hidden rounded-[20px] border border-border bg-foreground/[0.025] transition-all hover:-translate-y-0.5 hover:border-foreground/15 hover:shadow-lg hover:shadow-black/10",
+                      size === "wide" && "hw-wide",
+                      size === "square" && "hw-square",
+                      size === "small" && "hw-small",
+                    ]}
+                  >
+                    {size === "wide" ? (
+                      /* Wide: image left, text right */
+                      <div class="flex h-full flex-row">
+                        <div class="flex w-[45%] items-center justify-center overflow-hidden bg-foreground/5">
+                          {tool.image ? (
+                            <img src={tool.image} alt={tool.title} loading="lazy" class="size-full object-cover" />
+                          ) : (
+                            <span class="text-5xl opacity-30">🖥</span>
+                          )}
+                        </div>
+                        <div class="flex flex-1 flex-col justify-center gap-1 p-6">
+                          {tool.tag && (
+                            <span class="font-mono text-[11px] tracking-wide text-primary">{tool.tag}</span>
+                          )}
+                          <h3 class="text-lg font-semibold leading-snug tracking-tight">{tool.title}</h3>
+                          <p class="mt-1 text-sm leading-relaxed text-muted-foreground">{tool.description}</p>
+                        </div>
+                      </div>
+                    ) : size === "square" ? (
+                      /* Square: image top, text bottom */
+                      <div class="flex h-full flex-col">
+                        <div class="flex flex-1 items-center justify-center overflow-hidden bg-foreground/5">
+                          {tool.image ? (
+                            <img src={tool.image} alt={tool.title} loading="lazy" class="size-full object-cover" />
+                          ) : (
+                            <span class="text-5xl opacity-30">🖥</span>
+                          )}
+                        </div>
+                        <div class="flex flex-col gap-1 p-5">
+                          {tool.tag && (
+                            <span class="font-mono text-[11px] tracking-wide text-primary">{tool.tag}</span>
+                          )}
+                          <h3 class="text-base font-semibold leading-snug tracking-tight">{tool.title}</h3>
+                          <p class="mt-0.5 text-sm leading-relaxed text-muted-foreground line-clamp-2">{tool.description}</p>
+                        </div>
+                      </div>
+                    ) : (
+                      /* Small: compact icon-left layout */
+                      <div class="flex h-full items-center gap-3 p-4">
+                        <div class="flex size-10 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-foreground/5">
+                          {tool.image ? (
+                            <img src={tool.image} alt={tool.title} loading="lazy" class="size-full object-cover" />
+                          ) : (
+                            <span class="text-lg opacity-30">🖥</span>
+                          )}
+                        </div>
+                        <div class="flex min-w-0 flex-col">
+                          {tool.tag && (
+                            <span class="font-mono text-[9px] tracking-wide text-primary">{tool.tag}</span>
+                          )}
+                          <h3 class="text-sm font-semibold leading-tight tracking-tight">{tool.title}</h3>
+                          <p class="mt-0.5 truncate text-xs text-muted-foreground">{tool.description}</p>
+                        </div>
+                      </div>
+                    )}
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           ) : (
             /* Software grid — icon + info cards */
@@ -116,12 +148,64 @@ const sections = uses.data.items;
 </MainLayout>
 
 <style>
+  /* 4-column hardware grid with explicit row heights */
+  .hw-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: 280px 280px 280px 128px;
+    gap: 24px;
+  }
+
+  /* Wide: spans all 4 columns */
+  .hw-wide {
+    grid-column: span 4;
+  }
+
+  /* Square: spans 2 columns */
+  .hw-square {
+    grid-column: span 2;
+  }
+
+  /* Small: spans 1 column */
+  .hw-small {
+    grid-column: span 1;
+  }
+
+  /* Tablet: 2 columns */
   @media (max-width: 900px) {
     .hw-grid {
-      grid-template-columns: 1fr !important;
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: 260px 260px 260px 120px 120px;
     }
-    .hw-grid > [class*="col-span-2"] {
-      grid-column: span 1 !important;
+    .hw-wide {
+      grid-column: span 2;
+    }
+    .hw-square {
+      grid-column: span 1;
+    }
+    .hw-small {
+      grid-column: span 1;
+    }
+  }
+
+  /* Mobile: 1 column, auto heights */
+  @media (max-width: 600px) {
+    .hw-grid {
+      grid-template-columns: 1fr;
+      grid-template-rows: none;
+      grid-auto-rows: auto;
+    }
+    .hw-wide,
+    .hw-square,
+    .hw-small {
+      grid-column: span 1;
+    }
+    .hw-wide > div {
+      flex-direction: column !important;
+    }
+    .hw-wide > div > div:first-child {
+      width: 100% !important;
+      min-height: 180px;
     }
   }
 </style>

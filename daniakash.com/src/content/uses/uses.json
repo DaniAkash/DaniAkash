@@ -7,50 +7,57 @@
         "title": "16\" Macbook Pro, M4 Pro",
         "tag": "PRIMARY DEVICE",
         "description": "48 GB RAM (2024). The primary coding device. Where I mostly watch claude, codex, cursor, opencode and more cli tools write code across multiple worktrees.",
-        "image": "http://127.0.0.1:8080/macbook-pro-16-space-black/apple-pv-hero.jpg",
-        "wide": true
+        "image": "http://127.0.0.1:8080/macbook-pro-16-space-black/apple-pv-hero-cropped.jpg",
+        "size": "wide"
       },
       {
         "title": "16\" MacBook Pro, M2 Pro",
         "tag": "SECONDARY",
         "description": "32GB RAM (2023). I prepare tech talks, focus on my hobbies, write novels & all sorts of passion projects in this machine.",
-        "image": "http://127.0.0.1:8080/macbook-pro-16-silver/macbook-pro-silver-1.jpg"
+        "image": "http://127.0.0.1:8080/macbook-pro-16-silver/macbook-pro-silver-1.jpg",
+        "size": "square"
       },
       {
         "title": "14\" MacBook Pro, M2 Pro",
         "tag": "SECONDARY",
         "description": "32GB RAM (2023). The headless 24x7 machine that runs my plex media server, self hosted apps & AI Agents - currently using Hermes Agent",
-        "image": "http://127.0.0.1:8080/macbook-pro-14-space-black/macbook-pro-14-2.jpg"
+        "image": "http://127.0.0.1:8080/macbook-pro-14-space-black/macbook-pro-14-2.jpg",
+        "size": "square"
       },
       {
         "title": "4K 32\" LG UltraFine Ergo",
         "tag": "DISPLAY",
         "description": "Bigger the display, bigger the motivation to use it to read your code. The ergonomic stand is chef's kiss.",
-        "image": "https://placehold.co/400x300/1a1a2e/2DD4BF?text=LG+UltraFine"
+        "image": "http://127.0.0.1:8080/lg-ultrafine-ergo/lg-official-ergo-cropped.jpg",
+        "size": "wide"
       },
       {
         "title": "Keychron K4 Wireless",
         "tag": "KEYBOARD",
         "description": "Mechanical keyboards are love. The satisfying clicks of the normal profile Keychron is the reason I code most of the time.",
-        "image": "https://placehold.co/400x300/1a1a2e/2DD4BF?text=Keychron+K4"
+        "image": "https://placehold.co/400x300/1a1a2e/2DD4BF?text=Keychron+K4",
+        "size": "small"
       },
       {
         "title": "Logitech MX Master 3",
         "tag": "MOUSE",
         "description": "As a power user of VSCode and tmux, I rarely need to click stuff. But when I do, I do it with the most ergonomic mouse.",
-        "image": "https://placehold.co/400x300/1a1a2e/2DD4BF?text=MX+Master+3"
+        "image": "https://placehold.co/400x300/1a1a2e/2DD4BF?text=MX+Master+3",
+        "size": "small"
       },
       {
         "title": "Monarch Elevate",
         "tag": "DESK",
         "description": "Height adjustable table. Sitting too much while thinking about variable names is bad for your health.",
-        "image": "https://placehold.co/400x300/1a1a2e/2DD4BF?text=Standing+Desk"
+        "image": "https://placehold.co/400x300/1a1a2e/2DD4BF?text=Standing+Desk",
+        "size": "small"
       },
       {
         "title": "Sennheiser HD 458BT",
         "tag": "AUDIO",
         "description": "Most trusted headphones for work — video calls, egghead lessons, podcasts while coding. Can't live without this one.",
-        "image": "https://placehold.co/400x300/1a1a2e/2DD4BF?text=Sennheiser"
+        "image": "https://placehold.co/400x300/1a1a2e/2DD4BF?text=Sennheiser",
+        "size": "small"
       }
     ]
   },

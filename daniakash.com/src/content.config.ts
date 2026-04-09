@@ -156,7 +156,7 @@ const uses = defineCollection({
             description: z.string(),
             tag: z.string().optional(),
             image: z.string().optional(),
-            wide: z.boolean().optional(),
+            size: z.enum(["wide", "square", "small"]).default("square"),
           }),
         ),
       }),
