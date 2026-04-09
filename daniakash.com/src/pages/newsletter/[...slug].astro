@@ -30,8 +30,7 @@ export const getStaticPaths = (async () => {
 
 const description =
   "Thoughts on AI, tech, science, and the web — delivered to your inbox.";
-const { content, dateDisplay, dateValue, title, canonical, prev, next } =
-  Astro.props;
+const { content, dateDisplay, title, canonical, prev, next } = Astro.props;
 const { slug } = Astro.params;
 const image = `/og/newsletter/${slug}.png`;
 await getOGImage({
@@ -48,40 +47,49 @@ await getOGImage({
   image={image}
   canonical={canonical}
 >
-  <article class="mx-auto max-w-[720px] pb-20 pt-[120px]" id="article">
+  <article class="mx-auto max-w-[720px] pt-[120px] pb-20" id="article">
     <!-- Back link -->
     <a
       href="/newsletter/"
-      class="mb-12 inline-flex items-center gap-2 font-mono text-xs tracking-wide text-muted-foreground transition-colors hover:text-primary"
+      class="text-muted-foreground hover:text-primary mb-12 inline-flex items-center gap-2 font-mono text-xs tracking-wide transition-colors"
     >
       ← Back to newsletter
     </a>
 
     <!-- Issue badge -->
-    <span class="mb-4 inline-block rounded-full bg-primary/15 px-2.5 py-0.5 font-mono text-[11px] uppercase tracking-[0.08em] text-primary">
+    <span
+      class="bg-primary/15 text-primary mb-4 inline-block rounded-full px-2.5 py-0.5 font-mono text-[11px] tracking-[0.08em] uppercase"
+    >
       Newsletter
     </span>
 
     <!-- Date -->
-    <div class="mb-4 font-mono text-[13px] tracking-wide text-muted-foreground">
+    <div class="text-muted-foreground mb-4 font-mono text-[13px] tracking-wide">
       {dateDisplay}
     </div>
 
     <!-- Title -->
     <h1
-      class="mb-12 border-b border-dashed border-border pb-12 font-bold leading-[1.15] tracking-[-0.03em]"
+      class="border-border mb-12 border-b border-dashed pb-12 leading-[1.15] font-bold tracking-[-0.03em]"
       style="font-size: clamp(28px, 4vw, 40px);"
     >
       {title}
     </h1>
 
     <!-- Prose body -->
-    <div class="nl-prose prose dark:prose-invert max-w-none text-lg leading-[1.8]" set:html={content} />
+    <div
+      class="nl-prose prose dark:prose-invert max-w-none text-lg leading-[1.8]"
+      set:html={content}
+    />
 
     <!-- Subscribe CTA -->
-    <div class="nl-subscribe mt-20 rounded-xl border border-border bg-foreground/[0.025] p-6 text-center">
+    <div
+      class="nl-subscribe border-border bg-foreground/[0.025] mt-20 rounded-xl border p-6 text-center"
+    >
       <h3 class="mb-1 text-lg font-semibold">Enjoyed this issue?</h3>
-      <p class="mb-4 text-sm text-muted-foreground">Subscribe to get future issues delivered to your inbox.</p>
+      <p class="text-muted-foreground mb-4 text-sm">
+        Subscribe to get future issues delivered to your inbox.
+      </p>
       <form
         action="https://buttondown.com/api/emails/embed-subscribe/daniakash"
         method="post"
@@ -95,11 +103,11 @@ await getOGImage({
           placeholder="you@email.com"
           required
           aria-label="Email address"
-          class="h-10 flex-1 rounded-full border border-border bg-foreground/5 px-6 font-mono text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground focus:border-primary"
+          class="border-border bg-foreground/5 text-foreground placeholder:text-muted-foreground focus:border-primary h-10 flex-1 rounded-full border px-6 font-mono text-sm transition-colors outline-none"
         />
         <button
           type="submit"
-          class="h-10 rounded-full bg-primary px-6 font-mono text-[13px] font-medium text-primary-foreground transition-colors hover:bg-primary/80"
+          class="bg-primary text-primary-foreground hover:bg-primary/80 h-10 rounded-full px-6 font-mono text-[13px] font-medium transition-colors"
         >
           Subscribe
         </button>
@@ -107,17 +115,33 @@ await getOGImage({
     </div>
 
     <!-- Prev/Next navigation -->
-    <div class="mt-12 flex justify-between border-t border-dashed border-border pt-12">
-      {prev ? (
-        <a href={`/newsletter/${prev.slug}/`} class="font-mono text-[13px] text-muted-foreground transition-colors hover:text-primary">
-          ← {prev.title}
-        </a>
-      ) : <span />}
-      {next ? (
-        <a href={`/newsletter/${next.slug}/`} class="font-mono text-[13px] text-muted-foreground transition-colors hover:text-primary">
-          {next.title} →
-        </a>
-      ) : <span />}
+    <div
+      class="border-border mt-12 flex justify-between border-t border-dashed pt-12"
+    >
+      {
+        prev ? (
+          <a
+            href={`/newsletter/${prev.slug}/`}
+            class="text-muted-foreground hover:text-primary font-mono text-[13px] transition-colors"
+          >
+            ← {prev.title}
+          </a>
+        ) : (
+          <span />
+        )
+      }
+      {
+        next ? (
+          <a
+            href={`/newsletter/${next.slug}/`}
+            class="text-muted-foreground hover:text-primary font-mono text-[13px] transition-colors"
+          >
+            {next.title} →
+          </a>
+        ) : (
+          <span />
+        )
+      }
     </div>
   </article>
 </MainLayout>
@@ -156,7 +180,7 @@ await getOGImage({
 </style>
 
 <script is:inline>
-  (function() {
+  (function () {
     var article = document.getElementById("article");
     if (!article) return;
 
@@ -165,9 +189,11 @@ await getOGImage({
 
     var container = document.createElement("div");
     container.id = "readingProgress";
-    container.style.cssText = "position:fixed;top:0;left:0;right:0;height:2px;z-index:9999;pointer-events:none;";
+    container.style.cssText =
+      "position:fixed;top:0;left:0;right:0;height:2px;z-index:9999;pointer-events:none;";
     var bar = document.createElement("div");
-    bar.style.cssText = "height:100%;width:0;background:var(--primary);transition:none;";
+    bar.style.cssText =
+      "height:100%;width:0;background:var(--primary);transition:none;";
     container.appendChild(bar);
     document.body.appendChild(container);
 
