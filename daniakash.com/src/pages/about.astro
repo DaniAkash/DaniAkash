@@ -95,36 +95,57 @@ const social = (await getCollection("social"))[0]!;
   }
 
   .about-body :global(p) {
-    color: hsl(var(--muted-foreground));
-    font-size: 16px;
-    line-height: 1.75;
+    color: rgba(255, 255, 255, 0.55) !important;
+    font-size: 16px !important;
+    line-height: 1.75 !important;
+  }
+
+  :global(html:not(.dark)) .about-body :global(p) {
+    color: rgba(0, 0, 0, 0.55) !important;
+  }
+
+  .about-body :global(strong),
+  .about-body :global(b) {
+    color: rgba(255, 255, 255, 0.55) !important;
+  }
+
+  :global(html:not(.dark)) .about-body :global(strong),
+  :global(html:not(.dark)) .about-body :global(b) {
+    color: rgba(0, 0, 0, 0.55) !important;
   }
 
   .about-body :global(a) {
-    color: hsl(var(--primary));
-    text-decoration: none;
-    border-bottom: 1px dashed hsl(var(--primary));
+    color: hsl(var(--primary)) !important;
+    text-decoration: none !important;
+    border-bottom: 1px dashed hsl(var(--primary)) !important;
   }
 
   .about-body :global(a:hover) {
-    color: hsl(var(--primary));
-    border-bottom-style: solid;
+    color: hsl(var(--primary)) !important;
+    border-bottom-style: solid !important;
   }
 
   /* Subheadings from Content get divider treatment */
   .about-body :global(h2),
   .about-body :global(h3),
   .about-body :global(h4) {
-    font-family: var(--font-mono, 'JetBrains Mono', monospace);
-    font-size: 11px;
-    color: hsl(var(--muted-foreground));
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    margin-top: 48px;
-    margin-bottom: 24px;
-    padding-bottom: 8px;
-    border-bottom: 1px dashed hsl(var(--border));
-    font-weight: 400;
+    font-family: var(--font-mono, 'JetBrains Mono', monospace) !important;
+    font-size: 11px !important;
+    color: rgba(255, 255, 255, 0.3) !important;
+    letter-spacing: 0.15em !important;
+    text-transform: uppercase !important;
+    margin-top: 48px !important;
+    margin-bottom: 24px !important;
+    padding-bottom: 8px !important;
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.1) !important;
+    font-weight: 400 !important;
+  }
+
+  :global(html:not(.dark)) .about-body :global(h2),
+  :global(html:not(.dark)) .about-body :global(h3),
+  :global(html:not(.dark)) .about-body :global(h4) {
+    color: rgba(0, 0, 0, 0.35) !important;
+    border-bottom-color: rgba(0, 0, 0, 0.1) !important;
   }
 
   /* Subsection dividers */
