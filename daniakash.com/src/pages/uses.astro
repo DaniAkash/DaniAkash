@@ -123,31 +123,35 @@ const sections = uses.data.items;
           ) : (
             /* Software grid — icon + info cards */
             <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
-              {section.tools.map((tool) => (
-                <div class="flex gap-4 rounded-xl border border-border p-6 transition-all hover:border-foreground/15 hover:bg-foreground/5">
-                  {/* Icon */}
-                  <div class="flex size-12 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-foreground/5">
-                    {tool.image ? (
-                      <img
-                        src={tool.image}
-                        alt={tool.title}
-                        loading="lazy"
-                        class="size-full object-cover"
-                      />
-                    ) : (
-                      <span class="text-2xl opacity-30">⚙</span>
-                    )}
-                  </div>
-                  {/* Body */}
-                  <div class="flex min-w-0 flex-col gap-0.5">
-                    {tool.tag && (
-                      <span class="font-mono text-[10px] uppercase tracking-wide text-primary">{tool.tag}</span>
-                    )}
-                    <h3 class="text-base font-semibold">{tool.title}</h3>
-                    <p class="mt-1 text-[13px] leading-relaxed text-muted-foreground">{tool.description}</p>
-                  </div>
-                </div>
-              ))}
+              {section.tools.map((tool) => {
+                const Tag = tool.link ? "a" : "div";
+                const linkProps = tool.link ? { href: tool.link, target: "_blank", rel: "noopener" } : {};
+                return (
+                  <Tag {...linkProps} class="flex gap-4 rounded-xl border border-border p-6 transition-all hover:border-foreground/15 hover:bg-foreground/5">
+                    {/* Icon */}
+                    <div class="flex size-12 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-foreground/5">
+                      {tool.image ? (
+                        <img
+                          src={tool.image}
+                          alt={tool.title}
+                          loading="lazy"
+                          class="size-full object-cover"
+                        />
+                      ) : (
+                        <span class="text-2xl opacity-30">⚙</span>
+                      )}
+                    </div>
+                    {/* Body */}
+                    <div class="flex min-w-0 flex-col gap-0.5">
+                      {tool.tag && (
+                        <span class="font-mono text-[10px] uppercase tracking-wide text-primary">{tool.tag}</span>
+                      )}
+                      <h3 class="text-base font-semibold">{tool.title}{tool.link && <span class="ml-1.5 text-xs text-muted-foreground transition-transform group-hover:translate-x-0.5">↗</span>}</h3>
+                      <p class="mt-1 text-[13px] leading-relaxed text-muted-foreground">{tool.description}</p>
+                    </div>
+                  </Tag>
+                );
+              })}
             </div>
           )}
         </section>

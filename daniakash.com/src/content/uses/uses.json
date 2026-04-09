@@ -69,30 +69,36 @@
         "title": "Zed",
         "tag": "Editor",
         "description": "Native speed, zero lag. When you're juggling a dozen projects across worktrees, every millisecond of editor latency matters.",
-        "image": "https://placehold.co/48x48/1a1a2e/2DD4BF?text=VS"
+        "image": "http://127.0.0.1:8080/icons/zed.svg",
+        "link": "https://zed.dev"
       },
       {
         "title": "Oh My Zsh!",
         "tag": "Shell",
         "description": "Auto-cd, smart completions, and a theme that sparks joy. The shell shouldn't fight you. It should read your mind.",
-        "image": "https://placehold.co/48x48/1a1a2e/2DD4BF?text=ZSH"
+        "image": "http://127.0.0.1:8080/icons/ohmyzsh.png",
+        "link": "https://ohmyz.sh"
       },
       {
         "title": "Ghostty",
         "tag": "Terminal",
-        "description": "Blazing fast, GPU-rendered, and endlessly configurable. The terminal where the real work happens."
+        "description": "Blazing fast, GPU-rendered, and endlessly configurable. The terminal where the real work happens.",
+        "image": "http://127.0.0.1:8080/icons/ghostty.png",
+        "link": "https://ghostty.org"
       },
       {
         "title": "dmux",
         "tag": "Multiplexer",
         "description": "The secret weapon. Spins up parallel AI agents across worktrees, manages sessions, and turns one terminal into a command center. Built on tmux.",
-        "image": "https://placehold.co/48x48/1a1a2e/2DD4BF?text=tmux"
+        "image": "http://127.0.0.1:8080/icons/dmux.svg",
+        "link": "https://github.com/nicholasgasior/dmux"
       },
       {
         "title": "CodexBar",
         "tag": "Menubar",
         "description": "Real-time token burn rate, right in the menu bar. Know exactly what your agents are costing. Always.",
-        "image": "https://placehold.co/48x48/1a1a2e/2DD4BF?text=tmux"
+        "image": "http://127.0.0.1:8080/icons/codexbar.png",
+        "link": "https://codexbar.app"
       }
     ]
   },
@@ -104,13 +110,15 @@
         "title": "Paper",
         "tag": "AI Design",
         "description": "Idea to mockup to code in one flow. AI-powered design that actually ships, not just pretty pictures.",
-        "image": "https://placehold.co/48x48/1a1a2e/2DD4BF?text=Fig"
+        "image": "http://127.0.0.1:8080/icons/paper.png",
+        "link": "https://paper.design"
       },
       {
         "title": "Excalidraw",
         "tag": "Sketching",
         "description": "When I need to think visually: architecture diagrams, flow charts, or questionable logo concepts. Fast and delightfully rough.",
-        "image": "https://placehold.co/48x48/1a1a2e/2DD4BF?text=Ex"
+        "image": "http://127.0.0.1:8080/icons/excalidraw.png",
+        "link": "https://excalidraw.com"
       }
     ]
   },
@@ -122,30 +130,36 @@
         "title": "Tiles",
         "tag": "Window Manager",
         "description": "Keyboard-driven window tiling. 2x faster at arranging windows, 2x slower at deciding where they go.",
-        "image": "https://placehold.co/48x48/1a1a2e/2DD4BF?text=T"
+        "image": "http://127.0.0.1:8080/icons/tiles.png",
+        "link": "https://freemacsoft.net/tiles/"
       },
       {
         "title": "Notion",
         "tag": "Second Brain + Calendar",
         "description": "Notes, projects, plans, and now my calendar too. All in one place. Notion absorbed Cron and became the single source of truth for my entire digital life.",
-        "image": "https://placehold.co/48x48/1a1a2e/2DD4BF?text=N"
+        "image": "http://127.0.0.1:8080/icons/notion.png",
+        "link": "https://www.notion.com"
       },
       {
         "title": "Spark",
         "tag": "Email",
         "description": "Smart filters keep the inbox at zero. If Spark didn't surface it, it probably wasn't worth reading.",
-        "image": "https://placehold.co/48x48/1a1a2e/2DD4BF?text=S"
+        "image": "http://127.0.0.1:8080/icons/spark.png",
+        "link": "https://sparkmailapp.com"
       },
       {
         "title": "Simplenote",
         "tag": "Quick Notes",
         "description": "The digital napkin. Capture a thought on any device, forget about it forever. Blissfully simple.",
-        "image": "https://placehold.co/48x48/1a1a2e/2DD4BF?text=SN"
+        "image": "http://127.0.0.1:8080/icons/simplenote.png",
+        "link": "https://simplenote.com"
       },
       {
         "title": "BrowserOS",
         "tag": "AI Browser",
-        "description": "The browser I'm building. Gives every AI agent eyes to see the web. Navigate, interact, extract. The missing sense for autonomous workflows."
+        "description": "The browser I'm building. Gives every AI agent eyes to see the web. Navigate, interact, extract. The missing sense for autonomous workflows.",
+        "image": "http://127.0.0.1:8080/icons/browseros.png",
+        "link": "https://www.browseros.com"
       }
     ]
   },
@@ -156,32 +170,44 @@
       {
         "title": "Claude Code",
         "tag": "Primary Agent",
-        "description": "The go-to for focused, deep coding sessions. Understands context like a senior engineer sitting next to you."
+        "description": "The go-to for focused, deep coding sessions. Understands context like a senior engineer sitting next to you.",
+        "image": "http://127.0.0.1:8080/icons/claude.png",
+        "link": "https://claude.ai/code"
       },
       {
         "title": "Codex",
         "tag": "Background Agent",
-        "description": "Fire-and-forget. Spins up ideas, runs experiments, handles the passive work while I focus elsewhere."
+        "description": "Fire-and-forget. Spins up ideas, runs experiments, handles the passive work while I focus elsewhere.",
+        "image": "http://127.0.0.1:8080/icons/codex.png",
+        "link": "https://chatgpt.com/codex"
       },
       {
         "title": "Cursor + GLM 5.1",
         "tag": "Refactoring",
-        "description": "The experimental rig. Cursor's IDE + Z.ai's GLM for refactors, migrations, and the grunt work nobody wants to do."
+        "description": "The experimental rig. Cursor's IDE + Z.ai's GLM for refactors, migrations, and the grunt work nobody wants to do.",
+        "image": "http://127.0.0.1:8080/icons/cursor.png",
+        "link": "https://cursor.com"
       },
       {
         "title": "Gemini CLI",
         "tag": "UI Agent",
-        "description": "When the task is Material Design or mobile-first UI, Gemini gets it right out of the box."
+        "description": "When the task is Material Design or mobile-first UI, Gemini gets it right out of the box.",
+        "image": "http://127.0.0.1:8080/icons/gemini.png",
+        "link": "https://github.com/google-gemini/gemini-cli"
       },
       {
         "title": "Greptile",
         "tag": "Code Review",
-        "description": "AI-powered reviews for high-stakes private repos. Catches what humans miss after the third PR of the day."
+        "description": "AI-powered reviews for high-stakes private repos. Catches what humans miss after the third PR of the day.",
+        "image": "http://127.0.0.1:8080/icons/greptile.svg",
+        "link": "https://greptile.com"
       },
       {
         "title": "GitHub Copilot",
         "tag": "Code Review",
-        "description": "Handles reviews for side projects and open source. Keeps the quality bar up across everything I maintain."
+        "description": "Handles reviews for side projects and open source. Keeps the quality bar up across everything I maintain.",
+        "image": "http://127.0.0.1:8080/icons/copilot.png",
+        "link": "https://github.com/features/copilot"
       }
     ]
   },
@@ -192,7 +218,8 @@
       {
         "title": "Hermes Agent",
         "tag": "Always-On Agent",
-        "description": "Powered by Kimi K2.5 & GLM 5.1. A safe, sandboxed agent that never sleeps and never says no. Handles ad-hoc tasks around the clock: research, automation, whatever I throw at it."
+        "description": "Powered by Kimi K2.5 & GLM 5.1. A safe, sandboxed agent that never sleeps and never says no. Handles ad-hoc tasks around the clock: research, automation, whatever I throw at it.",
+        "image": "http://127.0.0.1:8080/icons/hermes.png"
       }
     ]
   }
