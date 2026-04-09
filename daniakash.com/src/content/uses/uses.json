@@ -35,28 +35,28 @@
         "title": "Keychron K4 Wireless",
         "tag": "KEYBOARD",
         "description": "Mechanical keyboards are love. The satisfying clicks of the normal profile Keychron is the reason I code most of the time.",
-        "image": "https://placehold.co/400x300/1a1a2e/2DD4BF?text=Keychron+K4",
+        "image": "http://127.0.0.1:8080/keychron-k4/keyboard-moody-2.jpg",
         "size": "small"
       },
       {
         "title": "Logitech MX Master 3",
         "tag": "MOUSE",
         "description": "As a power user of VSCode and tmux, I rarely need to click stuff. But when I do, I do it with the most ergonomic mouse.",
-        "image": "https://placehold.co/400x300/1a1a2e/2DD4BF?text=MX+Master+3",
+        "image": "http://127.0.0.1:8080/logitech-mx-master-3/mx-master-3s-sustainability.png",
         "size": "small"
       },
       {
-        "title": "Monarch Elevate",
+        "title": "Greensoul Imperium Electric",
         "tag": "DESK",
-        "description": "Height adjustable table. Sitting too much while thinking about variable names is bad for your health.",
-        "image": "https://placehold.co/400x300/1a1a2e/2DD4BF?text=Standing+Desk",
+        "description": "The table that acts as my workbench where I usually code, write and do all the tasks",
+        "image": "http://127.0.0.1:8080/greensoul-imperium/greensoul-amazon-1.jpg",
         "size": "small"
       },
       {
         "title": "Sennheiser HD 458BT",
         "tag": "AUDIO",
         "description": "Most trusted headphones for work — video calls, egghead lessons, podcasts while coding. Can't live without this one.",
-        "image": "https://placehold.co/400x300/1a1a2e/2DD4BF?text=Sennheiser",
+        "image": "http://127.0.0.1:8080/sennheiser-hd-458bt/senn-official-3.webp",
         "size": "small"
       }
     ]
