@@ -89,21 +89,30 @@ const sections = uses.data.items;
                         </div>
                       </div>
                     ) : (
-                      /* Small: compact icon-left layout */
-                      <div class="flex h-full items-center gap-3 p-4">
-                        <div class="flex size-10 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-foreground/5">
-                          {tool.image ? (
-                            <img src={tool.image} alt={tool.title} loading="lazy" class="size-full object-cover" />
-                          ) : (
-                            <span class="text-lg opacity-30">🖥</span>
-                          )}
-                        </div>
-                        <div class="flex min-w-0 flex-col">
+                      /* Small: image-focused with overlay label */
+                      <div class="group/small relative flex h-full items-center justify-center overflow-hidden">
+                        {tool.image ? (
+                          <img
+                            src={tool.image}
+                            alt={tool.title}
+                            loading="lazy"
+                            class="size-full object-cover transition-transform duration-300 group-hover/small:scale-105"
+                          />
+                        ) : (
+                          <div class="flex size-full items-center justify-center bg-foreground/5">
+                            <span class="text-3xl opacity-30">🖥</span>
+                          </div>
+                        )}
+                        {/* Gradient overlay + label at bottom */}
+                        <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent px-3 pb-2.5 pt-8">
                           {tool.tag && (
-                            <span class="font-mono text-[9px] tracking-wide text-primary">{tool.tag}</span>
+                            <span class="font-mono text-[9px] uppercase tracking-wider text-primary">{tool.tag}</span>
                           )}
-                          <h3 class="text-sm font-semibold leading-tight tracking-tight">{tool.title}</h3>
-                          <p class="mt-0.5 truncate text-xs text-muted-foreground">{tool.description}</p>
+                          <h3 class="text-sm font-semibold leading-tight text-white">{tool.title}</h3>
+                        </div>
+                        {/* Hover tooltip with description */}
+                        <div class="pointer-events-none absolute inset-0 flex items-center justify-center bg-black/85 p-4 opacity-0 transition-opacity duration-200 group-hover/small:opacity-100">
+                          <p class="text-center text-xs leading-relaxed text-white/90">{tool.description}</p>
                         </div>
                       </div>
                     )}
@@ -152,7 +161,7 @@ const sections = uses.data.items;
   .hw-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: 280px 280px 280px 128px;
+    grid-template-rows: 280px 280px 280px 160px;
     gap: 24px;
   }
 
