@@ -91,7 +91,7 @@
         "tag": "Multiplexer",
         "description": "The secret weapon. Spins up parallel AI agents across worktrees, manages sessions, and turns one terminal into a command center. Built on tmux.",
         "image": "http://127.0.0.1:8080/icons/dmux.svg",
-        "link": "https://github.com/nicholasgasior/dmux"
+        "link": "https://dmux.ai/"
       },
       {
         "title": "CodexBar",
@@ -219,7 +219,8 @@
         "title": "Hermes Agent",
         "tag": "Always-On Agent",
         "description": "Powered by Kimi K2.5 & GLM 5.1. A safe, sandboxed agent that never sleeps and never says no. Handles ad-hoc tasks around the clock: research, automation, whatever I throw at it.",
-        "image": "http://127.0.0.1:8080/icons/hermes.png"
+        "image": "http://127.0.0.1:8080/icons/hermes.png",
+        "link": "https://hermes-agent.nousresearch.com/"
       }
     ]
   }
