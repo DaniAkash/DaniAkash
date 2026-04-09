@@ -149,10 +149,14 @@ const uses = defineCollection({
     items: z.array(
       z.object({
         title: z.string(),
+        variant: z.enum(["hardware", "software"]).default("software"),
         tools: z.array(
           z.object({
             title: z.string(),
             description: z.string(),
+            tag: z.string().optional(),
+            image: z.string().optional(),
+            wide: z.boolean().optional(),
           }),
         ),
       }),

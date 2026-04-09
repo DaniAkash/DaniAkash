@@ -1,56 +1,127 @@
 ---
 import { getCollection } from "astro:content";
 import MainLayout from "../layouts/MainLayout.astro";
-import ContentContainer from "./components/ContentContainer.astro";
-import Header from "./components/Header.astro";
 
 const uses = (await getCollection("uses"))[0]!;
+const sections = uses.data.items;
 ---
 
-<MainLayout title="Uses">
-  <ContentContainer>
-    <Header
-      title="Tools of the Trade"
-      subtitle="A peek behind the curtain – the stuff that keeps me running (and coding)."
-    />
-    <div class="mt-16 sm:mt-20">
-      <div class="space-y-20">
-        {
-          uses.data.items.map((each) => {
-            return (
-              <section
-                aria-labelledby={each.title}
-                class="md:border-l md:border-zinc-100 md:pl-6 md:dark:border-zinc-700/40"
-              >
-                <div class="grid max-w-3xl grid-cols-1 items-baseline gap-y-8 md:grid-cols-4">
-                  <h2
-                    id={each.title}
-                    class="text-sm font-semibold text-zinc-800 dark:text-zinc-100"
-                  >
-                    {each.title}
-                  </h2>
-                  <div class="md:col-span-3">
-                    <ul role="list" class="space-y-16">
-                      {each.tools.map((tool) => {
-                        return (
-                          <li class="group relative flex flex-col items-start">
-                            <h3 class="text-base font-semibold tracking-tight text-zinc-800 dark:text-zinc-100">
-                              {tool.title}
-                            </h3>
-                            <p class="relative z-10 mt-2 text-sm text-zinc-600 dark:text-zinc-400">
-                              {tool.description}
-                            </p>
-                          </li>
-                        );
-                      })}
-                    </ul>
+<MainLayout title="Uses" description="Hardware, software, and tools Dani Akash uses for development.">
+  <div class="mx-auto max-w-[1100px] pb-20 pt-[120px]">
+    <!-- Header -->
+    <header class="mb-20">
+      <p class="mb-6 font-mono text-[11px] uppercase tracking-[0.15em] text-muted-foreground">
+        05 // USES
+      </p>
+      <h1
+        class="mb-4 font-bold leading-[1.1] tracking-[-0.03em]"
+        style="font-size: clamp(36px, 5vw, 56px);"
+      >
+        Tools of the Trade
+      </h1>
+      <p class="max-w-[600px] text-lg leading-relaxed text-muted-foreground">
+        A peek behind the curtain — the stuff that keeps me running (and coding).
+      </p>
+    </header>
+
+    {sections.map((section, sectionIndex) => {
+      const num = String(sectionIndex + 1).padStart(2, "0");
+      const isHardware = section.variant === "hardware";
+
+      return (
+        <section class="mb-20">
+          {/* Section header */}
+          <div class="mb-12 flex items-baseline gap-4 border-b border-dashed border-border pb-4">
+            <span class="font-mono text-4xl font-light text-foreground/10">{num}</span>
+            <span class="font-mono text-[11px] font-medium uppercase tracking-[0.15em] text-muted-foreground">
+              {section.title}
+            </span>
+          </div>
+
+          {isHardware ? (
+            /* Hardware grid — large cards with images */
+            <div class="hw-grid grid grid-cols-1 gap-6 md:grid-cols-2">
+              {section.tools.map((tool) => (
+                <div
+                  class:list={[
+                    "group overflow-hidden rounded-[20px] border border-border bg-foreground/[0.025] transition-all hover:-translate-y-0.5 hover:border-foreground/15 hover:shadow-lg hover:shadow-black/10",
+                    tool.wide && "md:col-span-2",
+                  ]}
+                >
+                  <div class:list={[tool.wide && "md:flex md:flex-row"]}>
+                    {/* Image area */}
+                    <div
+                      class:list={[
+                        "flex min-h-[180px] items-center justify-center overflow-hidden bg-foreground/5",
+                        tool.wide ? "md:w-[40%]" : "w-full",
+                      ]}
+                    >
+                      {tool.image ? (
+                        <img
+                          src={tool.image}
+                          alt={tool.title}
+                          loading="lazy"
+                          class="size-full object-cover"
+                        />
+                      ) : (
+                        <span class="text-5xl opacity-30">🖥</span>
+                      )}
+                    </div>
+                    {/* Body */}
+                    <div class:list={["flex flex-col gap-1 p-6", tool.wide && "md:flex-1 md:justify-center"]}>
+                      {tool.tag && (
+                        <span class="font-mono text-[11px] tracking-wide text-primary">{tool.tag}</span>
+                      )}
+                      <h3 class="text-lg font-semibold leading-snug tracking-tight">{tool.title}</h3>
+                      <p class="mt-1 text-sm leading-relaxed text-muted-foreground">{tool.description}</p>
+                    </div>
                   </div>
                 </div>
-              </section>
-            );
-          })
-        }
-      </div>
-    </div>
-  </ContentContainer>
+              ))}
+            </div>
+          ) : (
+            /* Software grid — icon + info cards */
+            <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+              {section.tools.map((tool) => (
+                <div class="flex gap-4 rounded-xl border border-border p-6 transition-all hover:border-foreground/15 hover:bg-foreground/5">
+                  {/* Icon */}
+                  <div class="flex size-12 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-foreground/5">
+                    {tool.image ? (
+                      <img
+                        src={tool.image}
+                        alt={tool.title}
+                        loading="lazy"
+                        class="size-full object-cover"
+                      />
+                    ) : (
+                      <span class="text-2xl opacity-30">⚙</span>
+                    )}
+                  </div>
+                  {/* Body */}
+                  <div class="flex min-w-0 flex-col gap-0.5">
+                    {tool.tag && (
+                      <span class="font-mono text-[10px] uppercase tracking-wide text-primary">{tool.tag}</span>
+                    )}
+                    <h3 class="text-base font-semibold">{tool.title}</h3>
+                    <p class="mt-1 text-[13px] leading-relaxed text-muted-foreground">{tool.description}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </section>
+      );
+    })}
+  </div>
 </MainLayout>
+
+<style>
+  @media (max-width: 900px) {
+    .hw-grid {
+      grid-template-columns: 1fr !important;
+    }
+    .hw-grid > [class*="col-span-2"] {
+      grid-column: span 1 !important;
+    }
+  }
+</style>
