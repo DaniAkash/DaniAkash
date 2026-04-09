@@ -66,9 +66,9 @@
     "variant": "software",
     "tools": [
       {
-        "title": "VSCodium",
+        "title": "Zed",
         "tag": "Editor",
-        "description": "A completely open-source variant of VSCode with its own marketplace that supports all my vital extensions.",
+        "description": "With me working on multiple projects the norm, Zed provides the native performance and seamless switching of projects. Keeping coding sessions productive despite the size of the projects active.",
         "image": "https://placehold.co/48x48/1a1a2e/2DD4BF?text=VS"
       },
       {
@@ -78,9 +78,20 @@
         "image": "https://placehold.co/48x48/1a1a2e/2DD4BF?text=ZSH"
       },
       {
-        "title": "tmux",
+        "title": "Ghostty",
+        "tag": "Terminal Emulator",
+        "description": "The trusted terminal emulator on which most of my work is done. Its fast, configurable and gets the jobs done."
+      },
+      {
+        "title": "dmux",
         "tag": "Multiplexer",
-        "description": "With large screens comes no reason to open multiple tabs — just keep the processes running across tmux profiles.",
+        "description": "Helps run parallel agents across multiple worktrees for the same project and helps manage multiple projects. Has been the biggest productivity booster - powered by tmux",
+        "image": "https://placehold.co/48x48/1a1a2e/2DD4BF?text=tmux"
+      },
+      {
+        "title": "CodexBar",
+        "tag": "Menu Item",
+        "description": "Shows realtime token usage stats directly on the menu bar.",
         "image": "https://placehold.co/48x48/1a1a2e/2DD4BF?text=tmux"
       }
     ]
@@ -90,9 +101,9 @@
     "variant": "software",
     "tools": [
       {
-        "title": "Figma",
-        "tag": "UI / Flowcharts",
-        "description": "They say Figma is a great design tool, but I use it to build flow charts & stick-figure prototypes of my weekend projects.",
+        "title": "Paper",
+        "tag": "UI / Agentic UI",
+        "description": "My go-to tool now for creating designs powered by AI. Helps converting my ideas to designs then to code a seamless process",
         "image": "https://placehold.co/48x48/1a1a2e/2DD4BF?text=Fig"
       },
       {
@@ -138,5 +149,15 @@
         "image": "https://placehold.co/48x48/1a1a2e/2DD4BF?text=SN"
       }
     ]
+  },
+  {
+    "title": "Coding Agents"
+    // here is my coding agent setup
+    // Claude Code - primary focused coding
+    // Codex - running multiple ideas in the background - great with passive tasks
+    // Cursor + Z.ai GLM 5.1 - experimenting with this setup for doing refactors and other chores
+    // Gemini CLI - whenever I need to build material design / mobile app focused UI
+    // Greptile - My go to code review tool for high value private projects
+    // Github Copilot - Code review tool for my side projects and other open source code I maintain
   }
 ]
