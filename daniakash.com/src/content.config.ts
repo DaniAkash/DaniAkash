@@ -166,6 +166,7 @@ const uses = defineCollection({
 
 const rss = defineCollection({
   loader: async () => {
+    try {
     const feed = await parse(NEWSLETTER_RSS);
     return feed.items.map((item) => {
       const dateValue = getDateValue(item.published);
@@ -184,6 +185,9 @@ const rss = defineCollection({
         dateMillis: item.published,
       };
     });
+    } catch {
+      return [];
+    }
   },
   schema: z.object({
     title: z.string(),
