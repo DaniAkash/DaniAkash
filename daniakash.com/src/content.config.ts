@@ -125,14 +125,24 @@ const project = defineCollection({
     items: z.array(
       z.object({
         name: z.string(),
-        description: z.string(),
-        info: z.string().optional(),
-        link: z.object({
-          href: z.string(),
-          label: z.string(),
-        }),
-        logo: z.string(),
-        noBg: z.boolean().optional(),
+        description: z.string().optional(),
+        status: z.enum(["active", "oss", "previous"]).optional(),
+        tech: z.array(z.string()).optional(),
+        link: z
+          .object({
+            href: z.string(),
+            label: z.string(),
+          })
+          .optional(),
+        size: z
+          .enum(["1", "2col", "3col", "full", "stat"])
+          .default("1"),
+        stat: z
+          .object({
+            number: z.string(),
+            label: z.string(),
+          })
+          .optional(),
       }),
     ),
   }),
