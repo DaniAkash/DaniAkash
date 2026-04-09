@@ -356,9 +356,16 @@ const heroImages = [
       <p class="text-muted-foreground mb-6">
         Thoughts delivered straight to your inbox. Zero spam, I promise.
       </p>
-      <form class="mx-auto flex max-w-[480px] gap-2" action="#" method="POST">
+      <form
+        action="https://buttondown.com/api/emails/embed-subscribe/daniakash"
+        method="post"
+        target="popupwindow"
+        onsubmit="window.open('https://buttondown.com/daniakash', 'popupwindow')"
+        class="mx-auto flex max-w-[480px] gap-2"
+      >
         <input
           type="email"
+          name="email"
           placeholder="user@domain.net"
           required
           aria-label="Email address"
