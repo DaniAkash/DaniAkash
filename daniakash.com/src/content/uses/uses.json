@@ -7,56 +7,56 @@
         "title": "16\" Macbook Pro, M4 Pro",
         "tag": "PRIMARY DEVICE",
         "description": "48 GB RAM (2024). The cockpit. Claude Code, Codex, Cursor and a fleet of AI agents run wild across worktrees while I orchestrate from the driver's seat.",
-        "image": "http://127.0.0.1:8080/macbook-pro-16-space-black/apple-pv-hero-cropped.jpg",
+        "image": "uses-v4/macbook-pro-16-m4-pro.jpg",
         "size": "wide"
       },
       {
         "title": "16\" MacBook Pro, M2 Pro",
         "tag": "CREATIVE",
         "description": "32 GB RAM (2023). Where the talks get built, novels get written, and passion projects come to life. The machine that reminds me coding isn't everything.",
-        "image": "http://127.0.0.1:8080/macbook-pro-16-silver/macbook-pro-silver-1.jpg",
+        "image": "uses-v4/macbook-pro-16-m2-pro.jpg",
         "size": "square"
       },
       {
         "title": "14\" MacBook Pro, M2 Pro",
         "tag": "ALWAYS ON",
         "description": "32 GB RAM (2023). Runs headless 24/7. Plex server, self-hosted apps, and autonomous AI agents that work while I sleep.",
-        "image": "http://127.0.0.1:8080/macbook-pro-14-space-black/macbook-pro-14-2.jpg",
+        "image": "uses-v4/macbook-pro-14-m2-pro.jpg",
         "size": "square"
       },
       {
         "title": "4K 32\" LG UltraFine Ergo",
         "tag": "DISPLAY",
         "description": "32 inches of 4K real estate on an ergonomic arm. More pixels means more worktrees visible at once. The stand alone is worth it.",
-        "image": "http://127.0.0.1:8080/lg-ultrafine-ergo/lg-official-ergo-cropped.jpg",
+        "image": "uses-v4/lg-ultrafine-ergo.jpg",
         "size": "wide"
       },
       {
         "title": "Keychron K4 Wireless",
         "tag": "KEYBOARD",
         "description": "Mechanical clicks that make every keystroke feel intentional. Full-size layout, wireless freedom.",
-        "image": "http://127.0.0.1:8080/keychron-k4/keyboard-moody-2.jpg",
+        "image": "uses-v4/keychron-k4.jpg",
         "size": "small"
       },
       {
         "title": "Logitech MX Master 3",
         "tag": "MOUSE",
         "description": "I live in the terminal, so the mouse rarely moves. But when it does, it's this one.",
-        "image": "http://127.0.0.1:8080/logitech-mx-master-3/mx-master-3s-sustainability.png",
+        "image": "uses-v4/logitech-mx-master-3.png",
         "size": "small"
       },
       {
         "title": "Greensoul Imperium",
         "tag": "DESK",
         "description": "Electric sit-stand desk. Because debugging posture is just as important as debugging code.",
-        "image": "http://127.0.0.1:8080/greensoul-imperium/greensoul-amazon-1.jpg",
+        "image": "uses-v4/greensoul-imperium.jpg",
         "size": "small"
       },
       {
         "title": "Sennheiser HD 458BT",
         "tag": "AUDIO",
         "description": "Noise-cancelling companion for deep work. Podcasts in, distractions out.",
-        "image": "http://127.0.0.1:8080/sennheiser-hd-458bt/senn-official-3.webp",
+        "image": "uses-v4/sennheiser-hd-458bt.webp",
         "size": "small"
       }
     ]
@@ -69,35 +69,35 @@
         "title": "Zed",
         "tag": "Editor",
         "description": "Native speed, zero lag. When you're juggling a dozen projects across worktrees, every millisecond of editor latency matters.",
-        "image": "http://127.0.0.1:8080/icons/zed.svg",
+        "image": "uses-v4/icon-zed.svg",
         "link": "https://zed.dev"
       },
       {
         "title": "Oh My Zsh!",
         "tag": "Shell",
         "description": "Auto-cd, smart completions, and a theme that sparks joy. The shell shouldn't fight you. It should read your mind.",
-        "image": "http://127.0.0.1:8080/icons/ohmyzsh.png",
+        "image": "uses-v4/icon-ohmyzsh.png",
         "link": "https://ohmyz.sh"
       },
       {
         "title": "Ghostty",
         "tag": "Terminal",
         "description": "Blazing fast, GPU-rendered, and endlessly configurable. The terminal where the real work happens.",
-        "image": "http://127.0.0.1:8080/icons/ghostty.png",
+        "image": "uses-v4/icon-ghostty.png",
         "link": "https://ghostty.org"
       },
       {
         "title": "dmux",
         "tag": "Multiplexer",
         "description": "The secret weapon. Spins up parallel AI agents across worktrees, manages sessions, and turns one terminal into a command center. Built on tmux.",
-        "image": "http://127.0.0.1:8080/icons/dmux.svg",
+        "image": "uses-v4/icon-dmux.svg",
         "link": "https://dmux.ai/"
       },
       {
         "title": "CodexBar",
         "tag": "Menubar",
         "description": "Real-time token burn rate, right in the menu bar. Know exactly what your agents are costing. Always.",
-        "image": "http://127.0.0.1:8080/icons/codexbar.png",
+        "image": "uses-v4/icon-codexbar.png",
         "link": "https://codexbar.app"
       }
     ]
@@ -110,14 +110,14 @@
         "title": "Paper",
         "tag": "AI Design",
         "description": "Idea to mockup to code in one flow. AI-powered design that actually ships, not just pretty pictures.",
-        "image": "http://127.0.0.1:8080/icons/paper.png",
+        "image": "uses-v4/icon-paper.png",
         "link": "https://paper.design"
       },
       {
         "title": "Excalidraw",
         "tag": "Sketching",
         "description": "When I need to think visually: architecture diagrams, flow charts, or questionable logo concepts. Fast and delightfully rough.",
-        "image": "http://127.0.0.1:8080/icons/excalidraw.png",
+        "image": "uses-v4/icon-excalidraw.png",
         "link": "https://excalidraw.com"
       }
     ]
@@ -130,35 +130,35 @@
         "title": "Rectangle",
         "tag": "Window Manager",
         "description": "Keyboard-driven window tiling. 2x faster at arranging windows, 2x slower at deciding where they go.",
-        "image": "http://127.0.0.1:8080/icons/rectangle.ico",
+        "image": "uses-v4/icon-rectangle.ico",
         "link": "https://rectangleapp.com"
       },
       {
         "title": "Notion",
         "tag": "Second Brain + Calendar",
         "description": "Notes, projects, plans, and now my calendar too. All in one place. Notion absorbed Cron and became the single source of truth for my entire digital life.",
-        "image": "http://127.0.0.1:8080/icons/notion.png",
+        "image": "uses-v4/icon-notion.png",
         "link": "https://www.notion.com"
       },
       {
         "title": "Spark",
         "tag": "Email",
         "description": "Smart filters keep the inbox at zero. If Spark didn't surface it, it probably wasn't worth reading.",
-        "image": "http://127.0.0.1:8080/icons/spark.png",
+        "image": "uses-v4/icon-spark.png",
         "link": "https://sparkmailapp.com"
       },
       {
         "title": "Simplenote",
         "tag": "Quick Notes",
         "description": "The digital napkin. Capture a thought on any device, forget about it forever. Blissfully simple.",
-        "image": "http://127.0.0.1:8080/icons/simplenote.png",
+        "image": "uses-v4/icon-simplenote.png",
         "link": "https://simplenote.com"
       },
       {
         "title": "BrowserOS",
         "tag": "AI Browser",
         "description": "The browser I'm building. Gives every AI agent eyes to see the web. Navigate, interact, extract. The missing sense for autonomous workflows.",
-        "image": "http://127.0.0.1:8080/icons/browseros.png",
+        "image": "uses-v4/icon-browseros.png",
         "link": "https://www.browseros.com"
       }
     ]
@@ -171,42 +171,42 @@
         "title": "Claude Code",
         "tag": "Primary Agent",
         "description": "The go-to for focused, deep coding sessions. Understands context like a senior engineer sitting next to you.",
-        "image": "http://127.0.0.1:8080/icons/claude.png",
+        "image": "uses-v4/icon-claude.png",
         "link": "https://claude.ai/code"
       },
       {
         "title": "Codex",
         "tag": "Background Agent",
         "description": "Fire-and-forget. Spins up ideas, runs experiments, handles the passive work while I focus elsewhere.",
-        "image": "http://127.0.0.1:8080/icons/codex.png",
+        "image": "uses-v4/icon-codex.png",
         "link": "https://chatgpt.com/codex"
       },
       {
         "title": "Cursor + GLM 5.1",
         "tag": "Refactoring",
         "description": "The experimental rig. Cursor's IDE + Z.ai's GLM for refactors, migrations, and the grunt work nobody wants to do.",
-        "image": "http://127.0.0.1:8080/icons/cursor.png",
+        "image": "uses-v4/icon-cursor.png",
         "link": "https://cursor.com"
       },
       {
         "title": "Gemini CLI",
         "tag": "UI Agent",
         "description": "When the task is Material Design or mobile-first UI, Gemini gets it right out of the box.",
-        "image": "http://127.0.0.1:8080/icons/gemini.svg",
+        "image": "uses-v4/icon-gemini.svg",
         "link": "https://github.com/google-gemini/gemini-cli"
       },
       {
         "title": "Greptile",
         "tag": "Code Review",
         "description": "AI-powered reviews for high-stakes private repos. Catches what humans miss after the third PR of the day.",
-        "image": "http://127.0.0.1:8080/icons/greptile.svg",
+        "image": "uses-v4/icon-greptile.svg",
         "link": "https://greptile.com"
       },
       {
         "title": "GitHub Copilot",
         "tag": "Code Review",
         "description": "Handles reviews for side projects and open source. Keeps the quality bar up across everything I maintain.",
-        "image": "http://127.0.0.1:8080/icons/copilot.svg",
+        "image": "uses-v4/icon-copilot.svg",
         "link": "https://github.com/features/copilot"
       }
     ]
@@ -219,7 +219,7 @@
         "title": "Hermes Agent",
         "tag": "Always-On Agent",
         "description": "Powered by Kimi K2.5 & GLM 5.1. A safe, sandboxed agent that never sleeps and never says no. Handles ad-hoc tasks around the clock: research, automation, whatever I throw at it.",
-        "image": "http://127.0.0.1:8080/icons/hermes.png",
+        "image": "uses-v4/icon-hermes.png",
         "link": "https://hermes-agent.nousresearch.com/"
       }
     ]

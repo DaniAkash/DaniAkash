@@ -1,9 +1,17 @@
 ---
 import { getCollection } from "astro:content";
+import { assetUrl } from "../constants/asset-prefix";
 import MainLayout from "../layouts/MainLayout.astro";
 
 const uses = (await getCollection("uses"))[0]!;
 const sections = uses.data.items;
+
+/** Resolve an image path: absolute URLs pass through, relative paths get the asset prefix */
+const resolveImage = (path?: string) => {
+  if (!path) return undefined;
+  if (path.startsWith("http://") || path.startsWith("https://")) return path;
+  return assetUrl(path);
+};
 ---
 
 <MainLayout title="Uses" description="Hardware, software, and tools Dani Akash uses for development.">
@@ -43,6 +51,7 @@ const sections = uses.data.items;
             <div class="hw-grid">
               {section.tools.map((tool) => {
                 const size = tool.size ?? "square";
+                const img = resolveImage(tool.image);
                 return (
                   <div
                     class:list={[
@@ -56,8 +65,8 @@ const sections = uses.data.items;
                       /* Wide: image left, text right */
                       <div class="flex h-full flex-row">
                         <div class="flex w-[45%] items-center justify-center overflow-hidden bg-foreground/5">
-                          {tool.image ? (
-                            <img src={tool.image} alt={tool.title} loading="lazy" class="size-full object-cover" />
+                          {img ? (
+                            <img src={img} alt={tool.title} loading="lazy" class="size-full object-cover" />
                           ) : (
                             <span class="text-5xl opacity-30">🖥</span>
                           )}
@@ -74,8 +83,8 @@ const sections = uses.data.items;
                       /* Square: image top, text bottom */
                       <div class="flex h-full flex-col">
                         <div class="flex flex-1 items-center justify-center overflow-hidden bg-foreground/5">
-                          {tool.image ? (
-                            <img src={tool.image} alt={tool.title} loading="lazy" class="size-full object-cover" />
+                          {img ? (
+                            <img src={img} alt={tool.title} loading="lazy" class="size-full object-cover" />
                           ) : (
                             <span class="text-5xl opacity-30">🖥</span>
                           )}
@@ -91,9 +100,9 @@ const sections = uses.data.items;
                     ) : (
                       /* Small: image-focused with overlay label */
                       <div class="group/small relative flex h-full items-center justify-center overflow-hidden">
-                        {tool.image ? (
+                        {img ? (
                           <img
-                            src={tool.image}
+                            src={img}
                             alt={tool.title}
                             loading="lazy"
                             class="size-full object-cover transition-transform duration-300 group-hover/small:scale-105"
@@ -126,13 +135,14 @@ const sections = uses.data.items;
               {section.tools.map((tool) => {
                 const Tag = tool.link ? "a" : "div";
                 const linkProps = tool.link ? { href: tool.link, target: "_blank", rel: "noopener" } : {};
+                const img = resolveImage(tool.image);
                 return (
                   <Tag {...linkProps} class="flex gap-4 rounded-xl border border-border p-6 transition-all hover:border-foreground/15 hover:bg-foreground/5">
                     {/* Icon */}
                     <div class="flex size-12 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-foreground/5">
-                      {tool.image ? (
+                      {img ? (
                         <img
-                          src={tool.image}
+                          src={img}
                           alt={tool.title}
                           loading="lazy"
                           class="size-full object-contain"
