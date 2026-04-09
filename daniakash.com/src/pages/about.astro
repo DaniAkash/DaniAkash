@@ -159,8 +159,8 @@ const social = (await getCollection("social"))[0]!;
   .about-viz :global(.polaroid) {
     position: absolute;
     width: 140px;
-    background: hsl(var(--background));
-    border: 1px solid #1e1e2a;
+    background: #08080D;
+    border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 8px;
     overflow: hidden;
     pointer-events: none;
@@ -170,7 +170,8 @@ const social = (await getCollection("social"))[0]!;
   }
 
   :global(html:not(.dark)) .about-viz :global(.polaroid) {
-    border-color: #d8d8d0;
+    background: #F5F5F0;
+    border-color: rgba(0, 0, 0, 0.08);
   }
 
   .about-viz :global(.polaroid-img) {
