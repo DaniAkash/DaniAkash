@@ -155,6 +155,43 @@ const social = (await getCollection("social"))[0]!;
   }
 
   /* Spotlight panel */
+  /* Polaroid card — JS-positioned to track marker */
+  .about-viz :global(.polaroid) {
+    position: absolute;
+    width: 140px;
+    background: hsl(var(--background));
+    border: 1px solid #1e1e2a;
+    border-radius: 8px;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 3;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+    opacity: 0;
+  }
+
+  :global(html:not(.dark)) .about-viz :global(.polaroid) {
+    border-color: #d8d8d0;
+  }
+
+  .about-viz :global(.polaroid-img) {
+    width: 100%;
+    aspect-ratio: 4/3;
+    object-fit: cover;
+    display: block;
+  }
+
+  .about-viz :global(.polaroid-caption) {
+    padding: 6px 8px;
+    font-family: var(--font-mono, 'JetBrains Mono', monospace);
+    font-size: 10px;
+    font-weight: 500;
+    text-align: center;
+    color: hsl(var(--foreground));
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
   .about-viz :global(.spotlight) {
     border: 1px solid #1e1e2a;
     border-radius: 0 0 16px 16px;

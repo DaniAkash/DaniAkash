@@ -81,9 +81,38 @@ const CAT_COLORS: Record<string, string> = {
   i: "bg-rose-400",
 };
 
+// Project lat/lng to screen x/y given globe rotation
+function projectMarker(
+  lat: number,
+  lng: number,
+  phi: number,
+  theta: number,
+  width: number,
+  height: number,
+): { x: number; y: number; visible: boolean } {
+  const latRad = (lat * Math.PI) / 180;
+  const lngRad = (lng * Math.PI) / 180;
+
+  // Spherical to cartesian
+  const cx = Math.cos(latRad) * Math.sin(lngRad + phi);
+  const cy = -Math.sin(latRad) * Math.cos(theta) + Math.cos(latRad) * Math.cos(lngRad + phi) * Math.sin(theta);
+  const cz = Math.sin(latRad) * Math.sin(theta) + Math.cos(latRad) * Math.cos(lngRad + phi) * Math.cos(theta);
+
+  // Only visible if on front face
+  const visible = cz > 0;
+
+  // Project to 2D (orthographic)
+  const r = Math.min(width, height) * 0.45;
+  const x = width / 2 + cx * r;
+  const y = height / 2 - cy * r;
+
+  return { x, y, visible };
+}
+
 export default function Globe() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const wrapRef = useRef<HTMLDivElement>(null);
+  const polaroidRef = useRef<HTMLDivElement>(null);
   const [currentIdx, setCurrentIdx] = useState(0);
   const initialPhi = -(DESTINATIONS[0]!.loc[1] * (Math.PI / 180)) - Math.PI / 2;
   const phiRef = useRef(initialPhi);
@@ -91,48 +120,41 @@ export default function Globe() {
   const globeRef = useRef<ReturnType<typeof createGlobe> | null>(null);
   const animRef = useRef<number | null>(null);
   const cycleRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const currentIdxRef = useRef(0);
 
   const d = DESTINATIONS[currentIdx]!;
+
+  const updateDestination = useCallback((idx: number) => {
+    currentIdxRef.current = idx;
+    const dest = DESTINATIONS[idx]!;
+    const lngRad = dest.loc[1] * (Math.PI / 180);
+    targetPhiRef.current = -lngRad - Math.PI / 2;
+    if (globeRef.current) {
+      globeRef.current.update({ markers: [{ location: dest.loc, size: 0.03 }] });
+    }
+  }, []);
 
   const switchTo = useCallback((idx: number) => {
     const wrapped = ((idx % DESTINATIONS.length) + DESTINATIONS.length) % DESTINATIONS.length;
     setCurrentIdx(wrapped);
-    const dest = DESTINATIONS[wrapped]!;
-    const lngRad = dest.loc[1] * (Math.PI / 180);
-    targetPhiRef.current = -lngRad - Math.PI / 2;
-
-    if (globeRef.current) {
-      globeRef.current.update({
-        markers: [{ location: dest.loc, size: 0.03 }],
-      });
-    }
-  }, []);
+    updateDestination(wrapped);
+  }, [updateDestination]);
 
   const next = useCallback(() => {
     setCurrentIdx((prev) => {
       const nextIdx = (prev + 1) % DESTINATIONS.length;
-      const dest = DESTINATIONS[nextIdx]!;
-      const lngRad = dest.loc[1] * (Math.PI / 180);
-      targetPhiRef.current = -lngRad - Math.PI / 2;
-      if (globeRef.current) {
-        globeRef.current.update({ markers: [{ location: dest.loc, size: 0.03 }] });
-      }
+      updateDestination(nextIdx);
       return nextIdx;
     });
-  }, []);
+  }, [updateDestination]);
 
   const prev = useCallback(() => {
     setCurrentIdx((prev) => {
       const nextIdx = ((prev - 1) + DESTINATIONS.length) % DESTINATIONS.length;
-      const dest = DESTINATIONS[nextIdx]!;
-      const lngRad = dest.loc[1] * (Math.PI / 180);
-      targetPhiRef.current = -lngRad - Math.PI / 2;
-      if (globeRef.current) {
-        globeRef.current.update({ markers: [{ location: dest.loc, size: 0.03 }] });
-      }
+      updateDestination(nextIdx);
       return nextIdx;
     });
-  }, []);
+  }, [updateDestination]);
 
   const resetTimer = useCallback(() => {
     if (cycleRef.current) clearInterval(cycleRef.current);
@@ -170,12 +192,33 @@ export default function Globe() {
     });
     globeRef.current = globe;
 
+    const theta = 0.15;
     function animate() {
       let diff = targetPhiRef.current - phiRef.current;
       while (diff > Math.PI) diff -= 2 * Math.PI;
       while (diff < -Math.PI) diff += 2 * Math.PI;
       phiRef.current += diff * 0.03;
       globe.update({ phi: phiRef.current });
+
+      // Position polaroid on the marker
+      if (polaroidRef.current && wrapRef.current) {
+        const dest = DESTINATIONS[currentIdxRef.current]!;
+        const wrapW = wrapRef.current.offsetWidth;
+        const wrapH = wrapRef.current.offsetHeight;
+        const proj = projectMarker(dest.loc[0], dest.loc[1], phiRef.current, theta, wrapW, wrapH);
+
+        if (proj.visible) {
+          polaroidRef.current.style.opacity = "1";
+          polaroidRef.current.style.filter = "none";
+          polaroidRef.current.style.left = `${proj.x}px`;
+          polaroidRef.current.style.top = `${proj.y}px`;
+          polaroidRef.current.style.transform = "translate(-50%, -100%) translateY(-12px)";
+        } else {
+          polaroidRef.current.style.opacity = "0";
+          polaroidRef.current.style.filter = "blur(4px)";
+        }
+      }
+
       animRef.current = requestAnimationFrame(animate);
     }
     animate();
@@ -253,6 +296,15 @@ export default function Globe() {
       {/* Globe */}
       <div ref={wrapRef} className="globe-wrap">
         <canvas ref={canvasRef} className="block h-full w-full cursor-grab active:cursor-grabbing" />
+        {/* Polaroid card — anchored to marker */}
+        <div ref={polaroidRef} className="polaroid" style={{ transition: "opacity 0.6s, filter 0.6s, left 0.3s, top 0.3s" }}>
+          <img
+            src={`https://images.unsplash.com/photo-1539650116574-8efeb43e2750?w=300&h=200&fit=crop`}
+            alt={d.n}
+            className="polaroid-img"
+          />
+          <div className="polaroid-caption">{d.n}</div>
+        </div>
         <span className="absolute bottom-2 right-4 pointer-events-none font-mono text-[9px] uppercase tracking-wider text-muted-foreground/60">
           DESTINATIONS // WISHLIST
         </span>
