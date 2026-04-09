@@ -102,14 +102,15 @@ export default function Globe({ destinations: destinationsProp }: GlobeProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const wrapRef = useRef<HTMLDivElement>(null);
   const polaroidRef = useRef<HTMLDivElement>(null);
-  const [currentIdx, setCurrentIdx] = useState(0);
-  const initialPhi = -(DESTINATIONS[0]!.loc[1] * (Math.PI / 180)) - Math.PI / 2;
+  const [startIdx] = useState(() => Math.floor(Math.random() * DESTINATIONS.length));
+  const [currentIdx, setCurrentIdx] = useState(startIdx);
+  const initialPhi = -(DESTINATIONS[startIdx]!.loc[1] * (Math.PI / 180)) - Math.PI / 2;
   const phiRef = useRef(initialPhi);
   const targetPhiRef = useRef(initialPhi);
   const globeRef = useRef<ReturnType<typeof createGlobe> | null>(null);
   const animRef = useRef<number | null>(null);
   const cycleRef = useRef<ReturnType<typeof setInterval> | null>(null);
-  const currentIdxRef = useRef(0);
+  const currentIdxRef = useRef(startIdx);
   const pointerRef = useRef<number | null>(null);
   const [{ r }, api] = useSpring(() => ({ r: 0, config: { mass: 1, tension: 280, friction: 40 } }));
 
@@ -348,7 +349,7 @@ export default function Globe({ destinations: destinationsProp }: GlobeProps) {
             {d.n}
           </a>
           <div className="mt-0.5 font-mono text-[11px] text-muted-foreground">{d.c}</div>
-          <div className="mt-1 line-clamp-2 text-[13px] leading-snug text-muted-foreground/80">{d.sig}</div>
+          <div className="mt-1 line-clamp-2 text-[13px] leading-snug text-muted-foreground/80" title={d.sig}>{d.sig}</div>
         </div>
         <div className="mt-1 flex shrink-0 items-center gap-2">
           <button
