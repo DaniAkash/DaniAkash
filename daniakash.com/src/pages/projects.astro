@@ -374,18 +374,17 @@ const items = projects.data.items;
     z-index: 0;
     overflow: hidden;
     pointer-events: none;
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
     mask-image: linear-gradient(to bottom, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0.13) 33%, rgba(0,0,0,0.19) 66%, rgba(0,0,0,0.25) 100%);
     -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0.13) 33%, rgba(0,0,0,0.19) 66%, rgba(0,0,0,0.25) 100%);
   }
 
   .factory-wrapper {
-    position: relative;
+    position: absolute;
     width: 2000px;
     height: 1000px;
-    flex-shrink: 0;
+    bottom: 0;
+    left: 50%;
+    margin-left: -1000px;
     background-color: hsl(var(--background));
     transition: background-color 0.4s ease;
   }
@@ -426,7 +425,7 @@ const items = projects.data.items;
   }
 
   :global(.dark) .factory-fixed :global(.pix::after) { filter: brightness(2.5); }
-  :global(:not(.dark)) .factory-fixed :global(.pix::after) { filter: brightness(0.4); }
+  :global(html:not(.dark)) .factory-fixed :global(.pix::after) { filter: brightness(0.4); }
 
   .factory-fixed :global(.conveyor-belt .pix) {
     width: calc(var(--width) - (var(--m) * 2px));
@@ -486,7 +485,7 @@ const items = projects.data.items;
   }
 
   .factory-fixed :global(.pneumatic-tube .pix::after) { filter: brightness(0.8); }
-  :global(:not(.dark)) .factory-fixed :global(.pneumatic-tube .pix::after) { filter: brightness(0.6); }
+  :global(html:not(.dark)) .factory-fixed :global(.pneumatic-tube .pix::after) { filter: brightness(0.6); }
 
   .factory-fixed :global([variant='straight'] .tube) {
     --bg-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAPElEQVR4AeyVsQkAAAjD1P9/1hM6ZZFkFoS00CmYBw8WZhrmQQZwS0tF0bCKVBQNxANblBXBe7MOTszgAAAA//+VdSGoAAAABklEQVQDANbXwDGnv3nqAAAAAElFTkSuQmCC);
@@ -513,7 +512,7 @@ const items = projects.data.items;
     100% { transform: scale(1); }
   }
 
-  :global(:not(.dark)) .factory-fixed { opacity: 0.6; }
+  :global(html:not(.dark)) .factory-fixed { opacity: 0.6; }
 
   .bento-grid {
     display: grid;
@@ -522,8 +521,8 @@ const items = projects.data.items;
   }
 
   .bento-card {
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid #1e1e2a;
+    background: rgba(255, 255, 255, 0.025);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border-radius: 20px;
@@ -534,21 +533,21 @@ const items = projects.data.items;
     display: block;
   }
 
-  :global(:not(.dark)) .bento-card {
-    border-color: rgba(0, 0, 0, 0.12);
-    background: rgba(0, 0, 0, 0.03);
+  :global(html:not(.dark)) .bento-card {
+    border-color: #d8d8d0;
+    background: rgba(0, 0, 0, 0.025);
   }
 
   .bento-card:hover {
-    background: rgba(255, 255, 255, 0.06);
-    border-color: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.05);
+    border-color: #2a2a3a;
     transform: translateY(-3px);
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
   }
 
-  :global(:not(.dark)) .bento-card:hover {
-    background: rgba(0, 0, 0, 0.06);
-    border-color: rgba(0, 0, 0, 0.2);
+  :global(html:not(.dark)) .bento-card:hover {
+    background: rgba(0, 0, 0, 0.05);
+    border-color: #c0c0b8;
   }
 
   .bento-card:hover h3 {
@@ -583,7 +582,7 @@ const items = projects.data.items;
   .bento-visual {
     flex: 1;
     min-height: 120px;
-    background: rgba(255, 255, 255, 0.035);
+    background: #0d0d14;
     border-radius: 0 0 16px 16px;
     display: flex;
     align-items: center;
@@ -592,8 +591,8 @@ const items = projects.data.items;
     overflow: hidden;
   }
 
-  :global(:not(.dark)) .bento-visual {
-    background: rgba(0, 0, 0, 0.035);
+  :global(html:not(.dark)) .bento-visual {
+    background: #ededea;
   }
 
   .bento-inner--horizontal .bento-visual {
@@ -603,12 +602,12 @@ const items = projects.data.items;
   .dot-pattern {
     position: absolute;
     inset: 0;
-    background-image: radial-gradient(circle, rgba(255, 255, 255, 0.18) 1px, transparent 1px);
+    background-image: radial-gradient(circle, #2a2a3a 1px, transparent 1px);
     background-size: 16px 16px;
   }
 
-  :global(:not(.dark)) .dot-pattern {
-    background-image: radial-gradient(circle, rgba(0, 0, 0, 0.18) 1px, transparent 1px);
+  :global(html:not(.dark)) .dot-pattern {
+    background-image: radial-gradient(circle, #c0c0b8 1px, transparent 1px);
   }
 
   /* Tablet */
