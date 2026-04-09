@@ -2,6 +2,17 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useSpring } from "@react-spring/web";
 import createGlobe from "cobe";
 
+interface DestinationInput {
+  name: string;
+  city: string;
+  country: string;
+  lat: number;
+  lng: number;
+  category: "science" | "culture" | "cinema";
+  significance: string;
+  wikipedia: string;
+}
+
 interface Destination {
   n: string;
   c: string;
@@ -11,7 +22,25 @@ interface Destination {
   sig: string;
 }
 
-const DESTINATIONS: Destination[] = [
+const CAT_MAP: Record<string, "s" | "c" | "i"> = {
+  science: "s",
+  culture: "c",
+  cinema: "i",
+};
+
+function mapDestinations(input: DestinationInput[]): Destination[] {
+  return input.map((d) => ({
+    n: d.name,
+    c: `${d.city}, ${d.country}`,
+    loc: [d.lat, d.lng],
+    cat: CAT_MAP[d.category] ?? "s",
+    w: d.wikipedia,
+    sig: d.significance,
+  }));
+}
+
+// Kept as fallback only — will be overridden by props
+const FALLBACK_DESTINATIONS: Destination[] = [
   {n:"Great Pyramid of Giza",c:"Giza, Egypt",loc:[29.98,31.13],cat:"s",w:"https://en.wikipedia.org/wiki/Great_Pyramid_of_Giza",sig:"Last surviving Wonder of the Ancient World, built ~2560 BCE"},
   {n:"CERN — Large Hadron Collider",c:"Geneva, Switzerland",loc:[46.23,6.05],cat:"s",w:"https://en.wikipedia.org/wiki/Large_Hadron_Collider",sig:"World's largest particle accelerator. Site of the Higgs boson discovery"},
   {n:"Colosseum",c:"Rome, Italy",loc:[41.89,12.49],cat:"s",w:"https://en.wikipedia.org/wiki/Colosseum",sig:"Largest ancient amphitheatre ever built (70-80 CE)"},
@@ -124,7 +153,13 @@ function projectMarker(
   return { x: px * width, y: py * height, visible };
 }
 
-export default function Globe() {
+interface GlobeProps {
+  destinations?: DestinationInput[];
+}
+
+export default function Globe({ destinations: destinationsProp }: GlobeProps) {
+  const DESTINATIONS = destinationsProp ? mapDestinations(destinationsProp) : FALLBACK_DESTINATIONS;
+
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const wrapRef = useRef<HTMLDivElement>(null);
   const polaroidRef = useRef<HTMLDivElement>(null);

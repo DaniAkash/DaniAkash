@@ -249,6 +249,29 @@ const resume = defineCollection({
   }),
 });
 
+const destinations = defineCollection({
+  loader: async () => [
+    {
+      id: "destinations",
+      items: await readJson("./content/destinations/destinations.json"),
+    },
+  ],
+  schema: z.object({
+    items: z.array(
+      z.object({
+        name: z.string(),
+        city: z.string(),
+        country: z.string(),
+        lat: z.number(),
+        lng: z.number(),
+        category: z.enum(["science", "culture", "cinema"]),
+        significance: z.string(),
+        wikipedia: z.string(),
+      }),
+    ),
+  }),
+});
+
 export const collections = {
   career,
   blog,
@@ -260,4 +283,5 @@ export const collections = {
   rss,
   now,
   resume,
+  destinations,
 };

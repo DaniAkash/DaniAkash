@@ -12,6 +12,8 @@ import Globe from "../components/Globe.tsx";
 const about = (await getCollection("about"))[0]!;
 const { Content } = await render(about);
 const social = (await getCollection("social"))[0]!;
+const destinationsData = (await getCollection("destinations"))[0]!;
+const destinations = destinationsData.data.items;
 ---
 
 <MainLayout title="About" description="About Dani Akash — AI Engineer, Builder, Speaker. Based in Chennai, India.">
@@ -62,7 +64,7 @@ const social = (await getCollection("social"))[0]!;
 
         <!-- Right: Globe + Spotlight (sticky) -->
         <div class="about-viz">
-          <Globe client:only="react" />
+          <Globe client:only="react" destinations={destinations} />
         </div>
 
       </div>
