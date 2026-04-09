@@ -267,6 +267,7 @@ const destinations = defineCollection({
         category: z.enum(["science", "culture", "cinema"]),
         significance: z.string(),
         wikipedia: z.string(),
+        "image-name": z.string(),
       }),
     ),
   }),

@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useSpring } from "@react-spring/web";
 import createGlobe from "cobe";
+import { ASSET_PREFIX } from "../constants/asset-prefix";
 
 interface DestinationInput {
   name: string;
@@ -11,6 +12,7 @@ interface DestinationInput {
   category: "science" | "culture" | "cinema";
   significance: string;
   wikipedia: string;
+  "image-name": string;
 }
 
 interface Destination {
@@ -20,6 +22,7 @@ interface Destination {
   cat: "s" | "c" | "i";
   w: string;
   sig: string;
+  img: string;
 }
 
 const CAT_MAP: Record<string, "s" | "c" | "i"> = {
@@ -36,6 +39,7 @@ function mapDestinations(input: DestinationInput[]): Destination[] {
     cat: CAT_MAP[d.category] ?? "s",
     w: d.wikipedia,
     sig: d.significance,
+    img: `${ASSET_PREFIX}/destinations/${d["image-name"]}`,
   }));
 }
 
@@ -312,7 +316,7 @@ export default function Globe({ destinations: destinationsProp }: GlobeProps) {
         {/* Polaroid card — anchored to marker */}
         <div ref={polaroidRef} className="polaroid" style={{ transition: "opacity 0.6s, filter 0.6s, left 0.3s, top 0.3s" }}>
           <img
-            src={`https://images.unsplash.com/photo-1539650116574-8efeb43e2750?w=300&h=200&fit=crop`}
+            src={d.img}
             alt={d.n}
             className="polaroid-img"
           />
