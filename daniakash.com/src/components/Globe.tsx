@@ -85,8 +85,9 @@ export default function Globe() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const wrapRef = useRef<HTMLDivElement>(null);
   const [currentIdx, setCurrentIdx] = useState(0);
-  const phiRef = useRef(0);
-  const targetPhiRef = useRef(0);
+  const initialPhi = -(DESTINATIONS[0]!.loc[1] * (Math.PI / 180)) - Math.PI / 2;
+  const phiRef = useRef(initialPhi);
+  const targetPhiRef = useRef(initialPhi);
   const globeRef = useRef<ReturnType<typeof createGlobe> | null>(null);
   const animRef = useRef<number | null>(null);
   const cycleRef = useRef<ReturnType<typeof setInterval> | null>(null);
