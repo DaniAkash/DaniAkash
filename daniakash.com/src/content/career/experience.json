@@ -1,10 +1,20 @@
 [
   {
+    "company": "BrowserOS",
+    "role": "Founding Engineer",
+    "employmentType": "Full-time",
+    "startDate": "Nov 2025",
+    "endDate": "Present",
+    "location": "Chennai, Tamil Nadu, India · ",
+    "description": "Created the foundations for the Open Source Agentic Browser",
+    "logo": "/uses-v4/icon-browseros.png"
+  },
+  {
     "company": "Clarifai",
     "role": "Senior Frontend Developer",
     "employmentType": "Full-time",
     "startDate": "Oct 2023",
-    "endDate": "Present",
+    "endDate": "Nov 2025",
     "location": "Chennai, Tamil Nadu, India · ",
     "description": "Developed the open-source Clarifai Node.js SDK, enabling seamless integration of the Clarifai platform with various JavaScript frameworks. Collaborated closely with the Developer Experience team to optimize and enhance the adoption journey for developers integrating Clarifai into their projects.",
     "logo": "/clarifai.png"
@@ -21,7 +31,7 @@
   },
   {
     "company": "OSlash",
-    "role": "Lead Frontend Engineer",
+    "role": "Founding Engineer",
     "employmentType": "Full-time",
     "startDate": "Dec 2020",
     "endDate": "Mar 2023",
