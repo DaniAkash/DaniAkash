@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
+import { useSpring } from "@react-spring/web";
 import createGlobe from "cobe";
 
 interface Destination {
@@ -81,7 +82,14 @@ const CAT_COLORS: Record<string, string> = {
   i: "bg-rose-400",
 };
 
-// Project lat/lng to screen x/y given globe rotation
+// Replicate cobe's exact internal projection (from cobe source: functions U, O, W)
+function cobeLatLngTo3D(lat: number, lng: number): [number, number, number] {
+  const latRad = (lat * Math.PI) / 180;
+  const lngRad = (lng * Math.PI) / 180 - Math.PI;
+  const cosLat = Math.cos(latRad);
+  return [-cosLat * Math.cos(lngRad), Math.sin(latRad), cosLat * Math.sin(lngRad)];
+}
+
 function projectMarker(
   lat: number,
   lng: number,
@@ -90,23 +98,30 @@ function projectMarker(
   width: number,
   height: number,
 ): { x: number; y: number; visible: boolean } {
-  const latRad = (lat * Math.PI) / 180;
-  const lngRad = (lng * Math.PI) / 180;
+  const t = cobeLatLngTo3D(lat, lng);
+  const elevation = 0.85; // cobe ee(0.8) + markerElevation(0.05)
+  const p0 = t[0] * elevation;
+  const p1 = t[1] * elevation;
+  const p2 = t[2] * elevation;
 
-  // Spherical to cartesian
-  const cx = Math.cos(latRad) * Math.sin(lngRad + phi);
-  const cy = -Math.sin(latRad) * Math.cos(theta) + Math.cos(latRad) * Math.cos(lngRad + phi) * Math.sin(theta);
-  const cz = Math.sin(latRad) * Math.sin(theta) + Math.cos(latRad) * Math.cos(lngRad + phi) * Math.cos(theta);
+  // Cobe's O() function: rotation by phi (f) and theta (l)
+  const cosTheta = Math.cos(theta);
+  const sinTheta = Math.sin(theta);
+  const cosPhi = Math.cos(phi);
+  const sinPhi = Math.sin(phi);
 
-  // Only visible if on front face
-  const visible = cz > 0;
+  const c = cosPhi * p0 + sinPhi * p2;
+  const s = sinPhi * sinTheta * p0 + cosTheta * p1 - cosPhi * sinTheta * p2;
 
-  // Project to 2D (orthographic)
-  const r = Math.min(width, height) * 0.45;
-  const x = width / 2 + cx * r;
-  const y = height / 2 - cy * r;
+  // Cobe returns [0-1] percentages. Scale=1, offset=[0,0] for our case.
+  const aspect = width / height;
+  const px = (c / aspect + 1) / 2;
+  const py = (-s + 1) / 2;
 
-  return { x, y, visible };
+  // Visibility check from cobe
+  const visible = (-sinPhi * cosTheta * p0 + sinTheta * p1 + cosPhi * cosTheta * p2 >= 0) || (c * c + s * s >= 0.64);
+
+  return { x: px * width, y: py * height, visible };
 }
 
 export default function Globe() {
@@ -121,6 +136,8 @@ export default function Globe() {
   const animRef = useRef<number | null>(null);
   const cycleRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const currentIdxRef = useRef(0);
+  const pointerRef = useRef<number | null>(null);
+  const [{ r }, api] = useSpring(() => ({ r: 0, config: { mass: 1, tension: 280, friction: 40 } }));
 
   const d = DESTINATIONS[currentIdx]!;
 
@@ -198,14 +215,15 @@ export default function Globe() {
       while (diff > Math.PI) diff -= 2 * Math.PI;
       while (diff < -Math.PI) diff += 2 * Math.PI;
       phiRef.current += diff * 0.03;
-      globe.update({ phi: phiRef.current });
+      const finalPhi = phiRef.current + r.get();
+      globe.update({ phi: finalPhi });
 
       // Position polaroid on the marker
       if (polaroidRef.current && wrapRef.current) {
         const dest = DESTINATIONS[currentIdxRef.current]!;
         const wrapW = wrapRef.current.offsetWidth;
         const wrapH = wrapRef.current.offsetHeight;
-        const proj = projectMarker(dest.loc[0], dest.loc[1], phiRef.current, theta, wrapW, wrapH);
+        const proj = projectMarker(dest.loc[0], dest.loc[1], finalPhi, theta, wrapW, wrapH);
 
         if (proj.visible) {
           polaroidRef.current.style.opacity = "1";
@@ -295,7 +313,32 @@ export default function Globe() {
     <div className="flex h-full flex-col">
       {/* Globe */}
       <div ref={wrapRef} className="globe-wrap">
-        <canvas ref={canvasRef} className="block h-full w-full cursor-grab active:cursor-grabbing" />
+        <canvas
+          ref={canvasRef}
+          className="block h-full w-full cursor-grab active:cursor-grabbing"
+          onPointerDown={(e) => {
+            pointerRef.current = e.clientX;
+            if (canvasRef.current) canvasRef.current.style.cursor = "grabbing";
+          }}
+          onPointerMove={(e) => {
+            if (pointerRef.current !== null) {
+              const delta = e.clientX - pointerRef.current;
+              api.start({ r: delta / 200 });
+            }
+          }}
+          onPointerUp={() => {
+            pointerRef.current = null;
+            api.start({ r: 0 });
+            if (canvasRef.current) canvasRef.current.style.cursor = "grab";
+          }}
+          onPointerLeave={() => {
+            if (pointerRef.current !== null) {
+              pointerRef.current = null;
+              api.start({ r: 0 });
+              if (canvasRef.current) canvasRef.current.style.cursor = "grab";
+            }
+          }}
+        />
         {/* Polaroid card — anchored to marker */}
         <div ref={polaroidRef} className="polaroid" style={{ transition: "opacity 0.6s, filter 0.6s, left 0.3s, top 0.3s" }}>
           <img

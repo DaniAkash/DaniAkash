@@ -62,7 +62,7 @@ const social = (await getCollection("social"))[0]!;
 
         <!-- Right: Globe + Spotlight (sticky) -->
         <div class="about-viz">
-          <Globe client:visible />
+          <Globe client:only="react" />
         </div>
 
       </div>
