@@ -6,56 +6,56 @@
       {
         "title": "16\" Macbook Pro, M4 Pro",
         "tag": "PRIMARY DEVICE",
-        "description": "48 GB RAM (2024). The primary coding device. Where I mostly watch claude, codex, cursor, opencode and more cli tools write code across multiple worktrees.",
+        "description": "48 GB RAM (2024). The cockpit. Claude Code, Codex, Cursor and a fleet of AI agents run wild across worktrees while I orchestrate from the driver's seat.",
         "image": "http://127.0.0.1:8080/macbook-pro-16-space-black/apple-pv-hero-cropped.jpg",
         "size": "wide"
       },
       {
         "title": "16\" MacBook Pro, M2 Pro",
-        "tag": "SECONDARY",
-        "description": "32GB RAM (2023). I prepare tech talks, focus on my hobbies, write novels & all sorts of passion projects in this machine.",
+        "tag": "CREATIVE",
+        "description": "32 GB RAM (2023). Where the talks get built, novels get written, and passion projects come to life. The machine that reminds me coding isn't everything.",
         "image": "http://127.0.0.1:8080/macbook-pro-16-silver/macbook-pro-silver-1.jpg",
         "size": "square"
       },
       {
         "title": "14\" MacBook Pro, M2 Pro",
-        "tag": "SECONDARY",
-        "description": "32GB RAM (2023). The headless 24x7 machine that runs my plex media server, self hosted apps & AI Agents - currently using Hermes Agent",
+        "tag": "ALWAYS ON",
+        "description": "32 GB RAM (2023). Runs headless 24/7 — Plex server, self-hosted apps, and autonomous AI agents that work while I sleep.",
         "image": "http://127.0.0.1:8080/macbook-pro-14-space-black/macbook-pro-14-2.jpg",
         "size": "square"
       },
       {
         "title": "4K 32\" LG UltraFine Ergo",
         "tag": "DISPLAY",
-        "description": "Bigger the display, bigger the motivation to use it to read your code. The ergonomic stand is chef's kiss.",
+        "description": "32 inches of 4K real estate on an ergonomic arm. More pixels means more worktrees visible at once. The stand alone is worth it.",
         "image": "http://127.0.0.1:8080/lg-ultrafine-ergo/lg-official-ergo-cropped.jpg",
         "size": "wide"
       },
       {
         "title": "Keychron K4 Wireless",
         "tag": "KEYBOARD",
-        "description": "Mechanical keyboards are love. The satisfying clicks of the normal profile Keychron is the reason I code most of the time.",
+        "description": "Mechanical clicks that make every keystroke feel intentional. Full-size layout, wireless freedom.",
         "image": "http://127.0.0.1:8080/keychron-k4/keyboard-moody-2.jpg",
         "size": "small"
       },
       {
         "title": "Logitech MX Master 3",
         "tag": "MOUSE",
-        "description": "As a power user of VSCode and tmux, I rarely need to click stuff. But when I do, I do it with the most ergonomic mouse.",
+        "description": "I live in the terminal, so the mouse rarely moves. But when it does — it's this one.",
         "image": "http://127.0.0.1:8080/logitech-mx-master-3/mx-master-3s-sustainability.png",
         "size": "small"
       },
       {
-        "title": "Greensoul Imperium Electric",
+        "title": "Greensoul Imperium",
         "tag": "DESK",
-        "description": "The table that acts as my workbench where I usually code, write and do all the tasks",
+        "description": "Electric sit-stand desk. Because debugging posture is just as important as debugging code.",
         "image": "http://127.0.0.1:8080/greensoul-imperium/greensoul-amazon-1.jpg",
         "size": "small"
       },
       {
         "title": "Sennheiser HD 458BT",
         "tag": "AUDIO",
-        "description": "Most trusted headphones for work — video calls, egghead lessons, podcasts while coding. Can't live without this one.",
+        "description": "Noise-cancelling companion for deep work. Podcasts in, distractions out.",
         "image": "http://127.0.0.1:8080/sennheiser-hd-458bt/senn-official-3.webp",
         "size": "small"
       }
@@ -68,30 +68,30 @@
       {
         "title": "Zed",
         "tag": "Editor",
-        "description": "With me working on multiple projects the norm, Zed provides the native performance and seamless switching of projects. Keeping coding sessions productive despite the size of the projects active.",
+        "description": "Native speed, zero lag. When you're juggling a dozen projects across worktrees, every millisecond of editor latency matters.",
         "image": "https://placehold.co/48x48/1a1a2e/2DD4BF?text=VS"
       },
       {
         "title": "Oh My Zsh!",
-        "tag": "Terminal",
-        "description": "Can't use my terminal without installing Oh My Zsh & setting up my favorite theme. Who wants to cd when you can just type the directory name!",
+        "tag": "Shell",
+        "description": "Auto-cd, smart completions, and a theme that sparks joy. The shell shouldn't fight you — it should read your mind.",
         "image": "https://placehold.co/48x48/1a1a2e/2DD4BF?text=ZSH"
       },
       {
         "title": "Ghostty",
-        "tag": "Terminal Emulator",
-        "description": "The trusted terminal emulator on which most of my work is done. Its fast, configurable and gets the jobs done."
+        "tag": "Terminal",
+        "description": "Blazing fast, GPU-rendered, and endlessly configurable. The terminal where the real work happens."
       },
       {
         "title": "dmux",
         "tag": "Multiplexer",
-        "description": "Helps run parallel agents across multiple worktrees for the same project and helps manage multiple projects. Has been the biggest productivity booster - powered by tmux",
+        "description": "The secret weapon. Spins up parallel AI agents across worktrees, manages sessions, and turns one terminal into a command center. Built on tmux.",
         "image": "https://placehold.co/48x48/1a1a2e/2DD4BF?text=tmux"
       },
       {
         "title": "CodexBar",
-        "tag": "Menu Item",
-        "description": "Shows realtime token usage stats directly on the menu bar.",
+        "tag": "Menubar",
+        "description": "Real-time token burn rate, right in the menu bar. Know exactly what your agents are costing — always.",
         "image": "https://placehold.co/48x48/1a1a2e/2DD4BF?text=tmux"
       }
     ]
@@ -102,14 +102,14 @@
     "tools": [
       {
         "title": "Paper",
-        "tag": "UI / Agentic UI",
-        "description": "My go-to tool now for creating designs powered by AI. Helps converting my ideas to designs then to code a seamless process",
+        "tag": "AI Design",
+        "description": "Idea to mockup to code in one flow. AI-powered design that actually ships — not just pretty pictures.",
         "image": "https://placehold.co/48x48/1a1a2e/2DD4BF?text=Fig"
       },
       {
         "title": "Excalidraw",
         "tag": "Sketching",
-        "description": "Professional quality scribbling & a very funny logo maker. My preferred design tool for quick ideas.",
+        "description": "When I need to think visually — architecture diagrams, flow charts, or questionable logo concepts. Fast and delightfully rough.",
         "image": "https://placehold.co/48x48/1a1a2e/2DD4BF?text=Ex"
       }
     ]
@@ -121,43 +121,69 @@
       {
         "title": "Tiles",
         "tag": "Window Manager",
-        "description": "By removing the use of mouse to resize & move windows, I'm 2x more efficient but also 2x less efficient deciding which window goes where.",
+        "description": "Keyboard-driven window tiling. 2x faster at arranging windows, 2x slower at deciding where they go.",
         "image": "https://placehold.co/48x48/1a1a2e/2DD4BF?text=T"
       },
       {
         "title": "Notion",
-        "tag": "Notes / Planning",
-        "description": "Pretty much all my ideas, projects, plans & thoughts about my digital life are recorded in the generous free tier.",
+        "tag": "Second Brain",
+        "description": "Every idea, every project, every half-baked thought — it all lives here. The free tier is unreasonably generous.",
         "image": "https://placehold.co/48x48/1a1a2e/2DD4BF?text=N"
       },
       {
         "title": "Spark",
         "tag": "Email",
-        "description": "Keeping my inbox clean by only reading the messages filtered by this great email app.",
+        "description": "Smart filters keep the inbox at zero. If Spark didn't surface it, it probably wasn't worth reading.",
         "image": "https://placehold.co/48x48/1a1a2e/2DD4BF?text=S"
       },
       {
         "title": "Cron",
         "tag": "Calendar",
-        "description": "They say it's extremely powerful for managing calendars, but I use it because its event reminders are so much better than the native Mac calendar.",
+        "description": "I don't use half its power features. I use it because its reminders actually remind me — unlike Apple Calendar.",
         "image": "https://placehold.co/48x48/1a1a2e/2DD4BF?text=C"
       },
       {
         "title": "Simplenote",
         "tag": "Quick Notes",
-        "description": "Replacing the need for paper in my life. Works across all my devices — take a quick note whenever you want & forget about it forever.",
+        "description": "The digital napkin. Capture a thought on any device, forget about it forever. Blissfully simple.",
         "image": "https://placehold.co/48x48/1a1a2e/2DD4BF?text=SN"
       }
     ]
   },
   {
-    "title": "Coding Agents"
-    // here is my coding agent setup
-    // Claude Code - primary focused coding
-    // Codex - running multiple ideas in the background - great with passive tasks
-    // Cursor + Z.ai GLM 5.1 - experimenting with this setup for doing refactors and other chores
-    // Gemini CLI - whenever I need to build material design / mobile app focused UI
-    // Greptile - My go to code review tool for high value private projects
-    // Github Copilot - Code review tool for my side projects and other open source code I maintain
+    "title": "Coding Agents",
+    "variant": "software",
+    "tools": [
+      {
+        "title": "Claude Code",
+        "tag": "Primary Agent",
+        "description": "The go-to for focused, deep coding sessions. Understands context like a senior engineer sitting next to you."
+      },
+      {
+        "title": "Codex",
+        "tag": "Background Agent",
+        "description": "Fire-and-forget. Spins up ideas, runs experiments, handles the passive work while I focus elsewhere."
+      },
+      {
+        "title": "Cursor + GLM 5.1",
+        "tag": "Refactoring",
+        "description": "The experimental rig. Cursor's IDE + Z.ai's GLM for refactors, migrations, and the grunt work nobody wants to do."
+      },
+      {
+        "title": "Gemini CLI",
+        "tag": "UI Agent",
+        "description": "When the task is Material Design or mobile-first UI, Gemini gets it right out of the box."
+      },
+      {
+        "title": "Greptile",
+        "tag": "Code Review",
+        "description": "AI-powered reviews for high-stakes private repos. Catches what humans miss after the third PR of the day."
+      },
+      {
+        "title": "GitHub Copilot",
+        "tag": "Code Review",
+        "description": "Handles reviews for side projects and open source. Keeps the quality bar up across everything I maintain."
+      }
+    ]
   }
 ]
