@@ -157,11 +157,14 @@ const items = projects.data.items;
   </div>
 </MainLayout>
 
-<script>
-  // Factory pixel animation engine (variant-11)
-  (function () {
+<script is:inline>
+  function initFactory() {
     const factoryEl = document.getElementById("factoryWrapper");
     if (!factoryEl) return;
+
+    // Clean up previous instance
+    if (window.__factoryInterval) clearInterval(window.__factoryInterval);
+    factoryEl.innerHTML = "";
 
     const addXy = (a, b) => {
       a.x += b.x;
@@ -749,7 +752,10 @@ const items = projects.data.items;
 
     world.renderFromConfigs(themedConfig);
     world.start();
-  })();
+    window.__factoryInterval = world.interval;
+  }
+
+  document.addEventListener("astro:page-load", initFactory);
 </script>
 
 <style>

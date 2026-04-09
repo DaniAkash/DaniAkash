@@ -223,63 +223,83 @@ const content = rawMd.replace(/^---[\s\S]*?---\n*/, "").trim();
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-tomorrow.min.css" />
 <script is:inline>
   function initNowEditor() {
-    if (typeof Prism !== 'undefined') Prism.highlightAll();
+    var body = document.querySelector('.md-editor__body');
+    if (!body) return;
 
-    setTimeout(function() {
-      var code = document.querySelector('.md-editor__body code');
-      var body = document.querySelector('.md-editor__body');
-      if (!code || !body) return;
+    // Skip if already initialized (table already exists)
+    if (body.querySelector('.md-editor__table')) return;
 
-      // Get the highlighted HTML and split by newlines
-      var highlightedHTML = code.innerHTML;
-      var lines = highlightedHTML.split('\n');
+    var code = body.querySelector('code');
+    if (!code) return;
 
-      // Build a table with line numbers + highlighted code per row
-      var table = document.createElement('table');
-      table.className = 'md-editor__table';
-      var tbody = document.createElement('tbody');
+    // Ensure Prism is loaded before highlighting
+    function runHighlight() {
+      if (typeof Prism !== 'undefined') Prism.highlightAll();
 
-      lines.forEach(function(lineHTML, i) {
-        var tr = document.createElement('tr');
+      setTimeout(function() {
+        var freshCode = body.querySelector('code');
+        if (!freshCode) return;
 
-        var tdNum = document.createElement('td');
-        tdNum.className = 'md-editor__ln';
-        tdNum.textContent = i + 1;
+        var highlightedHTML = freshCode.innerHTML;
+        var lines = highlightedHTML.split('\n');
 
-        var tdCode = document.createElement('td');
-        tdCode.className = 'md-editor__code';
-        tdCode.innerHTML = '<code>' + (lineHTML || '&nbsp;') + '</code>';
+        var table = document.createElement('table');
+        table.className = 'md-editor__table';
+        var tbody = document.createElement('tbody');
 
-        tr.appendChild(tdNum);
-        tr.appendChild(tdCode);
-        tbody.appendChild(tr);
-      });
+        lines.forEach(function(lineHTML, i) {
+          var tr = document.createElement('tr');
 
-      table.appendChild(tbody);
+          var tdNum = document.createElement('td');
+          tdNum.className = 'md-editor__ln';
+          tdNum.textContent = i + 1;
 
-      // Replace the pre>code with the table
-      var pre = body.querySelector('pre');
-      if (pre) pre.remove();
-      body.appendChild(table);
+          var tdCode = document.createElement('td');
+          tdCode.className = 'md-editor__code';
+          tdCode.innerHTML = '<code>' + (lineHTML || '&nbsp;') + '</code>';
 
-      // Make markdown links clickable
-      body.querySelectorAll('.token.url').forEach(function(token) {
-        var text = token.textContent;
-        var match = text.match(/\(([^)]+)\)/);
-        if (match && match[1].startsWith('http')) {
-          var a = document.createElement('a');
-          a.href = match[1];
-          a.target = '_blank';
-          a.rel = 'noopener';
-          a.className = 'md-link';
-          while (token.firstChild) a.appendChild(token.firstChild);
-          token.appendChild(a);
+          tr.appendChild(tdNum);
+          tr.appendChild(tdCode);
+          tbody.appendChild(tr);
+        });
+
+        table.appendChild(tbody);
+
+        var pre = body.querySelector('pre');
+        if (pre) pre.remove();
+        body.appendChild(table);
+
+        // Make markdown links clickable
+        body.querySelectorAll('.token.url').forEach(function(token) {
+          var text = token.textContent;
+          var match = text.match(/\(([^)]+)\)/);
+          if (match && match[1].startsWith('http')) {
+            var a = document.createElement('a');
+            a.href = match[1];
+            a.target = '_blank';
+            a.rel = 'noopener';
+            a.className = 'md-link';
+            while (token.firstChild) a.appendChild(token.firstChild);
+            token.appendChild(a);
+          }
+        });
+      }, 150);
+    }
+
+    if (typeof Prism !== 'undefined') {
+      runHighlight();
+    } else {
+      // Prism not loaded yet — wait for it
+      var checkInterval = setInterval(function() {
+        if (typeof Prism !== 'undefined') {
+          clearInterval(checkInterval);
+          runHighlight();
         }
-      });
-    }, 100);
+      }, 50);
+      // Timeout after 3s
+      setTimeout(function() { clearInterval(checkInterval); }, 3000);
+    }
   }
 
-  if (document.readyState === 'complete') initNowEditor();
-  else window.addEventListener('load', initNowEditor);
   document.addEventListener('astro:page-load', initNowEditor);
 </script>
