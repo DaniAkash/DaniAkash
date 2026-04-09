@@ -14,7 +14,7 @@ const posts = (await getCollection("blog"))
   .sort(
     (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime(),
   )
-  .slice(0, 9);
+  .slice(0, 11);
 
 const career = await getCollection("career");
 const experience = career[0]?.data?.items ?? [];
@@ -81,71 +81,75 @@ const heroImages = [
   </div>
 
   <!-- ═══ HERO ═══ -->
-  <section class="-mt-24 relative flex h-screen flex-col pt-24">
+  <section class="relative -mt-24 flex h-screen flex-col pt-24">
     <div class="flex flex-1 items-center pb-[320px]">
       <div>
-      <p
-        class="text-muted-foreground mb-6 font-mono text-[11px] tracking-[1.65px] uppercase"
-      >
-        SYS.ROLE // AI_ENGINEER &middot; BUILDER &middot; SPEAKER
-      </p>
-      <h1
-        class="mb-6 leading-[1.05] font-bold tracking-[-0.03em]"
-        style="font-size: clamp(48px, 8vw, 96px);"
-      >
-        Dani Akash
-      </h1>
-      <p
-        class="text-muted-foreground mb-12 max-w-[700px] leading-[1.4] font-light"
-        style="font-size: clamp(18px, 2.5vw, 28px);"
-      >
-        A simple developer building AI agents for humans.
-      </p>
+        <p
+          class="text-muted-foreground mb-6 font-mono text-[11px] tracking-[1.65px] uppercase"
+        >
+          SYS.ROLE // AI_ENGINEER &middot; BUILDER &middot; SPEAKER
+        </p>
+        <h1
+          class="mb-6 leading-[1.05] font-bold tracking-[-0.03em]"
+          style="font-size: clamp(48px, 8vw, 96px);"
+        >
+          Dani Akash
+        </h1>
+        <p
+          class="text-muted-foreground mb-12 max-w-[700px] leading-[1.4] font-light"
+          style="font-size: clamp(18px, 2.5vw, 28px);"
+        >
+          A simple developer building AI agents for humans.
+        </p>
 
-      <!-- Social icons -->
-      <div class="mb-12 flex flex-wrap gap-4">
-        {
-          [
-            { href: socialData?.github, Icon: GithubIcon, label: "GitHub" },
-            { href: socialData?.twitter, Icon: TwitterIcon, label: "X" },
-            { href: socialData?.bluesky, Icon: BlueskyIcon, label: "Bluesky" },
-            {
-              href: socialData?.linkedIn,
-              Icon: LinkedinIcon,
-              label: "LinkedIn",
-            },
-            {
-              href: socialData?.instagram,
-              Icon: InstagramIcon,
-              label: "Instagram",
-            },
-            {
-              href: `mailto:${socialData?.email}`,
-              Icon: MailIcon,
-              label: "Email",
-            },
-          ].map(({ href, Icon, label }) => (
-            <a
-              href={href}
-              aria-label={label}
-              title={label}
-              target={href?.startsWith("mailto") ? undefined : "_blank"}
-              rel={href?.startsWith("mailto") ? undefined : "noopener"}
-              class="border-border bg-foreground/5 text-muted-foreground hover:border-primary hover:bg-primary/15 hover:text-primary flex size-11 items-center justify-center rounded-full border transition-all hover:-translate-y-0.5"
-            >
-              <Icon class="size-5" />
-            </a>
-          ))
-        }
-      </div>
+        <!-- Social icons -->
+        <div class="mb-12 flex flex-wrap gap-4">
+          {
+            [
+              { href: socialData?.github, Icon: GithubIcon, label: "GitHub" },
+              { href: socialData?.twitter, Icon: TwitterIcon, label: "X" },
+              {
+                href: socialData?.bluesky,
+                Icon: BlueskyIcon,
+                label: "Bluesky",
+              },
+              {
+                href: socialData?.linkedIn,
+                Icon: LinkedinIcon,
+                label: "LinkedIn",
+              },
+              {
+                href: socialData?.instagram,
+                Icon: InstagramIcon,
+                label: "Instagram",
+              },
+              {
+                href: `mailto:${socialData?.email}`,
+                Icon: MailIcon,
+                label: "Email",
+              },
+            ].map(({ href, Icon, label }) => (
+              <a
+                href={href}
+                aria-label={label}
+                title={label}
+                target={href?.startsWith("mailto") ? undefined : "_blank"}
+                rel={href?.startsWith("mailto") ? undefined : "noopener"}
+                class="border-border bg-foreground/5 text-muted-foreground hover:border-primary hover:bg-primary/15 hover:text-primary flex size-11 items-center justify-center rounded-full border transition-all hover:-translate-y-0.5"
+              >
+                <Icon class="size-5" />
+              </a>
+            ))
+          }
+        </div>
 
-      <!-- Status line -->
-      <div
-        class="text-muted-foreground flex items-center gap-2 font-mono text-xs"
-      >
-        <span class="bg-primary size-1.5 animate-pulse rounded-full"></span>
-        Building BrowserOS — an AI-powered browser for agents
-      </div>
+        <!-- Status line -->
+        <div
+          class="text-muted-foreground flex items-center gap-2 font-mono text-xs"
+        >
+          <span class="bg-primary size-1.5 animate-pulse rounded-full"></span>
+          Building BrowserOS — an AI-powered browser for agents
+        </div>
       </div>
     </div>
 
@@ -259,7 +263,7 @@ const heroImages = [
                     <img
                       src={assetUrl(job.logo)}
                       alt={job.company}
-                      class="size-7 object-contain"
+                      class="size-7 overflow-clip rounded-full border-0 bg-slate-300"
                     />
                   </div>
                   <div class="flex min-w-0 flex-1 flex-col gap-0.5">
