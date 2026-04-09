@@ -7,7 +7,8 @@
     "lng": 31.1342,
     "category": "science",
     "significance": "Last surviving Wonder of the Ancient World, built ~2560 BCE. Engineering marvel demonstrating advanced mathematics and construction techniques of ancient Egypt.",
-    "wikipedia": "https://en.wikipedia.org/wiki/Great_Pyramid_of_Giza"
+    "wikipedia": "https://en.wikipedia.org/wiki/Great_Pyramid_of_Giza",
+    "image-name": "great-pyramid-of-giza.jpg"
   },
   {
     "name": "CERN - Large Hadron Collider",
@@ -17,7 +18,8 @@
     "lng": 6.0461,
     "category": "science",
     "significance": "World's largest and most powerful particle accelerator. Site of the Higgs boson discovery in 2012, advancing our understanding of fundamental physics.",
-    "wikipedia": "https://en.wikipedia.org/wiki/Large_Hadron_Collider"
+    "wikipedia": "https://en.wikipedia.org/wiki/Large_Hadron_Collider",
+    "image-name": "cern-large-hadron-collider.jpg"
   },
   {
     "name": "Colosseum",
@@ -27,7 +29,8 @@
     "lng": 12.4922,
     "category": "science",
     "significance": "Largest ancient amphitheatre ever built (70-80 CE). Icon of Roman engineering, architecture, and the sociopolitical power of the Roman Empire.",
-    "wikipedia": "https://en.wikipedia.org/wiki/Colosseum"
+    "wikipedia": "https://en.wikipedia.org/wiki/Colosseum",
+    "image-name": "colosseum.jpg"
   },
   {
     "name": "Machu Picchu",
@@ -37,7 +40,8 @@
     "lng": -72.545,
     "category": "science",
     "significance": "15th-century Inca citadel at 2,430m altitude. Masterpiece of engineering, astronomy, and agricultural terracing in extreme terrain.",
-    "wikipedia": "https://en.wikipedia.org/wiki/Machu_Picchu"
+    "wikipedia": "https://en.wikipedia.org/wiki/Machu_Picchu",
+    "image-name": "machu-picchu.jpg"
   },
   {
     "name": "NASA Kennedy Space Center",
@@ -47,7 +51,8 @@
     "lng": -80.649,
     "category": "science",
     "significance": "Primary launch site for NASA's human spaceflight programs since 1968, including Apollo Moon missions and Space Shuttle launches.",
-    "wikipedia": "https://en.wikipedia.org/wiki/Kennedy_Space_Center"
+    "wikipedia": "https://en.wikipedia.org/wiki/Kennedy_Space_Center",
+    "image-name": "nasa-kennedy-space-center.jpg"
   },
   {
     "name": "Stonehenge",
@@ -57,7 +62,8 @@
     "lng": -1.8262,
     "category": "science",
     "significance": "Prehistoric monument built ~3000-2000 BCE. Aligned with solstices, demonstrating early astronomical knowledge and Neolithic engineering.",
-    "wikipedia": "https://en.wikipedia.org/wiki/Stonehenge"
+    "wikipedia": "https://en.wikipedia.org/wiki/Stonehenge",
+    "image-name": "stonehenge.jpg"
   },
   {
     "name": "Acropolis of Athens",
@@ -67,7 +73,8 @@
     "lng": 23.7267,
     "category": "science",
     "significance": "Ancient citadel containing the Parthenon. Birthplace of democracy, Western philosophy, and classical architecture (5th century BCE).",
-    "wikipedia": "https://en.wikipedia.org/wiki/Acropolis_of_Athens"
+    "wikipedia": "https://en.wikipedia.org/wiki/Acropolis_of_Athens",
+    "image-name": "acropolis-of-athens.jpg"
   },
   {
     "name": "Galápagos Islands",
@@ -77,7 +84,8 @@
     "lng": -90.9656,
     "category": "science",
     "significance": "Charles Darwin's observations here led to the theory of evolution by natural selection. A living laboratory of unique endemic species.",
-    "wikipedia": "https://en.wikipedia.org/wiki/Gal%C3%A1pagos_Islands"
+    "wikipedia": "https://en.wikipedia.org/wiki/Gal%C3%A1pagos_Islands",
+    "image-name": "galapagos-islands.jpg"
   },
   {
     "name": "Hiroshima Peace Memorial (Genbaku Dome)",
@@ -87,7 +95,8 @@
     "lng": 132.4536,
     "category": "science",
     "significance": "Preserved ruin near the hypocentre of the first atomic bomb attack (1945). Symbol of nuclear devastation and the global peace movement.",
-    "wikipedia": "https://en.wikipedia.org/wiki/Hiroshima_Peace_Memorial"
+    "wikipedia": "https://en.wikipedia.org/wiki/Hiroshima_Peace_Memorial",
+    "image-name": "hiroshima-peace-memorial-genbaku-dome.jpg"
   },
   {
     "name": "Library of Alexandria (Bibliotheca Alexandrina)",
@@ -97,7 +106,8 @@
     "lng": 29.9092,
     "category": "science",
     "significance": "Modern revival of the ancient Great Library, once the largest repository of knowledge in the classical world. Centre of Hellenistic scholarship.",
-    "wikipedia": "https://en.wikipedia.org/wiki/Bibliotheca_Alexandrina"
+    "wikipedia": "https://en.wikipedia.org/wiki/Bibliotheca_Alexandrina",
+    "image-name": "library-of-alexandria-bibliotheca-alexandrina.jpg"
   },
   {
     "name": "Pompeii",
@@ -107,7 +117,8 @@
     "lng": 14.4848,
     "category": "science",
     "significance": "Roman city preserved by the eruption of Vesuvius in 79 CE. Unparalleled archaeological snapshot of daily Roman life, architecture, and urban planning.",
-    "wikipedia": "https://en.wikipedia.org/wiki/Pompeii"
+    "wikipedia": "https://en.wikipedia.org/wiki/Pompeii",
+    "image-name": "pompeii.jpg"
   },
   {
     "name": "Chernobyl Exclusion Zone",
@@ -117,7 +128,8 @@
     "lng": 30.0978,
     "category": "science",
     "significance": "Site of the 1986 nuclear disaster, the worst in history. Now a study site for radiation ecology, nuclear safety, and nature reclaiming human spaces.",
-    "wikipedia": "https://en.wikipedia.org/wiki/Chernobyl_Exclusion_Zone"
+    "wikipedia": "https://en.wikipedia.org/wiki/Chernobyl_Exclusion_Zone",
+    "image-name": "chernobyl-exclusion-zone.jpg"
   },
   {
     "name": "Jantar Mantar",
@@ -127,7 +139,8 @@
     "lng": 75.8245,
     "category": "science",
     "significance": "18th-century astronomical observation site with the world's largest stone sundial. Built by Maharaja Jai Singh II to measure celestial positions.",
-    "wikipedia": "https://en.wikipedia.org/wiki/Jantar_Mantar,_Jaipur"
+    "wikipedia": "https://en.wikipedia.org/wiki/Jantar_Mantar,_Jaipur",
+    "image-name": "jantar-mantar.jpg"
   },
   {
     "name": "Great Wall of China",
@@ -137,7 +150,8 @@
     "lng": 116.5704,
     "category": "science",
     "significance": "Series of fortifications built over centuries starting 7th century BCE. Largest military structure ever built, spanning thousands of kilometres.",
-    "wikipedia": "https://en.wikipedia.org/wiki/Great_Wall_of_China"
+    "wikipedia": "https://en.wikipedia.org/wiki/Great_Wall_of_China",
+    "image-name": "great-wall-of-china.jpg"
   },
   {
     "name": "Trinity Test Site",
@@ -147,7 +161,8 @@
     "lng": -106.4754,
     "category": "science",
     "significance": "Site of the first nuclear weapon detonation on 16 July 1945. Marked the dawn of the atomic age and transformed geopolitics forever.",
-    "wikipedia": "https://en.wikipedia.org/wiki/Trinity_(nuclear_test)"
+    "wikipedia": "https://en.wikipedia.org/wiki/Trinity_(nuclear_test)",
+    "image-name": "trinity-test-site.jpg"
   },
   {
     "name": "Petra",
@@ -157,7 +172,8 @@
     "lng": 35.4444,
     "category": "science",
     "significance": "Ancient Nabataean city carved into rose-red rock cliffs (~300 BCE). Engineering feat with advanced water conduit systems in an arid desert.",
-    "wikipedia": "https://en.wikipedia.org/wiki/Petra"
+    "wikipedia": "https://en.wikipedia.org/wiki/Petra",
+    "image-name": "petra.jpg"
   },
   {
     "name": "Olduvai Gorge",
@@ -167,7 +183,8 @@
     "lng": 35.3499,
     "category": "science",
     "significance": "One of the most important paleoanthropological sites. Early human fossils and stone tools spanning 2 million years of hominin evolution discovered here.",
-    "wikipedia": "https://en.wikipedia.org/wiki/Olduvai_Gorge"
+    "wikipedia": "https://en.wikipedia.org/wiki/Olduvai_Gorge",
+    "image-name": "olduvai-gorge.jpg"
   },
   {
     "name": "Royal Greenwich Observatory",
@@ -177,7 +194,8 @@
     "lng": -0.0005,
     "category": "science",
     "significance": "Home of the Prime Meridian (0° longitude) and Greenwich Mean Time. Foundational to global navigation, timekeeping, and cartography.",
-    "wikipedia": "https://en.wikipedia.org/wiki/Royal_Observatory,_Greenwich"
+    "wikipedia": "https://en.wikipedia.org/wiki/Royal_Observatory,_Greenwich",
+    "image-name": "royal-greenwich-observatory.jpg"
   },
   {
     "name": "Angkor Wat",
@@ -187,7 +205,8 @@
     "lng": 103.867,
     "category": "science",
     "significance": "Largest religious monument in the world, built in the 12th century. Demonstrates Khmer hydraulic engineering and astronomical alignment.",
-    "wikipedia": "https://en.wikipedia.org/wiki/Angkor_Wat"
+    "wikipedia": "https://en.wikipedia.org/wiki/Angkor_Wat",
+    "image-name": "angkor-wat.jpg"
   },
   {
     "name": "Mohenjo-daro",
@@ -197,7 +216,8 @@
     "lng": 68.1385,
     "category": "science",
     "significance": "Major centre of the Indus Valley Civilisation (~2500 BCE). One of the world's earliest major cities with advanced urban planning, drainage, and sanitation.",
-    "wikipedia": "https://en.wikipedia.org/wiki/Mohenjo-daro"
+    "wikipedia": "https://en.wikipedia.org/wiki/Mohenjo-daro",
+    "image-name": "mohenjo-daro.jpg"
   },
   {
     "name": "Deutsches Museum",
@@ -207,7 +227,8 @@
     "lng": 11.5831,
     "category": "science",
     "significance": "World's largest museum of science and technology. Houses original artefacts including early physics apparatus, aviation pioneers' machines, and mining tech.",
-    "wikipedia": "https://en.wikipedia.org/wiki/Deutsches_Museum"
+    "wikipedia": "https://en.wikipedia.org/wiki/Deutsches_Museum",
+    "image-name": "deutsches-museum.jpg"
   },
   {
     "name": "Easter Island (Rapa Nui)",
@@ -217,7 +238,8 @@
     "lng": -109.3497,
     "category": "science",
     "significance": "Home to nearly 1,000 monolithic Moai statues. A case study in Polynesian navigation, megalithic engineering, and ecological collapse.",
-    "wikipedia": "https://en.wikipedia.org/wiki/Easter_Island"
+    "wikipedia": "https://en.wikipedia.org/wiki/Easter_Island",
+    "image-name": "easter-island-rapa-nui.jpg"
   },
   {
     "name": "Darwin's Down House",
@@ -227,7 +249,8 @@
     "lng": 0.053,
     "category": "science",
     "significance": "Charles Darwin's home for 40 years where he wrote 'On the Origin of Species' and conducted crucial experiments on evolution.",
-    "wikipedia": "https://en.wikipedia.org/wiki/Down_House"
+    "wikipedia": "https://en.wikipedia.org/wiki/Down_House",
+    "image-name": "darwins-down-house.jpg"
   },
   {
     "name": "Taj Mahal",
@@ -237,7 +260,8 @@
     "lng": 78.0421,
     "category": "science",
     "significance": "Mughal architectural masterpiece completed in 1653. Demonstrates advanced symmetry, optical illusion techniques, and material science with inlaid gemstones.",
-    "wikipedia": "https://en.wikipedia.org/wiki/Taj_Mahal"
+    "wikipedia": "https://en.wikipedia.org/wiki/Taj_Mahal",
+    "image-name": "taj-mahal.jpeg"
   },
   {
     "name": "Arecibo Observatory (ruins)",
@@ -247,7 +271,8 @@
     "lng": -66.7528,
     "category": "science",
     "significance": "Once the world's largest single-aperture radio telescope (1963-2020). Key to discoveries in pulsars, asteroids, and SETI research.",
-    "wikipedia": "https://en.wikipedia.org/wiki/Arecibo_Observatory"
+    "wikipedia": "https://en.wikipedia.org/wiki/Arecibo_Observatory",
+    "image-name": "arecibo-observatory-ruins.jpg"
   },
   {
     "name": "Valley of the Kings",
@@ -257,7 +282,8 @@
     "lng": 32.6014,
     "category": "science",
     "significance": "Royal burial ground for pharaohs of the New Kingdom (1539-1075 BCE). Tutankhamun's tomb discovered here in 1922, revolutionising Egyptology.",
-    "wikipedia": "https://en.wikipedia.org/wiki/Valley_of_the_Kings"
+    "wikipedia": "https://en.wikipedia.org/wiki/Valley_of_the_Kings",
+    "image-name": "valley-of-the-kings.jpg"
   },
   {
     "name": "Smithsonian National Air and Space Museum",
@@ -267,7 +293,8 @@
     "lng": -77.0199,
     "category": "science",
     "significance": "Houses the Wright Flyer, Apollo 11 command module, and Spirit of St. Louis. Comprehensive history of human flight and space exploration.",
-    "wikipedia": "https://en.wikipedia.org/wiki/National_Air_and_Space_Museum"
+    "wikipedia": "https://en.wikipedia.org/wiki/National_Air_and_Space_Museum",
+    "image-name": "smithsonian-national-air-and-space-museum.jpg"
   },
   {
     "name": "Göbekli Tepe",
@@ -277,7 +304,8 @@
     "lng": 38.9224,
     "category": "science",
     "significance": "World's oldest known megalithic temple (~9500 BCE). Predates agriculture, challenging theories about the origins of civilisation and religion.",
-    "wikipedia": "https://en.wikipedia.org/wiki/G%C3%B6bekli_Tepe"
+    "wikipedia": "https://en.wikipedia.org/wiki/G%C3%B6bekli_Tepe",
+    "image-name": "gobekli-tepe.jpg"
   },
   {
     "name": "Alhambra",
@@ -287,7 +315,8 @@
     "lng": -3.5881,
     "category": "science",
     "significance": "Moorish palace-fortress showcasing Islamic art, geometry, and hydraulic engineering. Peak of Nasrid dynasty's mathematical and artistic achievements.",
-    "wikipedia": "https://en.wikipedia.org/wiki/Alhambra"
+    "wikipedia": "https://en.wikipedia.org/wiki/Alhambra",
+    "image-name": "alhambra.jpg"
   },
   {
     "name": "Nalanda University Ruins",
@@ -297,7 +326,8 @@
     "lng": 85.4426,
     "category": "science",
     "significance": "Ancient centre of learning (5th-12th century CE) attracting scholars from across Asia. One of the world's first residential universities with advanced curricula.",
-    "wikipedia": "https://en.wikipedia.org/wiki/Nalanda"
+    "wikipedia": "https://en.wikipedia.org/wiki/Nalanda",
+    "image-name": "nalanda-university-ruins.jpg"
   },
   {
     "name": "Teotihuacan",
@@ -307,7 +337,8 @@
     "lng": -98.8438,
     "category": "science",
     "significance": "Pre-Columbian city with the Pyramid of the Sun, one of the largest structures in the ancient Americas. Advanced urban planning and astronomical alignment.",
-    "wikipedia": "https://en.wikipedia.org/wiki/Teotihuacan"
+    "wikipedia": "https://en.wikipedia.org/wiki/Teotihuacan",
+    "image-name": "teotihuacan.jpg"
   },
   {
     "name": "Marie Curie's Laboratory (Musée Curie)",
@@ -317,7 +348,8 @@
     "lng": 2.3444,
     "category": "science",
     "significance": "Where Marie and Pierre Curie conducted groundbreaking research on radioactivity. Marie Curie was the first person to win two Nobel Prizes.",
-    "wikipedia": "https://en.wikipedia.org/wiki/Mus%C3%A9e_Curie"
+    "wikipedia": "https://en.wikipedia.org/wiki/Mus%C3%A9e_Curie",
+    "image-name": "marie-curies-laboratory-musee-curie.jpg"
   },
   {
     "name": "Terracotta Army",
@@ -327,7 +359,8 @@
     "lng": 109.2785,
     "category": "science",
     "significance": "Thousands of life-size clay soldiers buried with Emperor Qin Shi Huang (~210 BCE). Reveals ancient Chinese metallurgy, mass production techniques, and funerary art.",
-    "wikipedia": "https://en.wikipedia.org/wiki/Terracotta_Army"
+    "wikipedia": "https://en.wikipedia.org/wiki/Terracotta_Army",
+    "image-name": "terracotta-army.jpg"
   },
   {
     "name": "Bletchley Park",
@@ -337,7 +370,8 @@
     "lng": -0.7407,
     "category": "science",
     "significance": "WWII codebreaking centre where Alan Turing cracked the Enigma code. Birthplace of modern computing and signals intelligence.",
-    "wikipedia": "https://en.wikipedia.org/wiki/Bletchley_Park"
+    "wikipedia": "https://en.wikipedia.org/wiki/Bletchley_Park",
+    "image-name": "bletchley-park.jpg"
   },
   {
     "name": "Hagia Sophia",
@@ -347,7 +381,8 @@
     "lng": 28.9802,
     "category": "science",
     "significance": "Built 537 CE with the world's largest dome for nearly a millennium. Masterpiece of Byzantine architecture, engineering, and religious history.",
-    "wikipedia": "https://en.wikipedia.org/wiki/Hagia_Sophia"
+    "wikipedia": "https://en.wikipedia.org/wiki/Hagia_Sophia",
+    "image-name": "hagia-sophia.jpeg"
   },
   {
     "name": "Chichén Itzá",
@@ -357,7 +392,8 @@
     "lng": -88.5678,
     "category": "science",
     "significance": "Major Mayan city with El Castillo pyramid demonstrating precise astronomical knowledge — the serpent shadow appears during equinoxes.",
-    "wikipedia": "https://en.wikipedia.org/wiki/Chichen_Itza"
+    "wikipedia": "https://en.wikipedia.org/wiki/Chichen_Itza",
+    "image-name": "chichen-itza.jpg"
   },
   {
     "name": "Los Alamos National Laboratory",
@@ -367,7 +403,8 @@
     "lng": -106.3031,
     "category": "science",
     "significance": "Birthplace of the Manhattan Project and the atomic bomb. Continues as a premier research facility for nuclear science, computing, and national security.",
-    "wikipedia": "https://en.wikipedia.org/wiki/Los_Alamos_National_Laboratory"
+    "wikipedia": "https://en.wikipedia.org/wiki/Los_Alamos_National_Laboratory",
+    "image-name": "los-alamos-national-laboratory.jpeg"
   },
   {
     "name": "Lascaux Caves",
@@ -377,7 +414,8 @@
     "lng": 1.1686,
     "category": "science",
     "significance": "Paleolithic cave paintings (~17,000 years old). Among the earliest known examples of human art, depicting animals and possible astronomical maps.",
-    "wikipedia": "https://en.wikipedia.org/wiki/Lascaux"
+    "wikipedia": "https://en.wikipedia.org/wiki/Lascaux",
+    "image-name": "lascaux-caves.jpg"
   },
   {
     "name": "Konark Sun Temple",
@@ -387,7 +425,8 @@
     "lng": 86.0945,
     "category": "science",
     "significance": "13th-century temple shaped as a giant chariot with 24 carved wheels functioning as sundials. Demonstrates advanced Indian astronomy and stone engineering.",
-    "wikipedia": "https://en.wikipedia.org/wiki/Konark_Sun_Temple"
+    "wikipedia": "https://en.wikipedia.org/wiki/Konark_Sun_Temple",
+    "image-name": "konark-sun-temple.jpg"
   },
   {
     "name": "Dead Sea Scrolls Caves (Qumran)",
@@ -397,7 +436,8 @@
     "lng": 35.4593,
     "category": "science",
     "significance": "Discovery site of the oldest known manuscripts of the Hebrew Bible (dating 3rd century BCE to 1st century CE). Transformed biblical scholarship.",
-    "wikipedia": "https://en.wikipedia.org/wiki/Qumran"
+    "wikipedia": "https://en.wikipedia.org/wiki/Qumran",
+    "image-name": "dead-sea-scrolls-caves-qumran.jpg"
   },
   {
     "name": "Svalbard Global Seed Vault",
@@ -407,7 +447,8 @@
     "lng": 15.4465,
     "category": "science",
     "significance": "Stores duplicate seed samples from worldwide gene banks as insurance against catastrophic loss of crop diversity. Humanity's agricultural backup.",
-    "wikipedia": "https://en.wikipedia.org/wiki/Svalbard_Global_Seed_Vault"
+    "wikipedia": "https://en.wikipedia.org/wiki/Svalbard_Global_Seed_Vault",
+    "image-name": "svalbard-global-seed-vault.png"
   },
   {
     "name": "Persepolis",
@@ -417,7 +458,8 @@
     "lng": 52.8916,
     "category": "science",
     "significance": "Ceremonial capital of the Achaemenid Empire (~515 BCE). Showcases the engineering and artistry of the largest empire of the ancient world.",
-    "wikipedia": "https://en.wikipedia.org/wiki/Persepolis"
+    "wikipedia": "https://en.wikipedia.org/wiki/Persepolis",
+    "image-name": "persepolis.jpg"
   },
   {
     "name": "Einstein House",
@@ -427,7 +469,8 @@
     "lng": 7.451,
     "category": "science",
     "significance": "Where Albert Einstein lived in 1903-1905 and developed his theory of special relativity and the photoelectric effect during his 'miracle year'.",
-    "wikipedia": "https://en.wikipedia.org/wiki/Einstein_House"
+    "wikipedia": "https://en.wikipedia.org/wiki/Einstein_House",
+    "image-name": "einstein-house.jpg"
   },
   {
     "name": "Robben Island",
@@ -437,7 +480,8 @@
     "lng": 18.3712,
     "category": "science",
     "significance": "Prison where Nelson Mandela was held for 18 years. Symbol of the struggle against apartheid and the triumph of human rights.",
-    "wikipedia": "https://en.wikipedia.org/wiki/Robben_Island"
+    "wikipedia": "https://en.wikipedia.org/wiki/Robben_Island",
+    "image-name": "robben-island.jpg"
   },
   {
     "name": "Hampi",
@@ -447,7 +491,8 @@
     "lng": 76.46,
     "category": "science",
     "significance": "Ruins of Vijayanagara, one of the richest and largest cities in the world during the 14th-16th centuries. Advanced water management and Dravidian architecture.",
-    "wikipedia": "https://en.wikipedia.org/wiki/Hampi"
+    "wikipedia": "https://en.wikipedia.org/wiki/Hampi",
+    "image-name": "hampi.jpg"
   },
   {
     "name": "Auschwitz-Birkenau",
@@ -457,7 +502,8 @@
     "lng": 19.1784,
     "category": "science",
     "significance": "Largest Nazi concentration and extermination camp. Over 1.1 million people perished here. Essential memorial to the Holocaust and human rights.",
-    "wikipedia": "https://en.wikipedia.org/wiki/Auschwitz_concentration_camp"
+    "wikipedia": "https://en.wikipedia.org/wiki/Auschwitz_concentration_camp",
+    "image-name": "auschwitz-birkenau.jpg"
   },
   {
     "name": "Atacama Large Millimeter Array (ALMA)",
@@ -467,7 +513,8 @@
     "lng": -67.7538,
     "category": "science",
     "significance": "Most powerful radio telescope array in the world at 5,000m altitude. Captures images of planet-forming discs and the earliest galaxies.",
-    "wikipedia": "https://en.wikipedia.org/wiki/Atacama_Large_Millimeter_Array"
+    "wikipedia": "https://en.wikipedia.org/wiki/Atacama_Large_Millimeter_Array",
+    "image-name": "atacama-large-millimeter-array-alma.jpg"
   },
   {
     "name": "Parthenon (within Acropolis)",
@@ -477,7 +524,8 @@
     "lng": 23.7267,
     "category": "science",
     "significance": "Temple dedicated to Athena (447-432 BCE). Mathematical perfection in its proportions using entasis and optical corrections influenced architecture globally.",
-    "wikipedia": "https://en.wikipedia.org/wiki/Parthenon"
+    "wikipedia": "https://en.wikipedia.org/wiki/Parthenon",
+    "image-name": "parthenon-within-acropolis.jpg"
   },
   {
     "name": "Jet Propulsion Laboratory (JPL)",
@@ -487,7 +535,8 @@
     "lng": -118.1714,
     "category": "science",
     "significance": "NASA's centre for robotic space exploration. Built and operates Mars rovers, Voyager probes, and numerous deep-space missions.",
-    "wikipedia": "https://en.wikipedia.org/wiki/Jet_Propulsion_Laboratory"
+    "wikipedia": "https://en.wikipedia.org/wiki/Jet_Propulsion_Laboratory",
+    "image-name": "jet-propulsion-laboratory-jpl.jpg"
   },
   {
     "name": "Baikonur Cosmodrome",
@@ -497,7 +546,8 @@
     "lng": 63.305,
     "category": "science",
     "significance": "World's first and largest space launch facility. Launch site of Sputnik (1957) and Yuri Gagarin's historic first human spaceflight (1961).",
-    "wikipedia": "https://en.wikipedia.org/wiki/Baikonur_Cosmodrome"
+    "wikipedia": "https://en.wikipedia.org/wiki/Baikonur_Cosmodrome",
+    "image-name": "baikonur-cosmodrome.jpg"
   },
   {
     "name": "Akihabara Electric Town",
@@ -507,7 +557,8 @@
     "lng": 139.7745,
     "category": "culture",
     "significance": "Global epicentre of anime, manga, and otaku culture. Dense with multi-storey shops, maid cafés, and arcades that define modern Japanese pop culture exports.",
-    "wikipedia": "https://en.wikipedia.org/wiki/Akihabara"
+    "wikipedia": "https://en.wikipedia.org/wiki/Akihabara",
+    "image-name": "akihabara-electric-town.png"
   },
   {
     "name": "Hollywood Sign & Walk of Fame",
@@ -517,7 +568,8 @@
     "lng": -118.3215,
     "category": "culture",
     "significance": "The iconic sign (erected 1923) and the Walk of Fame with 2,700+ stars define the global film industry's cultural capital and celebrity culture.",
-    "wikipedia": "https://en.wikipedia.org/wiki/Hollywood_Sign"
+    "wikipedia": "https://en.wikipedia.org/wiki/Hollywood_Sign",
+    "image-name": "hollywood-sign-walk-of-fame.jpg"
   },
   {
     "name": "Ghibli Museum",
@@ -527,7 +579,8 @@
     "lng": 139.5704,
     "category": "culture",
     "significance": "Museum dedicated to Studio Ghibli and Hayao Miyazaki's works. Showcases the animation process behind globally beloved films like Spirited Away and My Neighbor Totoro.",
-    "wikipedia": "https://en.wikipedia.org/wiki/Ghibli_Museum"
+    "wikipedia": "https://en.wikipedia.org/wiki/Ghibli_Museum",
+    "image-name": "ghibli-museum.jpg"
   },
   {
     "name": "Skywalker Ranch",
@@ -537,7 +590,8 @@
     "lng": -122.6831,
     "category": "culture",
     "significance": "George Lucas's filmmaking compound where Star Wars, Indiana Jones, and pioneering VFX/sound design at Industrial Light & Magic and Skywalker Sound were developed.",
-    "wikipedia": "https://en.wikipedia.org/wiki/Skywalker_Ranch"
+    "wikipedia": "https://en.wikipedia.org/wiki/Skywalker_Ranch",
+    "image-name": "skywalker-ranch.jpg"
   },
   {
     "name": "Tezuka Osamu Manga Museum",
@@ -547,7 +601,8 @@
     "lng": 135.3437,
     "category": "culture",
     "significance": "Dedicated to Osamu Tezuka, the 'God of Manga' who created Astro Boy and pioneered modern anime/manga storytelling conventions used industry-wide today.",
-    "wikipedia": "https://en.wikipedia.org/wiki/Osamu_Tezuka_Manga_Museum"
+    "wikipedia": "https://en.wikipedia.org/wiki/Osamu_Tezuka_Manga_Museum",
+    "image-name": "tezuka-osamu-manga-museum.jpg"
   },
   {
     "name": "Weta Workshop & Wētā FX",
@@ -557,7 +612,8 @@
     "lng": 174.826,
     "category": "culture",
     "significance": "Visual effects and prop studio behind Lord of the Rings, Avatar, and Planet of the Apes. Revolutionised motion capture, miniatures, and digital VFX in cinema.",
-    "wikipedia": "https://en.wikipedia.org/wiki/Weta_Workshop"
+    "wikipedia": "https://en.wikipedia.org/wiki/Weta_Workshop",
+    "image-name": "weta-workshop-and-weta-fx.png"
   },
   {
     "name": "Pinewood Studios",
@@ -567,7 +623,8 @@
     "lng": -0.534,
     "category": "culture",
     "significance": "Filming location of James Bond, Star Wars sequels, Marvel MCU, and Harry Potter. One of the most important film studios in cinema history since 1936.",
-    "wikipedia": "https://en.wikipedia.org/wiki/Pinewood_Studios"
+    "wikipedia": "https://en.wikipedia.org/wiki/Pinewood_Studios",
+    "image-name": "pinewood-studios.jpg"
   },
   {
     "name": "Nakano Broadway",
@@ -577,7 +634,8 @@
     "lng": 139.665,
     "category": "culture",
     "significance": "Multi-level shopping complex known as the hardcore otaku alternative to Akihabara. Hub for rare anime collectibles, vintage manga, and Mandarake stores.",
-    "wikipedia": "https://en.wikipedia.org/wiki/Nakano_Broadway"
+    "wikipedia": "https://en.wikipedia.org/wiki/Nakano_Broadway",
+    "image-name": "nakano-broadway.jpg"
   },
   {
     "name": "Vasquez Rocks Natural Area",
@@ -587,7 +645,8 @@
     "lng": -118.3207,
     "category": "culture",
     "significance": "Iconic sci-fi filming location used in Star Trek (the Gorn fight), Westworld, Power Rangers, and dozens of sci-fi films. Its alien-like rock formations became synonymous with extraterrestrial landscapes.",
-    "wikipedia": "https://en.wikipedia.org/wiki/Vasquez_Rocks"
+    "wikipedia": "https://en.wikipedia.org/wiki/Vasquez_Rocks",
+    "image-name": "vasquez-rocks-natural-area.jpg"
   },
   {
     "name": "Toei Animation Museum",
@@ -597,7 +656,8 @@
     "lng": 139.625,
     "category": "culture",
     "significance": "Museum at the studio behind Dragon Ball, One Piece, Sailor Moon, and Slam Dunk. Toei shaped the global anime industry and popularised the shōnen genre worldwide.",
-    "wikipedia": "https://en.wikipedia.org/wiki/Toei_Animation"
+    "wikipedia": "https://en.wikipedia.org/wiki/Toei_Animation",
+    "image-name": "toei-animation-museum.jpg"
   },
   {
     "name": "Ramoji Film City",
@@ -607,7 +667,8 @@
     "lng": 78.6808,
     "category": "cinema",
     "significance": "Guinness World Record holder as the largest film studio complex in the world (674 hectares). Major production hub for Tollywood, Bollywood, and multilingual Indian cinema.",
-    "wikipedia": "https://en.wikipedia.org/wiki/Ramoji_Film_City"
+    "wikipedia": "https://en.wikipedia.org/wiki/Ramoji_Film_City",
+    "image-name": "ramoji-film-city.jpg"
   },
   {
     "name": "Film City (Dadasaheb Phalke Chitranagari)",
@@ -617,7 +678,8 @@
     "lng": 72.8697,
     "category": "cinema",
     "significance": "Sprawling studio complex in Goregaon where countless Bollywood films are shot. Named after Dadasaheb Phalke, the father of Indian cinema who made India's first feature film in 1913.",
-    "wikipedia": "https://en.wikipedia.org/wiki/Film_City,_Mumbai"
+    "wikipedia": "https://en.wikipedia.org/wiki/Film_City,_Mumbai",
+    "image-name": "film-city-dadasaheb-phalke-chitranagari.jpg"
   },
   {
     "name": "AVM Studios",
@@ -627,7 +689,8 @@
     "lng": 80.2225,
     "category": "cinema",
     "significance": "India's oldest surviving film studio (established 1946). The beating heart of Kollywood and Tamil cinema, producing over 150 films including early talkies that shaped South Indian film culture.",
-    "wikipedia": "https://en.wikipedia.org/wiki/AVM_Productions"
+    "wikipedia": "https://en.wikipedia.org/wiki/AVM_Productions",
+    "image-name": "avm-studios.png"
   },
   {
     "name": "Prasad IMAX & Film Laboratory",
@@ -637,7 +700,8 @@
     "lng": 78.4867,
     "category": "cinema",
     "significance": "Home to one of the world's largest IMAX screens and the Prasad Film Labs which processed prints for a massive share of Indian films. A landmark of Telugu and pan-Indian cinema infrastructure.",
-    "wikipedia": "https://en.wikipedia.org/wiki/Prasads_IMAX"
+    "wikipedia": "https://en.wikipedia.org/wiki/Prasads_IMAX",
+    "image-name": "prasad-imax-film-laboratory.jpg"
   },
   {
     "name": "National Museum of Indian Cinema",
@@ -647,6 +711,7 @@
     "lng": 72.8094,
     "category": "cinema",
     "significance": "India's first national museum dedicated to cinema, tracing the journey from Dadasaheb Phalke's first silent film to modern blockbusters. Houses rare memorabilia, vintage cameras, and interactive exhibits on Indian filmmaking history.",
-    "wikipedia": "https://en.wikipedia.org/wiki/National_Museum_of_Indian_Cinema"
+    "wikipedia": "https://en.wikipedia.org/wiki/National_Museum_of_Indian_Cinema",
+    "image-name": "national-museum-of-indian-cinema.jpg"
   }
 ]
