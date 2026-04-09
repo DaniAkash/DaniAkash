@@ -20,7 +20,7 @@
       {
         "title": "14\" MacBook Pro, M2 Pro",
         "tag": "ALWAYS ON",
-        "description": "32 GB RAM (2023). Runs headless 24/7 — Plex server, self-hosted apps, and autonomous AI agents that work while I sleep.",
+        "description": "32 GB RAM (2023). Runs headless 24/7. Plex server, self-hosted apps, and autonomous AI agents that work while I sleep.",
         "image": "http://127.0.0.1:8080/macbook-pro-14-space-black/macbook-pro-14-2.jpg",
         "size": "square"
       },
@@ -41,7 +41,7 @@
       {
         "title": "Logitech MX Master 3",
         "tag": "MOUSE",
-        "description": "I live in the terminal, so the mouse rarely moves. But when it does — it's this one.",
+        "description": "I live in the terminal, so the mouse rarely moves. But when it does, it's this one.",
         "image": "http://127.0.0.1:8080/logitech-mx-master-3/mx-master-3s-sustainability.png",
         "size": "small"
       },
@@ -74,7 +74,7 @@
       {
         "title": "Oh My Zsh!",
         "tag": "Shell",
-        "description": "Auto-cd, smart completions, and a theme that sparks joy. The shell shouldn't fight you — it should read your mind.",
+        "description": "Auto-cd, smart completions, and a theme that sparks joy. The shell shouldn't fight you. It should read your mind.",
         "image": "https://placehold.co/48x48/1a1a2e/2DD4BF?text=ZSH"
       },
       {
@@ -91,7 +91,7 @@
       {
         "title": "CodexBar",
         "tag": "Menubar",
-        "description": "Real-time token burn rate, right in the menu bar. Know exactly what your agents are costing — always.",
+        "description": "Real-time token burn rate, right in the menu bar. Know exactly what your agents are costing. Always.",
         "image": "https://placehold.co/48x48/1a1a2e/2DD4BF?text=tmux"
       }
     ]
@@ -103,13 +103,13 @@
       {
         "title": "Paper",
         "tag": "AI Design",
-        "description": "Idea to mockup to code in one flow. AI-powered design that actually ships — not just pretty pictures.",
+        "description": "Idea to mockup to code in one flow. AI-powered design that actually ships, not just pretty pictures.",
         "image": "https://placehold.co/48x48/1a1a2e/2DD4BF?text=Fig"
       },
       {
         "title": "Excalidraw",
         "tag": "Sketching",
-        "description": "When I need to think visually — architecture diagrams, flow charts, or questionable logo concepts. Fast and delightfully rough.",
+        "description": "When I need to think visually: architecture diagrams, flow charts, or questionable logo concepts. Fast and delightfully rough.",
         "image": "https://placehold.co/48x48/1a1a2e/2DD4BF?text=Ex"
       }
     ]
@@ -127,7 +127,7 @@
       {
         "title": "Notion",
         "tag": "Second Brain + Calendar",
-        "description": "Notes, projects, plans, and now my calendar too — all in one place. Notion absorbed Cron and became the single source of truth for my entire digital life.",
+        "description": "Notes, projects, plans, and now my calendar too. All in one place. Notion absorbed Cron and became the single source of truth for my entire digital life.",
         "image": "https://placehold.co/48x48/1a1a2e/2DD4BF?text=N"
       },
       {
@@ -145,7 +145,7 @@
       {
         "title": "BrowserOS",
         "tag": "AI Browser",
-        "description": "The browser I'm building. Gives every AI agent eyes to see the web — navigate, interact, extract. The missing sense for autonomous workflows."
+        "description": "The browser I'm building. Gives every AI agent eyes to see the web. Navigate, interact, extract. The missing sense for autonomous workflows."
       }
     ]
   },
@@ -192,7 +192,7 @@
       {
         "title": "Hermes Agent",
         "tag": "Always-On Agent",
-        "description": "Powered by Kimi K2.5 & GLM 5.1. A safe, sandboxed agent that never sleeps and never says no. Handles ad-hoc tasks around the clock — research, automation, whatever I throw at it."
+        "description": "Powered by Kimi K2.5 & GLM 5.1. A safe, sandboxed agent that never sleeps and never says no. Handles ad-hoc tasks around the clock: research, automation, whatever I throw at it."
       }
     ]
   }
