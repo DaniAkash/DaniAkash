@@ -103,10 +103,16 @@ const ogImage = new URL(image || fallbackImage, Astro.site).href;
     <ClientRouter />
     <script is:inline>
       // Restore theme before first paint
-      const theme = localStorage.getItem("theme");
-      if (theme === "light") {
-        document.documentElement.classList.remove("dark");
+      function restoreTheme() {
+        const theme = localStorage.getItem("theme");
+        if (theme === "light") {
+          document.documentElement.classList.remove("dark");
+        } else {
+          document.documentElement.classList.add("dark");
+        }
       }
+      restoreTheme();
+      document.addEventListener("astro:after-swap", restoreTheme);
     </script>
   </head>
   <body class="min-h-screen overflow-x-clip bg-background text-foreground">
