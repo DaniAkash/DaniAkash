@@ -1,5 +1,6 @@
 ---
 import { getCollection, render } from "astro:content";
+import Globe from "../components/Globe.tsx";
 import BlueskyIcon from "../components/icons/BlueskyIcon.astro";
 import GithubIcon from "../components/icons/GithubIcon.astro";
 import InstagramIcon from "../components/icons/InstagramIcon.astro";
@@ -7,7 +8,6 @@ import LinkedinIcon from "../components/icons/LinkedinIcon.astro";
 import MailDarkIcon from "../components/icons/MailDarkIcon.astro";
 import TwitterIcon from "../components/icons/TwitterIcon.astro";
 import MainLayout from "../layouts/MainLayout.astro";
-import Globe from "../components/Globe.tsx";
 
 const about = (await getCollection("about"))[0]!;
 const { Content } = await render(about);

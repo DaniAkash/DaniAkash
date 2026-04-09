@@ -134,9 +134,7 @@ const project = defineCollection({
             label: z.string(),
           })
           .optional(),
-        size: z
-          .enum(["1", "2col", "3col", "full", "stat"])
-          .default("1"),
+        size: z.enum(["1", "2col", "3col", "full", "stat"]).default("1"),
         stat: z
           .object({
             number: z.string(),

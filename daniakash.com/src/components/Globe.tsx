@@ -1,6 +1,6 @@
-import { useCallback, useEffect, useRef, useState } from "react";
 import { useSpring } from "@react-spring/web";
 import createGlobe from "cobe";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { ASSET_PREFIX } from "../constants/asset-prefix";
 
 interface DestinationInput {
@@ -43,7 +43,6 @@ function mapDestinations(input: DestinationInput[]): Destination[] {
   }));
 }
 
-
 const CAT_COLORS: Record<string, string> = {
   s: "bg-primary",
   c: "bg-amber-500",
@@ -55,7 +54,11 @@ function cobeLatLngTo3D(lat: number, lng: number): [number, number, number] {
   const latRad = (lat * Math.PI) / 180;
   const lngRad = (lng * Math.PI) / 180 - Math.PI;
   const cosLat = Math.cos(latRad);
-  return [-cosLat * Math.cos(lngRad), Math.sin(latRad), cosLat * Math.sin(lngRad)];
+  return [
+    -cosLat * Math.cos(lngRad),
+    Math.sin(latRad),
+    cosLat * Math.sin(lngRad),
+  ];
 }
 
 function projectMarker(
@@ -87,7 +90,9 @@ function projectMarker(
   const py = (-s + 1) / 2;
 
   // Visibility check from cobe
-  const visible = (-sinPhi * cosTheta * p0 + sinTheta * p1 + cosPhi * cosTheta * p2 >= 0) || (c * c + s * s >= 0.64);
+  const visible =
+    -sinPhi * cosTheta * p0 + sinTheta * p1 + cosPhi * cosTheta * p2 >= 0 ||
+    c * c + s * s >= 0.64;
 
   return { x: px * width, y: py * height, visible };
 }
@@ -102,9 +107,12 @@ export default function Globe({ destinations: destinationsProp }: GlobeProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const wrapRef = useRef<HTMLDivElement>(null);
   const polaroidRef = useRef<HTMLDivElement>(null);
-  const [startIdx] = useState(() => Math.floor(Math.random() * DESTINATIONS.length));
+  const [startIdx] = useState(() =>
+    Math.floor(Math.random() * DESTINATIONS.length),
+  );
   const [currentIdx, setCurrentIdx] = useState(startIdx);
-  const initialPhi = -(DESTINATIONS[startIdx]!.loc[1] * (Math.PI / 180)) - Math.PI / 2;
+  const initialPhi =
+    -(DESTINATIONS[startIdx]!.loc[1] * (Math.PI / 180)) - Math.PI / 2;
   const phiRef = useRef(initialPhi);
   const targetPhiRef = useRef(initialPhi);
   const globeRef = useRef<ReturnType<typeof createGlobe> | null>(null);
@@ -112,7 +120,10 @@ export default function Globe({ destinations: destinationsProp }: GlobeProps) {
   const cycleRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const currentIdxRef = useRef(startIdx);
   const pointerRef = useRef<number | null>(null);
-  const [{ r }, api] = useSpring(() => ({ r: 0, config: { mass: 1, tension: 280, friction: 40 } }));
+  const [{ r }, api] = useSpring(() => ({
+    r: 0,
+    config: { mass: 1, tension: 280, friction: 40 },
+  }));
 
   const d = DESTINATIONS[currentIdx]!;
 
@@ -122,15 +133,22 @@ export default function Globe({ destinations: destinationsProp }: GlobeProps) {
     const lngRad = dest.loc[1] * (Math.PI / 180);
     targetPhiRef.current = -lngRad - Math.PI / 2;
     if (globeRef.current) {
-      globeRef.current.update({ markers: [{ location: dest.loc, size: 0.03 }] });
+      globeRef.current.update({
+        markers: [{ location: dest.loc, size: 0.03 }],
+      });
     }
   }, []);
 
-  const switchTo = useCallback((idx: number) => {
-    const wrapped = ((idx % DESTINATIONS.length) + DESTINATIONS.length) % DESTINATIONS.length;
-    setCurrentIdx(wrapped);
-    updateDestination(wrapped);
-  }, [updateDestination]);
+  const switchTo = useCallback(
+    (idx: number) => {
+      const wrapped =
+        ((idx % DESTINATIONS.length) + DESTINATIONS.length) %
+        DESTINATIONS.length;
+      setCurrentIdx(wrapped);
+      updateDestination(wrapped);
+    },
+    [updateDestination],
+  );
 
   const next = useCallback(() => {
     setCurrentIdx((prev) => {
@@ -142,7 +160,7 @@ export default function Globe({ destinations: destinationsProp }: GlobeProps) {
 
   const prev = useCallback(() => {
     setCurrentIdx((prev) => {
-      const nextIdx = ((prev - 1) + DESTINATIONS.length) % DESTINATIONS.length;
+      const nextIdx = (prev - 1 + DESTINATIONS.length) % DESTINATIONS.length;
       updateDestination(nextIdx);
       return nextIdx;
     });
@@ -198,14 +216,22 @@ export default function Globe({ destinations: destinationsProp }: GlobeProps) {
         const dest = DESTINATIONS[currentIdxRef.current]!;
         const wrapW = wrapRef.current.offsetWidth;
         const wrapH = wrapRef.current.offsetHeight;
-        const proj = projectMarker(dest.loc[0], dest.loc[1], finalPhi, theta, wrapW, wrapH);
+        const proj = projectMarker(
+          dest.loc[0],
+          dest.loc[1],
+          finalPhi,
+          theta,
+          wrapW,
+          wrapH,
+        );
 
         if (proj.visible) {
           polaroidRef.current.style.opacity = "1";
           polaroidRef.current.style.filter = "none";
           polaroidRef.current.style.left = `${proj.x}px`;
           polaroidRef.current.style.top = `${proj.y}px`;
-          polaroidRef.current.style.transform = "translate(-50%, -100%) translateY(-12px)";
+          polaroidRef.current.style.transform =
+            "translate(-50%, -100%) translateY(-12px)";
         } else {
           polaroidRef.current.style.opacity = "0";
           polaroidRef.current.style.filter = "blur(4px)";
@@ -253,7 +279,10 @@ export default function Globe({ destinations: destinationsProp }: GlobeProps) {
       }
       animateNew();
     });
-    observer.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
 
     // Resize
     let resizeTimeout: ReturnType<typeof setTimeout>;
@@ -262,7 +291,10 @@ export default function Globe({ destinations: destinationsProp }: GlobeProps) {
       resizeTimeout = setTimeout(() => {
         observer.disconnect();
         // Trigger re-mount by observer logic
-        observer.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
+        observer.observe(document.documentElement, {
+          attributes: true,
+          attributeFilter: ["class"],
+        });
       }, 200);
     };
     window.addEventListener("resize", handleResize);
@@ -315,12 +347,14 @@ export default function Globe({ destinations: destinationsProp }: GlobeProps) {
           }}
         />
         {/* Polaroid card — anchored to marker */}
-        <div ref={polaroidRef} className="polaroid" style={{ transition: "opacity 0.6s, filter 0.6s, left 0.3s, top 0.3s" }}>
-          <img
-            src={d.img}
-            alt={d.n}
-            className="polaroid-img"
-          />
+        <div
+          ref={polaroidRef}
+          className="polaroid"
+          style={{
+            transition: "opacity 0.6s, filter 0.6s, left 0.3s, top 0.3s",
+          }}
+        >
+          <img src={d.img} alt={d.n} className="polaroid-img" />
           <div className="polaroid-caption">{d.n}</div>
         </div>
         <span className="absolute bottom-2 right-4 pointer-events-none font-mono text-[9px] uppercase tracking-wider text-muted-foreground/60">
@@ -337,7 +371,9 @@ export default function Globe({ destinations: destinationsProp }: GlobeProps) {
           resetTimer();
         }}
       >
-        <span className={`mt-1.5 size-2.5 shrink-0 rounded-full ${CAT_COLORS[d.cat]}`} />
+        <span
+          className={`mt-1.5 size-2.5 shrink-0 rounded-full ${CAT_COLORS[d.cat]}`}
+        />
         <div className="min-w-0 flex-1">
           <a
             href={d.w}
@@ -348,13 +384,24 @@ export default function Globe({ destinations: destinationsProp }: GlobeProps) {
           >
             {d.n}
           </a>
-          <div className="mt-0.5 font-mono text-[11px] text-muted-foreground">{d.c}</div>
-          <div className="mt-1 line-clamp-2 text-[13px] leading-snug text-muted-foreground/80" title={d.sig}>{d.sig}</div>
+          <div className="mt-0.5 font-mono text-[11px] text-muted-foreground">
+            {d.c}
+          </div>
+          <div
+            className="mt-1 line-clamp-2 text-[13px] leading-snug text-muted-foreground/80"
+            title={d.sig}
+          >
+            {d.sig}
+          </div>
         </div>
         <div className="mt-1 flex shrink-0 items-center gap-2">
           <button
             className="spotlight-btn"
-            onClick={(e) => { e.stopPropagation(); prev(); resetTimer(); }}
+            onClick={(e) => {
+              e.stopPropagation();
+              prev();
+              resetTimer();
+            }}
             aria-label="Previous"
           >
             ←
@@ -373,7 +420,11 @@ export default function Globe({ destinations: destinationsProp }: GlobeProps) {
           </span>
           <button
             className="spotlight-btn"
-            onClick={(e) => { e.stopPropagation(); next(); resetTimer(); }}
+            onClick={(e) => {
+              e.stopPropagation();
+              next();
+              resetTimer();
+            }}
             aria-label="Next"
           >
             →

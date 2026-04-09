@@ -1,7 +1,7 @@
 ---
-import MainLayout from "../layouts/MainLayout.astro";
-// @ts-ignore — Vite raw import
+// @ts-expect-error — Vite raw import
 import rawMd from "../content/now/now.md?raw";
+import MainLayout from "../layouts/MainLayout.astro";
 
 const content = rawMd.replace(/^---[\s\S]*?---\n*/, "").trim();
 ---
