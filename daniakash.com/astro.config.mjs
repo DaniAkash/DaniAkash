@@ -4,6 +4,7 @@ import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "astro/config";
 import metaTags from "astro-meta-tags";
+import robotsTxt from "astro-robots-txt";
 import rehypeExternalLinks from "rehype-external-links";
 
 // https://astro.build/config
@@ -41,5 +42,29 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
   },
-  integrations: [react(), mdx(), metaTags(), sitemap()],
+  integrations: [
+    react(),
+    mdx(),
+    metaTags(),
+    sitemap(),
+    robotsTxt({
+      policy: [
+        {
+          userAgent: "*",
+          allow: "/",
+        },
+        // AI search bots — explicitly allow for citation visibility
+        { userAgent: "GPTBot", allow: "/" },
+        { userAgent: "ChatGPT-User", allow: "/" },
+        { userAgent: "PerplexityBot", allow: "/" },
+        { userAgent: "ClaudeBot", allow: "/" },
+        { userAgent: "anthropic-ai", allow: "/" },
+        { userAgent: "Google-Extended", allow: "/" },
+        { userAgent: "Googlebot", allow: "/" },
+        { userAgent: "Bingbot", allow: "/" },
+        { userAgent: "Applebot", allow: "/" },
+        { userAgent: "Bytespider", allow: "/" },
+      ],
+    }),
+  ],
 });
