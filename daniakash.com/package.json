@@ -25,11 +25,13 @@
     "@react-spring/web": "^10.0.3",
     "@types/react-dom": "^19.2.3",
     "astro": "^6.0.8",
+    "astro-seo-schema": "^6.0.0",
     "clsx": "^2.1.1",
     "cobe": "^2.0.1",
     "motion": "^12.38.0",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
+    "schema-dts": "^2.0.0",
     "tailwind-merge": "^3.5.0",
     "tailwindcss": "^4.2.2",
     "typescript": "^6.0.2"

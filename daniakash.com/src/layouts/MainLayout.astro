@@ -2,9 +2,11 @@
 import "../styles/global.css";
 import { ClientRouter } from "astro:transitions";
 import { Seo } from "astro-seo-meta";
+import { Schema } from "astro-seo-schema";
 import Nav from "../components/Nav.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 import { ASSET_PREFIX } from "../constants/asset-prefix";
+import { FALLBACK_DESCRIPTION, SEGMENT_LABELS } from "../constants/seo";
 import { getOGImage } from "../utils/getOGImage";
 
 interface Props {
@@ -31,15 +33,45 @@ if (!image) {
   const ogPath = `/og/general/${encodeURI(Astro.url.pathname.split("/").join("-"))}.png`;
   await getOGImage({
     title: title || "Dani Akash",
-    description:
-      description ||
-      "Empowering ideas and inspiring creativity – Discover more at daniakash.com",
+    description: description || FALLBACK_DESCRIPTION,
     path: ogPath,
     cover: `${ASSET_PREFIX}/image-3.jpg`,
   });
   fallbackImage = ogPath;
 }
 const ogImage = new URL(image || fallbackImage, Astro.site).href;
+
+// --- Structured Data ---
+const siteUrl = Astro.site?.href || "https://daniakash.com/";
+const pathSegments = Astro.url.pathname.split("/").filter(Boolean);
+
+const breadcrumbItems: Array<{ name: string; url: string }> = [
+  { name: "Home", url: siteUrl },
+];
+
+if (pathSegments.length > 0) {
+  const firstSegment = pathSegments[0] as string;
+  const parentLabel = SEGMENT_LABELS[firstSegment] || firstSegment;
+  const parentPath = firstSegment === "posts" ? "/blog/" : `/${firstSegment}/`;
+
+  if (pathSegments.length > 1) {
+    breadcrumbItems.push({
+      name: parentLabel,
+      url: new URL(parentPath, siteUrl).href,
+    });
+    breadcrumbItems.push({
+      name: title || (pathSegments[pathSegments.length - 1] as string),
+      url: new URL(Astro.url.pathname, siteUrl).href,
+    });
+  } else {
+    breadcrumbItems.push({
+      name: parentLabel,
+      url: new URL(Astro.url.pathname, siteUrl).href,
+    });
+  }
+}
+
+const isHomePage = Astro.url.pathname === "/";
 ---
 
 <html lang="en" class="dark">
@@ -69,8 +101,7 @@ const ogImage = new URL(image || fallbackImage, Astro.site).href;
     <meta name="generator" content={Astro.generator} />
     <Seo
       title={title ? `${title} | Dani Akash` : "Dani Akash"}
-      description={description ||
-        "Empowering ideas and inspiring creativity – Discover more at daniakash.com"}
+      description={description || FALLBACK_DESCRIPTION}
       keywords={keywords || [
         "Dani Akash",
         "Personal Blog",
@@ -92,7 +123,36 @@ const ogImage = new URL(image || fallbackImage, Astro.site).href;
         image: ogImage,
       }}
     />
-    {canonical ? <link rel="canonical" href={canonical} /> : null}
+    <link rel="canonical" href={canonical || new URL(Astro.url.pathname, siteUrl).href} />
+    <Schema
+      item={{
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: breadcrumbItems.map((item, index) => ({
+          "@type": "ListItem" as const,
+          position: index + 1,
+          name: item.name,
+          item: item.url,
+        })),
+      }}
+    />
+    {isHomePage && (
+      <Schema
+        item={{
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          name: "Dani Akash",
+          url: siteUrl,
+          description: FALLBACK_DESCRIPTION,
+          author: {
+            "@type": "Person",
+            name: "Dani Akash",
+            url: siteUrl,
+            jobTitle: "AI Engineer",
+          },
+        }}
+      />
+    )}
     <link rel="sitemap" href="/sitemap-index.xml" />
     <link
       rel="alternate"
