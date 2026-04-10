@@ -38,6 +38,9 @@ importers:
       astro:
         specifier: ^6.0.8
         version: 6.0.8(@types/node@25.5.0)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.60.0)(typescript@6.0.2)(yaml@2.8.3)
+      astro-seo-schema:
+        specifier: ^6.0.0
+        version: 6.0.0(astro@6.0.8(@types/node@25.5.0)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.60.0)(typescript@6.0.2)(yaml@2.8.3))(schema-dts@2.0.0(typescript@6.0.2))
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
@@ -53,6 +56,9 @@ importers:
       react-dom:
         specifier: ^19.2.4
         version: 19.2.4(react@19.2.4)
+      schema-dts:
+        specifier: ^2.0.0
+        version: 2.0.0(typescript@6.0.2)
       tailwind-merge:
         specifier: ^3.5.0
         version: 3.5.0
@@ -1190,6 +1196,12 @@ packages:
     resolution: {integrity: sha512-ArkZbr9yLPSTLDv1rBADYNMRNVyYi/opbFAOfsLDbHQyfDI4sUBg4MtuRrbwDCqfCsfUwKv8421VenZJaoPKFA==}
     peerDependencies:
       astro: ^6.0.0
+
+  astro-seo-schema@6.0.0:
+    resolution: {integrity: sha512-6Etg+9zu7XdlUa40BIZrZP3vd+lReeJ1rNgT8Jer+1bPyGdrA/itQwJOhIkX+t5PadVwTmpt6xZouDycrZys6w==}
+    peerDependencies:
+      astro: ^6.0.0
+      schema-dts: ^1.1.0
 
   astro@6.0.8:
     resolution: {integrity: sha512-DCPeb8GKOoFWh+8whB7Qi/kKWD/6NcQ9nd1QVNzJFxgHkea3WYrNroQRq4whmBdjhkYPTLS/1gmUAl2iA2Es2g==}
@@ -2364,6 +2376,15 @@ packages:
 
   scheduler@0.27.0:
     resolution: {integrity: sha512-eNv+WrVbKu1f3vbYJT/xtiF5syA5HPIMtf9IgY/nKg0sWqzAUEvqY/xm7OcZc/qafLx/iO9FgOmeSAp4v5ti/Q==}
+
+  schema-dts-lib@1.0.0:
+    resolution: {integrity: sha512-9MEO5vpQH9JdBioUupqluzxSYxPLjhmqRUudk15adUl/ypnRsM2/M1kN3AmVJQeG7nZqcL68H8JlGqQQT6vy9A==}
+    engines: {node: '>=14.0.0'}
+    peerDependencies:
+      typescript: '>=4.9.5'
+
+  schema-dts@2.0.0:
+    resolution: {integrity: sha512-t7NoCy3Rn5GHGx6p7s1qIYK/AeIb8ZxJNR9WUNFkwMv2CiiGZBmqqYWc2FlZVm5ZbiHMY4OvBWhj7QtyrFO2Jw==}
 
   semver@6.3.1:
     resolution: {integrity: sha512-BR7VvDCVHO+q2xBEWskxS6DJE1qRnb7DxzUrogb71CWoSficBxYsiAGd+Kl0mmq/MprG9yArRkyrQxTO6XjMzA==}
@@ -3861,6 +3882,11 @@ snapshots:
   astro-seo-meta@6.0.0(astro@6.0.8(@types/node@25.5.0)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.60.0)(typescript@6.0.2)(yaml@2.8.3)):
     dependencies:
       astro: 6.0.8(@types/node@25.5.0)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.60.0)(typescript@6.0.2)(yaml@2.8.3)
+
+  astro-seo-schema@6.0.0(astro@6.0.8(@types/node@25.5.0)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.60.0)(typescript@6.0.2)(yaml@2.8.3))(schema-dts@2.0.0(typescript@6.0.2)):
+    dependencies:
+      astro: 6.0.8(@types/node@25.5.0)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.60.0)(typescript@6.0.2)(yaml@2.8.3)
+      schema-dts: 2.0.0(typescript@6.0.2)
 
   astro@6.0.8(@types/node@25.5.0)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.60.0)(typescript@6.0.2)(yaml@2.8.3):
     dependencies:
@@ -5454,6 +5480,16 @@ snapshots:
   sax@1.6.0: {}
 
   scheduler@0.27.0: {}
+
+  schema-dts-lib@1.0.0(typescript@6.0.2):
+    dependencies:
+      typescript: 6.0.2
+
+  schema-dts@2.0.0(typescript@6.0.2):
+    dependencies:
+      schema-dts-lib: 1.0.0(typescript@6.0.2)
+    transitivePeerDependencies:
+      - typescript
 
   semver@6.3.1: {}
 
