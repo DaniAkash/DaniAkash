@@ -171,12 +171,28 @@
 
 .prose a {
   color: var(--primary);
-  text-decoration-color: oklch(from var(--primary) l c h / 30%);
+  text-decoration: none;
+  border-bottom: 1px dashed var(--primary);
   transition:
     color 150ms,
-    text-decoration-color 150ms;
+    border-bottom-color 150ms;
 }
 
 .prose a:hover {
-  text-decoration-color: var(--primary);
+  border-bottom-style: solid;
+}
+
+.prose h2 {
+  padding-top: 1.5em;
+  border-top: 1px dashed var(--border);
+}
+
+.prose hr {
+  border: none;
+  border-top: 1px dashed var(--border);
+  margin: 2.5em 0;
+}
+
+.prose li::marker {
+  color: var(--primary);
 }

@@ -78,7 +78,7 @@ await getOGImage({
 
     <!-- Prose body -->
     <div
-      class="nl-prose prose dark:prose-invert max-w-none text-lg leading-[1.8]"
+      class="prose dark:prose-invert max-w-none"
       set:html={content}
     />
 
@@ -147,30 +147,6 @@ await getOGImage({
 </MainLayout>
 
 <style>
-  /* Newsletter prose overrides to match original design */
-  .nl-prose :global(h2) {
-    margin-top: 2em;
-    padding-top: 1.5em;
-    border-top: 1px dashed var(--border);
-  }
-
-  .nl-prose :global(a) {
-    border-bottom: 1px dashed var(--primary);
-  }
-
-  .nl-prose :global(a:hover) {
-    border-bottom-style: solid;
-  }
-
-  .nl-prose :global(hr) {
-    border: none;
-    border-top: 1px dashed var(--border);
-    margin: 2.5em 0;
-  }
-
-  .nl-prose :global(li::marker) {
-    color: var(--primary);
-  }
 
   @media (max-width: 600px) {
     .nl-subscribe__form {
