@@ -28,9 +28,20 @@ export const getStaticPaths = (async () => {
   });
 }) satisfies GetStaticPaths;
 
-const description =
-  "Thoughts on AI, tech, science, and the web — delivered to your inbox.";
 const { content, dateDisplay, title, canonical, prev, next } = Astro.props;
+
+// Extract unique description from issue content, fallback to generic
+const fallbackDescription =
+  "Dani Akash's newsletter on AI, tech, science, and the web | delivered to your inbox.";
+const plainText = content
+  .replace(/<[^>]+>/g, " ")
+  .replace(/&[a-z]+;/gi, " ")
+  .replace(/\s+/g, " ")
+  .trim();
+const description =
+  plainText.length > 10
+    ? plainText.substring(0, 150).replace(/\s+\S*$/, "") + "..."
+    : fallbackDescription;
 const { slug } = Astro.params;
 const image = `/og/newsletter/${slug}.png`;
 await getOGImage({
