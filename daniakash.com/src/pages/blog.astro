@@ -117,39 +117,46 @@ const years = [...postsByYear.keys()].sort((a, b) => b - a);
   }
 </style>
 
-<script>
-  // Align progress track to the centre column and animate fill
-  function initTimeline() {
-    const comp = document.getElementById("timelineComponent");
-    const bar = document.getElementById("progressBar");
-    const track = document.getElementById("progressTrack");
+<script is:inline>
+  document.addEventListener("astro:page-load", function () {
+    var comp = document.getElementById("timelineComponent");
+    var bar = document.getElementById("progressBar");
+    var track = document.getElementById("progressTrack");
     if (!comp || !bar || !track) return;
 
+    if (window.__timelineCleanup) window.__timelineCleanup();
+
     function alignProgress() {
-      const circle = comp!.querySelector(".sticky.rounded-full");
+      var circle = comp.querySelector(".sticky.rounded-full");
       if (circle) {
-        const compRect = comp!.getBoundingClientRect();
-        const circleRect = circle.getBoundingClientRect();
-        const left =
+        var compRect = comp.getBoundingClientRect();
+        var circleRect = circle.getBoundingClientRect();
+        var left =
           circleRect.left + circleRect.width / 2 - compRect.left - 1;
-        track!.style.left = left + "px";
+        track.style.left = left + "px";
       }
     }
     alignProgress();
-    window.addEventListener("resize", alignProgress);
 
+    var resizeHandler = function () {
+      alignProgress();
+    };
+    window.addEventListener("resize", resizeHandler);
+
+    var animId;
     function updateProgress() {
-      const rect = comp!.getBoundingClientRect();
-      const viewportMid = window.innerHeight * 0.5;
-      const fillPx = viewportMid - rect.top;
-      bar!.style.height =
+      var rect = comp.getBoundingClientRect();
+      var viewportMid = window.innerHeight * 0.5;
+      var fillPx = viewportMid - rect.top;
+      bar.style.height =
         Math.max(0, Math.min(fillPx, rect.height)) + "px";
-      requestAnimationFrame(updateProgress);
+      animId = requestAnimationFrame(updateProgress);
     }
-    requestAnimationFrame(updateProgress);
-  }
+    animId = requestAnimationFrame(updateProgress);
 
-  // Run on page load and after view transitions
-  initTimeline();
-  document.addEventListener("astro:after-swap", initTimeline);
+    window.__timelineCleanup = function () {
+      cancelAnimationFrame(animId);
+      window.removeEventListener("resize", resizeHandler);
+    };
+  });
 </script>

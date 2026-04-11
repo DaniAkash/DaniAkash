@@ -239,17 +239,17 @@ const content = rawMd.replace(/^---[\s\S]*?---\n*/, "").trim();
   href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-tomorrow.min.css"
 />
 <script is:inline>
-  function initNowEditor() {
+  document.addEventListener("astro:page-load", function () {
     var body = document.querySelector(".md-editor__body");
     if (!body) return;
 
-    // Skip if already initialized (table already exists)
-    if (body.querySelector(".md-editor__table")) return;
+    // Remove previous table to allow re-initialization on VT navigation
+    var existingTable = body.querySelector(".md-editor__table");
+    if (existingTable) existingTable.remove();
 
     var code = body.querySelector("code");
     if (!code) return;
 
-    // Ensure Prism is loaded before highlighting
     function runHighlight() {
       if (typeof Prism !== "undefined") Prism.highlightAll();
 
@@ -286,7 +286,6 @@ const content = rawMd.replace(/^---[\s\S]*?---\n*/, "").trim();
         if (pre) pre.remove();
         body.appendChild(table);
 
-        // Make markdown links clickable
         body.querySelectorAll(".token.url").forEach(function (token) {
           var text = token.textContent;
           var match = text.match(/\(([^)]+)\)/);
@@ -306,19 +305,15 @@ const content = rawMd.replace(/^---[\s\S]*?---\n*/, "").trim();
     if (typeof Prism !== "undefined") {
       runHighlight();
     } else {
-      // Prism not loaded yet — wait for it
       var checkInterval = setInterval(function () {
         if (typeof Prism !== "undefined") {
           clearInterval(checkInterval);
           runHighlight();
         }
       }, 50);
-      // Timeout after 3s
       setTimeout(function () {
         clearInterval(checkInterval);
       }, 3000);
     }
-  }
-
-  document.addEventListener("astro:page-load", initNowEditor);
+  });
 </script>

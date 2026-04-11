@@ -202,11 +202,13 @@ const events = (await getCollection("speaking")).sort(
 </style>
 
 <script is:inline>
-  (function () {
+  document.addEventListener("astro:page-load", function () {
     var comp = document.getElementById("timelineComponent");
     var bar = document.getElementById("progressBar");
     var track = document.getElementById("progressTrack");
     if (!comp || !bar || !track) return;
+
+    if (window.__timelineCleanup) window.__timelineCleanup();
 
     function alignProgress() {
       var circle = comp.querySelector(".sticky.rounded-full");
@@ -219,16 +221,26 @@ const events = (await getCollection("speaking")).sort(
       }
     }
     alignProgress();
-    window.addEventListener("resize", alignProgress);
 
+    var resizeHandler = function () {
+      alignProgress();
+    };
+    window.addEventListener("resize", resizeHandler);
+
+    var animId;
     function updateProgress() {
       var rect = comp.getBoundingClientRect();
       var viewportMid = window.innerHeight * 0.5;
       var fillPx = viewportMid - rect.top;
       bar.style.height =
         Math.max(0, Math.min(fillPx, rect.height)) + "px";
-      requestAnimationFrame(updateProgress);
+      animId = requestAnimationFrame(updateProgress);
     }
-    requestAnimationFrame(updateProgress);
-  })();
+    animId = requestAnimationFrame(updateProgress);
+
+    window.__timelineCleanup = function () {
+      cancelAnimationFrame(animId);
+      window.removeEventListener("resize", resizeHandler);
+    };
+  });
 </script>
