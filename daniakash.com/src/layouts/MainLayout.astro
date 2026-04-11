@@ -17,6 +17,8 @@ interface Props {
   image?: string;
   /** Hide footer (e.g. /now page which fills viewport) */
   hideFooter?: boolean;
+  /** ISO date string for article:published_time OG meta tag */
+  publishedTime?: string;
 }
 
 const {
@@ -26,6 +28,7 @@ const {
   canonical,
   image,
   hideFooter = false,
+  publishedTime,
 } = Astro.props;
 
 let fallbackImage: string = "";
@@ -124,6 +127,7 @@ const isHomePage = Astro.url.pathname === "/";
       }}
     />
     <link rel="canonical" href={canonical || new URL(Astro.url.pathname, siteUrl).href} />
+    {publishedTime && <meta property="article:published_time" content={publishedTime} />}
     <Schema
       item={{
         "@context": "https://schema.org",

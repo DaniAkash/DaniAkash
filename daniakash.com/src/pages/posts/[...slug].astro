@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from "astro:content";
 import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
+import { Schema } from "astro-seo-schema";
 import MainLayout from "../../layouts/MainLayout.astro";
 import { getDateDisplay } from "../../utils/getDateDisplay";
 import { getDateValue } from "../../utils/getDateValue";
@@ -37,7 +38,34 @@ await getOGImage({
   keywords={post.data.tags}
   canonical={canonical}
   image={image}
+  publishedTime={dateValue}
 >
+  <Schema
+    item={{
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      headline: post.data.title,
+      description: post.data.subtitle,
+      datePublished: dateValue,
+      author: {
+        "@type": "Person",
+        name: "Dani Akash",
+        url: "https://daniakash.com/about/",
+        jobTitle: "AI Engineer",
+      },
+      publisher: {
+        "@type": "Person",
+        name: "Dani Akash",
+        url: "https://daniakash.com/",
+      },
+      mainEntityOfPage: {
+        "@type": "WebPage",
+        "@id": canonical,
+      },
+      image: new URL(image, "https://daniakash.com").href,
+      keywords: post.data.tags?.join(", "),
+    }}
+  />
   <article class="mx-auto max-w-[720px] pt-[120px] pb-20" id="article">
     <!-- Back link -->
     <a
@@ -48,12 +76,15 @@ await getOGImage({
     </a>
 
     <!-- Post header -->
-    <time
-      datetime={dateValue}
-      class="mb-4 block font-mono text-[13px] tracking-wide text-muted-foreground"
-    >
-      {dateDisplay}
-    </time>
+    <div class="mb-4 flex items-center gap-3 font-mono text-[13px] tracking-wide text-muted-foreground">
+      <time datetime={dateValue}>
+        {dateDisplay}
+      </time>
+      <span class="text-border">|</span>
+      <a href="/about/" class="transition-colors hover:text-primary">
+        Dani Akash
+      </a>
+    </div>
 
     <h1
       class="mb-6 font-bold leading-[1.15] tracking-[-0.03em]"
