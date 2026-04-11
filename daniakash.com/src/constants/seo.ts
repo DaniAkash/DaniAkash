@@ -1,3 +1,6 @@
+/** Stable entity URI for the Person — used across all schemas to link author references */
+export const PERSON_ENTITY_ID = "https://daniakash.com/#person";
+
 export const FALLBACK_DESCRIPTION =
   "Dani Akash | AI Engineer, speaker, and open source contributor. Writing about AI, JavaScript, React Native, and the modern web.";
 

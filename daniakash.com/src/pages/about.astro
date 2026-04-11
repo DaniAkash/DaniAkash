@@ -7,8 +7,12 @@ import InstagramIcon from "../components/icons/InstagramIcon.astro";
 import LinkedinIcon from "../components/icons/LinkedinIcon.astro";
 import MailDarkIcon from "../components/icons/MailDarkIcon.astro";
 import TwitterIcon from "../components/icons/TwitterIcon.astro";
+import { Schema } from "astro-seo-schema";
+import { ASSET_PREFIX } from "../constants/asset-prefix";
+import { PERSON_ENTITY_ID } from "../constants/seo";
 import MainLayout from "../layouts/MainLayout.astro";
 
+const siteUrl = Astro.site?.href || "https://daniakash.com/";
 const about = (await getCollection("about"))[0]!;
 const { Content } = await render(about);
 const social = (await getCollection("social"))[0]!;
@@ -17,6 +21,46 @@ const destinations = destinationsData.data.items;
 ---
 
 <MainLayout title="About" description="Dani Akash | AI Engineer, builder, and speaker based in Chennai, India. Building AI agents and writing about JavaScript, React Native, and the web.">
+  <Schema
+    item={{
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "@id": PERSON_ENTITY_ID,
+      name: "Dani Akash",
+      url: siteUrl,
+      image: `${ASSET_PREFIX}/avatar.jpg`,
+      jobTitle: "AI Engineer",
+      description:
+        "AI Engineer, speaker, and open source contributor based in Chennai, India. Building AI agents and writing about JavaScript, React Native, and the web.",
+      nationality: {
+        "@type": "Country",
+        name: "India",
+      },
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: "Chennai",
+        addressCountry: "IN",
+      },
+      sameAs: [
+        social.data.github,
+        social.data.twitter,
+        social.data.bluesky,
+        social.data.linkedIn,
+        social.data.instagram,
+        "https://www.google.com/search?kgmid=/g/11gbhlgy7j",
+      ],
+      knowsAbout: [
+        "Artificial Intelligence",
+        "AI Agents",
+        "JavaScript",
+        "TypeScript",
+        "React Native",
+        "React",
+        "Web Development",
+        "Open Source",
+      ],
+    }}
+  />
   <main class="about-page">
     <div class="mx-auto max-w-[1200px] px-6">
       <div class="about-grid">

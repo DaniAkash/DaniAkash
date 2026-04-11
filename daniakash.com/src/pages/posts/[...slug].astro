@@ -2,6 +2,7 @@
 import { getCollection, render } from "astro:content";
 import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
 import { Schema } from "astro-seo-schema";
+import { PERSON_ENTITY_ID } from "../../constants/seo";
 import MainLayout from "../../layouts/MainLayout.astro";
 import { getDateDisplay } from "../../utils/getDateDisplay";
 import { getDateValue } from "../../utils/getDateValue";
@@ -51,12 +52,14 @@ await getOGImage({
       datePublished: dateISO,
       author: {
         "@type": "Person",
+        "@id": PERSON_ENTITY_ID,
         name: "Dani Akash",
         url: new URL("/about/", siteUrl).href,
         jobTitle: "AI Engineer",
       },
       publisher: {
         "@type": "Person",
+        "@id": PERSON_ENTITY_ID,
         name: "Dani Akash",
         url: siteUrl,
       },

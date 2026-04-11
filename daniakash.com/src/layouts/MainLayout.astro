@@ -6,7 +6,7 @@ import { Schema } from "astro-seo-schema";
 import Nav from "../components/Nav.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 import { ASSET_PREFIX } from "../constants/asset-prefix";
-import { FALLBACK_DESCRIPTION, SEGMENT_LABELS } from "../constants/seo";
+import { FALLBACK_DESCRIPTION, PERSON_ENTITY_ID, SEGMENT_LABELS } from "../constants/seo";
 import { getOGImage } from "../utils/getOGImage";
 
 interface Props {
@@ -150,6 +150,7 @@ const isHomePage = Astro.url.pathname === "/";
           description: FALLBACK_DESCRIPTION,
           author: {
             "@type": "Person",
+            "@id": PERSON_ENTITY_ID,
             name: "Dani Akash",
             url: siteUrl,
             jobTitle: "AI Engineer",
