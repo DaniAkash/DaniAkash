@@ -230,8 +230,7 @@ const content = rawMd.replace(/^---[\s\S]*?---\n*/, "").trim();
 
 <script is:inline src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"
 ></script>
-<script
-  is:inline
+<script is:inline
   src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-markdown.min.js"
 ></script>
 <link
@@ -239,21 +238,30 @@ const content = rawMd.replace(/^---[\s\S]*?---\n*/, "").trim();
   href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-tomorrow.min.css"
 />
 <script is:inline>
-  function initNowEditor() {
+  document.addEventListener("astro:page-load", function () {
+    if (window.__nowEditorCleanup) window.__nowEditorCleanup();
+
     var body = document.querySelector(".md-editor__body");
     if (!body) return;
 
-    // Skip if already initialized (table already exists)
-    if (body.querySelector(".md-editor__table")) return;
+    // Remove previous table to allow re-initialization on VT navigation
+    var existingTable = body.querySelector(".md-editor__table");
+    if (existingTable) existingTable.remove();
 
     var code = body.querySelector("code");
     if (!code) return;
 
-    // Ensure Prism is loaded before highlighting
+    var pendingInterval = null;
+    var pendingTimeout = null;
+    var buildTimeout = null;
+
     function runHighlight() {
       if (typeof Prism !== "undefined") Prism.highlightAll();
 
-      setTimeout(function () {
+      buildTimeout = setTimeout(function () {
+        // Verify body is still in the document (user may have navigated away)
+        if (!document.contains(body)) return;
+
         var freshCode = body.querySelector("code");
         if (!freshCode) return;
 
@@ -286,7 +294,6 @@ const content = rawMd.replace(/^---[\s\S]*?---\n*/, "").trim();
         if (pre) pre.remove();
         body.appendChild(table);
 
-        // Make markdown links clickable
         body.querySelectorAll(".token.url").forEach(function (token) {
           var text = token.textContent;
           var match = text.match(/\(([^)]+)\)/);
@@ -303,22 +310,30 @@ const content = rawMd.replace(/^---[\s\S]*?---\n*/, "").trim();
       }, 150);
     }
 
-    if (typeof Prism !== "undefined") {
+    function isPrismReady() {
+      return typeof Prism !== "undefined" && Prism.languages && Prism.languages.markdown;
+    }
+
+    if (isPrismReady()) {
       runHighlight();
     } else {
-      // Prism not loaded yet — wait for it
-      var checkInterval = setInterval(function () {
-        if (typeof Prism !== "undefined") {
-          clearInterval(checkInterval);
+      pendingInterval = setInterval(function () {
+        if (isPrismReady()) {
+          clearInterval(pendingInterval);
+          pendingInterval = null;
           runHighlight();
         }
       }, 50);
-      // Timeout after 3s
-      setTimeout(function () {
-        clearInterval(checkInterval);
-      }, 3000);
+      pendingTimeout = setTimeout(function () {
+        if (pendingInterval) clearInterval(pendingInterval);
+        pendingInterval = null;
+      }, 5000);
     }
-  }
 
-  document.addEventListener("astro:page-load", initNowEditor);
+    window.__nowEditorCleanup = function () {
+      if (pendingInterval) clearInterval(pendingInterval);
+      if (pendingTimeout) clearTimeout(pendingTimeout);
+      if (buildTimeout) clearTimeout(buildTimeout);
+    };
+  });
 </script>

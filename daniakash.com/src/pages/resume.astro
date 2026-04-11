@@ -116,7 +116,9 @@ const { tagline, about, skills, jobs, community, education } = resumeData;
 </MainLayout>
 
 <script is:inline>
-  (function() {
+  document.addEventListener("astro:page-load", function () {
+    if (window.__readingProgressCleanup) window.__readingProgressCleanup();
+
     var article = document.getElementById("article");
     if (!article) return;
 
@@ -125,21 +127,32 @@ const { tagline, about, skills, jobs, community, education } = resumeData;
 
     var container = document.createElement("div");
     container.id = "readingProgress";
-    container.style.cssText = "position:fixed;top:0;left:0;right:0;height:2px;z-index:9999;pointer-events:none;";
+    container.style.cssText =
+      "position:fixed;top:0;left:0;right:0;height:2px;z-index:9999;pointer-events:none;";
     var bar = document.createElement("div");
-    bar.style.cssText = "height:100%;width:0;background:var(--primary);transition:none;";
+    bar.style.cssText =
+      "height:100%;width:0;background:var(--primary);transition:none;";
     container.appendChild(bar);
     document.body.appendChild(container);
 
+    var animId;
     function update() {
-      if (!article) return;
       var rect = article.getBoundingClientRect();
       var total = rect.height - window.innerHeight;
-      if (total <= 0) { bar.style.width = "100%"; return; }
+      if (total <= 0) {
+        bar.style.width = "100%";
+        return;
+      }
       var pct = Math.max(0, Math.min(100, (-rect.top / total) * 100));
       bar.style.width = pct + "%";
-      requestAnimationFrame(update);
+      animId = requestAnimationFrame(update);
     }
-    requestAnimationFrame(update);
-  })();
+    animId = requestAnimationFrame(update);
+
+    window.__readingProgressCleanup = function () {
+      cancelAnimationFrame(animId);
+      var el = document.getElementById("readingProgress");
+      if (el) el.remove();
+    };
+  });
 </script>

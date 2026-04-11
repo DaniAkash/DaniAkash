@@ -169,7 +169,9 @@ await getOGImage({
 </style>
 
 <script is:inline>
-  (function () {
+  document.addEventListener("astro:page-load", function () {
+    if (window.__readingProgressCleanup) window.__readingProgressCleanup();
+
     var article = document.getElementById("article");
     if (!article) return;
 
@@ -186,6 +188,7 @@ await getOGImage({
     container.appendChild(bar);
     document.body.appendChild(container);
 
+    var animId;
     function update() {
       var rect = article.getBoundingClientRect();
       var total = rect.height - window.innerHeight;
@@ -195,8 +198,14 @@ await getOGImage({
       }
       var pct = Math.max(0, Math.min(100, (-rect.top / total) * 100));
       bar.style.width = pct + "%";
-      requestAnimationFrame(update);
+      animId = requestAnimationFrame(update);
     }
-    requestAnimationFrame(update);
-  })();
+    animId = requestAnimationFrame(update);
+
+    window.__readingProgressCleanup = function () {
+      cancelAnimationFrame(animId);
+      var el = document.getElementById("readingProgress");
+      if (el) el.remove();
+    };
+  });
 </script>
