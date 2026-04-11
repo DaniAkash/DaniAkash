@@ -17,6 +17,8 @@ interface Props {
   image?: string;
   /** Hide footer (e.g. /now page which fills viewport) */
   hideFooter?: boolean;
+  /** Full ISO-8601 datetime string (e.g. `new Date().toISOString()`) for article:published_time OG meta tag */
+  publishedTime?: string;
 }
 
 const {
@@ -26,6 +28,7 @@ const {
   canonical,
   image,
   hideFooter = false,
+  publishedTime,
 } = Astro.props;
 
 let fallbackImage: string = "";
@@ -114,7 +117,7 @@ const isHomePage = Astro.url.pathname === "/";
       colorScheme="dark"
       facebook={{
         url: "https://daniakash.com",
-        type: "website",
+        type: publishedTime ? "article" : "website",
         image: ogImage,
       }}
       twitter={{
@@ -124,6 +127,7 @@ const isHomePage = Astro.url.pathname === "/";
       }}
     />
     <link rel="canonical" href={canonical || new URL(Astro.url.pathname, siteUrl).href} />
+    {publishedTime && <meta property="article:published_time" content={publishedTime} />}
     <Schema
       item={{
         "@context": "https://schema.org",
