@@ -12,7 +12,7 @@ const content = rawMd.replace(/^---[\s\S]*?---\n*/, "").trim();
         <span class="md-editor__dot md-editor__dot--red"></span>
         <span class="md-editor__dot md-editor__dot--yellow"></span>
         <span class="md-editor__dot md-editor__dot--green"></span>
-        <span class="md-editor__filename">now.md</span>
+        <h1 class="md-editor__filename" aria-label="Now">now.md</h1>
         <span class="md-editor__badge">read-only</span>
       </div>
       <div class="md-editor__body">
@@ -60,8 +60,9 @@ const content = rawMd.replace(/^---[\s\S]*?---\n*/, "").trim();
   .md-editor__filename {
     font-family: var(--font-mono);
     font-size: 12px;
+    font-weight: normal;
     color: var(--muted-foreground);
-    margin-left: 8px;
+    margin: 0 0 0 8px;
   }
 
   .md-editor__badge {
