@@ -61,7 +61,7 @@ await getOGImage({
         "@type": "Person",
         "@id": PERSON_ENTITY_ID,
         name: "Dani Akash",
-        url: siteUrl,
+        url: new URL("/about/", siteUrl).href,
       },
       mainEntityOfPage: {
         "@type": "WebPage",

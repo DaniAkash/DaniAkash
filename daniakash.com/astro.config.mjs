@@ -6,10 +6,11 @@ import { defineConfig } from "astro/config";
 import metaTags from "astro-meta-tags";
 import robotsTxt from "astro-robots-txt";
 import rehypeExternalLinks from "rehype-external-links";
+import { SITE_URL } from "./src/constants/seo.ts";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://daniakash.com",
+  site: SITE_URL,
   redirects: {
     "/blog/[...slug]": "/posts/[...slug]",
   },

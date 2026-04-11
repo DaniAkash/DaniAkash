@@ -152,7 +152,7 @@ const isHomePage = Astro.url.pathname === "/";
             "@type": "Person",
             "@id": PERSON_ENTITY_ID,
             name: "Dani Akash",
-            url: siteUrl,
+            url: new URL("/about/", siteUrl).href,
             jobTitle: "AI Engineer",
           },
         }}
