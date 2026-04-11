@@ -228,18 +228,17 @@ const content = rawMd.replace(/^---[\s\S]*?---\n*/, "").trim();
   }
 </style>
 
-<script is:inline src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"
+<script is:inline data-astro-rerun src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"
 ></script>
-<script
-  is:inline
+<script is:inline data-astro-rerun
   src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-markdown.min.js"
 ></script>
 <link
   rel="stylesheet"
   href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-tomorrow.min.css"
 />
-<script is:inline>
-  document.addEventListener("astro:page-load", function () {
+<script is:inline data-astro-rerun>
+  (function () {
     var body = document.querySelector(".md-editor__body");
     if (!body) return;
 
@@ -302,18 +301,23 @@ const content = rawMd.replace(/^---[\s\S]*?---\n*/, "").trim();
       }, 150);
     }
 
-    if (typeof Prism !== "undefined") {
+    // Wait for both Prism core AND markdown language component to be loaded
+    function isPrismReady() {
+      return typeof Prism !== "undefined" && Prism.languages && Prism.languages.markdown;
+    }
+
+    if (isPrismReady()) {
       runHighlight();
     } else {
       var checkInterval = setInterval(function () {
-        if (typeof Prism !== "undefined") {
+        if (isPrismReady()) {
           clearInterval(checkInterval);
           runHighlight();
         }
       }, 50);
       setTimeout(function () {
         clearInterval(checkInterval);
-      }, 3000);
+      }, 5000);
     }
-  });
+  })();
 </script>
