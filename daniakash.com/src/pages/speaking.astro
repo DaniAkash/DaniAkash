@@ -24,10 +24,7 @@ const events = (await getCollection("speaking")).sort(
           name: event.title,
           description: event.description,
           startDate: new Date(event.date).toISOString().split("T")[0] as string,
-          location: {
-            "@type": "Place" as const,
-            name: event.name,
-          },
+          location: event.name,
           performer: {
             "@type": "Person" as const,
             "@id": PERSON_ENTITY_ID,
