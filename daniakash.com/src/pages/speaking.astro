@@ -203,12 +203,12 @@ const events = (await getCollection("speaking")).sort(
 
 <script is:inline>
   document.addEventListener("astro:page-load", function () {
+    if (window.__timelineCleanup) window.__timelineCleanup();
+
     var comp = document.getElementById("timelineComponent");
     var bar = document.getElementById("progressBar");
     var track = document.getElementById("progressTrack");
     if (!comp || !bar || !track) return;
-
-    if (window.__timelineCleanup) window.__timelineCleanup();
 
     function alignProgress() {
       var circle = comp.querySelector(".sticky.rounded-full");

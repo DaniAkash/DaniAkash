@@ -155,10 +155,10 @@ await getOGImage({
 
 <script is:inline>
   document.addEventListener("astro:page-load", function () {
+    if (window.__readingProgressCleanup) window.__readingProgressCleanup();
+
     var article = document.getElementById("article");
     if (!article) return;
-
-    if (window.__readingProgressCleanup) window.__readingProgressCleanup();
 
     var existing = document.getElementById("readingProgress");
     if (existing) existing.remove();
