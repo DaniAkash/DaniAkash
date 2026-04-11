@@ -11,7 +11,7 @@ const items = projects.data.items;
   description="Projects by Dani Akash | from browser extensions to open source libraries to AI agents."
 >
   <!-- Factory Background — fixed, masked, behind content -->
-  <div class="factory-fixed" id="factoryFixed" style="opacity: 0;">
+  <div class="factory-fixed factory-hidden" id="factoryFixed">
     <div class="factory-wrapper" id="factoryWrapper"></div>
   </div>
 
@@ -754,14 +754,11 @@ const items = projects.data.items;
     world.start();
     window.__factoryInterval = world.interval;
 
-    // Fade in factory after View Transition completes
+    // Reveal factory — hidden by CSS until astro:page-load fires
     var fixedEl = document.getElementById("factoryFixed");
     if (fixedEl) {
-      var targetOpacity = isDark() ? "1" : "0.6";
       fixedEl.style.transition = "opacity 0.5s ease";
-      requestAnimationFrame(function () {
-        fixedEl.style.opacity = targetOpacity;
-      });
+      fixedEl.classList.remove("factory-hidden");
     }
   }
 
@@ -975,7 +972,14 @@ const items = projects.data.items;
     }
   }
 
-  /* Light mode opacity is set by JS in initFactory to avoid VT flash */
+  :global(html:not(.dark)) .factory-fixed {
+    opacity: 0.6;
+  }
+
+  /* Factory starts hidden — revealed by initFactory after astro:page-load */
+  .factory-hidden {
+    opacity: 0 !important;
+  }
 
   .bento-grid {
     display: grid;
