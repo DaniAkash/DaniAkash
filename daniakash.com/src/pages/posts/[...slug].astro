@@ -21,9 +21,11 @@ const { post } = Astro.props;
 const { Content } = await render(post);
 
 const dateValue = getDateValue(post.data.date);
+const dateISO = new Date(post.data.date).toISOString();
 const dateDisplay = getDateDisplay(post.data.date);
 const canonical =
   post.data.canonical || new URL(`/posts/${post.id}`, Astro.site).href;
+const siteUrl = Astro.site?.href || "https://daniakash.com/";
 const image = `/og/${post.id}.png`;
 await getOGImage({
   title: post.data.title,
@@ -38,7 +40,7 @@ await getOGImage({
   keywords={post.data.tags}
   canonical={canonical}
   image={image}
-  publishedTime={dateValue}
+  publishedTime={dateISO}
 >
   <Schema
     item={{
@@ -46,23 +48,23 @@ await getOGImage({
       "@type": "BlogPosting",
       headline: post.data.title,
       description: post.data.subtitle,
-      datePublished: dateValue,
+      datePublished: dateISO,
       author: {
         "@type": "Person",
         name: "Dani Akash",
-        url: "https://daniakash.com/about/",
+        url: new URL("/about/", siteUrl).href,
         jobTitle: "AI Engineer",
       },
       publisher: {
         "@type": "Person",
         name: "Dani Akash",
-        url: "https://daniakash.com/",
+        url: siteUrl,
       },
       mainEntityOfPage: {
         "@type": "WebPage",
         "@id": canonical,
       },
-      image: new URL(image, "https://daniakash.com").href,
+      image: new URL(image, siteUrl).href,
       keywords: post.data.tags?.join(", "),
     }}
   />
@@ -80,7 +82,7 @@ await getOGImage({
       <time datetime={dateValue}>
         {dateDisplay}
       </time>
-      <span class="text-border">|</span>
+      <span class="text-border" aria-hidden="true">|</span>
       <a href="/about/" class="transition-colors hover:text-primary">
         Dani Akash
       </a>

@@ -17,7 +17,7 @@ interface Props {
   image?: string;
   /** Hide footer (e.g. /now page which fills viewport) */
   hideFooter?: boolean;
-  /** ISO date string for article:published_time OG meta tag */
+  /** Full ISO-8601 datetime string (e.g. `new Date().toISOString()`) for article:published_time OG meta tag */
   publishedTime?: string;
 }
 
