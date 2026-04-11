@@ -1,6 +1,11 @@
 ---
 const footerLinks = [
+  { label: "About", href: "/about/" },
   { label: "Blog", href: "/blog/" },
+  { label: "Newsletter", href: "/newsletter/" },
+  { label: "Projects", href: "/projects/" },
+  { label: "Speaking", href: "/speaking/" },
+  { label: "Uses", href: "/uses/" },
   { label: "Resume", href: "/resume/" },
   { label: "GitHub", href: "https://github.com/DaniAkash" },
 ];
@@ -20,7 +25,7 @@ const footerLinks = [
       </a>. All rights reserved.
     </span>
 
-    <ul class="flex gap-4">
+    <ul class="flex flex-wrap justify-center gap-4 sm:justify-end">
       {
         footerLinks.map((link) => (
           <li>

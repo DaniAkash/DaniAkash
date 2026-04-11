@@ -2,6 +2,8 @@
 import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
 import { ASSET_PREFIX } from "../constants/asset-prefix";
+import { Schema } from "astro-seo-schema";
+import { PERSON_ENTITY_ID } from "../constants/seo";
 import MainLayout from "../layouts/MainLayout.astro";
 import { getYoutubeThumbnail } from "../utils/getYoutubeThumbnail";
 
@@ -11,6 +13,39 @@ const events = (await getCollection("speaking")).sort(
 ---
 
 <MainLayout title="Speaking" description="25+ talks on AI, JavaScript, React Native, and the web at conferences and community meetups since 2017.">
+  <Schema
+    item={{
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      name: "Speaking Engagements by Dani Akash",
+      itemListElement: events.flatMap((yearGroup) =>
+        yearGroup.data.events.map((event) => ({
+          "@type": "Event" as const,
+          name: event.title,
+          description: event.description,
+          startDate: event.date,
+          location: {
+            "@type": "Place" as const,
+            name: event.name,
+          },
+          performer: {
+            "@type": "Person" as const,
+            "@id": PERSON_ENTITY_ID,
+            name: "Dani Akash",
+          },
+          eventAttendanceMode:
+            "https://schema.org/OfflineEventAttendanceMode",
+          ...(event.video && {
+            recordedIn: {
+              "@type": "VideoObject" as const,
+              name: event.title,
+              url: event.video,
+            },
+          }),
+        })),
+      ),
+    }}
+  />
   <!-- Header -->
   <header class="pb-12 pt-[120px]">
     <p

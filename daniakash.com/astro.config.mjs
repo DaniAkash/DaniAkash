@@ -47,7 +47,12 @@ export default defineConfig({
     react(),
     mdx(),
     metaTags(),
-    sitemap(),
+    sitemap({
+      serialize: (item) => {
+        item.lastmod = new Date().toISOString();
+        return item;
+      },
+    }),
     robotsTxt({
       policy: [
         {
