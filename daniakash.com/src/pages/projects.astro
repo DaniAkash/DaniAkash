@@ -793,7 +793,6 @@ const items = projects.data.items;
     left: 50%;
     margin-left: -712px;
     background-color: hsl(var(--background));
-    transition: background-color 0.4s ease;
   }
 
   .factory-wrapper :global(*) {
@@ -835,9 +834,6 @@ const items = projects.data.items;
     filter: brightness(2.5);
   }
 
-  :global(.dark) .factory-fixed :global(.pix::after) {
-    filter: brightness(2.5);
-  }
   :global(html:not(.dark)) .factory-fixed :global(.pix::after) {
     filter: brightness(0.4);
   }
