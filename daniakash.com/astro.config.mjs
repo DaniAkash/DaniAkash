@@ -49,7 +49,7 @@ export default defineConfig({
     metaTags(),
     sitemap({
       serialize: (item) => {
-        item.lastmod = new Date().toISOString();
+        item.lastmod = new Date();
         return item;
       },
     }),

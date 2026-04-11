@@ -23,7 +23,7 @@ const events = (await getCollection("speaking")).sort(
           "@type": "Event" as const,
           name: event.title,
           description: event.description,
-          startDate: event.date,
+          startDate: new Date(event.date).toISOString().split("T")[0] as string,
           location: {
             "@type": "Place" as const,
             name: event.name,
@@ -36,11 +36,7 @@ const events = (await getCollection("speaking")).sort(
           eventAttendanceMode:
             "https://schema.org/OfflineEventAttendanceMode",
           ...(event.video && {
-            recordedIn: {
-              "@type": "VideoObject" as const,
-              name: event.title,
-              url: event.video,
-            },
+            url: event.video,
           }),
         })),
       ),
