@@ -77,7 +77,7 @@ const destinations = destinationsData.data.items;
             I'm Dani Akash
           </h1>
 
-          <div class="about-body">
+          <div class="prose dark:prose-invert max-w-none">
             <Content />
           </div>
 
@@ -131,12 +131,6 @@ const destinations = destinationsData.data.items;
   /* Left column — scrolls naturally */
   .about-content {
     padding: 80px 0;
-  }
-
-  .about-body {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
   }
 
   /* Subsection dividers */
@@ -209,7 +203,6 @@ const destinations = destinationsData.data.items;
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 8px;
     overflow: hidden;
-    pointer-events: none;
     z-index: 3;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
     opacity: 0;
@@ -348,70 +341,3 @@ const destinations = destinationsData.data.items;
   }
 </style>
 
-<style is:global>
-  /* About body content styles — must be global to override Tailwind layers */
-  .about-body p {
-    color: rgba(255, 255, 255, 0.55) !important;
-    font-size: 16px !important;
-    line-height: 1.75 !important;
-  }
-  html:not(.dark) .about-body p {
-    color: rgba(0, 0, 0, 0.55) !important;
-  }
-
-  .about-body strong,
-  .about-body b {
-    color: rgba(255, 255, 255, 0.55) !important;
-  }
-  html:not(.dark) .about-body strong,
-  html:not(.dark) .about-body b {
-    color: rgba(0, 0, 0, 0.55) !important;
-  }
-
-  .about-body a {
-    color: hsl(var(--primary)) !important;
-    text-decoration: none !important;
-    border-bottom: 1px dashed hsl(var(--primary)) !important;
-  }
-  .about-body a:hover {
-    border-bottom-style: solid !important;
-  }
-
-  .about-body h2,
-  .about-body h3,
-  .about-body h4 {
-    font-family: 'JetBrains Mono', 'SF Mono', monospace !important;
-    font-size: 11px !important;
-    color: rgba(255, 255, 255, 0.3) !important;
-    letter-spacing: 0.15em !important;
-    text-transform: uppercase !important;
-    margin-top: 48px !important;
-    margin-bottom: 24px !important;
-    padding-bottom: 8px !important;
-    border-bottom: 1px dashed rgba(255, 255, 255, 0.1) !important;
-    font-weight: 400 !important;
-  }
-  html:not(.dark) .about-body h2,
-  html:not(.dark) .about-body h3,
-  html:not(.dark) .about-body h4 {
-    color: rgba(0, 0, 0, 0.35) !important;
-    border-bottom-color: rgba(0, 0, 0, 0.1) !important;
-  }
-
-  /* SYS.CONNECT subtitle (outside about-body) */
-  .about-subtitle {
-    font-family: 'JetBrains Mono', 'SF Mono', monospace !important;
-    font-size: 11px !important;
-    color: rgba(255, 255, 255, 0.3) !important;
-    letter-spacing: 0.15em !important;
-    text-transform: uppercase !important;
-    margin-bottom: 24px !important;
-    padding-bottom: 8px !important;
-    border-bottom: 1px dashed rgba(255, 255, 255, 0.1) !important;
-    font-weight: 400 !important;
-  }
-  html:not(.dark) .about-subtitle {
-    color: rgba(0, 0, 0, 0.35) !important;
-    border-bottom-color: rgba(0, 0, 0, 0.1) !important;
-  }
-</style>
