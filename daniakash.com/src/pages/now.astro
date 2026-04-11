@@ -228,17 +228,19 @@ const content = rawMd.replace(/^---[\s\S]*?---\n*/, "").trim();
   }
 </style>
 
-<script is:inline data-astro-rerun src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"
+<script is:inline src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"
 ></script>
-<script is:inline data-astro-rerun
+<script is:inline
   src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-markdown.min.js"
 ></script>
 <link
   rel="stylesheet"
   href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-tomorrow.min.css"
 />
-<script is:inline data-astro-rerun>
-  (function () {
+<script is:inline>
+  document.addEventListener("astro:page-load", function () {
+    if (window.__nowEditorCleanup) window.__nowEditorCleanup();
+
     var body = document.querySelector(".md-editor__body");
     if (!body) return;
 
@@ -249,10 +251,17 @@ const content = rawMd.replace(/^---[\s\S]*?---\n*/, "").trim();
     var code = body.querySelector("code");
     if (!code) return;
 
+    var pendingInterval = null;
+    var pendingTimeout = null;
+    var buildTimeout = null;
+
     function runHighlight() {
       if (typeof Prism !== "undefined") Prism.highlightAll();
 
-      setTimeout(function () {
+      buildTimeout = setTimeout(function () {
+        // Verify body is still in the document (user may have navigated away)
+        if (!document.contains(body)) return;
+
         var freshCode = body.querySelector("code");
         if (!freshCode) return;
 
@@ -301,7 +310,6 @@ const content = rawMd.replace(/^---[\s\S]*?---\n*/, "").trim();
       }, 150);
     }
 
-    // Wait for both Prism core AND markdown language component to be loaded
     function isPrismReady() {
       return typeof Prism !== "undefined" && Prism.languages && Prism.languages.markdown;
     }
@@ -309,15 +317,23 @@ const content = rawMd.replace(/^---[\s\S]*?---\n*/, "").trim();
     if (isPrismReady()) {
       runHighlight();
     } else {
-      var checkInterval = setInterval(function () {
+      pendingInterval = setInterval(function () {
         if (isPrismReady()) {
-          clearInterval(checkInterval);
+          clearInterval(pendingInterval);
+          pendingInterval = null;
           runHighlight();
         }
       }, 50);
-      setTimeout(function () {
-        clearInterval(checkInterval);
+      pendingTimeout = setTimeout(function () {
+        if (pendingInterval) clearInterval(pendingInterval);
+        pendingInterval = null;
       }, 5000);
     }
-  })();
+
+    window.__nowEditorCleanup = function () {
+      if (pendingInterval) clearInterval(pendingInterval);
+      if (pendingTimeout) clearTimeout(pendingTimeout);
+      if (buildTimeout) clearTimeout(buildTimeout);
+    };
+  });
 </script>
