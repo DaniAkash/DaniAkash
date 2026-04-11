@@ -11,7 +11,7 @@ const items = projects.data.items;
   description="Projects by Dani Akash | from browser extensions to open source libraries to AI agents."
 >
   <!-- Factory Background — fixed, masked, behind content -->
-  <div class="factory-fixed">
+  <div class="factory-fixed" style="view-transition-name: factory;">
     <div class="factory-wrapper" id="factoryWrapper"></div>
   </div>
 
@@ -967,6 +967,12 @@ const items = projects.data.items;
 
   :global(html:not(.dark)) .factory-fixed {
     opacity: 0.6;
+  }
+
+  /* Prevent View Transition crossfade flash on the factory */
+  ::view-transition-old(factory),
+  ::view-transition-new(factory) {
+    animation: none;
   }
 
   .bento-grid {
