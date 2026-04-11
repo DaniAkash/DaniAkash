@@ -762,7 +762,11 @@ const items = projects.data.items;
     }
   }
 
-  document.addEventListener("astro:page-load", initFactory);
+  document.addEventListener("astro:page-load", () => {
+    setTimeout(() => {
+      initFactory();
+    }, 175);
+  });
 </script>
 
 <style>
