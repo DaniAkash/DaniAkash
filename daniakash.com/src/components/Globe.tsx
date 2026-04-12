@@ -186,7 +186,10 @@ export default function Globe({ destinations: destinationsProp }: GlobeProps) {
   const resetTimer = useCallback(() => {
     if (cycleRef.current) clearInterval(cycleRef.current);
     if (progressRef.current) clearInterval(progressRef.current);
-    cycleRef.current = setInterval(next, 30000);
+    cycleRef.current = setInterval(() => {
+      next();
+      startProgress();
+    }, 30000);
     startProgress();
   }, [next, startProgress]);
 
@@ -262,7 +265,10 @@ export default function Globe({ destinations: destinationsProp }: GlobeProps) {
     animate();
 
     // Auto-cycle
-    cycleRef.current = setInterval(next, 30000);
+    cycleRef.current = setInterval(() => {
+      next();
+      startProgress();
+    }, 30000);
     startProgress();
 
     // Theme observer
