@@ -166,26 +166,25 @@ export default function Globe({ destinations: destinationsProp }: GlobeProps) {
     });
   }, [updateDestination]);
 
-  const [progress, setProgress] = useState(0);
-  const progressRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const progressBarRef = useRef<HTMLDivElement>(null);
+  const progressTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const startProgress = useCallback(() => {
-    if (progressRef.current) clearInterval(progressRef.current);
-    setProgress(0);
-    const interval = 100; // update every 100ms
-    const duration = 30000; // 30 seconds total
+    if (progressTimerRef.current) clearInterval(progressTimerRef.current);
+    let pct = 0;
+    if (progressBarRef.current) progressBarRef.current.style.width = "0%";
+    const interval = 100;
+    const duration = 30000;
     const step = (interval / duration) * 100;
-    progressRef.current = setInterval(() => {
-      setProgress((prev) => {
-        if (prev >= 100) return 100;
-        return prev + step;
-      });
+    progressTimerRef.current = setInterval(() => {
+      pct = Math.min(pct + step, 100);
+      if (progressBarRef.current) progressBarRef.current.style.width = pct + "%";
     }, interval);
   }, []);
 
   const resetTimer = useCallback(() => {
     if (cycleRef.current) clearInterval(cycleRef.current);
-    if (progressRef.current) clearInterval(progressRef.current);
+    if (progressTimerRef.current) clearInterval(progressTimerRef.current);
     cycleRef.current = setInterval(() => {
       next();
       startProgress();
@@ -329,7 +328,7 @@ export default function Globe({ destinations: destinationsProp }: GlobeProps) {
       if (globeRef.current) globeRef.current.destroy();
       if (animRef.current) cancelAnimationFrame(animRef.current);
       if (cycleRef.current) clearInterval(cycleRef.current);
-      if (progressRef.current) clearInterval(progressRef.current);
+      if (progressTimerRef.current) clearInterval(progressTimerRef.current);
       observer.disconnect();
       window.removeEventListener("resize", handleResize);
     };
@@ -396,8 +395,9 @@ export default function Globe({ destinations: destinationsProp }: GlobeProps) {
       {/* Progress line */}
       <div className="relative h-[2px] bg-foreground/10">
         <div
+          ref={progressBarRef}
           className="absolute inset-y-0 left-0 bg-primary transition-[width] duration-100 ease-linear"
-          style={{ width: `${progress}%` }}
+          style={{ width: "0%" }}
         />
       </div>
 
