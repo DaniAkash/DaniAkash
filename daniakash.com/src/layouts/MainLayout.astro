@@ -77,7 +77,7 @@ if (pathSegments.length > 0) {
 const isHomePage = Astro.url.pathname === "/";
 ---
 
-<html lang="en" class="dark">
+<html lang="en" class="dark overflow-x-clip">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
@@ -181,7 +181,7 @@ const isHomePage = Astro.url.pathname === "/";
       document.addEventListener("astro:after-swap", restoreTheme);
     </script>
   </head>
-  <body class="min-h-screen overflow-x-clip bg-background text-foreground">
+  <body class="min-h-screen bg-background text-foreground">
     <Nav />
     <main class="relative z-1 mx-auto max-w-7xl px-6 pt-24">
       <slot />

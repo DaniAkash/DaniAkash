@@ -72,13 +72,22 @@ await getOGImage({
     }}
   />
   <article class="mx-auto max-w-[720px] pt-[120px] pb-20" id="article">
-    <!-- Back link -->
-    <a
-      href="/blog/"
-      class="mb-12 inline-flex items-center gap-2 font-mono text-xs tracking-wide text-muted-foreground transition-colors hover:text-primary"
-    >
-      ← Back to blog
-    </a>
+    <!-- Navigation -->
+    <div class="mb-12 flex items-center gap-4 font-mono text-xs tracking-wide">
+      <button
+        onclick="history.back()"
+        class="inline-flex items-center gap-2 text-muted-foreground transition-colors hover:text-primary"
+      >
+        ← Back
+      </button>
+      <span class="text-border" aria-hidden="true">|</span>
+      <a
+        href="/blog/"
+        class="text-muted-foreground transition-colors hover:text-primary"
+      >
+        All posts
+      </a>
+    </div>
 
     <!-- Post header -->
     <div class="mb-4 flex items-center gap-3 font-mono text-[13px] tracking-wide text-muted-foreground">
@@ -141,13 +150,20 @@ await getOGImage({
 
     <!-- Article footer -->
     <div
-      class="mt-12 flex items-center justify-between border-t border-dashed border-border pt-12"
+      class="mt-12 flex items-center gap-4 border-t border-dashed border-border pt-12 font-mono text-[13px]"
     >
+      <button
+        onclick="history.back()"
+        class="text-muted-foreground transition-colors hover:text-primary"
+      >
+        ← Back
+      </button>
+      <span class="text-border" aria-hidden="true">|</span>
       <a
         href="/blog/"
-        class="font-mono text-[13px] text-muted-foreground transition-colors hover:text-primary"
+        class="text-muted-foreground transition-colors hover:text-primary"
       >
-        ← All posts
+        All posts
       </a>
     </div>
   </article>

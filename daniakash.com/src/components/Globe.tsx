@@ -106,7 +106,7 @@ export default function Globe({ destinations: destinationsProp }: GlobeProps) {
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const wrapRef = useRef<HTMLDivElement>(null);
-  const polaroidRef = useRef<HTMLDivElement>(null);
+  const polaroidRef = useRef<HTMLAnchorElement>(null);
   const [startIdx] = useState(() =>
     Math.floor(Math.random() * DESTINATIONS.length),
   );
@@ -166,10 +166,31 @@ export default function Globe({ destinations: destinationsProp }: GlobeProps) {
     });
   }, [updateDestination]);
 
+  const progressBarRef = useRef<HTMLDivElement>(null);
+  const progressTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  const startProgress = useCallback(() => {
+    if (progressTimerRef.current) clearInterval(progressTimerRef.current);
+    let pct = 0;
+    if (progressBarRef.current) progressBarRef.current.style.width = "0%";
+    const interval = 100;
+    const duration = 30000;
+    const step = (interval / duration) * 100;
+    progressTimerRef.current = setInterval(() => {
+      pct = Math.min(pct + step, 100);
+      if (progressBarRef.current) progressBarRef.current.style.width = pct + "%";
+    }, interval);
+  }, []);
+
   const resetTimer = useCallback(() => {
     if (cycleRef.current) clearInterval(cycleRef.current);
-    cycleRef.current = setInterval(next, 30000);
-  }, [next]);
+    if (progressTimerRef.current) clearInterval(progressTimerRef.current);
+    cycleRef.current = setInterval(() => {
+      next();
+      startProgress();
+    }, 30000);
+    startProgress();
+  }, [next, startProgress]);
 
   // Create globe
   useEffect(() => {
@@ -243,7 +264,11 @@ export default function Globe({ destinations: destinationsProp }: GlobeProps) {
     animate();
 
     // Auto-cycle
-    cycleRef.current = setInterval(next, 30000);
+    cycleRef.current = setInterval(() => {
+      next();
+      startProgress();
+    }, 30000);
+    startProgress();
 
     // Theme observer
     const observer = new MutationObserver(() => {
@@ -303,6 +328,7 @@ export default function Globe({ destinations: destinationsProp }: GlobeProps) {
       if (globeRef.current) globeRef.current.destroy();
       if (animRef.current) cancelAnimationFrame(animRef.current);
       if (cycleRef.current) clearInterval(cycleRef.current);
+      if (progressTimerRef.current) clearInterval(progressTimerRef.current);
       observer.disconnect();
       window.removeEventListener("resize", handleResize);
     };
@@ -346,20 +372,33 @@ export default function Globe({ destinations: destinationsProp }: GlobeProps) {
             }
           }}
         />
-        {/* Polaroid card — anchored to marker */}
-        <div
+        {/* Polaroid card — anchored to marker, clickable */}
+        <a
           ref={polaroidRef}
+          href={d.w}
+          target="_blank"
+          rel="noopener"
           className="polaroid"
           style={{
             transition: "opacity 0.6s, filter 0.6s, left 0.3s, top 0.3s",
+            pointerEvents: "auto",
           }}
         >
           <img src={d.img} alt={d.n} className="polaroid-img" />
           <div className="polaroid-caption">{d.n}</div>
-        </div>
+        </a>
         <span className="absolute bottom-2 right-4 pointer-events-none font-mono text-[9px] uppercase tracking-wider text-muted-foreground/60">
           DESTINATIONS // WISHLIST
         </span>
+      </div>
+
+      {/* Progress line */}
+      <div className="relative h-[2px] bg-foreground/10">
+        <div
+          ref={progressBarRef}
+          className="absolute inset-y-0 left-0 bg-primary transition-[width] duration-100 ease-linear"
+          style={{ width: "0%" }}
+        />
       </div>
 
       {/* Spotlight panel */}
