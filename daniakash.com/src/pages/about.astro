@@ -141,12 +141,12 @@ const destinations = destinationsData.data.items;
   .about-subtitle {
     font-family: var(--font-mono, 'JetBrains Mono', monospace);
     font-size: 11px;
-    color: hsl(var(--muted-foreground));
+    color: var(--muted-foreground);
     letter-spacing: 0.15em;
     text-transform: uppercase;
     margin-bottom: 24px;
     padding-bottom: 8px;
-    border-bottom: 1px dashed hsl(var(--border));
+    border-bottom: 1px dashed var(--border);
   }
 
   /* Connect links */
@@ -159,7 +159,7 @@ const destinations = destinationsData.data.items;
   .connect-link {
     font-family: var(--font-mono, 'JetBrains Mono', monospace);
     font-size: 13px;
-    color: hsl(var(--muted-foreground));
+    color: var(--muted-foreground);
     display: flex;
     align-items: center;
     gap: 8px;
@@ -169,7 +169,7 @@ const destinations = destinationsData.data.items;
   }
 
   .connect-link:hover {
-    color: hsl(var(--primary));
+    color: var(--primary);
   }
 
   /* Right column — sticky globe */
@@ -226,7 +226,7 @@ const destinations = destinationsData.data.items;
     font-size: 10px;
     font-weight: 500;
     text-align: center;
-    color: hsl(var(--foreground));
+    color: var(--foreground);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -261,7 +261,7 @@ const destinations = destinationsData.data.items;
   .about-viz :global(.spotlight-btn) {
     font-family: var(--font-mono, 'JetBrains Mono', monospace);
     font-size: 14px;
-    color: hsl(var(--muted-foreground));
+    color: var(--muted-foreground);
     background: none;
     border: 1px solid #1e1e2a;
     border-radius: 8px;
@@ -280,15 +280,15 @@ const destinations = destinationsData.data.items;
   }
 
   .about-viz :global(.spotlight-btn:hover) {
-    color: hsl(var(--primary));
-    border-color: hsl(var(--primary));
-    background: hsl(var(--primary) / 0.15);
+    color: var(--primary);
+    border-color: var(--primary);
+    background: oklch(from var(--primary) l c h / 0.15);
   }
 
   .about-viz :global(.spotlight-input) {
     font-family: var(--font-mono, 'JetBrains Mono', monospace);
     font-size: 11px;
-    color: hsl(var(--foreground));
+    color: var(--foreground);
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid #1e1e2a;
     border-radius: 4px;
@@ -306,7 +306,7 @@ const destinations = destinationsData.data.items;
   }
 
   .about-viz :global(.spotlight-input:focus) {
-    border-color: hsl(var(--primary));
+    border-color: var(--primary);
   }
 
   .about-viz :global(.spotlight-input::-webkit-inner-spin-button),
