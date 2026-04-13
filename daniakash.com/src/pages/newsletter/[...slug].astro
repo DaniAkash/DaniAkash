@@ -3,6 +3,7 @@ import { getCollection } from "astro:content";
 import type { GetStaticPaths } from "astro";
 import { ASSET_PREFIX } from "../../constants/asset-prefix";
 import MainLayout from "../../layouts/MainLayout.astro";
+import Newsletter from "../../components/Newsletter.astro";
 import { getOGImage } from "../../utils/getOGImage";
 
 export const getStaticPaths = (async () => {
@@ -96,36 +97,11 @@ await getOGImage({
     />
 
     <!-- Subscribe CTA -->
-    <div
-      class="nl-subscribe border-border bg-foreground/[0.025] mt-20 rounded-xl border p-6 text-center"
-    >
-      <h3 class="mb-1 text-lg font-semibold">Enjoyed this issue?</h3>
-      <p class="text-muted-foreground mb-4 text-sm">
-        Subscribe to get future issues delivered to your inbox.
-      </p>
-      <form
-        action="https://buttondown.com/api/emails/embed-subscribe/daniakash"
-        method="post"
-        target="popupwindow"
-        onsubmit="window.open('https://buttondown.com/daniakash', 'popupwindow')"
-        class="mx-auto flex max-w-[400px] flex-col gap-2 sm:flex-row"
-      >
-        <input
-          type="email"
-          name="email"
-          placeholder="you@email.com"
-          required
-          aria-label="Email address"
-          class="border-border bg-foreground/5 text-foreground placeholder:text-muted-foreground focus:border-primary h-10 w-full flex-1 rounded-full border px-4 font-mono text-sm transition-colors outline-none sm:px-6"
-        />
-        <button
-          type="submit"
-          class="bg-primary text-primary-foreground hover:bg-primary/80 h-10 w-full rounded-full px-6 font-mono text-[13px] font-medium transition-colors sm:w-auto"
-        >
-          Subscribe
-        </button>
-      </form>
-    </div>
+    <Newsletter
+      heading="Enjoyed this issue?"
+      description="Subscribe to get future issues delivered to your inbox."
+      class="mt-20 rounded-xl p-6"
+    />
 
     <!-- Prev/Next navigation -->
     <div

@@ -6,6 +6,7 @@ import { PERSON_ENTITY_ID } from "../../constants/seo";
 import MainLayout from "../../layouts/MainLayout.astro";
 import { getDateDisplay } from "../../utils/getDateDisplay";
 import { getDateValue } from "../../utils/getDateValue";
+import Newsletter from "../../components/Newsletter.astro";
 import { getOGImage } from "../../utils/getOGImage";
 
 export const getStaticPaths = (async () => {
@@ -119,34 +120,11 @@ await getOGImage({
     </div>
 
     <!-- Subscribe box -->
-    <div class="mt-20 rounded-2xl border border-border bg-foreground/[0.025] p-8 text-center">
-      <h3 class="mb-2 text-xl font-semibold">Enjoyed this post?</h3>
-      <p class="text-muted-foreground mb-6 text-sm">
-        Get new posts delivered straight to your inbox. No spam, ever.
-      </p>
-      <form
-        action="https://buttondown.com/api/emails/embed-subscribe/daniakash"
-        method="post"
-        target="popupwindow"
-        onsubmit="window.open('https://buttondown.com/daniakash', 'popupwindow')"
-        class="mx-auto flex max-w-[420px] flex-col gap-2 sm:flex-row"
-      >
-        <input
-          type="email"
-          name="email"
-          placeholder="you@email.com"
-          required
-          aria-label="Email address"
-          class="border-border bg-foreground/5 text-foreground placeholder:text-muted-foreground focus:border-primary h-11 w-full flex-1 rounded-full border px-4 font-mono text-sm transition-colors outline-none sm:px-6"
-        />
-        <button
-          type="submit"
-          class="bg-primary text-primary-foreground hover:bg-primary/80 h-11 w-full rounded-full px-6 font-mono text-[13px] font-medium transition-colors sm:w-auto"
-        >
-          Subscribe
-        </button>
-      </form>
-    </div>
+    <Newsletter
+      heading="Enjoyed this post?"
+      description="Get new posts delivered straight to your inbox. No spam, ever."
+      class="mt-20"
+    />
 
     <!-- Article footer -->
     <div
