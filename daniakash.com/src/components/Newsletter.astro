@@ -1,36 +1,65 @@
 ---
-import { TRANSITION_NAMES } from "../constants/transition-names";
-import MailIcon from "./icons/MailIcon.astro";
+interface Props {
+  heading: string;
+  description: string;
+  /** Optional mono-text label rendered above the heading */
+  label?: string;
+  /** Button text, defaults to "Subscribe" */
+  buttonLabel?: string;
+  /** Center-align heading, description, and form. Defaults to true */
+  center?: boolean;
+  class?: string;
+}
+
+const {
+  heading,
+  description,
+  label,
+  buttonLabel = "Subscribe",
+  center = true,
+  class: className,
+} = Astro.props;
 ---
 
-<form
-  action="https://buttondown.com/api/emails/embed-subscribe/daniakash"
-  method="post"
-  target="popupwindow"
-  onsubmit="window.open('https://buttondown.com/daniakash', 'popupwindow')"
-  class="rounded-2xl border border-zinc-100 p-6 dark:border-zinc-700/40"
-  transition:name={TRANSITION_NAMES.newsletterForm}
+<div
+  class:list={[
+    "border-border bg-foreground/[0.025] rounded-2xl border p-8",
+    center && "text-center",
+    className,
+  ]}
 >
-  <h2 class="flex text-sm font-semibold text-zinc-900 dark:text-zinc-100">
-    <MailIcon class="h-6 w-6 flex-none" />
-    <span class="ml-3">Stay up to date</span>
-  </h2>
-  <p class="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
-    Get notified when I publish something new, and unsubscribe at any time.
-  </p>
-  <div class="mt-6 flex">
+  {
+    label && (
+      <div class="text-muted-foreground mb-2 font-mono text-[11px] tracking-[0.1em] uppercase">
+        {label}
+      </div>
+    )
+  }
+  <h2 class="mb-2 text-xl font-semibold">{heading}</h2>
+  <p class="text-muted-foreground mb-6 text-sm">{description}</p>
+  <form
+    action="https://buttondown.com/api/emails/embed-subscribe/daniakash"
+    method="post"
+    target="popupwindow"
+    onsubmit="window.open('https://buttondown.com/daniakash', 'popupwindow')"
+    class:list={[
+      "flex max-w-[480px] flex-col gap-2 sm:flex-row",
+      center && "mx-auto",
+    ]}
+  >
     <input
       type="email"
       name="email"
-      id="bd-email"
-      placeholder="Email address"
-      aria-label="Email address"
+      placeholder="you@email.com"
       required
-      class="min-w-0 flex-auto appearance-none rounded-md border border-zinc-900/10 bg-white px-3 py-[calc(theme(spacing.2)-1px)] shadow-md shadow-zinc-800/5 placeholder:text-zinc-400 focus:border-teal-500 focus:outline-none focus:ring-4 focus:ring-teal-500/10 dark:border-zinc-700 dark:bg-zinc-700/[0.15] dark:text-zinc-200 dark:placeholder:text-zinc-500 dark:focus:border-teal-400 dark:focus:ring-teal-400/10 sm:text-sm"
+      aria-label="Email address"
+      class="border-border bg-foreground/5 text-foreground placeholder:text-muted-foreground focus:border-primary h-11 w-full flex-1 rounded-full border px-4 py-2 font-mono text-sm transition-colors outline-none sm:px-6"
     />
     <button
-      class="ml-4 inline-flex flex-none items-center justify-center gap-2 rounded-md bg-zinc-800 px-3 py-2 text-sm font-semibold text-zinc-100 outline-offset-2 transition hover:bg-zinc-700 active:bg-zinc-800 active:text-zinc-100/70 active:transition-none dark:bg-zinc-700 dark:hover:bg-zinc-600 dark:active:bg-zinc-700 dark:active:text-zinc-100/70"
-      type="submit">Join</button
+      type="submit"
+      class="bg-primary text-primary-foreground hover:bg-primary/80 h-11 w-full rounded-full px-6 font-mono text-[13px] font-medium transition-colors sm:w-auto"
     >
-  </div>
-</form>
+      {buttonLabel}
+    </button>
+  </form>
+</div>
