@@ -1,64 +1,133 @@
 [
   {
-    "name": "OSlash - Browser Extension",
-    "description": "Shortcuts for work! Founding Engineer & team lead of the v1 of OSlash for Chrome, Safari & Firefox.",
-    "info": "(product discontinued, only open source version available now)",
-    "link": { "href": "https://www.oslash.com", "label": "Get OSlash" },
-    "logo": "/oslash.png"
+    "name": "BrowserOS",
+    "description": "AI-powered browser platform that gives agents a real browser to work with. Building the future of AI-human interaction.",
+    "status": "active",
+    "tech": ["TypeScript", "AI Agents", "Browser"],
+    "link": {
+      "href": "https://github.com/BrowserOS-ai/BrowserOS",
+      "label": "View project"
+    },
+    "size": "2col"
   },
   {
-    "name": "Pickyourtrail - Travel Planner App",
-    "description": "Solo Engineer behind the cross platform PYT mobile app till v1.8, built with React Native, available for Android & iOS.",
+    "name": "Skills",
+    "description": "Teaching AI agents how to use tools correctly. A skill system for LLM-powered coding agents.",
+    "status": "active",
+    "tech": ["AI", "LLM", "Developer Tools"],
     "link": {
-      "href": "https://play.google.com/store/apps/details?id=com.pickyourtrail&hl=en&gl=US",
+      "href": "https://github.com/DaniAkash/skills",
+      "label": "View project"
+    },
+    "size": "2col"
+  },
+  {
+    "name": "GitHub Stars",
+    "size": "stat",
+    "stat": { "number": "473+", "label": "GitHub Stars" }
+  },
+  {
+    "name": "React Native Responsive Dimensions",
+    "description": "Responsive fontSize, height & width for React Native. Used in thousands of apps worldwide for building adaptive mobile UIs.",
+    "status": "oss",
+    "tech": ["React Native", "npm"],
+    "link": {
+      "href": "https://github.com/DaniAkash/react-native-responsive-dimensions",
+      "label": "View on GitHub"
+    },
+    "size": "3col"
+  },
+  {
+    "name": "Years Shipping",
+    "size": "stat",
+    "stat": { "number": "7+", "label": "Years Shipping" }
+  },
+  {
+    "name": "OSlash",
+    "description": "Founding Engineer & team lead. Built v1 of OSlash for Chrome, Safari & Firefox. Shortcuts for work, shipped to thousands of teams.",
+    "status": "previous",
+    "tech": ["Browser Extension", "React", "TypeScript"],
+    "size": "3col"
+  },
+  {
+    "name": "Libraries Published",
+    "size": "stat",
+    "stat": { "number": "10+", "label": "Libraries Published" }
+  },
+  {
+    "name": "Public Repos",
+    "size": "stat",
+    "stat": { "number": "166", "label": "Public Repos" }
+  },
+  {
+    "name": "Pickyourtrail",
+    "description": "Solo engineer behind the cross-platform travel planner app through v1.8. Built with React Native for Android & iOS.",
+    "status": "previous",
+    "tech": ["React Native", "Mobile"],
+    "link": {
+      "href": "https://play.google.com/store/apps/details?id=com.pickyourtrail",
       "label": "Get the app"
     },
-    "logo": "/pyt.png"
+    "size": "2col"
   },
   {
     "name": "React Native Toolkit",
-    "description": "High quality react-native libraries I built for use in personal projects - fully open sourced! ❤️",
+    "description": "High quality react-native libraries built for use in personal projects. Fully open sourced. DraftJS editor, masonry layouts, and more.",
+    "status": "oss",
+    "tech": ["React Native", "Open Source"],
     "link": {
       "href": "https://github.com/react-native-toolkit",
-      "label": "github/react-native-toolkit"
+      "label": "View on GitHub"
     },
-    "logo": "/react-native-toolkit.png"
+    "size": "2col"
   },
   {
     "name": "React Native Docs",
-    "description": "Part of the official React Native Docs rewrite effort & wrote significant part of the docs, including vital elements like Animated & PanResponder",
+    "description": "Part of the official React Native docs rewrite. Wrote significant sections including Animated & PanResponder documentation.",
+    "status": "oss",
+    "tech": ["React Native", "Documentation"],
     "link": {
       "href": "https://github.com/facebook/react-native-website/issues/1579",
-      "label": "Link to Project"
+      "label": "Link to project"
     },
-    "logo": "/react-native.svg"
+    "size": "2col"
   },
   {
-    "name": "Pickyourtrail - Travel Guide",
-    "description": "A content-rich SEO friendly Travel guide website built before the days of Gatsby & Next.js - built along with a custom in-house React Framework",
+    "name": "Pickyourtrail — Travel Guide",
+    "description": "A content-rich SEO friendly travel guide website built before the days of Gatsby & Next.js, with a custom in-house React framework.",
+    "status": "previous",
+    "tech": ["React", "SEO", "Custom Framework"],
     "link": {
       "href": "https://pickyourtrail.com/guides/",
       "label": "Checkout the guides"
     },
-    "logo": "/pyt-guides.png"
+    "size": "2col"
   },
   {
-    "name": "JavaScript by Example - Book (2017)",
-    "description": "Author of the book covering modern JavaScript programming with real web apps",
+    "name": "JavaScript by Example — Book (2017)",
+    "description": "Author of the O'Reilly book covering modern JavaScript programming with real web apps.",
+    "status": "previous",
+    "tech": ["JavaScript", "O'Reilly"],
     "link": {
       "href": "https://www.oreilly.com/library/view/javascript-by-example/9781788293969/",
       "label": "Read the book"
     },
-    "logo": "/js-book.jpeg",
-    "noBg": true
+    "size": "2col"
   },
   {
-    "name": "Learning Git - Video Course",
-    "description": "A video course on teaching git to new developers on the GUVI platform",
+    "name": "Learning Git — Video Course",
+    "description": "A video course teaching git to new developers on the GUVI platform.",
+    "status": "previous",
+    "tech": ["Git", "Education"],
     "link": {
       "href": "https://www.guvi.in/courses/git_git",
-      "label": "Course Videos"
+      "label": "Course videos"
     },
-    "logo": "/git.jpg"
+    "size": "2col"
+  },
+  {
+    "name": "Always building",
+    "description": "From React Native docs to O'Reilly books to video courses. I build what I need, open source what I can, and keep shipping every day.",
+    "size": "full"
   }
 ]

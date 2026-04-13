@@ -1,36 +1,377 @@
 ---
 import { getCollection } from "astro:content";
-import MainLayout from "../layouts/MainLayout.astro";
-import Article from "../components/Article.astro";
-import Experience from "./components/Experience.astro";
-import Hero from "./components/Hero.astro";
+import AmbientCanvas from "../components/AmbientCanvas";
+import BlueskyIcon from "../components/icons/BlueskyIcon.astro";
+import GithubIcon from "../components/icons/GithubIcon.astro";
+import InstagramIcon from "../components/icons/InstagramIcon.astro";
+import LinkedinIcon from "../components/icons/LinkedinIcon.astro";
+import MailIcon from "../components/icons/MailIcon.astro";
+import TwitterIcon from "../components/icons/TwitterIcon.astro";
+import { assetUrl } from "../constants/asset-prefix";
 import Newsletter from "../components/Newsletter.astro";
-const posts = (await getCollection("blog")).sort((a, b) => {
-  const dateA = new Date(a.data.date).getTime();
-  const dateB = new Date(b.data.date).getTime();
-  return dateB - dateA;
-});
+import MainLayout from "../layouts/MainLayout.astro";
+
+const posts = (await getCollection("blog"))
+  .sort(
+    (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime(),
+  )
+  .slice(0, 11);
+
+const career = await getCollection("career");
+const experience = career[0]?.data?.items ?? [];
+
+const social = await getCollection("social");
+const socialData = social[0]?.data;
+
+const connectLinks = [
+  {
+    platform: "GitHub",
+    handle: `@DaniAkash`,
+    href: socialData?.github ?? "https://github.com/DaniAkash",
+  },
+  {
+    platform: "X / Twitter",
+    handle: `@dani_akash_`,
+    href: socialData?.twitter ?? "https://x.com/dani_akash_",
+  },
+  {
+    platform: "Bluesky",
+    handle: `@daniakash.com`,
+    href: socialData?.bluesky ?? "https://bsky.app/profile/daniakash.com",
+  },
+  {
+    platform: "LinkedIn",
+    handle: "Dani Akash",
+    href: socialData?.linkedIn ?? "https://www.linkedin.com/in/daniakash",
+  },
+  {
+    platform: "Instagram",
+    handle: `@dani_akash_`,
+    href: socialData?.instagram ?? "https://www.instagram.com/dani_akash_",
+  },
+  {
+    platform: "Email",
+    handle: socialData?.email ?? "hello@daniakash.com",
+    href: `mailto:${socialData?.email ?? "hello@daniakash.com"}`,
+  },
+];
+
+const heroImages = [
+  {
+    src: assetUrl("image-1.jpg"),
+    alt: "Dani Akash posing with a cosplayer in a fighting stance",
+  },
+  {
+    src: assetUrl("image-2.jpg"),
+    alt: "Dani Akash coding at his desk with a cat on his lap",
+  },
+  {
+    src: assetUrl("image-3.jpg"),
+    alt: "Dani Akash speaking at a tech meetup with a microphone",
+  },
+  {
+    src: assetUrl("image-4.jpg"),
+    alt: "Dani Akash overlooking a river gorge on a hike",
+  },
+  {
+    src: assetUrl("image-5.jpg"),
+    alt: "Dani Akash examining a large decorative sculpture at a market",
+  },
+];
 ---
 
-<MainLayout isHomePage={true} title="">
-  <div class="mt-9">
-    <Hero />
-  </div>
-  <!-- Placeholder for images section -->
-  <div class="hidden h-[320px] mobile:block md:h-[400px] lg:h-[448px]"></div>
+<MainLayout title="">
+  <!-- Ambient Background -->
+  <AmbientCanvas client:visible />
+
+  <!-- System Labels -->
   <div
-    class="mt-12 flex flex-col-reverse gap-12 mobile:mt-0 lg:flex-row lg:items-stretch lg:justify-between"
+    class="text-muted-foreground pointer-events-none fixed bottom-6 left-6 z-50 hidden font-mono text-[10px] tracking-widest uppercase md:block"
   >
-    <div class="flex max-w-xl flex-col gap-12">
+    CHENNAI, IN &middot; UTC+5:30
+  </div>
+  <div
+    class="text-muted-foreground pointer-events-none fixed right-6 bottom-6 z-50 hidden font-mono text-[10px] tracking-widest uppercase md:block"
+  >
+    V4.0 // 2026
+  </div>
+
+  <!-- ═══ HERO ═══ -->
+  <section class="relative -mt-24 flex h-screen flex-col pt-24">
+    <div class="flex flex-1 items-center pb-[320px]">
+      <div>
+        <p
+          class="text-muted-foreground mb-6 font-mono text-[11px] tracking-[1.65px] uppercase"
+        >
+          SYSTEM.ROLE // AI_ENGINEER &middot; BUILDER &middot; SPEAKER
+        </p>
+        <h1
+          class="mb-6 leading-[1.05] font-bold tracking-[-0.03em]"
+          style="font-size: clamp(48px, 8vw, 96px);"
+        >
+          Dani Akash
+        </h1>
+        <p
+          class="text-muted-foreground mb-12 max-w-[700px] leading-[1.4] font-light"
+          style="font-size: clamp(18px, 2.5vw, 28px);"
+        >
+          A simple developer building AI agents for humans.
+        </p>
+
+        <!-- Social icons -->
+        <div class="mb-12 flex flex-wrap gap-4">
+          {
+            [
+              { href: socialData?.github, Icon: GithubIcon, label: "GitHub" },
+              { href: socialData?.twitter, Icon: TwitterIcon, label: "X" },
+              {
+                href: socialData?.bluesky,
+                Icon: BlueskyIcon,
+                label: "Bluesky",
+              },
+              {
+                href: socialData?.linkedIn,
+                Icon: LinkedinIcon,
+                label: "LinkedIn",
+              },
+              {
+                href: socialData?.instagram,
+                Icon: InstagramIcon,
+                label: "Instagram",
+              },
+              {
+                href: `mailto:${socialData?.email}`,
+                Icon: MailIcon,
+                label: "Email",
+              },
+            ].map(({ href, Icon, label }) => (
+              <a
+                href={href}
+                aria-label={label}
+                title={label}
+                target={href?.startsWith("mailto") ? undefined : "_blank"}
+                rel={href?.startsWith("mailto") ? undefined : "noopener"}
+                class="border-border bg-foreground/5 text-muted-foreground hover:border-primary hover:bg-primary/15 hover:text-primary flex size-11 items-center justify-center rounded-full border transition-all hover:-translate-y-0.5"
+              >
+                <Icon class="size-5" />
+              </a>
+            ))
+          }
+        </div>
+
+        <!-- Status line -->
+        <div
+          class="text-muted-foreground flex items-center gap-2 font-mono text-xs"
+        >
+          <span class="bg-primary size-1.5 animate-pulse rounded-full"></span>
+          Building BrowserOS — an AI-powered browser for agents
+        </div>
+      </div>
+    </div>
+
+    <!-- Photo gallery — full viewport width, bleeding off bottom -->
+    <div
+      class="pointer-events-none absolute bottom-0 left-1/2 z-1 h-[380px] w-screen -translate-x-1/2 overflow-clip"
+    >
+      <div
+        class="pointer-events-auto absolute bottom-[-120px] left-1/2 flex -translate-x-1/2 items-start gap-4"
+      >
+        {
+          heroImages.map((img, i) => {
+            /* Center card tallest (300x400), flanking shorter and pushed down */
+            const sizes = [
+              "w-[240px] h-[340px] mt-[60px]",
+              "w-[260px] h-[370px] mt-[30px]",
+              "w-[300px] h-[400px] mt-0",
+              "w-[260px] h-[370px] mt-[30px]",
+              "w-[240px] h-[340px] mt-[60px]",
+            ];
+            const hideClasses = [
+              "hidden lg:block",
+              "hidden md:block",
+              "",
+              "hidden md:block",
+              "hidden lg:block",
+            ];
+            return (
+              <div
+                class:list={[
+                  "flex-shrink-0 overflow-hidden rounded-3xl shadow-lg shadow-black/25 transition-transform duration-500 hover:-translate-y-3 hover:shadow-2xl hover:shadow-black/40",
+                  sizes[i],
+                  hideClasses[i],
+                ]}
+              >
+                <img
+                  src={img.src}
+                  alt={img.alt}
+                  loading="lazy"
+                  class="size-full object-cover"
+                />
+              </div>
+            );
+          })
+        }
+      </div>
+    </div>
+  </section>
+
+  <hr class="border-border border-dashed" />
+
+  <!-- ═══ 01 BLOG + WORK (two-column) ═══ -->
+  <section class="py-20" id="work">
+    <div class="grid items-start gap-12 lg:grid-cols-2">
+      <!-- Left: Blog -->
+      <div>
+        <div class="mb-12 flex items-baseline gap-4">
+          <span class="text-foreground/10 font-mono text-5xl font-light"
+            >01</span
+          >
+          <span
+            class="text-muted-foreground font-mono text-[11px] font-medium tracking-[0.2em] uppercase"
+            >Blog</span
+          >
+        </div>
+        <div class="flex flex-col">
+          {
+            posts.map((post) => {
+              const date = new Date(post.data.date);
+              const formatted = `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2, "0")}.${String(date.getDate()).padStart(2, "0")}`;
+              return (
+                <a
+                  href={`/posts/${post.id}/`}
+                  class="group border-border hover:bg-foreground/5 -mx-4 grid grid-cols-[90px_1fr] items-baseline gap-4 border-b border-dashed px-4 py-4 transition-colors last:border-b-0 hover:rounded-sm sm:grid-cols-[140px_1fr_auto] sm:gap-6"
+                >
+                  <span class="text-muted-foreground font-mono text-xs">
+                    {formatted}
+                  </span>
+                  <span class="group-hover:text-primary text-base font-medium transition-colors">
+                    {post.data.title}
+                  </span>
+                  <span class="text-muted-foreground hidden font-mono text-sm transition-transform group-hover:translate-x-1 sm:inline">
+                    →
+                  </span>
+                </a>
+              );
+            })
+          }
+        </div>
+        <a
+          href="/blog/"
+          class="text-primary hover:text-primary/80 mt-6 inline-flex font-mono text-[13px]"
+        >
+          View all posts →
+        </a>
+      </div>
+
+      <!-- Right: Work (mt matches the blog section header height) -->
+      <div class="mt-[88px]">
+        <div class="border-border rounded-xl border p-6">
+          <div
+            class="mb-6 flex items-center gap-2 font-mono text-sm font-medium"
+          >
+            <span>💼</span> Work
+          </div>
+          <div class="flex flex-col">
+            {
+              experience.map((job) => (
+                <div class="border-border flex items-center gap-6 border-b border-dashed py-4 last:border-b-0">
+                  <div class="border-border bg-foreground/5 flex size-12 shrink-0 items-center justify-center overflow-hidden rounded-full border">
+                    <img
+                      src={assetUrl(job.logo)}
+                      alt={job.company}
+                      class="size-7 overflow-clip rounded-full border-0 bg-slate-300"
+                    />
+                  </div>
+                  <div class="flex min-w-0 flex-1 flex-col gap-0.5">
+                    <span class="font-semibold">{job.company}</span>
+                    <span class="text-muted-foreground text-sm">
+                      {job.role}
+                    </span>
+                  </div>
+                  <span class="text-muted-foreground shrink-0 font-mono text-xs">
+                    {job.startDate} — {job.endDate}
+                  </span>
+                </div>
+              ))
+            }
+          </div>
+          <a
+            href="/resume/"
+            class="border-border text-muted-foreground hover:border-border hover:bg-foreground/5 hover:text-foreground mt-4 block rounded-lg border py-3 text-center font-mono text-sm transition-all"
+          >
+            Resume
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="border-border border-dashed" />
+
+  <!-- ═══ 02 SPEAKING ═══ -->
+  <section class="py-20" id="speaking">
+    <div class="mb-12 flex items-baseline gap-4">
+      <span class="text-foreground/10 font-mono text-5xl font-light">02</span>
+      <span
+        class="text-muted-foreground font-mono text-[11px] font-medium tracking-[0.2em] uppercase"
+        >Speaking</span
+      >
+    </div>
+    <p
+      class="text-muted-foreground mb-6 max-w-[640px] text-[17px] leading-[1.7]"
+    >
+      I regularly speak at community meetups and conferences about AI,
+      JavaScript, React Native, and the web. I've given 25+ talks since 2017
+      across events like React Nexus, JSLovers, Thoughtworks Geeknight, React
+      Bangalore, and more.
+    </p>
+    <a
+      href="/speaking/"
+      class="text-primary hover:text-primary/80 inline-flex font-mono text-[13px]"
+    >
+      View all talks →
+    </a>
+  </section>
+
+  <hr class="border-border border-dashed" />
+
+  <!-- ═══ 03 CONNECT ═══ -->
+  <section class="py-20" id="connect">
+    <div class="mb-12 flex items-baseline gap-4">
+      <span class="text-foreground/10 font-mono text-5xl font-light">03</span>
+      <span
+        class="text-muted-foreground font-mono text-[11px] font-medium tracking-[0.2em] uppercase"
+        >Connect</span
+      >
+    </div>
+    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
       {
-        posts.map((each) => {
-          return <Article {...each.data} slug={each.id} />;
-        })
+        connectLinks.map((link) => (
+          <a
+            href={link.href}
+            target={link.href.startsWith("mailto") ? undefined : "_blank"}
+            rel={link.href.startsWith("mailto") ? undefined : "noopener"}
+            class="border-border hover:border-primary hover:bg-foreground/5 flex flex-col gap-2 rounded-xl border p-6 transition-all hover:-translate-y-0.5"
+          >
+            <span class="text-muted-foreground font-mono text-[11px] tracking-[0.1em] uppercase">
+              {link.platform}
+            </span>
+            <span class="text-base font-medium">{link.handle}</span>
+          </a>
+        ))
       }
     </div>
-    <div class="flex flex-col gap-y-10">
-      <Newsletter />
-      <Experience />
-    </div>
-  </div>
+  </section>
+
+  <hr class="border-border border-dashed" />
+
+  <!-- ═══ NEWSLETTER ═══ -->
+  <section class="py-20">
+    <Newsletter
+      heading="Stay in the loop"
+      description="Thoughts delivered straight to your inbox. Zero spam, I promise."
+      buttonLabel="SUBSCRIBE"
+      class="bg-card p-12"
+    />
+  </section>
 </MainLayout>

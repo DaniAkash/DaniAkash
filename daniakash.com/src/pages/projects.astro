@@ -1,72 +1,1131 @@
 ---
 import { getCollection } from "astro:content";
 import MainLayout from "../layouts/MainLayout.astro";
-import ContentContainer from "./components/ContentContainer.astro";
-import Header from "./components/Header.astro";
-import LinkIcon from "../components/icons/LinkIcon.astro";
-import { Image } from "astro:assets";
-import { cn } from "../utils/cn";
-import { ASSET_PREFIX } from "../constants/asset-prefix";
+
 const projects = (await getCollection("project"))[0]!;
+const items = projects.data.items;
 ---
 
-<MainLayout title="Projects">
-  <ContentContainer>
-    <Header
-      title="Things I’ve Built"
-      subtitle="From tiny experiments to giant time-sinks, here’s what’s kept me busy."
-    />
-    <div class="mt-16 sm:mt-20">
-      <ul
-        role="list"
-        class="grid grid-cols-1 gap-x-12 gap-y-16 sm:grid-cols-2 lg:grid-cols-3"
+<MainLayout
+  title="Projects"
+  description="Projects by Dani Akash | from browser extensions to open source libraries to AI agents."
+>
+  <!-- Factory Background — fixed, masked, behind content -->
+  <div class="factory-fixed factory-hidden" id="factoryFixed">
+    <div class="factory-wrapper" id="factoryWrapper"></div>
+  </div>
+
+  <div class="relative z-[1] mx-auto max-w-[1200px] px-6 pt-[120px] pb-20">
+    <!-- Header -->
+    <header class="mb-12">
+      <p
+        class="text-muted-foreground mb-6 font-mono text-[11px] tracking-[0.15em] uppercase"
       >
-        {
-          projects.data.items.map((project) => {
+        04 // PROJECTS
+      </p>
+      <h1
+        class="mb-4 leading-[1.1] font-bold tracking-[-0.03em]"
+        style="font-size: clamp(36px, 5vw, 56px);"
+      >
+        Things I've Built
+      </h1>
+      <p class="text-muted-foreground max-w-[600px] text-lg leading-relaxed">
+        From tiny experiments to giant time-sinks, here's what's kept me busy.
+      </p>
+    </header>
+
+    <!-- Bento Grid -->
+    <div class="bento-grid">
+      {
+        items.map((item) => {
+          const isStat = item.size === "stat";
+          const isFull = item.size === "full";
+
+          if (isStat) {
             return (
-              <li class="group relative flex flex-col items-start">
-                <div
-                  class={cn(
-                    "relative z-10 flex w-12 items-center justify-center",
-                    project.noBg && "h-16",
-                    project.noBg ||
-                      "h-12 rounded-full bg-white shadow-md shadow-zinc-800/5 ring-1 ring-zinc-900/5 dark:border dark:border-zinc-700/50 dark:bg-zinc-800 dark:ring-0",
-                  )}
-                >
-                  <Image
-                    width={64}
-                    height={64}
-                    src={`${ASSET_PREFIX}${project.logo}`}
-                    alt={project.name}
-                    class={cn(
-                      project.noBg || "h-8 w-8 rounded-full",
-                      project.noBg && "h-16 w-12",
-                    )}
-                    loading="eager"
-                  />
+              <div class="bento-card bento-1">
+                <div class="bento-inner">
+                  <div class="flex h-full flex-col items-center justify-center gap-1 p-6 text-center">
+                    <span class="text-primary text-5xl leading-none font-light tracking-tight">
+                      {item.stat?.number}
+                    </span>
+                    <span class="text-muted-foreground text-sm">
+                      {item.stat?.label}
+                    </span>
+                  </div>
                 </div>
-                <h2 class="mt-6 text-base font-semibold text-zinc-800 dark:text-zinc-100">
-                  <div class="absolute -inset-x-4 -inset-y-6 z-0 scale-95 bg-zinc-50 opacity-0 transition group-hover:scale-100 group-hover:opacity-100 dark:bg-zinc-800/50 sm:-inset-x-6 sm:rounded-2xl" />
-                  <a href={project.link.href} target="_blank" rel="noopener">
-                    <span class="absolute -inset-x-4 -inset-y-6 z-20 sm:-inset-x-6 sm:rounded-2xl" />
-                    <span class="relative z-10">{project.name}</span>
-                  </a>
-                </h2>
-                <p class="relative z-10 mt-2 text-sm text-zinc-600 dark:text-zinc-400">
-                  {project.description}{" "}
-                  {project.info ? (
-                    <span class="text-[0.7rem] italic">{project.info}</span>
-                  ) : null}
-                </p>
-                <p class="relative z-10 mt-6 flex text-sm font-medium text-zinc-400 transition group-hover:text-teal-500 dark:text-zinc-200">
-                  <LinkIcon />
-                  <span class="ml-2">{project.link.label}</span>
-                </p>
-              </li>
+              </div>
             );
-          })
-        }
-      </ul>
+          }
+
+          if (isFull) {
+            return (
+              <div class="bento-card bento-full">
+                <div class="bento-inner">
+                  <div class="flex flex-row items-center gap-6 p-6">
+                    <div class="bg-primary flex size-12 shrink-0 items-center justify-center rounded-xl">
+                      <svg
+                        viewBox="0 0 24 24"
+                        class="stroke-primary-foreground size-6 fill-none stroke-2"
+                      >
+                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+                      </svg>
+                    </div>
+                    <h3 class="shrink-0 text-xl font-semibold">{item.name}</h3>
+                    <div class="bg-border mx-2 hidden h-12 w-px md:block" />
+                    <p class="text-muted-foreground text-[15px] leading-relaxed">
+                      {item.description}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            );
+          }
+
+          const Tag = item.link ? "a" : "div";
+          const linkProps = item.link
+            ? { href: item.link.href, target: "_blank", rel: "noopener" }
+            : {};
+          const sizeClass =
+            item.size === "3col"
+              ? "bento-3col"
+              : item.size === "2col"
+                ? "bento-2col"
+                : "bento-1";
+          const isHorizontal = item.size === "3col";
+
+          return (
+            <Tag {...linkProps} class:list={["bento-card", sizeClass]}>
+              <div
+                class:list={[
+                  "bento-inner",
+                  isHorizontal && "bento-inner--horizontal",
+                ]}
+              >
+                <div class="bento-content">
+                  {item.status && (
+                    <span
+                      class:list={[
+                        "inline-flex self-start rounded-full px-2.5 py-0.5 font-mono text-[10px] tracking-wider uppercase",
+                        item.status === "active" &&
+                          "bg-primary/15 text-primary",
+                        item.status === "oss" &&
+                          "bg-foreground/5 text-muted-foreground",
+                        item.status === "previous" &&
+                          "bg-foreground/5 text-muted-foreground",
+                      ]}
+                    >
+                      {item.status === "active"
+                        ? "Active"
+                        : item.status === "oss"
+                          ? "Open Source"
+                          : "Previously"}
+                    </span>
+                  )}
+                  <h3 class="group-hover:text-primary text-[22px] leading-tight font-semibold tracking-tight transition-colors">
+                    {item.name}
+                  </h3>
+                  <p class="text-muted-foreground text-[15px] leading-relaxed">
+                    {item.description}
+                  </p>
+                  {item.tech && (
+                    <div class="mt-auto flex flex-wrap gap-1 pt-2">
+                      {item.tech.map((t) => (
+                        <span class="bg-foreground/5 text-muted-foreground rounded-lg px-2 py-0.5 font-mono text-[11px]">
+                          {t}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                  {item.link && (
+                    <span class="text-primary mt-2 inline-flex items-center gap-1 font-mono text-xs">
+                      {item.link.label} <span>→</span>
+                    </span>
+                  )}
+                </div>
+                {!isStat && !isFull && (
+                  <div class="bento-visual">
+                    <div class="dot-pattern" />
+                  </div>
+                )}
+              </div>
+            </Tag>
+          );
+        })
+      }
     </div>
-  </ContentContainer>
+  </div>
 </MainLayout>
+
+<script is:inline>
+  function initFactory() {
+    const factoryEl = document.getElementById("factoryWrapper");
+    if (!factoryEl) return;
+
+    // Clean up previous instance
+    if (window.__factoryInterval) clearInterval(window.__factoryInterval);
+    factoryEl.innerHTML = "";
+
+    const addXy = (a, b) => {
+      a.x += b.x;
+      a.y += b.y;
+    };
+    const px = (n) => (!isNaN(n) ? n + "px" : "0");
+
+    class WorldObject {
+      constructor({ pos = { x: 0, y: 0 }, el, offset = { x: 0, y: 0 } }) {
+        Object.assign(this, {
+          el,
+          pos,
+          lastPos: { x: null, y: null },
+          offset,
+          grabPos: { a: { x: 0, y: 0 }, b: { x: 0, y: 0 } },
+          isGrabbed: false,
+          isDraggable: false,
+        });
+      }
+      distanceBetween(el) {
+        return Math.round(
+          Math.sqrt(
+            Math.pow(this.pos.x - el.x, 2) + Math.pow(this.pos.y - el.y, 2),
+          ),
+        );
+      }
+      getNewPosBasedOnTarget = ({ el, maxDistance }) => {
+        const fd = this.distanceBetween(el);
+        if (fd <= 0) return this.pos;
+        const d = maxDistance < fd ? maxDistance : fd;
+        const rd = fd - d;
+        return {
+          x: Math.round((rd * this.pos.x + d * el.x) / fd),
+          y: Math.round((rd * this.pos.y + d * el.y) / fd),
+        };
+      };
+      setPos() {
+        const { x, y } = this.pos;
+        if (this.lastPos.x === x && this.lastPos.y === y) return;
+        this.lastPos = { x, y };
+        this.el.style.transform = `translate(${px(this.pos.x)}, ${px(this.pos.y)})`;
+      }
+      addToWorld() {
+        this.setPos();
+        (this.container || wrapper.el).appendChild(this.el);
+      }
+      get corners() {
+        const {
+          pos: { x, y },
+          size: { w, h },
+        } = this;
+        return { a: x - w, b: x + w, c: y - h, d: y + h };
+      }
+      isPosWithinArea(pos) {
+        const { a, b, c, d } = this.corners;
+        return pos.x >= a && pos.x <= b && pos.y >= c && pos.y <= d;
+      }
+      onGrab = () => {};
+      onLetGo = () => {};
+      clampDirection(dir, gravObj) {
+        const {
+          size: { w, h },
+          pos: { x, y },
+        } = this;
+        if (dir === "d" && gravObj.pos.y > y - h / 2) gravObj.pos.y = y;
+        else if (dir === "r" && gravObj.pos.x > x - w / 2) gravObj.pos.x = x;
+        else if (dir === "u" && gravObj.pos.y < y + h / 2) gravObj.pos.y = y;
+        else if (dir === "l" && gravObj.pos.x < x + w / 2) gravObj.pos.x = x;
+      }
+      delete() {
+        this.deleted = true;
+        this.el.remove();
+        world.contactElements = world.contactElements.filter((e) => e !== this);
+        world.objects = world.objects.filter((o) => o !== this);
+        if (this.group) this.group.forEach((m) => !m.deleted && m.delete());
+      }
+    }
+
+    class Surface extends WorldObject {
+      constructor(props) {
+        super(props);
+        world.contactElements.push(this);
+      }
+      get startX() {
+        return this.pos.x - this.offset.x;
+      }
+      get endX() {
+        return this.pos.x + this.size.w + this.offset.x;
+      }
+      moveGravObjInContactWithDrag() {}
+      isGravObjInContact(gravObj) {
+        const t =
+          Math.abs(
+            gravObj.pos.y + gravObj.radius - this.pos.y + this.offset.y,
+          ) < gravObj.velocity.y;
+        return gravObj.pos.x > this.startX && gravObj.pos.x < this.endX && t;
+      }
+      triggerOnContact(gravObj) {
+        if (this instanceof Box) gravObj.base = this.base || this;
+        gravObj.pos.y = this.pos.y - gravObj.radius - this.offset.y;
+        if (!gravObj.isLanded) gravObj.land(true);
+      }
+    }
+
+    class PneumaticTube extends WorldObject {
+      #directionMapping;
+      constructor({
+        group = [],
+        index = 0,
+        pos = { x: 0, y: 0 },
+        tubeConfig = "",
+        prev = "",
+        ports = ["d", "u"],
+        variant = "entrance",
+        isLast = true,
+      }) {
+        super({
+          el: Object.assign(document.createElement("div"), {
+            className: "pneumatic-tube",
+            innerHTML: '<div class="tube pix"></div>',
+          }),
+          pos,
+        });
+        Object.assign(this, {
+          size: { w: variant === "entrance" ? 4 : 24, h: 24 },
+          variant,
+          group,
+          prev,
+          ports,
+          index,
+          buttons: [],
+          isLast,
+          expression: "joy",
+          tubeConfig,
+        });
+        this.tube = this.el.querySelector(".tube");
+        this.updateTube();
+        this.#directionMapping = { u: "d", d: "u", l: "r", r: "l" };
+        this.el.setAttribute("variant", this.variant);
+        this.group[this.index] = this;
+        this.el.style.zIndex = this.index + 1;
+        world.contactElements.push(this);
+        this.addToWorld();
+        if (this.tubeConfig.length) this.mapFromTubeConfig();
+      }
+      mapFromTubeConfig() {
+        this.ports = [
+          this.#directionMapping[this.tubeConfig[0]],
+          this.tubeConfig[0],
+        ];
+        this.updateTube();
+        this.tubeConfig.split("").forEach((c, i, arr) => {
+          if (!i) return;
+          const prev = this.#directionMapping[arr[i - 1]];
+          const ports = [prev, c];
+          const { elOffset } = this.calculateOffset(arr[i - 1]);
+          this.group[i] = new PneumaticTube({
+            prev,
+            variant: this.getVariant(ports),
+            group: this.group,
+            index: i,
+            pos: {
+              x: this.group[i - 1].pos.x + elOffset.x,
+              y: this.group[i - 1].pos.y + elOffset.y,
+            },
+            ports,
+            isLast: i === this.tubeConfig.length - 1,
+          });
+        });
+      }
+      calculateOffset(dir) {
+        const h = this.size.h,
+          w = h;
+        return {
+          u: { btnOffset: { x: w, y: -h * 3 }, elOffset: { x: 0, y: -h * 2 } },
+          d: { btnOffset: { x: w, y: h }, elOffset: { x: 0, y: h * 2 } },
+          l: { btnOffset: { x: -w, y: -h }, elOffset: { x: -w * 2, y: 0 } },
+          r: { btnOffset: { x: w * 3, y: -h }, elOffset: { x: w * 2, y: 0 } },
+        }[dir];
+      }
+      updateTube() {
+        this.walls = ["u", "d", "l", "r"].filter(
+          (d) => !this.ports.includes(d),
+        );
+        const [a, b] = this.ports;
+        const d = this.variant === "entrance" || this.isLast ? 28 : 15;
+        this.velocity = {
+          x: a == "l" || b == "r" ? d : a == "r" || b == "l" ? -d : 0,
+          y: a == "u" || b == "d" ? d : a == "d" || b == "u" ? -d : 0,
+        };
+        this.tube.style.transform = `rotate(${this.deg}deg)`;
+      }
+      get deg() {
+        const m = {
+          0: ["lr", "rd", "dr"],
+          90: ["ud", "dl", "ld"],
+          180: ["rl", "ul", "lu"],
+          270: ["du", "ur", "ru"],
+        };
+        return Object.keys(m).find((k) =>
+          m[k].includes(this.ports[0] + this.ports[1]),
+        );
+      }
+      getVariant(ports) {
+        return ["ud", "du", "lr", "rl"].includes(ports[0] + ports[1])
+          ? "straight"
+          : "elbow";
+      }
+      moveGravObj(gravObj) {
+        gravObj.base = null;
+        addXy(gravObj.pos, this.velocity);
+        gravObj.zIndex = this.index;
+        gravObj.el.style.zIndex = this.index;
+        this.walls.forEach((dir) => this.clampDirection(dir, gravObj));
+        if (this.index === this.group.length - 1) gravObj.resetZIndex();
+      }
+      isGravObjInContact(gravObj) {
+        return (
+          this.isPosWithinArea(gravObj.pos) && gravObj.zIndex <= this.index
+        );
+      }
+      triggerOnContact(gravObj) {
+        if (this.variant === "entrance") gravObj.resetZIndex();
+      }
+    }
+
+    class ConveyorBelt extends Surface {
+      constructor({
+        pos = { x: 0, y: 0 },
+        moveDirection = -1,
+        moduleNo = 1,
+        isActive = false,
+      }) {
+        super({
+          el: Object.assign(document.createElement("div"), {
+            className: "conveyor-belt el",
+            innerHTML:
+              '<div class="btn-wrapper slot"></div><div class="belt-wrapper slot"></div>',
+          }),
+          pos,
+          offset: { x: 4, y: 0 },
+        });
+        Object.assign(this, { isActive, moveDirection, moduleNo });
+        this.setSize();
+        this.activate(isActive);
+        this.addToWorld();
+        this.el.style.setProperty("--move-direction", this.moveDirection);
+        this.slots = this.el.querySelectorAll(".slot");
+        this.renderBelt();
+      }
+      get expression() {
+        return this.isActive ? "neutral" : "sleepy";
+      }
+      activate(bool) {
+        this.isActive = bool;
+        this.el.classList[bool ? "add" : "remove"]("animate");
+      }
+      beltEdge(cn) {
+        return `<div class="belt-edge pix ${cn || ""}"></div>`;
+      }
+      renderBelt() {
+        this.slots[1].innerHTML =
+          this.beltEdge() +
+          new Array(this.moduleNo || 1)
+            .fill("")
+            .reduce((a) => (a += '<div class="belt-module pix"></div>'), "") +
+          this.beltEdge("flip");
+        this.setSize();
+      }
+      get surfaceVelocity() {
+        return { x: this.isActive ? -4 * this.moveDirection : 0, y: 0 };
+      }
+      setSize() {
+        const { width, height } = this.el?.getBoundingClientRect() || {
+          width: 0,
+          height: 0,
+        };
+        this.size = { w: width || this.moduleNo * 28 + 88, h: height || 48 };
+      }
+      moveGravObj(gravObj) {
+        if (gravObj.isLanded && !this.isGrabbed)
+          addXy(gravObj.pos, this.surfaceVelocity);
+      }
+    }
+
+    class Box extends Surface {
+      constructor({ pos, color }) {
+        super({
+          el: Object.assign(document.createElement("div"), {
+            className: "box el",
+          }),
+          offset: { x: 10, y: 10 },
+          pos,
+        });
+        this.color = color;
+        Object.assign(this, {
+          defaultClass: "box el",
+          velocity: { x: 0, y: 12 },
+          radius: 10,
+          size: { w: 10, h: 10 },
+          expression: "neutral",
+          zIndex: 0,
+        });
+        world.objects.push(this);
+        this.el.style.setProperty("--bg", color || "#ffffff");
+        this.addToWorld();
+      }
+      setExpression(e) {
+        this.expression = e;
+        this.el.setAttribute("expression", e);
+      }
+      get elInContact() {
+        return world.contactElements.find(
+          (el) => el !== this && el.isGravObjInContact(this),
+        );
+      }
+      land(bool) {
+        this.isLanded = bool;
+        this.el.classList[bool ? "add" : "remove"]("on-ground");
+      }
+      hitCheckWalls() {
+        if (this.pos.x + this.radius > wrapper.size.w)
+          this.pos.x = wrapper.size.w - this.radius;
+        if (this.pos.x - this.radius < 0) this.pos.x = this.radius;
+        if (this.pos.y + this.radius > wrapper.size.h)
+          this.pos.y = wrapper.size.h - this.radius;
+        if (this.pos.y - this.radius < 0) this.pos.y = this.radius;
+      }
+      spaceOutObjects() {
+        world.objects.forEach((o) => {
+          if (this === o) return;
+          const d = this.distanceBetween(o.pos);
+          if (d < this.radius * 2) {
+            const ov = d - this.radius * 2;
+            this.pos = this.getNewPosBasedOnTarget({
+              el: o.pos,
+              maxDistance: ov / 2,
+            });
+          }
+        });
+      }
+      resetZIndex() {
+        this.zIndex = 0;
+        this.el.style.zIndex = 0;
+      }
+      move() {
+        if (this.isGrabbed) return;
+        const { elInContact } = this;
+        if (elInContact) {
+          elInContact.triggerOnContact?.(this);
+          elInContact.moveGravObj?.(this);
+          this.setExpression(elInContact.expression || "neutral");
+          world.objects
+            .filter((o) => o.base === this)
+            .forEach((d) => {
+              elInContact?.moveGravObj?.(d);
+            });
+        } else {
+          addXy(this.pos, this.velocity);
+          this.land(false);
+          this.base = null;
+          this.resetZIndex();
+          this.isGrabbed = false;
+          this.setExpression("surprise");
+        }
+        this.hitCheckWalls();
+        this.spaceOutObjects();
+        this.setPos();
+      }
+    }
+
+    const world = {
+      contactElements: [],
+      objects: [],
+      interval: null,
+      start() {
+        clearInterval(this.interval);
+        this.interval = setInterval(() => {
+          this.objects.forEach((o) => o.move && o.move());
+          this.contactElements.sort((a, b) => a.pos.y - b.pos.y);
+        }, 100);
+      },
+      renderFromConfigs(configs) {
+        configs.forEach((config) => {
+          try {
+            new {
+              box: Box,
+              pneumaticTube: PneumaticTube,
+              conveyorBelt: ConveyorBelt,
+            }[config.type](config.props);
+          } catch (e) {}
+        });
+      },
+    };
+
+    const wrapper = {
+      el: factoryEl,
+      canDrag: false,
+      pos: { x: 0, y: 0 },
+      pointerPos: { x: 0, y: 0 },
+    };
+    wrapper.size = { w: 2000, h: 1000 };
+
+    // Theme-aware colors
+    const isDark = () => document.documentElement.classList.contains("dark");
+    function themedColor(original) {
+      if (!original || original === "#ffffff" || original === "#fff")
+        return isDark() ? "#F0F0F5" : "#333333";
+      if (original === "#42c6d2") return isDark() ? "#2DD4BF" : "#0D9488";
+      if (original === "#797979") return isDark() ? "#3b3b50" : "#b0b0a8";
+      return original;
+    }
+
+    const originalConfig = [
+      { type: "box", props: { pos: { x: 755, y: 64 }, color: "#42c6d2" } },
+      { type: "box", props: { pos: { x: 672, y: 107 }, color: "#fff" } },
+      {
+        type: "pneumaticTube",
+        props: { tubeConfig: "urrdddll", pos: { x: 695, y: 112 } },
+      },
+      { type: "box", props: { pos: { x: 666, y: 127 }, color: "#42c6d2" } },
+      {
+        type: "conveyorBelt",
+        props: {
+          moduleNo: 5,
+          moveDirection: -1,
+          pos: { x: 556, y: 137 },
+          isActive: true,
+        },
+      },
+      {
+        type: "conveyorBelt",
+        props: {
+          moduleNo: 9,
+          moveDirection: -1,
+          pos: { x: 967, y: 159 },
+          isActive: true,
+        },
+      },
+      {
+        type: "conveyorBelt",
+        props: {
+          moduleNo: 6,
+          moveDirection: -1,
+          pos: { x: 107, y: 161 },
+          isActive: true,
+        },
+      },
+      { type: "box", props: { pos: { x: 499, y: 243 }, color: "#42c6d2" } },
+      {
+        type: "conveyorBelt",
+        props: {
+          moduleNo: 8,
+          moveDirection: 1,
+          pos: { x: 1150, y: 254 },
+          isActive: true,
+        },
+      },
+      { type: "box", props: { pos: { x: 362, y: 265 }, color: "#797979" } },
+      {
+        type: "conveyorBelt",
+        props: {
+          moduleNo: 7,
+          moveDirection: -1,
+          pos: { x: 197, y: 275 },
+          isActive: true,
+        },
+      },
+      {
+        type: "pneumaticTube",
+        props: { tubeConfig: "uuuurr", pos: { x: 499, y: 294 } },
+      },
+      {
+        type: "conveyorBelt",
+        props: {
+          moduleNo: 7,
+          moveDirection: 1,
+          pos: { x: 666, y: 299 },
+          isActive: true,
+        },
+      },
+      { type: "box", props: { pos: { x: 660, y: 313 }, color: "#797979" } },
+      {
+        type: "conveyorBelt",
+        props: {
+          moduleNo: 7,
+          moveDirection: -1,
+          pos: { x: 326, y: 318 },
+          isActive: true,
+        },
+      },
+      {
+        type: "pneumaticTube",
+        props: {
+          tubeConfig: "dlldddrrrrrrruulllddddlllll",
+          pos: { x: 1144, y: 327 },
+        },
+      },
+      { type: "box", props: { pos: { x: 1129, y: 375 }, color: "#797979" } },
+      {
+        type: "conveyorBelt",
+        props: {
+          moduleNo: 5,
+          moveDirection: 1,
+          pos: { x: 575, y: 376 },
+          isActive: true,
+        },
+      },
+      { type: "box", props: { pos: { x: 1354, y: 423 }, color: "#42c6d2" } },
+      {
+        type: "pneumaticTube",
+        props: { tubeConfig: "uldddrr", pos: { x: 488, y: 433 } },
+      },
+      {
+        type: "conveyorBelt",
+        props: {
+          moduleNo: 6,
+          moveDirection: 1,
+          pos: { x: 469, y: 456 },
+          isActive: true,
+        },
+      },
+      { type: "box", props: { pos: { x: 136, y: 465 }, color: "#fff" } },
+      { type: "box", props: { pos: { x: 827, y: 517 }, color: "#797979" } },
+      { type: "box", props: { pos: { x: 467, y: 529 }, color: "#42c6d2" } },
+      {
+        type: "pneumaticTube",
+        props: { tubeConfig: "uurrdddlluu", pos: { x: 121, y: 561 } },
+      },
+      {
+        type: "pneumaticTube",
+        props: { tubeConfig: "urruuuuuuuuurr", pos: { x: 827, y: 565 } },
+      },
+      { type: "box", props: { pos: { x: 649, y: 579 }, color: "#42c6d2" } },
+      { type: "box", props: { pos: { x: 739, y: 599 }, color: "#fff" } },
+      { type: "box", props: { pos: { x: 142, y: 609 }, color: "#42c6d2" } },
+      {
+        type: "conveyorBelt",
+        props: {
+          moduleNo: 16,
+          moveDirection: -1,
+          pos: { x: 459, y: 609 },
+          isActive: true,
+        },
+      },
+      {
+        type: "conveyorBelt",
+        props: {
+          moduleNo: 12,
+          moveDirection: 1,
+          pos: { x: 763, y: 686 },
+          isActive: true,
+        },
+      },
+      {
+        type: "pneumaticTube",
+        props: { tubeConfig: "uuuuuuulllluuurr", pos: { x: 315, y: 736 } },
+      },
+      { type: "box", props: { pos: { x: 347, y: 754 }, color: "#42c6d2" } },
+      {
+        type: "pneumaticTube",
+        props: { tubeConfig: "uuuuuuuuuuuuurr", pos: { x: 47, y: 765 } },
+      },
+      { type: "box", props: { pos: { x: 575, y: 774 }, color: "#42c6d2" } },
+      { type: "box", props: { pos: { x: 268, y: 774 }, color: "#fff" } },
+      {
+        type: "conveyorBelt",
+        props: {
+          moduleNo: 68,
+          moveDirection: 1,
+          pos: { x: 12, y: 784 },
+          isActive: true,
+        },
+      },
+    ];
+
+    const themedConfig = originalConfig.map((c) => {
+      if (c.type === "box" && c.props.color)
+        return {
+          ...c,
+          props: { ...c.props, color: themedColor(c.props.color) },
+        };
+      return c;
+    });
+
+    world.renderFromConfigs(themedConfig);
+    world.start();
+    window.__factoryInterval = world.interval;
+
+    // Reveal factory — hidden by CSS until astro:page-load fires
+    var fixedEl = document.getElementById("factoryFixed");
+    if (fixedEl) {
+      fixedEl.style.transition = "opacity 0.5s ease";
+      fixedEl.classList.remove("factory-hidden");
+    }
+  }
+
+  document.addEventListener("astro:page-load", () => {
+    setTimeout(() => {
+      initFactory();
+    }, 175);
+  });
+</script>
+
+<style>
+  /* Factory background — fixed, masked gradient */
+  .factory-fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+    mask-image: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.08) 0%,
+      rgba(0, 0, 0, 0.13) 33%,
+      rgba(0, 0, 0, 0.19) 66%,
+      rgba(0, 0, 0, 0.25) 100%
+    );
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.08) 0%,
+      rgba(0, 0, 0, 0.13) 33%,
+      rgba(0, 0, 0, 0.19) 66%,
+      rgba(0, 0, 0, 0.25) 100%
+    );
+  }
+
+  .factory-wrapper {
+    position: absolute;
+    width: 2000px;
+    height: 1000px;
+    bottom: -150px;
+    left: 50%;
+    margin-left: -712px;
+    background-color: var(--background);
+  }
+
+  .factory-wrapper :global(*) {
+    pointer-events: none;
+  }
+
+  /* Conveyor belt sprites */
+  .factory-fixed :global(.conveyor-belt) {
+    position: absolute;
+    --m: 4;
+    --h: 12px;
+    --move-direction: -1;
+    --frame-no: 5;
+  }
+
+  .factory-fixed :global(.belt-wrapper) {
+    display: flex;
+  }
+
+  .factory-fixed :global(.pix) {
+    overflow: hidden;
+    position: relative;
+    --width: calc(var(--m) * var(--w));
+    --height: calc(var(--m) * var(--h));
+    width: var(--width);
+    height: var(--height);
+  }
+
+  .factory-fixed :global(.pix::after) {
+    content: "";
+    image-rendering: pixelated;
+    position: absolute;
+    width: calc(var(--width) * var(--frame-no));
+    height: var(--height);
+    background-image: var(--bg-image);
+    background-size: cover;
+    animation: factory-frame 0.5s infinite steps(calc(var(--frame-no) - 1));
+    animation-play-state: paused;
+    filter: brightness(2.5);
+  }
+
+  :global(html:not(.dark)) .factory-fixed :global(.pix::after) {
+    filter: brightness(0.4);
+  }
+
+  .factory-fixed :global(.conveyor-belt .pix) {
+    width: calc(var(--width) - (var(--m) * 2px));
+    height: calc(var(--height) - (var(--m) * 2px));
+  }
+
+  .factory-fixed :global(.conveyor-belt .pix::after) {
+    top: calc(-1px * var(--m));
+    left: calc(-1px * var(--m));
+  }
+
+  .factory-fixed :global(.animate .pix::after) {
+    animation-play-state: running;
+  }
+
+  .factory-fixed :global(.belt-module) {
+    --w: 7px;
+    --bg-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACMAAAAMCAYAAADoIwS6AAAAjklEQVR4AezUywmEQBBF0ZnJwvyDM4yRI1wpBPcuWri8TykUrfj7vOg6l9m27T+57zdnfPM8jTnTyRQ8+CjTc5l9378Tg8mc8c3yNOZMJ1Pw4KNMz2WYN7CWeXoL62TWyTydwFN/fTP9hNIeKKf1tI6WKXS4+3LqHsjXMv2EUkOUU13UUV2aL1PokaehPwAAAP//z+meLwAAAAZJREFUAwB+U6AZmRQ4AQAAAABJRU5ErkJggg==);
+  }
+
+  .factory-fixed :global(.belt-edge) {
+    --w: 11px;
+    --bg-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAG4AAAAYCAYAAAAbIMgnAAACh0lEQVR4AeyWAW7jQAwDffeL/P9xecYdBgZdWZHoTb0FYtQFWGlFitmVGqB/l/vnkhO4F3fJtS3L8OIej8c/h3ffLy/16dxF6Y5i7pc+13UWfxSlz1F9XV18F3NfPqtPdZ3bxWWhGs7G23ed4Nk5lIvDdLVfFuXP5/OPg/Quyksa/GLOuYN0Vax85SO9zjmKr6LzlY/6dFZUvYvoxJF3yBqdXxYXLyszic/Eq/nyVt6vqJzzGcyaw25x2fTMBWPv7btOQ3NQXKvf+71bnCxm/XXJT/FKvjOGq3fnOGMO2+JGLoomIl+oOqOv6rGGJiJyLj8aQPQkd17iRnRoItTrInrHw6GJoNZhW5wE3TAwlEaxqonLsfb9+ucn6m/fdRpuDi+LW1v2v52B43BhYYA8w/U6Dh94QJ7R1dE5Dt7B9TrOecK53o4bWhzmNz5rAtvi+FaA2dfjLwbM9v3tftvifvsgrvb+bXF8K0D1APdNdFzlFWuu13HRo8pdr+Mqr1hzvY7DAx6QZ3R1dB23LQ4ReGd5nSk+GVfyde+quKqW36/zrDlsixv5cDQRuoyL6B0PhyaC2hHQj2jQCUd6eLREBzQRThu5bmnSRE9y1au4LS6SRx8Qte/kV/HlnsI77xvV4j2q7XS7xcUtzzDXh/60b/TXZw7FRhT9PnUOu8XxjnzpWRe/fZnussyaw8visI/mnOPyyB3Qd4i+yp0XXOeV61FL3kF94nWuou4oTj0xdpzqVex8pY3+OZemXBwk5oB8JvAEMz3xwhOQzwSeYKYnXngC8u+gXZzMMAf5TK2CdKOx8oi1UR/pYm+VZ53OR7HyoqY+8gjVj2LVE2s5l9/h4iS842dN4D8AAAD//0D8heAAAAAGSURBVAMAW8EMXhplLEUAAAAASUVORK5CYII=);
+  }
+
+  .factory-fixed :global(.flip) {
+    transform: scale(-1, -1);
+  }
+
+  @keyframes factory-frame {
+    0% {
+      background-position: calc(var(--width) * var(--move-direction))
+        calc(var(--height));
+    }
+    100% {
+      background-position: calc(
+          var(--width) * var(--move-direction) * var(--frame-no)
+        )
+        calc(var(--height));
+    }
+  }
+
+  .factory-fixed :global(.box) {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    margin-top: -10px;
+    margin-left: -10px;
+    transition: 0.1s;
+  }
+
+  .factory-fixed :global(.box::after) {
+    position: absolute;
+    content: "";
+    width: 20px;
+    height: 20px;
+    top: 0;
+    left: 0;
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAKCAYAAADGmhxQAAAAjElEQVR4AeyRUQqAMAxDp/e/s/IGGTHM6fBHQSEsS9Ja61pe/vwDPv1Bn9ngNvjSkXdWNqpxz3n2qt7sBikCvWY9PXPTdw24DCrdg4OMowHpzqXpdM+5fJ3V04AS2YJDep6egafvd3zgWnJ8R/NzQKZ2tGAQz8DDnr56D+clB5zufKOAF4KrKBlwyO0AAAD//+gQ4F8AAAAGSURBVAMAe0AYFZUAvYEAAAAASUVORK5CYII=);
+    image-rendering: pixelated;
+    background-size: cover;
+    background-position: 0 0;
+    background-color: var(--bg);
+  }
+
+  .factory-fixed :global(.box[expression="surprise"]::after) {
+    background-position: 40px 0;
+  }
+  .factory-fixed :global(.box[expression="joy"]::after) {
+    background-position: 20px 0;
+  }
+  .factory-fixed :global(.box[expression="sleepy"]::after) {
+    background-position: 60px 0;
+  }
+
+  /* Pneumatic tubes */
+  .factory-fixed :global(.pneumatic-tube) {
+    position: absolute;
+    --m: 2;
+    --w: 24px;
+    --h: 24px;
+    --frame-no: 1;
+    --offset: 0px;
+    margin-top: calc(var(--h) * -1);
+    margin-left: calc(var(--w) * -1);
+    z-index: 10;
+  }
+
+  .factory-fixed :global(.pneumatic-tube .pix::after) {
+    filter: brightness(0.8);
+  }
+  :global(html:not(.dark)) .factory-fixed :global(.pneumatic-tube .pix::after) {
+    filter: brightness(0.6);
+  }
+
+  .factory-fixed :global([variant="straight"] .tube) {
+    --bg-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAPElEQVR4AeyVsQkAAAjD1P9/1hM6ZZFkFoS00CmYBw8WZhrmQQZwS0tF0bCKVBQNxANblBXBe7MOTszgAAAA//+VdSGoAAAABklEQVQDANbXwDGnv3nqAAAAAElFTkSuQmCC);
+  }
+
+  .factory-fixed :global([variant="elbow"] .tube) {
+    --bg-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAeklEQVR4AeyUSwrAIAxEW+9/Z2UWAwHjJzK60UBoKfa9Zqimb3NdKMjBmorIMv9gdQUEW2b0n2gKACc4CrXrXQHhduHqvStYhXnvVQLl10NYCfBQ2WcF6niQxNkJYFT3m2CY6IuoGRH2FHpLRADzqJcLCOdocgHBvBYAAAD//xGdci8AAAAGSURBVAMAj7dkKYBqE1kAAAAASUVORK5CYII=);
+  }
+
+  .factory-fixed :global([variant="entrance"] .tube) {
+    --bg-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAaElEQVR4AeyTMQoAMAgD2/7/zy0BM1jazdsURFxyGHUNOBqQDN6PKLVoPqIUkMaJpgFhxL8gFumYjEQAEjcEAxiCAgRBAfo7DCBxbAKLYwAJOzGLGmAHUtX33lm6A13PnaWANE40OOAAAAD//2ff7uMAAAAGSURBVAMAMuw0MaZMgU0AAAAASUVORK5CYII=);
+  }
+
+  .factory-fixed :global(.btn-wrapper) {
+    display: none;
+  }
+
+  .factory-fixed :global(.box.on-ground::after) {
+    animation: factory-plop forwards 0.4s;
+    transform-origin: center bottom;
+  }
+
+  @keyframes factory-plop {
+    0% {
+      transform: scale(1);
+    }
+    90% {
+      transform: scale(1.2, 0.9);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  :global(html:not(.dark)) .factory-fixed {
+    opacity: 0.6;
+  }
+
+  /* Factory starts hidden — revealed by initFactory after astro:page-load */
+  .factory-hidden {
+    opacity: 0 !important;
+  }
+
+  .bento-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 24px;
+  }
+
+  .bento-card {
+    border: 1px solid #1e1e2a;
+    background: rgba(255, 255, 255, 0.025);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 20px;
+    padding: 8px;
+    transition: all 0.25s ease;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+
+  :global(html:not(.dark)) .bento-card {
+    border-color: #d8d8d0;
+    background: rgba(0, 0, 0, 0.025);
+  }
+
+  .bento-card:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: #2a2a3a;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  }
+
+  :global(html:not(.dark)) .bento-card:hover {
+    background: rgba(0, 0, 0, 0.05);
+    border-color: #c0c0b8;
+  }
+
+  .bento-card:hover h3 {
+    color: hsl(var(--primary));
+  }
+
+  .bento-1 {
+    grid-column: span 1;
+  }
+  .bento-2col {
+    grid-column: span 2;
+  }
+  .bento-3col {
+    grid-column: span 3;
+    grid-row: span 2;
+  }
+  .bento-full {
+    grid-column: span 4;
+  }
+
+  .bento-inner {
+    border-radius: 16px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .bento-inner--horizontal {
+    flex-direction: row;
+  }
+
+  .bento-content {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+  }
+
+  .bento-visual {
+    flex: 1;
+    min-height: 120px;
+    background: #0d0d14;
+    border-radius: 0 0 16px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  :global(html:not(.dark)) .bento-visual {
+    background: #ededea;
+  }
+
+  .bento-inner--horizontal .bento-visual {
+    border-radius: 0 16px 16px 0;
+  }
+
+  .dot-pattern {
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, #2a2a3a 1px, transparent 1px);
+    background-size: 16px 16px;
+  }
+
+  :global(html:not(.dark)) .dot-pattern {
+    background-image: radial-gradient(circle, #c0c0b8 1px, transparent 1px);
+  }
+
+  /* Tablet */
+  @media (max-width: 900px) {
+    .bento-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+    .bento-2col {
+      grid-column: span 2;
+    }
+    .bento-3col {
+      grid-column: span 2;
+      grid-row: span 1;
+    }
+    .bento-full {
+      grid-column: span 2;
+    }
+    .bento-inner--horizontal {
+      flex-direction: column;
+    }
+    .bento-inner--horizontal .bento-visual {
+      border-radius: 0 0 16px 16px;
+      min-height: 100px;
+    }
+  }
+
+  /* Mobile */
+  @media (max-width: 600px) {
+    .bento-grid {
+      grid-template-columns: 1fr;
+    }
+    .bento-1,
+    .bento-2col,
+    .bento-3col,
+    .bento-full {
+      grid-column: span 1;
+      grid-row: span 1;
+    }
+  }
+</style>

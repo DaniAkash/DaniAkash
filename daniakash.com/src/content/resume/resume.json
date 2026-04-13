@@ -1,0 +1,125 @@
+{
+  "tagline": "Expert vibe coder, agent designer, and AI enthusiast",
+  "about": [
+    "Passionate about building high-impact products that solve real problems for real users.",
+    "Founding engineer behind BrowserOS, OSlash, and the Pickyourtrail mobile app.",
+    "Been architecting and shipping scalable products from scratch — long before AI started writing the code."
+  ],
+  "skills": [
+    {
+      "label": "Front-End",
+      "text": "React, Next.js, Expo, React Router, shadcn/UI, TanStack libraries, Radix UI"
+    },
+    {
+      "label": "Styling",
+      "text": "Tailwind CSS, CSS-in-JS (Linaria, Styled Components)"
+    },
+    { "label": "Build Tools", "text": "Webpack, Vite, Rollup, Parcel, Rspack" },
+    {
+      "label": "Mobile",
+      "text": "React Native, Expo — cross-platform Android & iOS (100k+ downloads)"
+    },
+    {
+      "label": "State Management",
+      "text": "Redux, Zustand, React Query, Signals, XState, Nano Stores"
+    },
+    {
+      "label": "Rendering",
+      "text": "SSR, SSG, ISR, Server Components, Streaming SSR, Edge Rendering"
+    },
+    {
+      "label": "Infrastructure",
+      "text": "AWS Lambda, Serverless Stack, Cloudflare Workers, Vercel Edge Middleware"
+    },
+    {
+      "label": "API Design",
+      "text": "REST, GraphQL, Relay, urql, The Guild tooling"
+    },
+    { "label": "Frameworks", "text": "Svelte, Solid, Astro, Remix, Qwik" },
+    { "label": "Runtimes", "text": "Node.js, Deno, Bun, WinterCG" }
+  ],
+  "jobs": [
+    {
+      "title": "Clarifai — Senior Frontend Engineer",
+      "duration": "Oct 2023 — Present",
+      "description": "AI platform that helps users build complex AI workflows by combining various models.",
+      "contributions": [
+        "<strong>Clarifai Node.js SDK:</strong> Created a fully tested, typesafe SDK for integrating Clarifai into Node.js backends with auto-generated API documentation.",
+        "<strong>AI Workflow Builder:</strong> Spearheaded the development of a drag-and-drop workflow builder using React Flow and shadcn/UI — one of Clarifai's core features.",
+        "<strong>API Documentation:</strong> Set up Swagger-based API documentation for gRPC APIs using grpc-gateway with detailed code snippets for core SDK functionalities.",
+        "<strong>Release Automation:</strong> Established automated release process with changelog updates, SEO best practices, and integrated analytics."
+      ]
+    },
+    {
+      "title": "Wundergraph — Senior Software Engineer",
+      "duration": "Apr 2023 — Sep 2023",
+      "description": "GraphQL gateway for managing federated GraphQL, positioned as an alternative to Apollo Federation.",
+      "contributions": [
+        "<strong>Client SDKs:</strong> Created client SDKs for Svelte, Relay, and Expo — well-documented, tested, and widely adopted by customers.",
+        "<strong>Open Previews:</strong> Built an internal tool similar to Vercel's preview comments feature, later open-sourced.",
+        "<strong>Community:</strong> Participated in Show & Tell videos on YouTube and actively engaged with the community on Discord."
+      ]
+    },
+    {
+      "title": "OSlash — Lead Frontend Engineer",
+      "duration": "Dec 2020 — Mar 2023",
+      "description": "Started as founding lead engineer for the Chrome extension, promoted to Engineering Manager after successful v1 delivery.",
+      "contributions": [
+        "<strong>Chrome Extension:</strong> Led development of OSlash's Chrome extension from inception to launch.",
+        "<strong>Full-Stack:</strong> Used Next.js as full-stack framework for the main dashboard, Astro for performance-critical micro frontends using Islands Architecture.",
+        "<strong>Design System:</strong> Developed and maintained a custom design system using Tailwind CSS.",
+        "<strong>GraphQL Federation:</strong> Designed a serverless GraphQL federation with edge caching, authorization, rate limiting, and comprehensive error/metrics visibility."
+      ]
+    },
+    {
+      "title": "Pickyourtrail — Software Engineer",
+      "duration": "Oct 2017 — Dec 2020",
+      "description": "Digital travel assistant. Key role in building the mobile app and advancing the tech stack.",
+      "contributions": [
+        "<strong>Mobile App:</strong> Built the Pickyourtrail app for Android & iOS using React Native — 5-star rating on Google Play, 100k+ downloads.",
+        "<strong>TypeScript Integration:</strong> Led the successful integration of TypeScript into the existing web app.",
+        "<strong>Open Source:</strong> Actively contributed by open-sourcing modules created for the app in React Native Toolkit."
+      ]
+    },
+    {
+      "title": "Redblacktree — Software Engineer",
+      "duration": "Nov 2016 — Oct 2017",
+      "contributions": [
+        "<strong>Cross-Platform Apps:</strong> Developed two cross-platform mobile apps using React Native with full offline functionality.",
+        "<strong>Windows App:</strong> Built a Windows app for UWP, published on the Windows Store, using a custom React.js-based framework.",
+        "<strong>Research:</strong> Assisted teams on Node.js and Vue.js projects while researching JavaScript development improvements."
+      ]
+    },
+    {
+      "title": "doodleblue — Web Developer",
+      "duration": "Feb 2016 — Nov 2016",
+      "contributions": [
+        "<strong>Full-Stack:</strong> Led the development of full-stack applications using Laravel and built APIs for web and mobile apps.",
+        "<strong>Team Leadership:</strong> Promoted to team lead for a company-wide initiative to adopt React.js, React Native, Laravel, and Node.js."
+      ]
+    }
+  ],
+  "community": [
+    {
+      "title": "Conference & Meetup Speaker",
+      "description": "Active speaker at public meetups and conferences since 2017. All talks available on <a href=\"/speaking/\" class=\"text-primary hover:underline\">the speaking page</a>."
+    },
+    {
+      "title": "React Native Docs Contributor",
+      "description": "Written updated documentation for many components of the <a href=\"https://github.com/facebook/react-native-website/issues/1579\" target=\"_blank\" rel=\"noopener\" class=\"text-primary hover:underline\">official React Native docs</a> including Animated and PanResponder."
+    },
+    {
+      "title": "Open Source Projects",
+      "description": "Built many projects for the React & React Native community including BetterImage, Rex State, Responsive Dimensions, and more at <a href=\"https://github.com/DaniAkash\" target=\"_blank\" rel=\"noopener\" class=\"text-primary hover:underline\">github.com/daniakash</a>."
+    },
+    {
+      "title": "Author — JavaScript By Example (2017)",
+      "description": "Published by PACKT. A book covering modern JavaScript programming with real web apps."
+    }
+  ],
+  "education": {
+    "school": "Jeppiaar Engineering College",
+    "degree": "BE Computer Science & Engineering — 2012 to 2016, Chennai",
+    "description": "Active participant in IEEE student council and Computer Society of India student team, helping with building websites for events and actively organizing contests and symposiums."
+  }
+}

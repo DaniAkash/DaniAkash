@@ -1,89 +1,226 @@
 [
   {
     "title": "Workstation",
+    "variant": "hardware",
     "tools": [
       {
-        "title": "16” MacBook Pro, M2 Pro, 32GB RAM (2023)",
-        "description": "Handles pretty much anything thrown at it without even breaking a sweat. My primary device for all work & personal stuff."
+        "title": "16\" Macbook Pro, M4 Pro",
+        "tag": "PRIMARY DEVICE",
+        "description": "48 GB RAM (2024). The cockpit. Claude Code, Codex, Cursor and a fleet of AI agents run wild across worktrees while I orchestrate from the driver's seat.",
+        "image": "uses-v4/macbook-pro-16-m4-pro.jpg",
+        "size": "wide"
       },
       {
-        "title": "16” MacBook Pro, Intel Core i9, 32GB RAM (2019)",
-        "description": "My good 'ol Intel Mac which still handles heavy workloads without a hitch. Trusted secondary device."
+        "title": "16\" MacBook Pro, M2 Pro",
+        "tag": "CREATIVE",
+        "description": "32 GB RAM (2023). Where the talks get built, novels get written, and passion projects come to life. The machine that reminds me coding isn't everything.",
+        "image": "uses-v4/macbook-pro-16-m2-pro.jpg",
+        "size": "square"
       },
       {
-        "title": "4k 32” LG UltraFine Display Ergo",
-        "description": "Bigger the display, bigger the motivation to use it to read your code 😆 - also the ergonomic stand that comes with this model 🤌"
+        "title": "14\" MacBook Pro, M2 Pro",
+        "tag": "ALWAYS ON",
+        "description": "32 GB RAM (2023). Runs headless 24/7. Plex server, self-hosted apps, and autonomous AI agents that work while I sleep.",
+        "image": "uses-v4/macbook-pro-14-m2-pro.jpg",
+        "size": "square"
       },
       {
-        "title": "Keychron K4 Wireless Mechanical Keyboard",
-        "description": "Mechanical Keyboards are ❤️ and the satisfying clicks of the normal profile Keychron keyboard is the reason I code most of the time. Fun-fact, I learnt typing with a traditional type-writer which I badly miss now."
+        "title": "4K 32\" LG UltraFine Ergo",
+        "tag": "DISPLAY",
+        "description": "32 inches of 4K real estate on an ergonomic arm. More pixels means more worktrees visible at once. The stand alone is worth it.",
+        "image": "uses-v4/lg-ultrafine-ergo.jpg",
+        "size": "wide"
+      },
+      {
+        "title": "Keychron K4 Wireless",
+        "tag": "KEYBOARD",
+        "description": "Mechanical clicks that make every keystroke feel intentional. Full-size layout, wireless freedom.",
+        "image": "uses-v4/keychron-k4.jpg",
+        "size": "small"
       },
       {
         "title": "Logitech MX Master 3",
-        "description": "As a power user of VSCode, tmux & the tiles app in the Mac, I rarely need to click stuff on the screen. But when I do, I do it with the most ergonomic MX Master 3."
+        "tag": "MOUSE",
+        "description": "I live in the terminal, so the mouse rarely moves. But when it does, it's this one.",
+        "image": "uses-v4/logitech-mx-master-3.png",
+        "size": "small"
       },
       {
-        "title": "Monarch Elevate: Height Adjustable Table",
-        "description": "Because, sitting too much while you are thinking about what to name that variable is bad for your health. Always switch between sitting & standing every 1 hour & 15 mins respectively."
+        "title": "Greensoul Imperium",
+        "tag": "DESK",
+        "description": "Electric sit-stand desk. Because debugging posture is just as important as debugging code.",
+        "image": "uses-v4/greensoul-imperium.jpg",
+        "size": "small"
       },
       {
-        "title": "Senheisser HD 458BT headphones",
-        "description": "Most trusted headphones for work - taking video calls, watching egghead lessons, listening to podcasts while coding - can't live without this one."
+        "title": "Sennheiser HD 458BT",
+        "tag": "AUDIO",
+        "description": "Noise-cancelling companion for deep work. Podcasts in, distractions out.",
+        "image": "uses-v4/sennheiser-hd-458bt.webp",
+        "size": "small"
       }
     ]
   },
   {
-    "title": "Development tools",
+    "title": "Development Tools",
+    "variant": "software",
     "tools": [
       {
-        "title": "VSCodium",
-        "description": "A completely open-source variant of the VSCode with its own marketplace that supports all my vital extensions & a great logo."
+        "title": "Zed",
+        "tag": "Editor",
+        "description": "Native speed, zero lag. When you're juggling a dozen projects across worktrees, every millisecond of editor latency matters.",
+        "image": "uses-v4/icon-zed.svg",
+        "link": "https://zed.dev"
       },
       {
         "title": "Oh My Zsh!",
-        "description": "I can't use my mac terminal without installing Oh My Zsh & setting up my favorite theme. Who wants to cd into a directory, when you can just type the directory name directly!"
+        "tag": "Shell",
+        "description": "Auto-cd, smart completions, and a theme that sparks joy. The shell shouldn't fight you. It should read your mind.",
+        "image": "uses-v4/icon-ohmyzsh.png",
+        "link": "https://ohmyz.sh"
       },
       {
-        "title": "tmux",
-        "description": "With large screens comes no reason to open multiple tabs in your terminal - just keep the processes running across the tmux profiles."
+        "title": "Ghostty",
+        "tag": "Terminal",
+        "description": "Blazing fast, GPU-rendered, and endlessly configurable. The terminal where the real work happens.",
+        "image": "uses-v4/icon-ghostty.png",
+        "link": "https://ghostty.org"
+      },
+      {
+        "title": "dmux",
+        "tag": "Multiplexer",
+        "description": "The secret weapon. Spins up parallel AI agents across worktrees, manages sessions, and turns one terminal into a command center. Built on tmux.",
+        "image": "uses-v4/icon-dmux.svg",
+        "link": "https://dmux.ai/"
+      },
+      {
+        "title": "CodexBar",
+        "tag": "Menubar",
+        "description": "Real-time token burn rate, right in the menu bar. Know exactly what your agents are costing. Always.",
+        "image": "uses-v4/icon-codexbar.png",
+        "link": "https://codexbar.app"
       }
     ]
   },
   {
     "title": "Design",
+    "variant": "software",
     "tools": [
       {
-        "title": "Figma",
-        "description": "They say figma is a great design tool, but I use it to build flow charts & stick-figure prototypes of my weekend projects. I love it & I can't think of using another tool to do this."
+        "title": "Paper",
+        "tag": "AI Design",
+        "description": "Idea to mockup to code in one flow. AI-powered design that actually ships, not just pretty pictures.",
+        "image": "uses-v4/icon-paper.png",
+        "link": "https://paper.design"
       },
       {
         "title": "Excalidraw",
-        "description": "Professional quality scribbling & a very funny logo maker. I'd say this is my preferred design tool."
+        "tag": "Sketching",
+        "description": "When I need to think visually: architecture diagrams, flow charts, or questionable logo concepts. Fast and delightfully rough.",
+        "image": "uses-v4/icon-excalidraw.png",
+        "link": "https://excalidraw.com"
       }
     ]
   },
   {
     "title": "Productivity",
+    "variant": "software",
     "tools": [
       {
-        "title": "Tiles",
-        "description": "By removing the use of mouse to resize & move windows across the screen, I'm 2x more efficient but also 2x less efficient by wasting time deciding which window to place in which section of the screen."
+        "title": "Rectangle",
+        "tag": "Window Manager",
+        "description": "Keyboard-driven window tiling. 2x faster at arranging windows, 2x slower at deciding where they go.",
+        "image": "uses-v4/icon-rectangle.ico",
+        "link": "https://rectangleapp.com"
       },
       {
         "title": "Notion",
-        "description": "Pretty much all my ideas, projects, plans & thoughts about my digital life are recorded in the generous free tier provided by the Notion app."
+        "tag": "Second Brain + Calendar",
+        "description": "Notes, projects, plans, and now my calendar too. All in one place. Notion absorbed Cron and became the single source of truth for my entire digital life.",
+        "image": "uses-v4/icon-notion.png",
+        "link": "https://www.notion.com"
       },
       {
         "title": "Spark",
-        "description": "Keeping my inbox clean by only reading the messages filtered by this great email app."
-      },
-      {
-        "title": "Cron",
-        "description": "They say it's an extremely powerful tool for managing calendars, but I use it because its event reminders are so much better than the native mac calendar app."
+        "tag": "Email",
+        "description": "Smart filters keep the inbox at zero. If Spark didn't surface it, it probably wasn't worth reading.",
+        "image": "uses-v4/icon-spark.png",
+        "link": "https://sparkmailapp.com"
       },
       {
         "title": "Simplenote",
-        "description": "Replacing the need for paper in my life. Works across all my devices - take a quick note whenever you want & forget about it forever."
+        "tag": "Quick Notes",
+        "description": "The digital napkin. Capture a thought on any device, forget about it forever. Blissfully simple.",
+        "image": "uses-v4/icon-simplenote.png",
+        "link": "https://simplenote.com"
+      },
+      {
+        "title": "BrowserOS",
+        "tag": "AI Browser",
+        "description": "The browser I'm building. Gives every AI agent eyes to see the web. Navigate, interact, extract. The missing sense for autonomous workflows.",
+        "image": "uses-v4/icon-browseros.png",
+        "link": "https://www.browseros.com"
+      }
+    ]
+  },
+  {
+    "title": "Coding Agents",
+    "variant": "software",
+    "tools": [
+      {
+        "title": "Claude Code",
+        "tag": "Primary Agent",
+        "description": "The go-to for focused, deep coding sessions. Understands context like a senior engineer sitting next to you.",
+        "image": "uses-v4/icon-claude.png",
+        "link": "https://claude.ai/code"
+      },
+      {
+        "title": "Codex",
+        "tag": "Background Agent",
+        "description": "Fire-and-forget. Spins up ideas, runs experiments, handles the passive work while I focus elsewhere.",
+        "image": "uses-v4/icon-codex.png",
+        "link": "https://chatgpt.com/codex"
+      },
+      {
+        "title": "Cursor + GLM 5.1",
+        "tag": "Refactoring",
+        "description": "The experimental rig. Cursor's IDE + Z.ai's GLM for refactors, migrations, and the grunt work nobody wants to do.",
+        "image": "uses-v4/icon-cursor.png",
+        "link": "https://cursor.com"
+      },
+      {
+        "title": "Gemini CLI",
+        "tag": "UI Agent",
+        "description": "When the task is Material Design or mobile-first UI, Gemini gets it right out of the box.",
+        "image": "uses-v4/icon-gemini.svg",
+        "link": "https://github.com/google-gemini/gemini-cli"
+      },
+      {
+        "title": "Greptile",
+        "tag": "Code Review",
+        "description": "AI-powered reviews for high-stakes private repos. Catches what humans miss after the third PR of the day.",
+        "image": "uses-v4/icon-greptile.svg",
+        "link": "https://greptile.com"
+      },
+      {
+        "title": "GitHub Copilot",
+        "tag": "Code Review",
+        "description": "Handles reviews for side projects and open source. Keeps the quality bar up across everything I maintain.",
+        "image": "uses-v4/icon-copilot.svg",
+        "link": "https://github.com/features/copilot"
+      }
+    ]
+  },
+  {
+    "title": "24x7 Agent",
+    "variant": "software",
+    "tools": [
+      {
+        "title": "Hermes Agent",
+        "tag": "Always-On Agent",
+        "description": "Powered by Kimi K2.5 & GLM 5.1. A safe, sandboxed agent that never sleeps and never says no. Handles ad-hoc tasks around the clock: research, automation, whatever I throw at it.",
+        "image": "uses-v4/icon-hermes.png",
+        "link": "https://hermes-agent.nousresearch.com/"
       }
     ]
   }

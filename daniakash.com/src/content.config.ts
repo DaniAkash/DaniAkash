@@ -1,7 +1,7 @@
 import { defineCollection } from "astro:content";
+import { readFile } from "node:fs/promises";
 import { glob } from "astro/loaders";
 import { z } from "astro/zod";
-import { readFile } from "node:fs/promises";
 import rssToJson from "rss-to-json";
 import { NEWSLETTER_RSS } from "./constants/newsletter-rss";
 import { getDateDisplay } from "./utils/getDateDisplay";
@@ -125,14 +125,22 @@ const project = defineCollection({
     items: z.array(
       z.object({
         name: z.string(),
-        description: z.string(),
-        info: z.string().optional(),
-        link: z.object({
-          href: z.string(),
-          label: z.string(),
-        }),
-        logo: z.string(),
-        noBg: z.boolean().optional(),
+        description: z.string().optional(),
+        status: z.enum(["active", "oss", "previous"]).optional(),
+        tech: z.array(z.string()).optional(),
+        link: z
+          .object({
+            href: z.string(),
+            label: z.string(),
+          })
+          .optional(),
+        size: z.enum(["1", "2col", "3col", "full", "stat"]).default("1"),
+        stat: z
+          .object({
+            number: z.string(),
+            label: z.string(),
+          })
+          .optional(),
       }),
     ),
   }),
@@ -149,10 +157,15 @@ const uses = defineCollection({
     items: z.array(
       z.object({
         title: z.string(),
+        variant: z.enum(["hardware", "software"]).default("software"),
         tools: z.array(
           z.object({
             title: z.string(),
             description: z.string(),
+            tag: z.string().optional(),
+            image: z.string().optional(),
+            link: z.string().optional(),
+            size: z.enum(["wide", "square", "small"]).default("square"),
           }),
         ),
       }),
@@ -197,7 +210,65 @@ const now = defineCollection({
 });
 
 const resume = defineCollection({
-  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/resume" }),
+  loader: async () => [
+    {
+      id: "resume",
+      ...(await readJson("./content/resume/resume.json")),
+    },
+  ],
+  schema: z.object({
+    tagline: z.string(),
+    about: z.array(z.string()),
+    skills: z.array(
+      z.object({
+        label: z.string(),
+        text: z.string(),
+      }),
+    ),
+    jobs: z.array(
+      z.object({
+        title: z.string(),
+        duration: z.string(),
+        description: z.string().optional(),
+        contributions: z.array(z.string()),
+      }),
+    ),
+    community: z.array(
+      z.object({
+        title: z.string(),
+        description: z.string(),
+      }),
+    ),
+    education: z.object({
+      school: z.string(),
+      degree: z.string(),
+      description: z.string(),
+    }),
+  }),
+});
+
+const destinations = defineCollection({
+  loader: async () => [
+    {
+      id: "destinations",
+      items: await readJson("./content/destinations/destinations.json"),
+    },
+  ],
+  schema: z.object({
+    items: z.array(
+      z.object({
+        name: z.string(),
+        city: z.string(),
+        country: z.string(),
+        lat: z.number(),
+        lng: z.number(),
+        category: z.enum(["science", "culture", "cinema"]),
+        significance: z.string(),
+        wikipedia: z.string(),
+        "image-name": z.string(),
+      }),
+    ),
+  }),
 });
 
 export const collections = {
@@ -211,4 +282,5 @@ export const collections = {
   rss,
   now,
   resume,
+  destinations,
 };

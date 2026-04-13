@@ -1,33 +1,50 @@
 ---
-import type { GetStaticPaths } from "astro";
-import MainLayout from "../../layouts/MainLayout.astro";
-import ArticleContainer from "../../components/ArticleContainer.astro";
-import { TRANSITION_NAMES } from "../../constants/transition-names";
-import Newsletter from "../../components/Newsletter.astro";
 import { getCollection } from "astro:content";
-import { getOGImage } from "../../utils/getOGImage";
+import type { GetStaticPaths } from "astro";
 import { ASSET_PREFIX } from "../../constants/asset-prefix";
+import MainLayout from "../../layouts/MainLayout.astro";
+import Newsletter from "../../components/Newsletter.astro";
+import { getOGImage } from "../../utils/getOGImage";
 
 export const getStaticPaths = (async () => {
-  const items = await getCollection("rss");
+  const items = (await getCollection("rss")).sort(
+    (a, b) => b.data.dateMillis - a.data.dateMillis,
+  );
 
-  return items.map((each) => {
-    const content = each.data.description;
-    const title = each.data.title;
-    const slug = each.data.slug;
-    const dateValue = each.data.dateValue;
-    const dateDisplay = each.data.dateDisplay;
-    const canonical = each.data.canonical;
+  return items.map((each, index) => {
+    const prev = items[index + 1] ?? null;
+    const next = items[index - 1] ?? null;
     return {
-      params: { slug },
-      props: { content, dateValue, dateDisplay, title, canonical },
+      params: { slug: each.data.slug },
+      props: {
+        content: each.data.description,
+        dateValue: each.data.dateValue,
+        dateDisplay: each.data.dateDisplay,
+        title: each.data.title,
+        canonical: each.data.canonical,
+        prev: prev ? { slug: prev.data.slug, title: prev.data.title } : null,
+        next: next ? { slug: next.data.slug, title: next.data.title } : null,
+      },
     };
   });
 }) satisfies GetStaticPaths;
 
+const { content, dateDisplay, title, canonical, prev, next } = Astro.props;
+
+// Extract unique description from issue content, fallback to generic
+const fallbackDescription =
+  "Dani Akash's newsletter on AI, tech, science, and the web | delivered to your inbox.";
+const plainText = content
+  .replace(/<[^>]+>/g, " ")
+  .replace(/&[a-z]+;/gi, " ")
+  .replace(/\s+/g, " ")
+  .trim();
 const description =
-  "🌐 Explore the future of tech, science, and sustainability—one insight-packed issue at a time!";
-const { content, dateDisplay, dateValue, title, canonical } = Astro.props;
+  plainText.length > 150
+    ? plainText.substring(0, 150).replace(/\s+\S*$/, "") + "..."
+    : plainText.length > 10
+      ? plainText
+      : fallbackDescription;
 const { slug } = Astro.params;
 const image = `/og/newsletter/${slug}.png`;
 await getOGImage({
@@ -44,27 +61,119 @@ await getOGImage({
   image={image}
   canonical={canonical}
 >
-  <ArticleContainer>
-    <header class="flex flex-col">
-      <h1
-        class="mt-6 text-4xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-5xl"
-        transition:name={`${TRANSITION_NAMES.newsletterTitle}-${slug}`}
-      >
-        {title}
-      </h1>
-      <time
-        datetime={dateValue}
-        class="order-first flex items-center text-base text-zinc-400 dark:text-zinc-500"
-        transition:name={`${TRANSITION_NAMES.newsletterTime}-${slug}`}
-      >
-        <span class="h-4 w-0.5 rounded-full bg-zinc-200 dark:bg-zinc-500"
-        ></span>
-        <span class="ml-3">{dateDisplay}</span>
-      </time>
-    </header>
-    <div class="mt-6 max-w-2xl">
-      <Newsletter />
+  <article class="mx-auto max-w-[720px] pt-[120px] pb-20" id="article">
+    <!-- Back link -->
+    <a
+      href="/newsletter/"
+      class="text-muted-foreground hover:text-primary mb-12 inline-flex items-center gap-2 font-mono text-xs tracking-wide transition-colors"
+    >
+      ← Back to newsletter
+    </a>
+
+    <!-- Issue badge -->
+    <span
+      class="bg-primary/15 text-primary mb-4 inline-block rounded-full px-2.5 py-0.5 font-mono text-[11px] tracking-[0.08em] uppercase"
+    >
+      Newsletter
+    </span>
+
+    <!-- Date -->
+    <div class="text-muted-foreground mb-4 font-mono text-[13px] tracking-wide">
+      {dateDisplay}
     </div>
-    <div set:html={content} class="prose dark:prose-invert" />
-  </ArticleContainer>
+
+    <!-- Title -->
+    <h1
+      class="border-border mb-12 border-b border-dashed pb-12 leading-[1.15] font-bold tracking-[-0.03em]"
+      style="font-size: clamp(28px, 4vw, 40px);"
+    >
+      {title}
+    </h1>
+
+    <!-- Prose body -->
+    <div
+      class="prose dark:prose-invert max-w-none"
+      set:html={content}
+    />
+
+    <!-- Subscribe CTA -->
+    <Newsletter
+      heading="Enjoyed this issue?"
+      description="Subscribe to get future issues delivered to your inbox."
+      class="mt-20 rounded-xl p-6"
+    />
+
+    <!-- Prev/Next navigation -->
+    <div
+      class="border-border mt-12 flex justify-between border-t border-dashed pt-12"
+    >
+      {
+        prev ? (
+          <a
+            href={`/newsletter/${prev.slug}/`}
+            class="text-muted-foreground hover:text-primary font-mono text-[13px] transition-colors"
+          >
+            ← {prev.title}
+          </a>
+        ) : (
+          <span />
+        )
+      }
+      {
+        next ? (
+          <a
+            href={`/newsletter/${next.slug}/`}
+            class="text-muted-foreground hover:text-primary font-mono text-[13px] transition-colors"
+          >
+            {next.title} →
+          </a>
+        ) : (
+          <span />
+        )
+      }
+    </div>
+  </article>
 </MainLayout>
+
+
+<script is:inline>
+  document.addEventListener("astro:page-load", function () {
+    if (window.__readingProgressCleanup) window.__readingProgressCleanup();
+
+    var article = document.getElementById("article");
+    if (!article) return;
+
+    var existing = document.getElementById("readingProgress");
+    if (existing) existing.remove();
+
+    var container = document.createElement("div");
+    container.id = "readingProgress";
+    container.style.cssText =
+      "position:fixed;top:0;left:0;right:0;height:2px;z-index:9999;pointer-events:none;";
+    var bar = document.createElement("div");
+    bar.style.cssText =
+      "height:100%;width:0;background:var(--primary);transition:none;";
+    container.appendChild(bar);
+    document.body.appendChild(container);
+
+    var animId;
+    function update() {
+      var rect = article.getBoundingClientRect();
+      var total = rect.height - window.innerHeight;
+      if (total <= 0) {
+        bar.style.width = "100%";
+        return;
+      }
+      var pct = Math.max(0, Math.min(100, (-rect.top / total) * 100));
+      bar.style.width = pct + "%";
+      animId = requestAnimationFrame(update);
+    }
+    animId = requestAnimationFrame(update);
+
+    window.__readingProgressCleanup = function () {
+      cancelAnimationFrame(animId);
+      var el = document.getElementById("readingProgress");
+      if (el) el.remove();
+    };
+  });
+</script>

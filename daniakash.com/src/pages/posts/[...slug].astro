@@ -1,11 +1,12 @@
 ---
-import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
-import MainLayout from "../../layouts/MainLayout.astro";
 import { getCollection, render } from "astro:content";
-import { TRANSITION_NAMES } from "../../constants/transition-names";
-import { getDateValue } from "../../utils/getDateValue";
+import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
+import { Schema } from "astro-seo-schema";
+import { PERSON_ENTITY_ID } from "../../constants/seo";
+import MainLayout from "../../layouts/MainLayout.astro";
 import { getDateDisplay } from "../../utils/getDateDisplay";
-import ArticleContainer from "../../components/ArticleContainer.astro";
+import { getDateValue } from "../../utils/getDateValue";
+import Newsletter from "../../components/Newsletter.astro";
 import { getOGImage } from "../../utils/getOGImage";
 
 export const getStaticPaths = (async () => {
@@ -22,8 +23,11 @@ const { post } = Astro.props;
 const { Content } = await render(post);
 
 const dateValue = getDateValue(post.data.date);
+const dateISO = new Date(post.data.date).toISOString();
 const dateDisplay = getDateDisplay(post.data.date);
-const canonical = post.data.canonical || new URL(`/posts/${post.id}`, Astro.site).href;
+const canonical =
+  post.data.canonical || new URL(`/posts/${post.id}`, Astro.site).href;
+const siteUrl = Astro.site?.href || "https://daniakash.com/";
 const image = `/og/${post.id}.png`;
 await getOGImage({
   title: post.data.title,
@@ -38,29 +42,149 @@ await getOGImage({
   keywords={post.data.tags}
   canonical={canonical}
   image={image}
+  publishedTime={dateISO}
 >
-  <ArticleContainer>
-    <article>
-      <header class="flex flex-col">
-        <h1
-          class="mt-6 text-4xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-5xl"
-          transition:name={`${TRANSITION_NAMES.blogTitle}-${post.id}`}
-        >
-          {post.data.title}
-        </h1>
-        <time
-          datetime={dateValue}
-          class="order-first flex items-center text-base text-zinc-400 dark:text-zinc-500"
-          transition:name={`${TRANSITION_NAMES.blogTime}-${post.id}`}
-        >
-          <span class="h-4 w-0.5 rounded-full bg-zinc-200 dark:bg-zinc-500"
-          ></span>
-          <span class="ml-3">{dateDisplay}</span>
-        </time>
-      </header>
-      <div class="prose dark:prose-invert">
-        <Content />
-      </div>
-    </article>
-  </ArticleContainer>
+  <Schema
+    item={{
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      headline: post.data.title,
+      description: post.data.subtitle,
+      datePublished: dateISO,
+      author: {
+        "@type": "Person",
+        "@id": PERSON_ENTITY_ID,
+        name: "Dani Akash",
+        url: new URL("/about/", siteUrl).href,
+        jobTitle: "AI Engineer",
+      },
+      publisher: {
+        "@type": "Person",
+        "@id": PERSON_ENTITY_ID,
+        name: "Dani Akash",
+        url: new URL("/about/", siteUrl).href,
+      },
+      mainEntityOfPage: {
+        "@type": "WebPage",
+        "@id": canonical,
+      },
+      image: new URL(image, siteUrl).href,
+      keywords: post.data.tags?.join(", "),
+    }}
+  />
+  <article class="mx-auto max-w-[720px] pt-[120px] pb-20" id="article">
+    <!-- Navigation -->
+    <div class="mb-12 flex items-center gap-4 font-mono text-xs tracking-wide">
+      <button
+        onclick="history.back()"
+        class="inline-flex items-center gap-2 text-muted-foreground transition-colors hover:text-primary"
+      >
+        ← Back
+      </button>
+      <span class="text-border" aria-hidden="true">|</span>
+      <a
+        href="/blog/"
+        class="text-muted-foreground transition-colors hover:text-primary"
+      >
+        All posts
+      </a>
+    </div>
+
+    <!-- Post header -->
+    <div class="mb-4 flex items-center gap-3 font-mono text-[13px] tracking-wide text-muted-foreground">
+      <time datetime={dateValue}>
+        {dateDisplay}
+      </time>
+      <span class="text-border" aria-hidden="true">|</span>
+      <a href="/about/" class="transition-colors hover:text-primary">
+        Dani Akash
+      </a>
+    </div>
+
+    <h1
+      class="mb-6 font-bold leading-[1.15] tracking-[-0.03em]"
+      style="font-size: clamp(32px, 5vw, 48px);"
+    >
+      {post.data.title}
+    </h1>
+
+    <p
+      class="mb-12 border-b border-dashed border-border pb-12 text-xl font-light leading-relaxed text-muted-foreground"
+    >
+      {post.data.subtitle}
+    </p>
+
+    <!-- Prose body -->
+    <div class="prose dark:prose-invert max-w-none">
+      <Content />
+    </div>
+
+    <!-- Subscribe box -->
+    <Newsletter
+      heading="Enjoyed this post?"
+      description="Get new posts delivered straight to your inbox. No spam, ever."
+      class="mt-20"
+    />
+
+    <!-- Article footer -->
+    <div
+      class="mt-12 flex items-center gap-4 border-t border-dashed border-border pt-12 font-mono text-[13px]"
+    >
+      <button
+        onclick="history.back()"
+        class="text-muted-foreground transition-colors hover:text-primary"
+      >
+        ← Back
+      </button>
+      <span class="text-border" aria-hidden="true">|</span>
+      <a
+        href="/blog/"
+        class="text-muted-foreground transition-colors hover:text-primary"
+      >
+        All posts
+      </a>
+    </div>
+  </article>
 </MainLayout>
+
+<script is:inline>
+  document.addEventListener("astro:page-load", function () {
+    if (window.__readingProgressCleanup) window.__readingProgressCleanup();
+
+    var article = document.getElementById("article");
+    if (!article) return;
+
+    var existing = document.getElementById("readingProgress");
+    if (existing) existing.remove();
+
+    var container = document.createElement("div");
+    container.id = "readingProgress";
+    container.style.cssText =
+      "position:fixed;top:0;left:0;right:0;height:2px;z-index:9999;pointer-events:none;";
+    var bar = document.createElement("div");
+    bar.style.cssText =
+      "height:100%;width:0;background:var(--primary);transition:none;";
+    container.appendChild(bar);
+    document.body.appendChild(container);
+
+    var animId;
+    function update() {
+      var rect = article.getBoundingClientRect();
+      var total = rect.height - window.innerHeight;
+      if (total <= 0) {
+        bar.style.width = "100%";
+        return;
+      }
+      var pct = Math.max(0, Math.min(100, (-rect.top / total) * 100));
+      bar.style.width = pct + "%";
+      animId = requestAnimationFrame(update);
+    }
+    animId = requestAnimationFrame(update);
+
+    window.__readingProgressCleanup = function () {
+      cancelAnimationFrame(animId);
+      var el = document.getElementById("readingProgress");
+      if (el) el.remove();
+    };
+  });
+</script>

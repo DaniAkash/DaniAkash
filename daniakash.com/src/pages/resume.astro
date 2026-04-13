@@ -1,25 +1,158 @@
 ---
-import { getCollection, render } from "astro:content";
+import { getCollection } from "astro:content";
 import MainLayout from "../layouts/MainLayout.astro";
-import ArticleContainer from "../components/ArticleContainer.astro";
 
-const resume = (await getCollection("resume"))[0]!;
-const { Content } = await render(resume);
+const resumeData = (await getCollection("resume"))[0]!.data;
+const { tagline, about, skills, jobs, community, education } = resumeData;
 ---
 
-<MainLayout title="Resume">
-  <ArticleContainer>
-    <article>
-      <header class="flex flex-col">
-        <h1
-          class="mt-6 text-4xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-5xl"
-        >
-          Dani Akash
-        </h1>
-      </header>
-      <div class="prose dark:prose-invert">
-        <Content />
+<MainLayout title="Resume" description="Professional experience and skills of Dani Akash | AI Engineer with expertise in React Native, JavaScript, and web development.">
+  <article class="mx-auto max-w-[800px] pt-[120px] pb-20" id="article">
+
+    <!-- Header -->
+    <header class="mb-20 border-b border-dashed border-border pb-12">
+      <p class="mb-12 font-mono text-[11px] uppercase tracking-[1.65px] text-muted-foreground">
+        RESUME // DANI_AKASH
+      </p>
+      <h1 class="mb-4 font-bold leading-[1.05] tracking-[-0.03em]" style="font-size: clamp(42px, 6vw, 64px);">
+        Dani Akash
+      </h1>
+      <p class="mb-12 font-mono text-[15px] text-primary">
+        {tagline}
+      </p>
+      <div class="flex flex-col gap-4">
+        {about.map((line) => (
+          <p class="border-l-[3px] border-primary/20 pl-6 text-[17px] leading-relaxed text-muted-foreground">
+            {line}
+          </p>
+        ))}
       </div>
-    </article>
-  </ArticleContainer>
+    </header>
+
+    <!-- ═══ 01 Skills ═══ -->
+    <section class="mb-20">
+      <div class="mb-12 flex items-baseline gap-4 border-b border-dashed border-border pb-4">
+        <span class="font-mono text-5xl font-light text-foreground/10">01</span>
+        <span class="font-mono text-[11px] font-medium uppercase tracking-[0.2em] text-muted-foreground">Skills</span>
+      </div>
+      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        {skills.map((skill) => (
+          <div class="rounded-lg border border-border p-4 transition-colors hover:border-foreground/15 hover:bg-foreground/[0.025]">
+            <div class="mb-1 font-mono text-[11px] font-medium uppercase tracking-wide text-primary">
+              {skill.label}
+            </div>
+            <div class="text-sm leading-relaxed text-muted-foreground">
+              {skill.text}
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- ═══ 02 Work Experience ═══ -->
+    <section class="mb-20">
+      <div class="mb-12 flex items-baseline gap-4 border-b border-dashed border-border pb-4">
+        <span class="font-mono text-5xl font-light text-foreground/10">02</span>
+        <span class="font-mono text-[11px] font-medium uppercase tracking-[0.2em] text-muted-foreground">Work Experience</span>
+      </div>
+
+      {jobs.map((job) => (
+        <div class="border-b border-dashed border-border py-6 last:border-b-0">
+          <div class="mb-2 flex flex-wrap items-baseline justify-between gap-4">
+            <h3 class="text-xl font-semibold tracking-tight">{job.title}</h3>
+            <span class="shrink-0 font-mono text-xs text-muted-foreground">{job.duration}</span>
+          </div>
+          {job.description && (
+            <p class="mb-4 text-[15px] leading-relaxed text-muted-foreground">{job.description}</p>
+          )}
+          <div class="mb-2 font-mono text-[11px] uppercase tracking-wide text-muted-foreground">Key Contributions</div>
+          <ul class="flex flex-col gap-2">
+            {job.contributions.map((c) => (
+              <li class="relative pl-6 text-sm leading-relaxed text-muted-foreground before:absolute before:left-2 before:top-[10px] before:size-[5px] before:rounded-full before:bg-primary">
+                <Fragment set:html={c} />
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </section>
+
+    <!-- ═══ 03 Developer Community ═══ -->
+    <section class="mb-20">
+      <div class="mb-12 flex items-baseline gap-4 border-b border-dashed border-border pb-4">
+        <span class="font-mono text-5xl font-light text-foreground/10">03</span>
+        <span class="font-mono text-[11px] font-medium uppercase tracking-[0.2em] text-muted-foreground">Developer Community</span>
+      </div>
+
+      {community.map((item) => (
+        <div class="border-b border-dashed border-border py-4 last:border-b-0">
+          <h3 class="mb-1 text-[17px] font-medium">{item.title}</h3>
+          <p class="text-sm leading-relaxed text-muted-foreground">
+            <Fragment set:html={item.description} />
+          </p>
+        </div>
+      ))}
+    </section>
+
+    <!-- ═══ 04 Education ═══ -->
+    <section class="mb-20">
+      <div class="mb-12 flex items-baseline gap-4 border-b border-dashed border-border pb-4">
+        <span class="font-mono text-5xl font-light text-foreground/10">04</span>
+        <span class="font-mono text-[11px] font-medium uppercase tracking-[0.2em] text-muted-foreground">Education</span>
+      </div>
+
+      <div class="py-6">
+        <h3 class="text-xl font-semibold">{education.school}</h3>
+        <div class="mb-2 font-mono text-[13px] text-muted-foreground">
+          {education.degree}
+        </div>
+        <p class="text-sm leading-relaxed text-muted-foreground">
+          {education.description}
+        </p>
+      </div>
+    </section>
+
+  </article>
 </MainLayout>
+
+<script is:inline>
+  document.addEventListener("astro:page-load", function () {
+    if (window.__readingProgressCleanup) window.__readingProgressCleanup();
+
+    var article = document.getElementById("article");
+    if (!article) return;
+
+    var existing = document.getElementById("readingProgress");
+    if (existing) existing.remove();
+
+    var container = document.createElement("div");
+    container.id = "readingProgress";
+    container.style.cssText =
+      "position:fixed;top:0;left:0;right:0;height:2px;z-index:9999;pointer-events:none;";
+    var bar = document.createElement("div");
+    bar.style.cssText =
+      "height:100%;width:0;background:var(--primary);transition:none;";
+    container.appendChild(bar);
+    document.body.appendChild(container);
+
+    var animId;
+    function update() {
+      var rect = article.getBoundingClientRect();
+      var total = rect.height - window.innerHeight;
+      if (total <= 0) {
+        bar.style.width = "100%";
+        return;
+      }
+      var pct = Math.max(0, Math.min(100, (-rect.top / total) * 100));
+      bar.style.width = pct + "%";
+      animId = requestAnimationFrame(update);
+    }
+    animId = requestAnimationFrame(update);
+
+    window.__readingProgressCleanup = function () {
+      cancelAnimationFrame(animId);
+      var el = document.getElementById("readingProgress");
+      if (el) el.remove();
+    };
+  });
+</script>

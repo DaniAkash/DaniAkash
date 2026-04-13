@@ -1,14 +1,16 @@
-import { defineConfig } from "astro/config";
-import tailwindcss from "@tailwindcss/vite";
 import mdx from "@astrojs/mdx";
-import rehypeExternalLinks from "rehype-external-links";
-import metaTags from "astro-meta-tags";
-
+import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
+import tailwindcss from "@tailwindcss/vite";
+import { defineConfig } from "astro/config";
+import metaTags from "astro-meta-tags";
+import robotsTxt from "astro-robots-txt";
+import rehypeExternalLinks from "rehype-external-links";
+import { SITE_URL } from "./src/constants/seo.ts";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://daniakash.com",
+  site: SITE_URL,
   redirects: {
     "/blog/[...slug]": "/posts/[...slug]",
   },
@@ -41,5 +43,34 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
   },
-  integrations: [mdx(), metaTags(), sitemap()],
+  integrations: [
+    react(),
+    mdx(),
+    metaTags(),
+    sitemap({
+      serialize: (item) => {
+        item.lastmod = new Date();
+        return item;
+      },
+    }),
+    robotsTxt({
+      policy: [
+        {
+          userAgent: "*",
+          allow: "/",
+        },
+        // AI search bots — explicitly allow for citation visibility
+        { userAgent: "GPTBot", allow: "/" },
+        { userAgent: "ChatGPT-User", allow: "/" },
+        { userAgent: "PerplexityBot", allow: "/" },
+        { userAgent: "ClaudeBot", allow: "/" },
+        { userAgent: "anthropic-ai", allow: "/" },
+        { userAgent: "Google-Extended", allow: "/" },
+        { userAgent: "Googlebot", allow: "/" },
+        { userAgent: "Bingbot", allow: "/" },
+        { userAgent: "Applebot", allow: "/" },
+        { userAgent: "Bytespider", allow: "/" },
+      ],
+    }),
+  ],
 });

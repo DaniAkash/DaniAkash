@@ -1,107 +1,351 @@
 ---
 import { getCollection, render } from "astro:content";
-import { TRANSITION_NAMES } from "../constants/transition-names";
-import MainLayout from "../layouts/MainLayout.astro";
-import { ASSET_PREFIX } from "../constants/asset-prefix";
-import { Image } from "astro:assets";
-import TwitterIcon from "../components/icons/TwitterIcon.astro";
-import InstagramIcon from "../components/icons/InstagramIcon.astro";
+import Globe from "../components/Globe.tsx";
+import BlueskyIcon from "../components/icons/BlueskyIcon.astro";
 import GithubIcon from "../components/icons/GithubIcon.astro";
+import InstagramIcon from "../components/icons/InstagramIcon.astro";
 import LinkedinIcon from "../components/icons/LinkedinIcon.astro";
 import MailDarkIcon from "../components/icons/MailDarkIcon.astro";
-import BlueskyIcon from "../components/icons/BlueskyIcon.astro";
+import TwitterIcon from "../components/icons/TwitterIcon.astro";
+import { Schema } from "astro-seo-schema";
+import { ASSET_PREFIX } from "../constants/asset-prefix";
+import { PERSON_ENTITY_ID } from "../constants/seo";
+import MainLayout from "../layouts/MainLayout.astro";
 
+const siteUrl = Astro.site?.href || "https://daniakash.com/";
 const about = (await getCollection("about"))[0]!;
 const { Content } = await render(about);
 const social = (await getCollection("social"))[0]!;
+const destinationsData = (await getCollection("destinations"))[0]!;
+const destinations = destinationsData.data.items;
 ---
 
-<MainLayout title="About">
-  <div
-    class="mt-16 grid grid-cols-1 gap-y-16 lg:grid-cols-2 lg:grid-rows-[auto_1fr]"
-  >
-    <div class="lg:pl-20">
-      <div class="max-w-xs px-2.5 lg:max-w-none">
-        <Image
-          src={`${ASSET_PREFIX}/image-3.jpg`}
-          alt="about-image"
-          height={450}
-          width={450}
-          sizes="(min-width: 1024px) 32rem, 20rem"
-          class="aspect-square rotate-3 rounded-2xl bg-zinc-100 object-cover transition-all hover:rotate-0 dark:bg-zinc-800"
-          transition:name={TRANSITION_NAMES.heroImage}
-          loading="eager"
-        />
+<MainLayout title="About" description="Dani Akash | AI Engineer, builder, and speaker based in Chennai, India. Building AI agents and writing about JavaScript, React Native, and the web.">
+  <Schema
+    item={{
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "@id": PERSON_ENTITY_ID,
+      name: "Dani Akash",
+      url: new URL("/about/", siteUrl).href,
+      image: `${ASSET_PREFIX}/avatar.jpg`,
+      jobTitle: "AI Engineer",
+      description:
+        "AI Engineer, speaker, and open source contributor based in Chennai, India. Building AI agents and writing about JavaScript, React Native, and the web.",
+      nationality: {
+        "@type": "Country",
+        name: "India",
+      },
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: "Chennai",
+        addressCountry: "IN",
+      },
+      sameAs: [
+        social.data.github,
+        social.data.twitter,
+        social.data.bluesky,
+        social.data.linkedIn,
+        social.data.instagram,
+        "https://www.google.com/search?kgmid=/g/11gbhlgy7j",
+      ],
+      knowsAbout: [
+        "Artificial Intelligence",
+        "AI Agents",
+        "JavaScript",
+        "TypeScript",
+        "React Native",
+        "React",
+        "Web Development",
+        "Open Source",
+      ],
+    }}
+  />
+  <main class="about-page">
+    <div class="mx-auto max-w-[1200px] px-6">
+      <div class="about-grid">
+
+        <!-- Left: Content -->
+        <div class="about-content">
+          <p class="mb-6 font-mono text-[11px] uppercase tracking-[0.15em] text-muted-foreground">
+            01 // ABOUT
+          </p>
+          <h1
+            class="mb-12 font-bold leading-[1.1] tracking-[-0.03em]"
+            style="font-size: clamp(36px, 5vw, 56px);"
+          >
+            I'm Dani Akash
+          </h1>
+
+          <div class="prose dark:prose-invert max-w-none">
+            <Content />
+          </div>
+
+          <div class="about-section">
+            <div class="about-subtitle">SYSTEM.CONNECT // UPLINKS</div>
+            <div class="about-connect">
+              <a href={social.data.bluesky} class="connect-link" target="_blank" rel="noopener">
+                <BlueskyIcon /><span class="ml-4">Follow on Bluesky</span>
+              </a>
+              <a href={social.data.twitter} class="connect-link" target="_blank" rel="noopener">
+                <TwitterIcon /><span class="ml-4">Follow on X</span>
+              </a>
+              <a href={social.data.instagram} class="connect-link" target="_blank" rel="noopener">
+                <InstagramIcon /><span class="ml-4">Follow on Instagram</span>
+              </a>
+              <a href={social.data.github} class="connect-link" target="_blank" rel="noopener">
+                <GithubIcon /><span class="ml-4">Follow on GitHub</span>
+              </a>
+              <a href={social.data.linkedIn} class="connect-link" target="_blank" rel="noopener">
+                <LinkedinIcon /><span class="ml-4">Follow on LinkedIn</span>
+              </a>
+              <a href={`mailto:${social.data.email}`} class="connect-link" rel="noopener">
+                <MailDarkIcon /><span class="ml-4">{social.data.email}</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Globe + Spotlight (sticky) -->
+        <div class="about-viz">
+          <Globe client:only="react" destinations={destinations} />
+        </div>
+
       </div>
     </div>
-
-    <div class="lg:order-first lg:row-span-2">
-      <h1
-        class="text-4xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-5xl"
-        transition:name={TRANSITION_NAMES.heroTitle}
-      >
-        I’m Dani Akash
-      </h1>
-      <div class="prose mt-6 space-y-7 dark:prose-invert">
-        <Content />
-      </div>
-    </div>
-
-    <div class="lg:pl-20">
-      <ul role="list">
-        <li class="flex">
-          <a
-            href={social.data.bluesky}
-            class="group flex text-sm font-medium text-zinc-800 transition hover:text-teal-500 dark:text-zinc-200 dark:hover:text-teal-500"
-            target="_blank"
-            rel="noopener"
-            ><BlueskyIcon /><span class="ml-4">Follow on Bluesky</span></a
-          >
-        </li>
-        <li class="mt-4 flex">
-          <a
-            href={social.data.twitter}
-            class="group flex text-sm font-medium text-zinc-800 transition hover:text-teal-500 dark:text-zinc-200 dark:hover:text-teal-500"
-            target="_blank"
-            rel="noopener"
-            ><TwitterIcon /><span class="ml-4">Follow on X</span></a
-          >
-        </li>
-        <li class="mt-4 flex">
-          <a
-            href={social.data.instagram}
-            class="group flex text-sm font-medium text-zinc-800 transition hover:text-teal-500 dark:text-zinc-200 dark:hover:text-teal-500"
-            target="_blank"
-            rel="noopener"
-            ><InstagramIcon /><span class="ml-4">Follow on Instagram</span></a
-          >
-        </li><li class="mt-4 flex">
-          <a
-            href={social.data.github}
-            class="group flex text-sm font-medium text-zinc-800 transition hover:text-teal-500 dark:text-zinc-200 dark:hover:text-teal-500"
-            target="_blank"
-            rel="noopener"
-            ><GithubIcon /><span class="ml-4">Follow on GitHub</span></a
-          >
-        </li><li class="mt-4 flex">
-          <a
-            href={social.data.linkedIn}
-            class="group flex text-sm font-medium text-zinc-800 transition hover:text-teal-500 dark:text-zinc-200 dark:hover:text-teal-500"
-            target="_blank"
-            rel="noopener"
-            ><LinkedinIcon /><span class="ml-4">Follow on LinkedIn</span></a
-          >
-        </li><li
-          class="mt-8 flex border-t border-zinc-100 pt-8 dark:border-zinc-700/40"
-        >
-          <a
-            href={`mailto:${social.data.email}`}
-            class="group flex text-sm font-medium text-zinc-800 transition hover:text-teal-500 dark:text-zinc-200 dark:hover:text-teal-500"
-            rel="noopener"
-            ><MailDarkIcon /><span class="ml-4">{social.data.email}</span></a
-          >
-        </li>
-      </ul>
-    </div>
-  </div>
+  </main>
 </MainLayout>
+
+<style>
+  .about-page {
+    min-height: 100vh;
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+
+  /* Left column — scrolls naturally */
+  .about-content {
+    padding: 80px 0;
+  }
+
+  /* Subsection dividers */
+  .about-section {
+    margin-top: 48px;
+  }
+
+  .about-subtitle {
+    font-family: var(--font-mono, 'JetBrains Mono', monospace);
+    font-size: 11px;
+    color: var(--muted-foreground);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    padding-bottom: 8px;
+    border-bottom: 1px dashed var(--border);
+  }
+
+  /* Connect links */
+  .about-connect {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .connect-link {
+    font-family: var(--font-mono, 'JetBrains Mono', monospace);
+    font-size: 13px;
+    color: var(--muted-foreground);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 0;
+    transition: all 0.2s ease;
+    text-decoration: none;
+  }
+
+  .connect-link:hover {
+    color: var(--primary);
+  }
+
+  /* Right column — sticky globe */
+  .about-viz {
+    position: sticky;
+    top: 80px;
+    height: calc(100vh - 100px);
+  }
+
+  /* Globe wrap */
+  .about-viz :global(.globe-wrap) {
+    flex: 1;
+    min-height: 0;
+    border-radius: 16px 16px 0 0;
+    overflow: hidden;
+    border: 1px solid #1e1e2a;
+    border-bottom: none;
+    position: relative;
+  }
+
+  :global(html:not(.dark)) .about-viz :global(.globe-wrap) {
+    border-color: #d8d8d0;
+  }
+
+  /* Spotlight panel */
+  /* Polaroid card — JS-positioned to track marker */
+  .about-viz :global(.polaroid) {
+    position: absolute;
+    width: 140px;
+    background: #08080D;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    overflow: hidden;
+    z-index: 3;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+    opacity: 0;
+  }
+
+  :global(html:not(.dark)) .about-viz :global(.polaroid) {
+    background: #F5F5F0;
+    border-color: rgba(0, 0, 0, 0.08);
+  }
+
+  .about-viz :global(.polaroid-img) {
+    width: 100%;
+    aspect-ratio: 4/3;
+    object-fit: cover;
+    display: block;
+  }
+
+  .about-viz :global(.polaroid-caption) {
+    padding: 6px 8px;
+    font-family: var(--font-mono, 'JetBrains Mono', monospace);
+    font-size: 10px;
+    font-weight: 500;
+    text-align: center;
+    color: var(--foreground);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .about-viz :global(.spotlight) {
+    border: 1px solid #1e1e2a;
+    border-radius: 0 0 16px 16px;
+    padding: 16px 24px;
+    background: rgba(255, 255, 255, 0.025);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-height: 110px;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  :global(html:not(.dark)) .about-viz :global(.spotlight) {
+    border-color: #d8d8d0;
+    background: rgba(0, 0, 0, 0.025);
+  }
+
+  .about-viz :global(.spotlight:hover) {
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  :global(html:not(.dark)) .about-viz :global(.spotlight:hover) {
+    background: rgba(0, 0, 0, 0.05);
+  }
+
+  .about-viz :global(.spotlight-btn) {
+    font-family: var(--font-mono, 'JetBrains Mono', monospace);
+    font-size: 14px;
+    color: var(--muted-foreground);
+    background: none;
+    border: 1px solid #1e1e2a;
+    border-radius: 8px;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    padding: 0;
+  }
+
+  :global(html:not(.dark)) .about-viz :global(.spotlight-btn) {
+    border-color: #d8d8d0;
+  }
+
+  .about-viz :global(.spotlight-btn:hover) {
+    color: var(--primary);
+    border-color: var(--primary);
+    background: oklch(from var(--primary) l c h / 0.15);
+  }
+
+  .about-viz :global(.spotlight-input) {
+    font-family: var(--font-mono, 'JetBrains Mono', monospace);
+    font-size: 11px;
+    color: var(--foreground);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid #1e1e2a;
+    border-radius: 4px;
+    width: 32px;
+    height: 24px;
+    text-align: center;
+    padding: 0;
+    outline: none;
+    -moz-appearance: textfield;
+  }
+
+  :global(html:not(.dark)) .about-viz :global(.spotlight-input) {
+    background: rgba(0, 0, 0, 0.05);
+    border-color: #d8d8d0;
+  }
+
+  .about-viz :global(.spotlight-input:focus) {
+    border-color: var(--primary);
+  }
+
+  .about-viz :global(.spotlight-input::-webkit-inner-spin-button),
+  .about-viz :global(.spotlight-input::-webkit-outer-spin-button) {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Tablet */
+  @media (max-width: 900px) {
+    .about-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .about-content {
+      padding-top: 24px;
+    }
+
+    .about-viz {
+      position: relative;
+      top: 0;
+      height: 460px;
+    }
+  }
+
+  /* Mobile */
+  @media (max-width: 600px) {
+    .about-viz {
+      height: 480px;
+      overflow: hidden;
+    }
+  }
+
+  /* Very small screens — reduce spotlight padding */
+  @media (max-width: 360px) {
+    .about-viz :global(.spotlight) {
+      padding: 12px 16px;
+      gap: 8px;
+    }
+  }
+</style>
+
