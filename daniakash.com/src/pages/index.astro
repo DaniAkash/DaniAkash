@@ -155,7 +155,7 @@ const heroImages = [
 
     <!-- Photo gallery — full viewport width, bleeding off bottom -->
     <div
-      class="pointer-events-none absolute bottom-0 left-1/2 z-1 h-[380px] w-screen -translate-x-1/2 overflow-y-clip"
+      class="pointer-events-none absolute bottom-0 left-1/2 z-1 h-[380px] w-screen -translate-x-1/2 overflow-clip"
     >
       <div
         class="pointer-events-auto absolute bottom-[-120px] left-1/2 flex -translate-x-1/2 items-start gap-4"
@@ -223,7 +223,7 @@ const heroImages = [
               return (
                 <a
                   href={`/posts/${post.id}/`}
-                  class="group border-border hover:bg-foreground/5 -mx-4 grid grid-cols-[140px_1fr_auto] items-baseline gap-6 border-b border-dashed px-4 py-4 transition-colors last:border-b-0 hover:rounded-sm"
+                  class="group border-border hover:bg-foreground/5 -mx-4 grid grid-cols-[90px_1fr] items-baseline gap-4 border-b border-dashed px-4 py-4 transition-colors last:border-b-0 hover:rounded-sm sm:grid-cols-[140px_1fr_auto] sm:gap-6"
                 >
                   <span class="text-muted-foreground font-mono text-xs">
                     {formatted}
@@ -231,7 +231,7 @@ const heroImages = [
                   <span class="group-hover:text-primary text-base font-medium transition-colors">
                     {post.data.title}
                   </span>
-                  <span class="text-muted-foreground font-mono text-sm transition-transform group-hover:translate-x-1">
+                  <span class="text-muted-foreground hidden font-mono text-sm transition-transform group-hover:translate-x-1 sm:inline">
                     →
                   </span>
                 </a>
@@ -361,7 +361,7 @@ const heroImages = [
         method="post"
         target="popupwindow"
         onsubmit="window.open('https://buttondown.com/daniakash', 'popupwindow')"
-        class="mx-auto flex max-w-[480px] gap-2"
+        class="mx-auto flex max-w-[480px] flex-col gap-2 sm:flex-row"
       >
         <input
           type="email"
@@ -369,7 +369,7 @@ const heroImages = [
           placeholder="user@domain.net"
           required
           aria-label="Email address"
-          class="border-border bg-foreground/5 text-foreground placeholder:text-muted-foreground focus:border-primary h-12 flex-1 rounded-full border px-6 font-mono text-sm transition-colors outline-none"
+          class="border-border bg-foreground/5 text-foreground placeholder:text-muted-foreground focus:border-primary h-12 w-full flex-1 rounded-full border px-6 font-mono text-sm transition-colors outline-none"
         />
         <button
           type="submit"
