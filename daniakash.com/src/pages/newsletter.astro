@@ -1,6 +1,6 @@
 ---
 import { getCollection } from "astro:content";
-import Newsletter from "../components/Newsletter.astro";
+import NewsletterWidget from "../components/Newsletter.astro";
 import MainLayout from "../layouts/MainLayout.astro";
 
 const rss = (await getCollection("rss")).sort(
@@ -39,7 +39,7 @@ const years = [...issuesByYear.keys()].sort((a, b) => b - a);
     </header>
 
     <!-- Subscribe box -->
-    <Newsletter
+    <NewsletterWidget
       heading="Get notified when I publish something new"
       description="Unsubscribe at any time. No spam, ever."
       label="Stay up to date"
