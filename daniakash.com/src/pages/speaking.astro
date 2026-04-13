@@ -135,13 +135,13 @@ const events = (await getCollection("speaking")).sort(
                       {event.description}
                     </p>
                     {event.cta && event.cta.length > 0 && (
-                      <div class="flex gap-4">
+                      <div class="flex flex-wrap gap-2">
                         {event.cta.map((cta) => (
                           <a
                             href={cta.url}
                             target="_blank"
                             rel="noopener"
-                            class="pointer-events-auto relative z-2 font-mono text-[11px] tracking-wide text-primary hover:underline"
+                            class="pointer-events-auto relative z-2 inline-flex min-h-[44px] items-center px-2 font-mono text-[11px] tracking-wide text-primary hover:underline"
                           >
                             {cta.title}
                           </a>
