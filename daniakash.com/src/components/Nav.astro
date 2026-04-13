@@ -84,39 +84,52 @@ const currentPath = Astro.url.pathname;
   </div>
 </nav>
 
-<script>
-  const toggle = document.getElementById("mobile-menu-toggle");
-  const menu = document.getElementById("mobile-menu");
-  const hamburgerIcon = document.getElementById("hamburger-icon");
-  const closeIcon = document.getElementById("close-icon");
+<script is:inline>
+  document.addEventListener("astro:page-load", function () {
+    if (window.__mobileNavCleanup) window.__mobileNavCleanup();
 
-  function openMenu() {
-    menu?.classList.remove("hidden");
-    hamburgerIcon?.classList.add("hidden");
-    closeIcon?.classList.remove("hidden");
-    toggle?.setAttribute("aria-expanded", "true");
-  }
+    var toggle = document.getElementById("mobile-menu-toggle");
+    var menu = document.getElementById("mobile-menu");
+    var hamburgerIcon = document.getElementById("hamburger-icon");
+    var closeIcon = document.getElementById("close-icon");
 
-  function closeMenu() {
-    menu?.classList.add("hidden");
-    hamburgerIcon?.classList.remove("hidden");
-    closeIcon?.classList.add("hidden");
-    toggle?.setAttribute("aria-expanded", "false");
-  }
+    if (!toggle || !menu) return;
 
-  toggle?.addEventListener("click", () => {
-    const isOpen = toggle.getAttribute("aria-expanded") === "true";
-    if (isOpen) {
-      closeMenu();
-    } else {
-      openMenu();
+    function openMenu() {
+      menu.classList.remove("hidden");
+      if (hamburgerIcon) hamburgerIcon.classList.add("hidden");
+      if (closeIcon) closeIcon.classList.remove("hidden");
+      toggle.setAttribute("aria-expanded", "true");
     }
-  });
 
-  const mobileLinks = document.querySelectorAll(".mobile-nav-link");
-  mobileLinks.forEach((link) => {
-    link.addEventListener("click", () => {
-      closeMenu();
+    function closeMenu() {
+      menu.classList.add("hidden");
+      if (hamburgerIcon) hamburgerIcon.classList.remove("hidden");
+      if (closeIcon) closeIcon.classList.add("hidden");
+      toggle.setAttribute("aria-expanded", "false");
+    }
+
+    function handleToggle() {
+      if (toggle.getAttribute("aria-expanded") === "true") {
+        closeMenu();
+      } else {
+        openMenu();
+      }
+    }
+
+    var mobileLinks = document.querySelectorAll(".mobile-nav-link");
+
+    toggle.addEventListener("click", handleToggle);
+    mobileLinks.forEach(function (link) {
+      link.addEventListener("click", closeMenu);
     });
+
+    window.__mobileNavCleanup = function () {
+      toggle.removeEventListener("click", handleToggle);
+      mobileLinks.forEach(function (link) {
+        link.removeEventListener("click", closeMenu);
+      });
+      closeMenu();
+    };
   });
 </script>
