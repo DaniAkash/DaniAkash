@@ -39,6 +39,84 @@ const currentPath = Astro.url.pathname;
       }
     </ul>
 
-    <ThemeToggle client:idle />
+    <div class="flex items-center gap-3">
+      <ThemeToggle client:idle />
+
+      <button
+        id="mobile-menu-toggle"
+        class="text-muted-foreground hover:text-foreground flex h-8 w-8 items-center justify-center font-mono text-lg transition-colors md:hidden"
+        aria-label="Toggle navigation menu"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+      >
+        <span id="hamburger-icon" aria-hidden="true">≡</span>
+        <span id="close-icon" aria-hidden="true" class="hidden">✕</span>
+      </button>
+    </div>
+  </div>
+
+  <div
+    id="mobile-menu"
+    class="border-border bg-background/70 hidden border-t backdrop-blur-xl md:hidden"
+  >
+    <ul class="mx-auto max-w-7xl px-6 py-4 flex flex-col gap-1">
+      {
+        navLinks.map((link) => {
+          const isActive = currentPath.startsWith(link.href);
+          return (
+            <li>
+              <a
+                href={link.href}
+                class:list={[
+                  "mobile-nav-link block rounded-md px-4 py-2 font-mono text-[11px] uppercase tracking-[0.15em] transition-all",
+                  isActive
+                    ? "text-primary"
+                    : "text-muted-foreground hover:bg-foreground/5 hover:text-foreground",
+                ]}
+              >
+                {link.title}
+              </a>
+            </li>
+          );
+        })
+      }
+    </ul>
   </div>
 </nav>
+
+<script>
+  const toggle = document.getElementById("mobile-menu-toggle");
+  const menu = document.getElementById("mobile-menu");
+  const hamburgerIcon = document.getElementById("hamburger-icon");
+  const closeIcon = document.getElementById("close-icon");
+
+  function openMenu() {
+    menu?.classList.remove("hidden");
+    hamburgerIcon?.classList.add("hidden");
+    closeIcon?.classList.remove("hidden");
+    toggle?.setAttribute("aria-expanded", "true");
+  }
+
+  function closeMenu() {
+    menu?.classList.add("hidden");
+    hamburgerIcon?.classList.remove("hidden");
+    closeIcon?.classList.add("hidden");
+    toggle?.setAttribute("aria-expanded", "false");
+  }
+
+  toggle?.addEventListener("click", () => {
+    const isOpen = toggle.getAttribute("aria-expanded") === "true";
+    if (isOpen) {
+      closeMenu();
+    } else {
+      openMenu();
+    }
+  });
+
+  const mobileLinks = document.querySelectorAll(".mobile-nav-link");
+  mobileLinks.forEach((link) => {
+    link.addEventListener("click", () => {
+      closeMenu();
+    });
+  });
+</script>
