@@ -1,3 +1,5 @@
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 import { ImageResponse } from "@vercel/og";
 import type { ReactElement } from "react";
 import { ASSET_PREFIX } from "../constants/asset-prefix";
@@ -14,11 +16,9 @@ export const getOGImage = async ({
   path: string;
   cover?: string;
 }) => {
-  const robotoResponse = await fetch(
-    "https://github.com/openmaptiles/fonts/raw/refs/heads/master/roboto/Roboto-Regular.ttf",
+  const Roboto = readFileSync(
+    join(process.cwd(), "public/fonts/Roboto-Regular.ttf"),
   );
-  const robotoArrayBuffer: ArrayBuffer = await robotoResponse.arrayBuffer();
-  const Roboto = Buffer.from(new Uint8Array(robotoArrayBuffer));
 
   const html: ReactElement = {
     key: "0",
