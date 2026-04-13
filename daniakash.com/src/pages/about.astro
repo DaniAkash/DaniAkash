@@ -337,6 +337,15 @@ const destinations = destinationsData.data.items;
   @media (max-width: 600px) {
     .about-viz {
       height: 300px;
+      overflow: hidden;
+    }
+  }
+
+  /* Very small screens — reduce spotlight padding */
+  @media (max-width: 360px) {
+    .about-viz :global(.spotlight) {
+      padding: 12px 16px;
+      gap: 8px;
     }
   }
 </style>

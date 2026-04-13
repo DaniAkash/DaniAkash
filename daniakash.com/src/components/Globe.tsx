@@ -249,7 +249,10 @@ export default function Globe({ destinations: destinationsProp }: GlobeProps) {
         if (proj.visible) {
           polaroidRef.current.style.opacity = "1";
           polaroidRef.current.style.filter = "none";
-          polaroidRef.current.style.left = `${proj.x}px`;
+          // Clamp so polaroid (140px wide) doesn't overflow either edge
+          const clampedX = Math.min(proj.x, wrapW - 70); // 70 = half of 140px card width
+          const clampedX2 = Math.max(clampedX, 70);
+          polaroidRef.current.style.left = `${clampedX2}px`;
           polaroidRef.current.style.top = `${proj.y}px`;
           polaroidRef.current.style.transform =
             "translate(-50%, -100%) translateY(-12px)";
