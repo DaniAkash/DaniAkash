@@ -421,16 +421,16 @@ export default function Globe({ destinations: destinationsProp }: GlobeProps) {
             href={d.w}
             target="_blank"
             rel="noopener"
-            className="block text-[15px] font-semibold leading-tight text-foreground hover:text-primary hover:underline hover:underline-offset-2"
+            className="block truncate text-[15px] font-semibold leading-tight text-foreground hover:text-primary hover:underline hover:underline-offset-2"
             onClick={(e) => e.stopPropagation()}
           >
             {d.n}
           </a>
-          <div className="mt-0.5 font-mono text-[11px] text-muted-foreground">
+          <div className="mt-0.5 truncate font-mono text-[11px] text-muted-foreground">
             {d.c}
           </div>
           <div
-            className="mt-1 line-clamp-2 text-[13px] leading-snug text-muted-foreground/80"
+            className="mt-1 line-clamp-1 text-[13px] leading-snug text-muted-foreground/80 sm:line-clamp-2"
             title={d.sig}
           >
             {d.sig}
