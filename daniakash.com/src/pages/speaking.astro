@@ -110,8 +110,12 @@ const events = (await getCollection("speaking")).sort(
               return (
                 <div
                   class:list={[
-                    "talk-card group relative -mx-4 border-b border-dashed border-border px-4 py-4 transition-colors last:border-b-0 hover:rounded-sm hover:bg-foreground/5",
-                    hasThumbnail ? "flex items-start gap-6" : "block",
+                    "talk-card group relative transition-colors",
+                    // Mobile: card style
+                    "max-sm:rounded-xl max-sm:border max-sm:border-border max-sm:bg-foreground/[0.02] max-sm:p-4 max-sm:mb-3 max-sm:hover:bg-foreground/5",
+                    // Desktop: timeline row style
+                    "sm:-mx-4 sm:border-b sm:border-dashed sm:border-border sm:px-4 sm:py-4 sm:last:border-b-0 sm:hover:rounded-sm sm:hover:bg-foreground/5",
+                    hasThumbnail ? "flex flex-col gap-3 sm:flex-row sm:items-start sm:gap-6" : "block",
                   ]}
                 >
                   {/* Full-card click target (behind everything) */}
@@ -123,6 +127,29 @@ const events = (await getCollection("speaking")).sort(
                       class="absolute inset-0 z-0"
                       aria-label={event.title}
                     />
+                  )}
+                  {hasThumbnail && (
+                    <div class="pointer-events-none relative z-1 shrink-0 overflow-hidden rounded-lg border border-border w-full aspect-video sm:w-[160px] sm:aspect-auto sm:h-[90px]">
+                      {event.thumbnail ? (
+                        <Image
+                          height={90}
+                          width={160}
+                          alt={event.title}
+                          src={ASSET_PREFIX + event.thumbnail}
+                          class="size-full object-cover transition-transform duration-300 group-hover:scale-105"
+                        />
+                      ) : (
+                        <img
+                          src={youtubeThumbnail!}
+                          alt={event.title}
+                          class="size-full object-cover transition-transform duration-300 group-hover:scale-105"
+                          loading="lazy"
+                        />
+                      )}
+                      <div class="absolute inset-0 flex items-center justify-center rounded-lg bg-black/30 text-xl text-white opacity-0 transition-opacity group-hover:opacity-100">
+                        ▶
+                      </div>
+                    </div>
                   )}
                   <div class="pointer-events-none relative z-1 min-w-0 flex-1">
                     <div class="mb-1 font-mono text-xs tracking-wide text-muted-foreground">
@@ -149,29 +176,6 @@ const events = (await getCollection("speaking")).sort(
                       </div>
                     )}
                   </div>
-                  {hasThumbnail && (
-                    <div class="pointer-events-none relative z-1 shrink-0 overflow-hidden rounded-lg border border-border w-[160px] aspect-video">
-                      {event.thumbnail ? (
-                        <Image
-                          height={90}
-                          width={160}
-                          alt={event.title}
-                          src={ASSET_PREFIX + event.thumbnail}
-                          class="size-full object-cover transition-transform duration-300 group-hover:scale-105"
-                        />
-                      ) : (
-                        <img
-                          src={youtubeThumbnail!}
-                          alt={event.title}
-                          class="size-full object-cover transition-transform duration-300 group-hover:scale-105"
-                          loading="lazy"
-                        />
-                      )}
-                      <div class="absolute inset-0 flex items-center justify-center rounded-lg bg-black/30 text-xl text-white opacity-0 transition-opacity group-hover:opacity-100">
-                        ▶
-                      </div>
-                    </div>
-                  )}
                 </div>
               );
             })}
