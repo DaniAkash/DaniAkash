@@ -108,7 +108,7 @@ await getOGImage({
         method="post"
         target="popupwindow"
         onsubmit="window.open('https://buttondown.com/daniakash', 'popupwindow')"
-        class="nl-subscribe__form mx-auto flex max-w-[400px] gap-2"
+        class="mx-auto flex max-w-[400px] flex-col gap-2 sm:flex-row"
       >
         <input
           type="email"
@@ -116,11 +116,11 @@ await getOGImage({
           placeholder="you@email.com"
           required
           aria-label="Email address"
-          class="border-border bg-foreground/5 text-foreground placeholder:text-muted-foreground focus:border-primary h-10 flex-1 rounded-full border px-6 font-mono text-sm transition-colors outline-none"
+          class="border-border bg-foreground/5 text-foreground placeholder:text-muted-foreground focus:border-primary h-10 w-full flex-1 rounded-full border px-6 font-mono text-sm transition-colors outline-none"
         />
         <button
           type="submit"
-          class="bg-primary text-primary-foreground hover:bg-primary/80 h-10 rounded-full px-6 font-mono text-[13px] font-medium transition-colors"
+          class="bg-primary text-primary-foreground hover:bg-primary/80 h-10 w-full rounded-full px-6 font-mono text-[13px] font-medium transition-colors sm:w-auto"
         >
           Subscribe
         </button>
@@ -159,14 +159,6 @@ await getOGImage({
   </article>
 </MainLayout>
 
-<style>
-
-  @media (max-width: 600px) {
-    .nl-subscribe__form {
-      flex-direction: column;
-    }
-  }
-</style>
 
 <script is:inline>
   document.addEventListener("astro:page-load", function () {
