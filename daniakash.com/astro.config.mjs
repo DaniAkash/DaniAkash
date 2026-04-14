@@ -13,6 +13,7 @@ export default defineConfig({
   site: SITE_URL,
   redirects: {
     "/blog/[...slug]": "/posts/[...slug]",
+    "/sitemap.xml": "/sitemap-index.xml",
   },
   prefetch: {
     defaultStrategy: "viewport",
