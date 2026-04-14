@@ -55,6 +55,7 @@ export default defineConfig({
       },
     }),
     robotsTxt({
+      sitemap: `${SITE_URL}/sitemap-index.xml`,
       policy: [
         {
           userAgent: "*",
