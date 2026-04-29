@@ -40,8 +40,18 @@
   ],
   "jobs": [
     {
+      "title": "BrowserOS (YC S24) — Founding Engineer",
+      "duration": "Nov 2025 — Present",
+      "description": "Open-source agentic browser built for the age of AI.",
+      "contributions": [
+        "<strong>Agentic Layer:</strong> Architecting the agentic layer of BrowserOS — the core infrastructure that turns the browser into an autonomous workplace.",
+        "<strong>Agent Runtime:</strong> Designing and building the agent runtime that powers autonomous task execution across web pages.",
+        "<strong>Open Source:</strong> Shipping the foundations of an open-source AI browser in public."
+      ]
+    },
+    {
       "title": "Clarifai — Senior Frontend Engineer",
-      "duration": "Oct 2023 — Present",
+      "duration": "Oct 2023 — Nov 2025",
       "description": "AI platform that helps users build complex AI workflows by combining various models.",
       "contributions": [
         "<strong>Clarifai Node.js SDK:</strong> Created a fully tested, typesafe SDK for integrating Clarifai into Node.js backends with auto-generated API documentation.",
