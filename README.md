@@ -1,8 +1,5 @@
 # Hey, I'm Dani Akash 👋
 
-Building [BrowserOS](https://github.com/browseros-ai/BrowserOS) — an open-source agentic browser
-that lets AI see, interact with, and automate the web.
-
 Founding Engineer at [browseros-ai](https://github.com/browseros-ai) · Based in Chennai, India.
 
 ## Current Projects
