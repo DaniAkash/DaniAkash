@@ -8,7 +8,7 @@ Founding Engineer at [browseros-ai](https://github.com/browseros-ai) · Based in
 ## Current Projects
 
 - 🌐 **[BrowserOS](https://github.com/browseros-ai/BrowserOS)** — Open-source agentic browser. Let AI see, click, and ship the boring tabs for you.
-- 🖥️ **[Agent Terminal](https://github.com/DaniAkash/agent-terminal)** — A terminal where coding agents are first-class citizens, not bolted-on guests.
+- 📟 **[Agent Terminal](https://github.com/DaniAkash/agent-terminal)** — A terminal where coding agents are first-class citizens, not bolted-on guests.
 - 🧵 **[acpx](https://github.com/DaniAkash/acpx)** — Headless ACP toolkit. Talk to coding agents over the protocol, no UI required.
 - 🛠️ **[skills](https://github.com/DaniAkash/skills)** — A growing toolbox of agent skills I reach for every day.
 
