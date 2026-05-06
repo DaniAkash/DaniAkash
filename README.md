@@ -5,6 +5,13 @@ that lets AI see, interact with, and automate the web.
 
 Founding Engineer at [browseros-ai](https://github.com/browseros-ai) · Based in Chennai, India.
 
+## Current Projects
+
+- 🌐 **[BrowserOS](https://github.com/browseros-ai/BrowserOS)** — Open-source agentic browser. Let AI see, click, and ship the boring tabs for you.
+- 📟 **[Agent Terminal](https://github.com/DaniAkash/agent-terminal)** — A terminal where coding agents are first-class citizens, not bolted-on guests.
+- 🧵 **[acpx](https://github.com/DaniAkash/acpx)** — Headless ACP toolkit. Talk to coding agents over the protocol, no UI required.
+- 🛠️ **[skills](https://github.com/DaniAkash/skills)** — A growing toolbox of agent skills I reach for every day.
+
 ## What I do
 
 I design and develop intelligent systems — from browser-native AI agents that navigate the web autonomously, to tools that make AI practical for everyday workflows. My work sits at the intersection of browser engineering, AI agents, and developer tooling.
