@@ -7,8 +7,8 @@ Founding Engineer at [browseros-ai](https://github.com/browseros-ai) · Based in
 - 🌐 **[BrowserOS](https://github.com/browseros-ai/BrowserOS)** — Open-source agentic browser. Let AI see, click, and ship the boring tabs for you.
 - 📟 **[Agent Terminal](https://github.com/DaniAkash/agent-terminal)** — A terminal where coding agents are first-class citizens, not bolted-on guests.
 - 🧵 **[acpx](https://github.com/DaniAkash/acpx)** — Headless ACP toolkit. Talk to coding agents over the protocol, no UI required.
-- 🌲 **[worktree-env-copy](https://github.com/DaniAkash/worktree-env-copy)** — Global git post-checkout hook that auto-copies .env* files into new worktrees. Built for AI coding agents that spin up worktrees on demand.
 - 🛠️ **[skills](https://github.com/DaniAkash/skills)** — A growing toolbox of agent skills I reach for every day.
+- 🌲 **[worktree-env-copy](https://github.com/DaniAkash/worktree-env-copy)** — Global git post-checkout hook that auto-copies .env* files into new worktrees. Built for AI coding agents that spin up worktrees on demand.
 
 ## What I do
 
