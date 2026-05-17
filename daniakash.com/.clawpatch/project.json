@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "projectId": "prj_https-github-com-daniakash-dania_33ff6886bf",
+  "name": "daniakash.com",
+  "rootPath": "./",
+  "git": {
+    "remoteUrl": "https://github.com/DaniAkash/DaniAkash.git",
+    "defaultBranch": "main",
+    "currentBranch": "main",
+    "headSha": "66026de6265218bf23f354b33875ad933791d1f7"
+  },
+  "detected": {
+    "languages": [
+      "typescript",
+      "javascript"
+    ],
+    "frameworks": [],
+    "packageManagers": [
+      "pnpm"
+    ],
+    "commands": {
+      "typecheck": "pnpm typecheck",
+      "lint": "pnpm lint",
+      "format": "pnpm format",
+      "test": null
+    }
+  },
+  "createdAt": "2026-05-17T10:39:36.436Z",
+  "updatedAt": "2026-05-17T10:39:36.436Z"
+}
