@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "findingId": "fnd_sig-feat-library-f180a663ec-67b7_80b2025d73",
+  "featureId": "feat_library_f180a663ec",
+  "title": "Publishable website package is not marked private",
+  "category": "build-release",
+  "severity": "low",
+  "confidence": "medium",
+  "triage": "risk",
+  "evidence": [
+    {
+      "path": "package.json",
+      "startLine": 2,
+      "endLine": 4,
+      "symbol": "daniakash.com",
+      "quote": "\"name\": \"daniakash.com\", \"type\": \"module\", \"version\": \"0.0.1\""
+    }
+  ],
+  "reasoning": "This appears to be an Astro website package, not a reusable npm library, but the manifest has a name and version and does not set `private: true`. That leaves accidental `pnpm publish` or automation-triggered publication possible, which can expose package metadata or reserve an unintended npm package name.",
+  "reproduction": "Run `pnpm publish --dry-run`; npm tooling will treat the manifest as publishable because it is not private.",
+  "recommendation": "Add `\"private\": true` near the top of package.json unless this project is intentionally meant to be published as an npm package.",
+  "whyTestsDoNotAlreadyCoverThis": "No release or publish-safety tests are linked for this feature.",
+  "suggestedRegressionTest": "Add a lightweight manifest check that asserts private is true for this website project, if the repository has a package metadata validation step.",
+  "minimumFixScope": "package.json manifest metadata.",
+  "status": "open",
+  "history": [],
+  "signature": "sig_feat-library-f180a663ec_67b70cc1af",
+  "linkedPatchAttemptIds": [],
+  "createdByRunId": "20260517T104148-ff577f",
+  "createdAt": "2026-05-17T10:42:19.303Z",
+  "updatedAt": "2026-05-17T10:42:19.303Z"
+}

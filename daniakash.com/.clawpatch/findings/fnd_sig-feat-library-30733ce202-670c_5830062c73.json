@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "findingId": "fnd_sig-feat-library-30733ce202-670c_5830062c73",
+  "featureId": "feat_library_30733ce202",
+  "title": "RSS feed behavior has no regression coverage",
+  "category": "test-gap",
+  "severity": "low",
+  "confidence": "high",
+  "triage": "test-gap",
+  "evidence": [
+    {
+      "path": "package.json",
+      "startLine": 6,
+      "endLine": 15,
+      "symbol": null,
+      "quote": "\"scripts\": {\n    \"dev\": \"astro dev\",\n    \"start\": \"astro dev\",\n    \"build\": \"astro check && astro build\",\n    \"preview\": \"astro preview\",\n    \"astro\": \"astro\",\n    \"typecheck\": \"astro check\",\n    \"lint\": \"biome check .\",\n    \"lint:fix\": \"biome check --fix .\",\n    \"format\": \"biome format --write .\",\n    \"clawpatch\": \"clawpatch\"\n  }"
+    },
+    {
+      "path": "src/pages/rss.xml.ts",
+      "startLine": 14,
+      "endLine": 31,
+      "symbol": "GET",
+      "quote": "items: [\n      ...blog.map((post) => {\n        return {\n          title: post.data.title,\n          pubDate: new Date(post.data.date),\n          description: post.data.subtitle,\n          link: `/posts/${post.id}`,\n          content: sanitizeHtml(parser.render(post.body ?? \"\"), {\n            allowedTags: sanitizeHtml.defaults.allowedTags.concat([\"img\"]),\n          }),\n        };\n      }),"
+    }
+  ],
+  "reasoning": "The route combines two content collections, renders Markdown to HTML, sanitizes feed content, constructs public links, and sorts by publication date, but the project exposes no test command and no linked tests were provided. Regressions in ordering, URL generation, invalid dates, or sanitization policy would currently be caught only by manual inspection or downstream feed-reader failures.",
+  "reproduction": null,
+  "recommendation": "Add focused coverage for RSS item generation: ordering across blog/news entries, absolute link output, expected sanitization of unsafe HTML, and handling of invalid or missing dates.",
+  "whyTestsDoNotAlreadyCoverThis": "The feature metadata lists no tests, and package.json has typecheck/lint/build scripts but no test script.",
+  "suggestedRegressionTest": "Create an RSS route test with mocked getCollection data for both collections and assert stable sorted output, sanitized content, and valid feed URLs.",
+  "minimumFixScope": "Add a test harness or route-level test for src/pages/rss.xml.ts and expose it through a package script if the project standardizes on a test runner.",
+  "status": "open",
+  "history": [],
+  "signature": "sig_feat-library-30733ce202_670cddb790",
+  "linkedPatchAttemptIds": [],
+  "createdByRunId": "20260517T104148-ff577f",
+  "createdAt": "2026-05-17T10:42:18.235Z",
+  "updatedAt": "2026-05-17T10:42:18.235Z"
+}

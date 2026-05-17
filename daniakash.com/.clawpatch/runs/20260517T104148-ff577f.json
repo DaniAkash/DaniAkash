@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "runId": "20260517T104148-ff577f",
+  "command": "review",
+  "args": [
+    "--root",
+    "./",
+    "review",
+    "--limit",
+    "10"
+  ],
+  "rootPath": "./",
+  "headSha": "9f1fc82f99dc756ec508c3df890c6671cbd1457b",
+  "startedAt": "2026-05-17T10:41:48.882Z",
+  "finishedAt": "2026-05-17T10:42:34.021Z",
+  "status": "completed",
+  "claimedFeatureIds": [
+    "feat_config_0c1c23856a",
+    "feat_config_7528cb5b98",
+    "feat_library_126d1a8112",
+    "feat_library_30733ce202",
+    "feat_library_481f66376c",
+    "feat_library_c79e5f55d9",
+    "feat_library_f180a663ec",
+    "feat_library_f8bf0b65a1",
+    "feat_release_4862937c51",
+    "feat_release_51170e0f9c"
+  ],
+  "findingIds": [
+    "fnd_sig-feat-library-f8bf0b65a1-25e6_32053b1a94",
+    "fnd_sig-feat-library-481f66376c-879f_b965fb035b",
+    "fnd_sig-feat-library-30733ce202-15b1_d92dacd3bb",
+    "fnd_sig-feat-library-30733ce202-670c_5830062c73",
+    "fnd_sig-feat-library-f180a663ec-2f87_ba76a6a1c6",
+    "fnd_sig-feat-library-f180a663ec-67b7_80b2025d73",
+    "fnd_sig-feat-library-c79e5f55d9-5584_db02b323ab",
+    "fnd_sig-feat-library-c79e5f55d9-efe0_8cd087f67c"
+  ],
+  "patchAttemptIds": [],
+  "errors": []
+}
