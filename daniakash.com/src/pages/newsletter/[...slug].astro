@@ -1,9 +1,9 @@
 ---
 import { getCollection } from "astro:content";
 import type { GetStaticPaths } from "astro";
+import Newsletter from "../../components/Newsletter.astro";
 import { ASSET_PREFIX } from "../../constants/asset-prefix";
 import MainLayout from "../../layouts/MainLayout.astro";
-import Newsletter from "../../components/Newsletter.astro";
 import { getOGImage } from "../../utils/getOGImage";
 
 export const getStaticPaths = (async () => {
