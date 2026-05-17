@@ -1,0 +1,74 @@
+{
+  "schemaVersion": 1,
+  "featureId": "feat_library_481f66376c",
+  "title": "Node source src/utils",
+  "summary": "Node/TypeScript source group src/utils with 6 files.",
+  "kind": "library",
+  "source": "node-source-group",
+  "confidence": "medium",
+  "entrypoints": [
+    {
+      "path": "package.json",
+      "symbol": "src/utils",
+      "route": null,
+      "command": null
+    }
+  ],
+  "ownedFiles": [
+    {
+      "path": "src/utils/cn.ts",
+      "reason": "source group src/utils"
+    },
+    {
+      "path": "src/utils/getDateDisplay.ts",
+      "reason": "source group src/utils"
+    },
+    {
+      "path": "src/utils/getDateValue.ts",
+      "reason": "source group src/utils"
+    },
+    {
+      "path": "src/utils/getOGImage.ts",
+      "reason": "source group src/utils"
+    },
+    {
+      "path": "src/utils/getYoutubeThumbnail.ts",
+      "reason": "source group src/utils"
+    },
+    {
+      "path": "src/utils/writeFileToDist.ts",
+      "reason": "source group src/utils"
+    }
+  ],
+  "contextFiles": [
+    {
+      "path": "package.json",
+      "reason": "package manifest"
+    }
+  ],
+  "tests": [],
+  "tags": [
+    "node",
+    "typescript",
+    "source-group",
+    "project:daniakash.com",
+    "project-root:."
+  ],
+  "trustBoundaries": [],
+  "status": "needs-fix",
+  "lock": null,
+  "findingIds": ["fnd_sig-feat-library-481f66376c-879f_b965fb035b"],
+  "patchAttemptIds": [],
+  "analysisHistory": [
+    {
+      "runId": "20260517T104148-ff577f",
+      "kind": "review",
+      "summary": "1 finding(s)",
+      "provider": "codex",
+      "model": null,
+      "createdAt": "2026-05-17T10:42:11.000Z"
+    }
+  ],
+  "createdAt": "2026-05-17T10:40:49.995Z",
+  "updatedAt": "2026-05-17T10:42:11.000Z"
+}

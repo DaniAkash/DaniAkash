@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "findingId": "fnd_sig-feat-library-c79e5f55d9-5584_db02b323ab",
+  "featureId": "feat_library_c79e5f55d9",
+  "title": "Theme changes leave the globe marker and polaroid out of sync",
+  "category": "bug",
+  "severity": "medium",
+  "confidence": "high",
+  "triage": "confirmed-bug",
+  "evidence": [
+    {
+      "path": "src/components/Globe.tsx",
+      "startLine": 227,
+      "endLine": 265,
+      "symbol": "animate",
+      "quote": "const dest = DESTINATIONS[currentIdxRef.current]!;"
+    },
+    {
+      "path": "src/components/Globe.tsx",
+      "startLine": 282,
+      "endLine": 308,
+      "symbol": "MutationObserver callback",
+      "quote": "markers: [{ location: DESTINATIONS[currentIdx]!.loc, size: 0.03 }]"
+    }
+  ],
+  "reasoning": "The initial animation loop updates the cobe phi and also reprojects the polaroid against currentIdxRef on every frame. When the theme class changes, the observer destroys the globe, cancels that loop, creates a new globe with markers from the stale currentIdx captured by the empty-deps effect, and starts animateNew, which only updates phi. After a user navigates away from the initial destination and toggles the theme, the cobe marker can reset to the initial destination while the UI card still shows the selected destination; the polaroid left/top also stop being recomputed, so it no longer tracks the active marker.",
+  "reproduction": "Render Globe with multiple destinations, click Next so currentIdx differs from the initial random startIdx, then toggle the theme. The recreated cobe globe uses the effect's captured currentIdx for markers and the replacement animation loop no longer runs the polaroid projection block.",
+  "recommendation": "Factor globe creation and the frame loop through one shared path that always reads currentIdxRef.current for markers and always runs the polaroid projection logic. Avoid using stale currentIdx inside the empty-deps observer callback.",
+  "whyTestsDoNotAlreadyCoverThis": "No tests are included for Globe interactions or theme mutation behavior.",
+  "suggestedRegressionTest": "Add a component/browser test that advances to a non-initial destination, toggles document.documentElement.classList.dark, and asserts the recreated globe marker update and polaroid positioning use the current destination rather than the initial one.",
+  "minimumFixScope": "src/components/Globe.tsx theme observer and animation loop setup.",
+  "status": "open",
+  "history": [],
+  "signature": "sig_feat-library-c79e5f55d9_5584392e76",
+  "linkedPatchAttemptIds": [],
+  "createdByRunId": "20260517T104148-ff577f",
+  "createdAt": "2026-05-17T10:42:34.019Z",
+  "updatedAt": "2026-05-17T10:42:34.019Z"
+}

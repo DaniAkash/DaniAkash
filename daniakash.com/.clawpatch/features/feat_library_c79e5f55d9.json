@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "featureId": "feat_library_c79e5f55d9",
+  "title": "Node source src/components",
+  "summary": "Node/TypeScript source group src/components with 3 files.",
+  "kind": "library",
+  "source": "node-source-group",
+  "confidence": "medium",
+  "entrypoints": [
+    {
+      "path": "package.json",
+      "symbol": "src/components",
+      "route": null,
+      "command": null
+    }
+  ],
+  "ownedFiles": [
+    {
+      "path": "src/components/AmbientCanvas.tsx",
+      "reason": "source group src/components"
+    },
+    {
+      "path": "src/components/Globe.tsx",
+      "reason": "source group src/components"
+    },
+    {
+      "path": "src/components/ThemeToggle.tsx",
+      "reason": "source group src/components"
+    }
+  ],
+  "contextFiles": [
+    {
+      "path": "package.json",
+      "reason": "package manifest"
+    }
+  ],
+  "tests": [],
+  "tags": [
+    "node",
+    "typescript",
+    "source-group",
+    "project:daniakash.com",
+    "project-root:."
+  ],
+  "trustBoundaries": [],
+  "status": "needs-fix",
+  "lock": null,
+  "findingIds": [
+    "fnd_sig-feat-library-c79e5f55d9-5584_db02b323ab",
+    "fnd_sig-feat-library-c79e5f55d9-efe0_8cd087f67c"
+  ],
+  "patchAttemptIds": [],
+  "analysisHistory": [
+    {
+      "runId": "20260517T104148-ff577f",
+      "kind": "review",
+      "summary": "2 finding(s)",
+      "provider": "codex",
+      "model": null,
+      "createdAt": "2026-05-17T10:42:34.021Z"
+    }
+  ],
+  "createdAt": "2026-05-17T10:40:49.995Z",
+  "updatedAt": "2026-05-17T10:42:34.021Z"
+}

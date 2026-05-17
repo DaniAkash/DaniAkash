@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "runId": "20260517T104513-6d9f59",
+  "command": "review",
+  "args": ["--root", "./", "review"],
+  "rootPath": "./",
+  "headSha": "fbe88f11a02181e90c299e06dc05a700427d0f08",
+  "startedAt": "2026-05-17T10:45:13.348Z",
+  "finishedAt": "2026-05-17T10:45:22.475Z",
+  "status": "completed",
+  "claimedFeatureIds": ["feat_release_734b842583"],
+  "findingIds": [],
+  "patchAttemptIds": [],
+  "errors": []
+}

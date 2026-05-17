@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "findingId": "fnd_sig-feat-library-481f66376c-879f_b965fb035b",
+  "featureId": "feat_library_481f66376c",
+  "title": "writeFileToDist can write outside the build output directory",
+  "category": "security",
+  "severity": "medium",
+  "confidence": "medium",
+  "triage": "risk",
+  "evidence": [
+    {
+      "path": "src/utils/writeFileToDist.ts",
+      "startLine": 5,
+      "endLine": 9,
+      "symbol": "writeFileToDist",
+      "quote": "const imagePath = resolve(process.cwd(), `${targetDir}${filePath}`);"
+    },
+    {
+      "path": "src/utils/getOGImage.ts",
+      "startLine": 15,
+      "endLine": 15,
+      "symbol": "getOGImage",
+      "quote": "path: string;"
+    }
+  ],
+  "reasoning": "The destination path is built by string-concatenating the output directory with a caller-controlled path and then resolving it. A value such as `/../../outside.png` becomes `dist/../../outside.png` in production and resolves outside `dist`, so any caller that passes content-derived or otherwise variable paths can overwrite files outside the intended output tree during build/dev generation. getOGImage exposes this as a plain `path: string` parameter and forwards it to the writer without validation.",
+  "reproduction": "Call `writeFileToDist('/../../escaped.txt', Buffer.from('x'))` from the project root in production mode; the resolved target is outside `dist`.",
+  "recommendation": "Resolve against a fixed base directory using `resolve(baseDir, relativePathWithoutLeadingSlash)`, then verify the result remains within that base directory before writing. Reject absolute paths and any path containing traversal segments.",
+  "whyTestsDoNotAlreadyCoverThis": "No tests are included for this utility group, and there is no regression coverage for path normalization or traversal rejection.",
+  "suggestedRegressionTest": "Add tests for `writeFileToDist` that accept normal paths like `/og/foo.png` but reject `/../foo`, `/../../foo`, absolute filesystem paths, and encoded or mixed traversal variants if those can reach this API.",
+  "minimumFixScope": "Constrain and validate `filePath` inside `src/utils/writeFileToDist.ts`; optionally document the accepted path shape at the `getOGImage` call boundary.",
+  "status": "open",
+  "history": [],
+  "signature": "sig_feat-library-481f66376c_879f6afd78",
+  "linkedPatchAttemptIds": [],
+  "createdByRunId": "20260517T104148-ff577f",
+  "createdAt": "2026-05-17T10:42:10.999Z",
+  "updatedAt": "2026-05-17T10:42:10.999Z"
+}

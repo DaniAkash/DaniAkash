@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "findingId": "fnd_sig-feat-library-c79e5f55d9-efe0_8cd087f67c",
+  "featureId": "feat_library_c79e5f55d9",
+  "title": "Globe crashes when given an empty destinations array",
+  "category": "api-contract",
+  "severity": "medium",
+  "confidence": "medium",
+  "triage": "contract-mismatch",
+  "evidence": [
+    {
+      "path": "src/components/Globe.tsx",
+      "startLine": 100,
+      "endLine": 115,
+      "symbol": "Globe",
+      "quote": "destinations: DestinationInput[]"
+    },
+    {
+      "path": "src/components/Globe.tsx",
+      "startLine": 128,
+      "endLine": 128,
+      "symbol": "Globe",
+      "quote": "const d = DESTINATIONS[currentIdx]!;"
+    },
+    {
+      "path": "src/components/Globe.tsx",
+      "startLine": 142,
+      "endLine": 146,
+      "symbol": "switchTo",
+      "quote": "((idx % DESTINATIONS.length) + DESTINATIONS.length) % DESTINATIONS.length"
+    }
+  ],
+  "reasoning": "The prop type allows any array, including an empty one. With zero destinations, startIdx becomes NaN from Math.random() * 0, then the render immediately dereferences DESTINATIONS[startIdx]!.loc and DESTINATIONS[currentIdx]!, causing a runtime crash. Navigation also performs modulo by DESTINATIONS.length, which is zero. If this component is fed from content or data that can be temporarily empty, the page fails instead of rendering an empty state.",
+  "reproduction": "Render <Globe destinations={[]} />. The component computes startIdx as NaN and then attempts to read DESTINATIONS[startIdx]!.loc during render.",
+  "recommendation": "Either enforce a non-empty tuple type at the component boundary and validate callers, or add an early empty-state return before computing startIdx/current destination and disable cycling/navigation when there are no destinations.",
+  "whyTestsDoNotAlreadyCoverThis": "No tests are included for the Globe prop contract or empty data states.",
+  "suggestedRegressionTest": "Add a render test for <Globe destinations={[]} /> that expects a stable empty state and no thrown exception.",
+  "minimumFixScope": "src/components/Globe.tsx initialization and render guard for DESTINATIONS.length === 0.",
+  "status": "open",
+  "history": [],
+  "signature": "sig_feat-library-c79e5f55d9_efe0c92e17",
+  "linkedPatchAttemptIds": [],
+  "createdByRunId": "20260517T104148-ff577f",
+  "createdAt": "2026-05-17T10:42:34.019Z",
+  "updatedAt": "2026-05-17T10:42:34.019Z"
+}

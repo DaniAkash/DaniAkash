@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "findingId": "fnd_sig-feat-library-f8bf0b65a1-25e6_32053b1a94",
+  "featureId": "feat_library_f8bf0b65a1",
+  "title": "RSS loader trusts newsletter item links as valid URLs",
+  "category": "bug",
+  "severity": "medium",
+  "confidence": "medium",
+  "triage": "risk",
+  "evidence": [
+    {
+      "path": "src/content.config.ts",
+      "startLine": 161,
+      "endLine": 163,
+      "symbol": "rss.loader",
+      "quote": "const urlObject = new URL(item.link);\n      const slug = urlObject.pathname.split(\"/\").filter(Boolean).pop()!;"
+    }
+  ],
+  "reasoning": "The RSS collection loader constructs a URL and non-null slug directly from each external feed item's link. If the upstream newsletter feed contains a missing, relative, malformed, or pathless link, Astro content loading will throw during typecheck/build instead of skipping or reporting a controlled content error. This makes the site build depend on an unchecked external field.",
+  "reproduction": null,
+  "recommendation": "Validate item.link before constructing URL and handle empty path segments explicitly, for example by filtering invalid feed items with a clear warning or deriving a fallback id from a stable feed field.",
+  "whyTestsDoNotAlreadyCoverThis": "No tests are listed for this feature, and the current schema only validates the mapped output after the loader has already parsed item.link.",
+  "suggestedRegressionTest": "Mock the RSS parser to return an item with an invalid or pathless link and assert the loader handles it without an uncaught URL or non-null assertion failure.",
+  "minimumFixScope": "Update the rss collection loader in src/content.config.ts to validate link and slug extraction.",
+  "status": "open",
+  "history": [],
+  "signature": "sig_feat-library-f8bf0b65a1_25e6fdb0c2",
+  "linkedPatchAttemptIds": [],
+  "createdByRunId": "20260517T104148-ff577f",
+  "createdAt": "2026-05-17T10:42:01.433Z",
+  "updatedAt": "2026-05-17T10:42:01.433Z"
+}
