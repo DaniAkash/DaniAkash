@@ -1,6 +1,6 @@
 import { useSpring } from "@react-spring/web";
 import createGlobe from "cobe";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { ASSET_PREFIX } from "../constants/asset-prefix";
 
 interface DestinationInput {
@@ -102,7 +102,10 @@ interface GlobeProps {
 }
 
 export default function Globe({ destinations: destinationsProp }: GlobeProps) {
-  const DESTINATIONS = mapDestinations(destinationsProp);
+  const DESTINATIONS = useMemo(
+    () => mapDestinations(destinationsProp),
+    [destinationsProp],
+  );
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const wrapRef = useRef<HTMLDivElement>(null);
@@ -127,17 +130,20 @@ export default function Globe({ destinations: destinationsProp }: GlobeProps) {
 
   const d = DESTINATIONS[currentIdx]!;
 
-  const updateDestination = useCallback((idx: number) => {
-    currentIdxRef.current = idx;
-    const dest = DESTINATIONS[idx]!;
-    const lngRad = dest.loc[1] * (Math.PI / 180);
-    targetPhiRef.current = -lngRad - Math.PI / 2;
-    if (globeRef.current) {
-      globeRef.current.update({
-        markers: [{ location: dest.loc, size: 0.03 }],
-      });
-    }
-  }, []);
+  const updateDestination = useCallback(
+    (idx: number) => {
+      currentIdxRef.current = idx;
+      const dest = DESTINATIONS[idx]!;
+      const lngRad = dest.loc[1] * (Math.PI / 180);
+      targetPhiRef.current = -lngRad - Math.PI / 2;
+      if (globeRef.current) {
+        globeRef.current.update({
+          markers: [{ location: dest.loc, size: 0.03 }],
+        });
+      }
+    },
+    [DESTINATIONS],
+  );
 
   const switchTo = useCallback(
     (idx: number) => {
@@ -147,7 +153,7 @@ export default function Globe({ destinations: destinationsProp }: GlobeProps) {
       setCurrentIdx(wrapped);
       updateDestination(wrapped);
     },
-    [updateDestination],
+    [DESTINATIONS, updateDestination],
   );
 
   const next = useCallback(() => {
@@ -156,7 +162,7 @@ export default function Globe({ destinations: destinationsProp }: GlobeProps) {
       updateDestination(nextIdx);
       return nextIdx;
     });
-  }, [updateDestination]);
+  }, [DESTINATIONS, updateDestination]);
 
   const prev = useCallback(() => {
     setCurrentIdx((prev) => {
@@ -164,7 +170,7 @@ export default function Globe({ destinations: destinationsProp }: GlobeProps) {
       updateDestination(nextIdx);
       return nextIdx;
     });
-  }, [updateDestination]);
+  }, [DESTINATIONS, updateDestination]);
 
   const progressBarRef = useRef<HTMLDivElement>(null);
   const progressTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -178,7 +184,8 @@ export default function Globe({ destinations: destinationsProp }: GlobeProps) {
     const step = (interval / duration) * 100;
     progressTimerRef.current = setInterval(() => {
       pct = Math.min(pct + step, 100);
-      if (progressBarRef.current) progressBarRef.current.style.width = pct + "%";
+      if (progressBarRef.current)
+        progressBarRef.current.style.width = pct + "%";
     }, interval);
   }, []);
 
@@ -193,6 +200,7 @@ export default function Globe({ destinations: destinationsProp }: GlobeProps) {
   }, [next, startProgress]);
 
   // Create globe
+  // biome-ignore lint/correctness/useExhaustiveDependencies: this effect intentionally runs once on mount; the globe is recreated internally by the theme/resize observers, not by React effect re-runs.
   useEffect(() => {
     if (!canvasRef.current || !wrapRef.current) return;
 
@@ -390,8 +398,8 @@ export default function Globe({ destinations: destinationsProp }: GlobeProps) {
           <img src={d.img} alt={d.n} className="polaroid-img" />
           <div className="polaroid-caption">{d.n}</div>
         </a>
-        <span className="absolute bottom-2 right-4 pointer-events-none font-mono text-[9px] uppercase tracking-wider text-muted-foreground/60">
-          DESTINATIONS // WISHLIST
+        <span className="pointer-events-none absolute right-4 bottom-2 font-mono text-[9px] text-muted-foreground/60 uppercase tracking-wider">
+          DESTINATIONS {/* WISHLIST */}
         </span>
       </div>
 
@@ -404,7 +412,9 @@ export default function Globe({ destinations: destinationsProp }: GlobeProps) {
         />
       </div>
 
-      {/* Spotlight panel */}
+      {/* Spotlight panel: clicking empty area advances destination as a mouse affordance — keyboard users use the Prev/Next buttons inside. */}
+      {/* biome-ignore lint/a11y/noStaticElementInteractions: redundant mouse affordance; keyboard equivalents are the Prev/Next buttons rendered inside this panel. */}
+      {/* biome-ignore lint/a11y/useKeyWithClickEvents: see note above — keyboard equivalent is the Prev/Next buttons inside this panel. */}
       <div
         className="spotlight"
         onClick={(e) => {
@@ -421,7 +431,7 @@ export default function Globe({ destinations: destinationsProp }: GlobeProps) {
             href={d.w}
             target="_blank"
             rel="noopener"
-            className="block truncate text-[15px] font-semibold leading-tight text-foreground hover:text-primary hover:underline hover:underline-offset-2"
+            className="block truncate font-semibold text-[15px] text-foreground leading-tight hover:text-primary hover:underline hover:underline-offset-2"
             onClick={(e) => e.stopPropagation()}
           >
             {d.n}
@@ -430,7 +440,7 @@ export default function Globe({ destinations: destinationsProp }: GlobeProps) {
             {d.c}
           </div>
           <div
-            className="mt-1 line-clamp-1 text-[13px] leading-snug text-muted-foreground/80 sm:line-clamp-2"
+            className="mt-1 line-clamp-1 text-[13px] text-muted-foreground/80 leading-snug sm:line-clamp-2"
             title={d.sig}
           >
             {d.sig}
@@ -438,6 +448,7 @@ export default function Globe({ destinations: destinationsProp }: GlobeProps) {
         </div>
         <div className="mt-1 flex shrink-0 items-center gap-2">
           <button
+            type="button"
             className="spotlight-btn"
             onClick={(e) => {
               e.stopPropagation();
@@ -461,6 +472,7 @@ export default function Globe({ destinations: destinationsProp }: GlobeProps) {
             / {DESTINATIONS.length}
           </span>
           <button
+            type="button"
             className="spotlight-btn"
             onClick={(e) => {
               e.stopPropagation();

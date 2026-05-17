@@ -52,7 +52,11 @@
   },
   "overrides": [
     {
-      "includes": ["**/AmbientCanvas.tsx", "**/PixelFactory.tsx"],
+      "includes": [
+        "**/AmbientCanvas.tsx",
+        "**/PixelFactory.tsx",
+        "**/Globe.tsx"
+      ],
       "linter": {
         "rules": {
           "complexity": {
