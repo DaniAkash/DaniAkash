@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "findingId": "fnd_sig-feat-ui-flow-e084b0b622-a14f_009a0a991a",
+  "featureId": "feat_ui-flow_e084b0b622",
+  "title": "Theme-change globe recreation uses stale marker index",
+  "category": "bug",
+  "severity": "low",
+  "confidence": "medium",
+  "triage": "risk",
+  "evidence": [
+    {
+      "path": "src/components/Globe.tsx",
+      "startLine": 270,
+      "endLine": 293,
+      "symbol": "MutationObserver callback",
+      "quote": "const newGlobe = createGlobe(canvas, {\n        devicePixelRatio: 2,\n        width: wrap.offsetWidth * 2,\n        height: wrap.offsetHeight * 2,\n        phi: phiRef.current,\n        theta: 0.15,\n        dark: dark ? 1 : 0,\n        diffuse: 1.2,\n        mapSamples: 16000,\n        mapBrightness: 6,\n        mapBaseBrightness: 0.05,\n        baseColor: dark ? [0.3, 0.3, 0.3] : [1, 1, 1],\n        markerColor: dark ? [0.18, 0.83, 0.75] : [0.05, 0.58, 0.53],\n        glowColor: dark ? [0.15, 0.15, 0.2] : [1, 1, 1],\n        markers: [{ location: DESTINATIONS[currentIdx]!.loc, size: 0.03 }],\n      });"
+    },
+    {
+      "path": "src/components/Globe.tsx",
+      "startLine": 337,
+      "endLine": 345,
+      "symbol": "Globe useEffect",
+      "quote": "return () => {\n      if (globeRef.current) globeRef.current.destroy();\n      if (animRef.current) cancelAnimationFrame(animRef.current);\n      if (cycleRef.current) clearInterval(cycleRef.current);\n      if (progressTimerRef.current) clearInterval(progressTimerRef.current);\n      observer.disconnect();\n      window.removeEventListener(\"resize\", handleResize);\n    };\n  }, []);"
+    }
+  ],
+  "reasoning": "The effect intentionally runs only once, so the MutationObserver callback closes over the initial currentIdx value. After the user navigates to another destination, a class mutation for dark/light theme recreates cobe with markers for the initial destination while the panel and currentIdxRef-driven overlay continue to point at the selected destination. The next manual or timer navigation repairs the marker, but until then the globe marker and clickable polaroid can disagree.",
+  "reproduction": "Render with at least two destinations, navigate to the second destination, then toggle the documentElement dark class. The recreated cobe instance is initialized with DESTINATIONS[currentIdx] from the mount-time closure rather than currentIdxRef.current.",
+  "recommendation": "In the observer callback, initialize markers from DESTINATIONS[currentIdxRef.current] or centralize marker selection through the same ref used by the animation overlay.",
+  "whyTestsDoNotAlreadyCoverThis": "No linked tests are provided, and there is no test covering navigation followed by a theme class mutation.",
+  "suggestedRegressionTest": "Add a component test that switches destination, triggers a documentElement class mutation, and asserts createGlobe receives the currently selected destination marker.",
+  "minimumFixScope": "src/components/Globe.tsx",
+  "status": "open",
+  "history": [],
+  "signature": "sig_feat-ui-flow-e084b0b622_a14f523cd8",
+  "linkedPatchAttemptIds": [],
+  "createdByRunId": "20260517T095713-0fd29e",
+  "createdAt": "2026-05-17T09:59:29.071Z",
+  "updatedAt": "2026-05-17T09:59:29.071Z"
+}

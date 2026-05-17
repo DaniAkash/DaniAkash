@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "findingId": "fnd_sig-feat-library-c79e5f55d9-4635_3a2a141562",
+  "featureId": "feat_library_c79e5f55d9",
+  "title": "Globe crashes when rendered with an empty destinations array",
+  "category": "api-contract",
+  "severity": "low",
+  "confidence": "high",
+  "triage": "contract-mismatch",
+  "evidence": [
+    {
+      "path": "src/components/Globe.tsx",
+      "startLine": 100,
+      "endLine": 105,
+      "symbol": "GlobeProps",
+      "quote": "destinations: DestinationInput[];"
+    },
+    {
+      "path": "src/components/Globe.tsx",
+      "startLine": 110,
+      "endLine": 115,
+      "symbol": "Globe",
+      "quote": "Math.floor(Math.random() * DESTINATIONS.length),"
+    },
+    {
+      "path": "src/components/Globe.tsx",
+      "startLine": 128,
+      "endLine": 128,
+      "symbol": "Globe",
+      "quote": "const d = DESTINATIONS[currentIdx]!;"
+    }
+  ],
+  "reasoning": "The public prop type permits any array, including an empty one. With no destinations, startIdx becomes 0 and DESTINATIONS[0] is undefined; initialPhi immediately dereferences .loc, so the component throws during render instead of showing an empty state or rejecting the input explicitly.",
+  "reproduction": null,
+  "recommendation": "Either make the prop contract non-empty at the type/API boundary or add a runtime empty-state guard before computing startIdx, initialPhi, and d.",
+  "whyTestsDoNotAlreadyCoverThis": "No linked tests cover the empty destinations case or component API validation.",
+  "suggestedRegressionTest": "Render <Globe destinations={[]} /> and assert it does not throw and displays the intended empty state, or assert a deliberate validation error if the API is changed to require non-empty input.",
+  "minimumFixScope": "src/components/Globe.tsx initial destination selection and render guard.",
+  "status": "open",
+  "history": [],
+  "signature": "sig_feat-library-c79e5f55d9_463511f0b5",
+  "linkedPatchAttemptIds": [],
+  "createdByRunId": "20260517T095713-0fd29e",
+  "createdAt": "2026-05-17T09:58:01.491Z",
+  "updatedAt": "2026-05-17T09:58:01.491Z"
+}

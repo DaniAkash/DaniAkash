@@ -12,7 +12,8 @@
     "typecheck": "astro check",
     "lint": "biome check .",
     "lint:fix": "biome check --fix .",
-    "format": "biome format --write ."
+    "format": "biome format --write .",
+    "clawpr": "node ./scripts/clawpr.mjs"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.8",

@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "findingId": "fnd_sig-feat-library-f8bf0b65a1-caf3_31f5aea435",
+  "featureId": "feat_library_f8bf0b65a1",
+  "title": "External RSS content can make builds fail nondeterministically",
+  "category": "build-release",
+  "severity": "medium",
+  "confidence": "medium",
+  "triage": "risk",
+  "evidence": [
+    {
+      "path": "src/content.config.ts",
+      "startLine": 169,
+      "endLine": 184,
+      "symbol": "rss",
+      "quote": "const feed = await parse(NEWSLETTER_RSS);"
+    },
+    {
+      "path": "package.json",
+      "startLine": 7,
+      "endLine": 9,
+      "symbol": "scripts.build",
+      "quote": "\"build\": \"astro check && astro build\""
+    }
+  ],
+  "reasoning": "The Astro content collection loader fetches and parses a remote newsletter RSS feed during content loading. Because `astro build` invokes Astro's content pipeline, a transient network outage, RSS server error, malformed feed item, or changed item shape can fail the site build even when repository content is unchanged. There is no fallback to cached/local content and no error handling around the remote parse or per-item URL parsing.",
+  "reproduction": null,
+  "recommendation": "Wrap the RSS load in explicit error handling and use a deterministic fallback, such as a checked-in snapshot/cache or an empty collection with a logged warning, depending on whether newsletter content is required for release correctness.",
+  "whyTestsDoNotAlreadyCoverThis": "No linked tests are included for the RSS loader or build behavior under remote feed failure.",
+  "suggestedRegressionTest": "Add a loader-level test or small integration harness that mocks `parse(NEWSLETTER_RSS)` throwing and asserts the collection loader handles it according to the chosen fallback policy.",
+  "minimumFixScope": "Update the `rss` collection loader in `src/content.config.ts` to handle remote parse failures and invalid item links without aborting normal builds.",
+  "status": "open",
+  "history": [],
+  "signature": "sig_feat-library-f8bf0b65a1_caf39bebb0",
+  "linkedPatchAttemptIds": [],
+  "createdByRunId": "20260517T095713-0fd29e",
+  "createdAt": "2026-05-17T09:57:35.981Z",
+  "updatedAt": "2026-05-17T09:57:35.981Z"
+}

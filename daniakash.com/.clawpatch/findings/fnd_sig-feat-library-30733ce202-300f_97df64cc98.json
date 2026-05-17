@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "findingId": "fnd_sig-feat-library-30733ce202-300f_97df64cc98",
+  "featureId": "feat_library_30733ce202",
+  "title": "RSS generation can emit an invalid feed when Astro site is unset",
+  "category": "api-contract",
+  "severity": "medium",
+  "confidence": "medium",
+  "triage": "contract-mismatch",
+  "evidence": [
+    {
+      "path": "src/pages/rss.xml.ts",
+      "startLine": 12,
+      "endLine": 15,
+      "symbol": "GET",
+      "quote": "return rss({\n    title: \"Dani Akash’s Blog\",\n    description:\n      \"Where my thoughts get some air time (and occasionally make sense).\",\n    site: context.site ?? \"\","
+    }
+  ],
+  "reasoning": "@astrojs/rss uses the `site` option as the base URL for feed and item links. Falling back to an empty string hides the missing-site case and can produce invalid absolute URLs or fail RSS generation depending on runtime behavior. This route only supplies relative item links, so the feed depends on a valid site base.",
+  "reproduction": null,
+  "recommendation": "Require a configured absolute site URL instead of silently using an empty string. For example, throw a clear error when `context.site` is absent, or pass a known canonical URL from configuration.",
+  "whyTestsDoNotAlreadyCoverThis": "No tests were included for this feature, and there is no RSS route test that exercises generation without `context.site`.",
+  "suggestedRegressionTest": "Add a route/unit test that calls `GET` with `context.site` undefined and asserts it fails with a clear configuration error, plus a valid-site case that verifies item links are absolute.",
+  "minimumFixScope": "Update `src/pages/rss.xml.ts` to validate `context.site` before calling `rss()`.",
+  "status": "open",
+  "history": [],
+  "signature": "sig_feat-library-30733ce202_300fcfa3ef",
+  "linkedPatchAttemptIds": [],
+  "createdByRunId": "20260517T095636-603ab6",
+  "createdAt": "2026-05-17T09:57:01.678Z",
+  "updatedAt": "2026-05-17T09:57:01.678Z"
+}

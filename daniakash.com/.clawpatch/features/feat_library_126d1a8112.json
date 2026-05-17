@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "featureId": "feat_library_126d1a8112",
+  "title": "Node source src/constants",
+  "summary": "Node/TypeScript source group src/constants with 5 files.",
+  "kind": "library",
+  "source": "node-source-group",
+  "confidence": "medium",
+  "entrypoints": [
+    {
+      "path": "package.json",
+      "symbol": "src/constants",
+      "route": null,
+      "command": null
+    }
+  ],
+  "ownedFiles": [
+    {
+      "path": "src/constants/asset-prefix.ts",
+      "reason": "source group src/constants"
+    },
+    {
+      "path": "src/constants/navLinks.ts",
+      "reason": "source group src/constants"
+    },
+    {
+      "path": "src/constants/newsletter-rss.ts",
+      "reason": "source group src/constants"
+    },
+    {
+      "path": "src/constants/seo.ts",
+      "reason": "source group src/constants"
+    },
+    {
+      "path": "src/constants/transition-names.ts",
+      "reason": "source group src/constants"
+    }
+  ],
+  "contextFiles": [
+    {
+      "path": "package.json",
+      "reason": "package manifest"
+    }
+  ],
+  "tests": [],
+  "tags": [
+    "node",
+    "typescript",
+    "source-group",
+    "project:daniakash.com",
+    "project-root:."
+  ],
+  "trustBoundaries": [],
+  "status": "reviewed",
+  "lock": null,
+  "findingIds": [],
+  "patchAttemptIds": [],
+  "analysisHistory": [
+    {
+      "runId": "20260517T095436-c57d55",
+      "kind": "review-error",
+      "summary": "codex provider failed: Error: No such file or directory (os error 2)\n",
+      "provider": "codex",
+      "model": null,
+      "createdAt": "2026-05-17T09:54:36.737Z"
+    },
+    {
+      "runId": "20260517T095512-0e5e96",
+      "kind": "review",
+      "summary": "0 finding(s)",
+      "provider": "codex",
+      "model": null,
+      "createdAt": "2026-05-17T09:55:26.231Z"
+    }
+  ],
+  "createdAt": "2026-05-17T09:54:23.433Z",
+  "updatedAt": "2026-05-17T09:55:26.231Z"
+}

@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "findingId": "fnd_sig-feat-config-7528cb5b98-8358e_c6d0455f73",
+  "featureId": "feat_config_7528cb5b98",
+  "title": "No package test script or included test suite",
+  "category": "test-gap",
+  "severity": "low",
+  "confidence": "high",
+  "triage": "test-gap",
+  "evidence": [
+    {
+      "path": "package.json",
+      "startLine": 6,
+      "endLine": 15,
+      "symbol": null,
+      "quote": null
+    }
+  ],
+  "reasoning": "The project exposes dev, build, typecheck, lint, and format scripts, but no `test` script. The feature metadata also lists no linked tests, so package-level quality gates can validate formatting, linting, and Astro type/build checks without exercising behavioral regressions in components, routes, content utilities, or config integration.",
+  "reproduction": null,
+  "recommendation": "Add a package-level `test` script that runs the project's chosen test suite, or explicitly document that this project has no automated behavioral tests and why build/typecheck/lint are sufficient.",
+  "whyTestsDoNotAlreadyCoverThis": "No tests are linked for this feature, and `package.json` does not define a `test` command for package-manager-driven test execution.",
+  "suggestedRegressionTest": "Add a minimal test runner configuration and a `pnpm test` script, then include at least one smoke test for an Astro page or utility that is expected to remain stable.",
+  "minimumFixScope": "Update `package.json` to include a test script and add the minimal supporting test files/configuration needed for it to run in CI or local quality checks.",
+  "status": "open",
+  "history": [],
+  "signature": "sig_feat-config-7528cb5b98_8358e595f4",
+  "linkedPatchAttemptIds": [],
+  "createdByRunId": "20260517T095512-0e5e96",
+  "createdAt": "2026-05-17T09:56:29.331Z",
+  "updatedAt": "2026-05-17T09:56:29.331Z"
+}

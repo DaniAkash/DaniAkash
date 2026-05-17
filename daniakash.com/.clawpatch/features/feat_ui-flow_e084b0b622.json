@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "featureId": "feat_ui-flow_e084b0b622",
+  "title": "React component Globe",
+  "summary": "React component implemented by src/components/Globe.tsx.",
+  "kind": "ui-flow",
+  "source": "react-component",
+  "confidence": "medium",
+  "entrypoints": [
+    {
+      "path": "src/components/Globe.tsx",
+      "symbol": "Globe",
+      "route": null,
+      "command": null
+    }
+  ],
+  "ownedFiles": [
+    {
+      "path": "src/components/Globe.tsx",
+      "reason": "component implementation"
+    }
+  ],
+  "contextFiles": [
+    {
+      "path": "package.json",
+      "reason": "package manifest"
+    },
+    {
+      "path": "src/constants/asset-prefix.ts",
+      "reason": "direct import"
+    }
+  ],
+  "tests": [],
+  "tags": [
+    "react",
+    "component",
+    "web"
+  ],
+  "trustBoundaries": [
+    "user-input",
+    "network",
+    "serialization"
+  ],
+  "status": "needs-fix",
+  "lock": null,
+  "findingIds": [
+    "fnd_sig-feat-ui-flow-e084b0b622-dc18_f20170e910",
+    "fnd_sig-feat-ui-flow-e084b0b622-f0a4_14ccd969c1",
+    "fnd_sig-feat-ui-flow-e084b0b622-a14f_009a0a991a"
+  ],
+  "patchAttemptIds": [],
+  "analysisHistory": [
+    {
+      "runId": "20260517T095713-0fd29e",
+      "kind": "review",
+      "summary": "3 finding(s)",
+      "provider": "codex",
+      "model": null,
+      "createdAt": "2026-05-17T09:59:29.072Z"
+    }
+  ],
+  "createdAt": "2026-05-17T09:54:23.433Z",
+  "updatedAt": "2026-05-17T09:59:29.072Z"
+}

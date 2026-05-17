@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "findingId": "fnd_sig-feat-library-481f66376c-9664_92d65f2022",
+  "featureId": "feat_library_481f66376c",
+  "title": "Date-only strings can render as the previous calendar day in negative time zones",
+  "category": "bug",
+  "severity": "medium",
+  "confidence": "medium",
+  "triage": "risk",
+  "evidence": [
+    {
+      "path": "src/utils/getDateDisplay.ts",
+      "startLine": 2,
+      "endLine": 7,
+      "symbol": "getDateDisplay",
+      "quote": "const dateObject = new Date(date);\n  return dateObject.toLocaleDateString(\"en-US\", {"
+    },
+    {
+      "path": "src/utils/getDateValue.ts",
+      "startLine": 2,
+      "endLine": 3,
+      "symbol": "getDateValue",
+      "quote": "const dateObject = new Date(date);\n  return dateObject.toISOString().split(\"T\")[0]!;"
+    }
+  ],
+  "reasoning": "The utilities parse incoming strings with `new Date(date)`. For ISO date-only inputs such as `2026-05-17`, JavaScript interprets the value as midnight UTC. `getDateDisplay` then formats it in the runtime's local timezone because no `timeZone` is specified, so users or builds running in negative offsets can display May 16, 2026 while `getDateValue` still emits `2026-05-17`. This creates inconsistent date display/value behavior for the same date source.",
+  "reproduction": "In a negative timezone such as America/Los_Angeles: `new Date(\"2026-05-17\").toLocaleDateString(\"en-US\", { year: \"numeric\", month: \"long\", day: \"numeric\" })` returns `May 16, 2026`.",
+  "recommendation": "For date-only content values, either parse the `YYYY-MM-DD` parts as a local calendar date or format with a fixed `timeZone: \"UTC\"` consistently across both helpers.",
+  "whyTestsDoNotAlreadyCoverThis": "No tests are included for these utilities, and timezone-dependent behavior is not exercised.",
+  "suggestedRegressionTest": "Add a test that formats a date-only string under a negative timezone and asserts that `getDateDisplay(\"2026-05-17\")` remains `May 17, 2026` and `getDateValue(\"2026-05-17\")` remains `2026-05-17`.",
+  "minimumFixScope": "Update date parsing/formatting in `src/utils/getDateDisplay.ts` and keep behavior aligned with `src/utils/getDateValue.ts`.",
+  "status": "open",
+  "history": [],
+  "signature": "sig_feat-library-481f66376c_9664ba7561",
+  "linkedPatchAttemptIds": [],
+  "createdByRunId": "20260517T095713-0fd29e",
+  "createdAt": "2026-05-17T09:57:50.857Z",
+  "updatedAt": "2026-05-17T09:57:50.857Z"
+}

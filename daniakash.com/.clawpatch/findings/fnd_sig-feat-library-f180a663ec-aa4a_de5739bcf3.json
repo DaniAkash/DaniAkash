@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "findingId": "fnd_sig-feat-library-f180a663ec-aa4a_de5739bcf3",
+  "featureId": "feat_library_f180a663ec",
+  "title": "README documents npm workflows while the package declares pnpm",
+  "category": "docs-gap",
+  "severity": "low",
+  "confidence": "high",
+  "triage": "docs-gap",
+  "evidence": [
+    {
+      "path": "package.json",
+      "startLine": 5,
+      "endLine": 5,
+      "symbol": "packageManager",
+      "quote": "\"packageManager\": \"pnpm@10.33.0\""
+    },
+    {
+      "path": "README.md",
+      "startLine": 31,
+      "endLine": 37,
+      "symbol": null,
+      "quote": "`npm install` / `npm run dev` / `npm run build`"
+    }
+  ],
+  "reasoning": "The manifest opts the project into pnpm via packageManager, but the README tells contributors to install and run scripts with npm. That can lead to a different lockfile/resolution path and confusing onboarding for a pnpm-managed project.",
+  "reproduction": null,
+  "recommendation": "Update the README command table and setup instructions to use pnpm equivalents such as `pnpm install`, `pnpm dev`, `pnpm build`, `pnpm preview`, and `pnpm astro ...`.",
+  "whyTestsDoNotAlreadyCoverThis": "No tests or documentation checks are linked for this package feature, and command documentation is not validated by the current scripts.",
+  "suggestedRegressionTest": null,
+  "minimumFixScope": "README.md command/setup documentation only.",
+  "status": "open",
+  "history": [],
+  "signature": "sig_feat-library-f180a663ec_aa4a9b66ad",
+  "linkedPatchAttemptIds": [],
+  "createdByRunId": "20260517T095713-0fd29e",
+  "createdAt": "2026-05-17T09:57:35.150Z",
+  "updatedAt": "2026-05-17T09:57:35.150Z"
+}

@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "findingId": "fnd_sig-feat-library-c79e5f55d9-582e_bad9f9b06f",
+  "featureId": "feat_library_c79e5f55d9",
+  "title": "Resize handler never resizes the cobe canvas",
+  "category": "bug",
+  "severity": "medium",
+  "confidence": "high",
+  "triage": "confirmed-bug",
+  "evidence": [
+    {
+      "path": "src/components/Globe.tsx",
+      "startLine": 202,
+      "endLine": 211,
+      "symbol": "Globe useEffect",
+      "quote": "const w = wrap.offsetWidth;\nconst h = wrap.offsetHeight;"
+    },
+    {
+      "path": "src/components/Globe.tsx",
+      "startLine": 315,
+      "endLine": 328,
+      "symbol": "handleResize",
+      "quote": "observer.disconnect();\n// Trigger re-mount by observer logic\nobserver.observe(document.documentElement, {"
+    }
+  ],
+  "reasoning": "The globe is created with fixed pixel dimensions derived from the wrapper size at mount. The resize handler only disconnects and reconnects the theme MutationObserver; it does not recreate the globe, call update with new dimensions, or mutate the observed class attribute. A window resize therefore leaves cobe rendering at stale dimensions while the wrapper and overlay projection use current offsetWidth/offsetHeight, causing visual stretching/misalignment after viewport changes.",
+  "reproduction": null,
+  "recommendation": "Handle resize by debouncing a real globe recreation or cobe size update using the latest wrapper dimensions, and keep the overlay projection and canvas dimensions derived from the same size source.",
+  "whyTestsDoNotAlreadyCoverThis": "No linked tests exercise window resizing or assert canvas dimensions after resize.",
+  "suggestedRegressionTest": "Mount Globe, record the cobe creation dimensions, change the wrapper/window size, dispatch resize, advance the debounce timer, and assert the globe is recreated or updated with the new dimensions.",
+  "minimumFixScope": "src/components/Globe.tsx resize handler and globe creation/update path.",
+  "status": "open",
+  "history": [],
+  "signature": "sig_feat-library-c79e5f55d9_582ec51dae",
+  "linkedPatchAttemptIds": [],
+  "createdByRunId": "20260517T095713-0fd29e",
+  "createdAt": "2026-05-17T09:58:01.491Z",
+  "updatedAt": "2026-05-17T09:58:01.491Z"
+}

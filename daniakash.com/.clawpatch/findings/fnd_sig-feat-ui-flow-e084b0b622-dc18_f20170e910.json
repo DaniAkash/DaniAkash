@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "findingId": "fnd_sig-feat-ui-flow-e084b0b622-dc18_f20170e910",
+  "featureId": "feat_ui-flow_e084b0b622",
+  "title": "Empty destination lists crash during render",
+  "category": "bug",
+  "severity": "medium",
+  "confidence": "high",
+  "triage": "confirmed-bug",
+  "evidence": [
+    {
+      "path": "src/components/Globe.tsx",
+      "startLine": 110,
+      "endLine": 116,
+      "symbol": "Globe",
+      "quote": "const [startIdx] = useState(() =>\n    Math.floor(Math.random() * DESTINATIONS.length),\n  );\n  const [currentIdx, setCurrentIdx] = useState(startIdx);\n  const initialPhi =\n    -(DESTINATIONS[startIdx]!.loc[1] * (Math.PI / 180)) - Math.PI / 2;"
+    },
+    {
+      "path": "src/components/Globe.tsx",
+      "startLine": 141,
+      "endLine": 145,
+      "symbol": "switchTo",
+      "quote": "const wrapped =\n        ((idx % DESTINATIONS.length) + DESTINATIONS.length) %\n        DESTINATIONS.length;"
+    }
+  ],
+  "reasoning": "When destinations is empty, startIdx becomes 0, but DESTINATIONS[0] is undefined. The non-null assertion then dereferences .loc during render, so the component throws before it can display any fallback. The same zero-length case also makes index wrapping use modulo zero and produce NaN in navigation paths.",
+  "reproduction": "Render <Globe destinations={[]} />; the render evaluates DESTINATIONS[startIdx]!.loc and throws because DESTINATIONS[0] is undefined.",
+  "recommendation": "Handle an empty mapped destination list before deriving startIdx/current destination, either by rendering an empty-state UI or returning null. Also guard navigation helpers so they do not modulo by zero.",
+  "whyTestsDoNotAlreadyCoverThis": "No linked tests are provided for Globe, and there is no test exercising an empty destinations prop.",
+  "suggestedRegressionTest": "Add a component test that renders Globe with an empty destinations array and asserts it does not throw and shows the intended empty state.",
+  "minimumFixScope": "src/components/Globe.tsx",
+  "status": "open",
+  "history": [],
+  "signature": "sig_feat-ui-flow-e084b0b622_dc18b19a94",
+  "linkedPatchAttemptIds": [],
+  "createdByRunId": "20260517T095713-0fd29e",
+  "createdAt": "2026-05-17T09:59:29.071Z",
+  "updatedAt": "2026-05-17T09:59:29.071Z"
+}

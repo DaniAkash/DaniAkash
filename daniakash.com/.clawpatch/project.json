@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "projectId": "prj_https-github-com-daniakash-dania_33ff6886bf",
+  "name": "daniakash.com",
+  "rootPath": "daniakash.com",
+  "git": {
+    "remoteUrl": "https://github.com/DaniAkash/DaniAkash.git",
+    "defaultBranch": "main",
+    "currentBranch": "chore/clawpatch-setup",
+    "headSha": "1536123e98a0e3b03b3905b7f63aef8b29c903a8"
+  },
+  "detected": {
+    "languages": [
+      "typescript",
+      "javascript"
+    ],
+    "frameworks": [],
+    "packageManagers": [
+      "pnpm"
+    ],
+    "commands": {
+      "typecheck": "pnpm typecheck",
+      "lint": "pnpm lint",
+      "format": "pnpm format",
+      "test": null
+    }
+  },
+  "createdAt": "2026-05-17T09:54:05.981Z",
+  "updatedAt": "2026-05-17T09:54:05.981Z"
+}

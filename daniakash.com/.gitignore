@@ -35,3 +35,9 @@ public/og/
 
 # Ignore locally installed models
 models/
+
+# clawpatch — keep the durable map + findings, ignore ephemeral state
+.clawpatch/runs/
+.clawpatch/patches/
+.clawpatch/reports/
+.clawpatch/locks/

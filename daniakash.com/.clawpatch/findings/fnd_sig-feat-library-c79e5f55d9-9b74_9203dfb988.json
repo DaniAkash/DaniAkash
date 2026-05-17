@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "findingId": "fnd_sig-feat-library-c79e5f55d9-9b74_9203dfb988",
+  "featureId": "feat_library_c79e5f55d9",
+  "title": "Theme toggle restarts the globe without marker-overlay synchronization",
+  "category": "bug",
+  "severity": "medium",
+  "confidence": "high",
+  "triage": "confirmed-bug",
+  "evidence": [
+    {
+      "path": "src/components/Globe.tsx",
+      "startLine": 227,
+      "endLine": 265,
+      "symbol": "animate",
+      "quote": "const finalPhi = phiRef.current + r.get();\nglobe.update({ phi: finalPhi });"
+    },
+    {
+      "path": "src/components/Globe.tsx",
+      "startLine": 282,
+      "endLine": 308,
+      "symbol": "MutationObserver callback",
+      "quote": "markers: [{ location: DESTINATIONS[currentIdx]!.loc, size: 0.03 }],"
+    },
+    {
+      "path": "src/components/Globe.tsx",
+      "startLine": 237,
+      "endLine": 257,
+      "symbol": "animate",
+      "quote": "const dest = DESTINATIONS[currentIdxRef.current]!;"
+    }
+  ],
+  "reasoning": "The normal animation loop updates both the globe rotation and the polaroid overlay position, using currentIdxRef for the active destination. On a theme class mutation, the code destroys the globe, cancels that loop, and starts animateNew, which only updates phi. It also recreates cobe with DESTINATIONS[currentIdx] from the effect's initial render closure rather than currentIdxRef. After the user navigates to another destination and toggles theme, the globe marker can reset to the initial destination while the visible card remains frozen or points at the current destination, breaking the marker/card contract.",
+  "reproduction": null,
+  "recommendation": "When recreating the globe for theme changes, use the same animation path as the initial globe or extract a shared create/restart routine that keeps marker selection and overlay positioning in sync. Use currentIdxRef.current for the marker location inside long-lived callbacks.",
+  "whyTestsDoNotAlreadyCoverThis": "No linked tests are included for Globe interactions, theme changes, or marker/card synchronization.",
+  "suggestedRegressionTest": "Render Globe with at least two destinations, switch to the second destination, toggle the document dark class, and assert the recreated globe marker and polaroid content/position both correspond to the second destination.",
+  "minimumFixScope": "src/components/Globe.tsx theme observer and animation-loop setup.",
+  "status": "open",
+  "history": [],
+  "signature": "sig_feat-library-c79e5f55d9_9b74994c8c",
+  "linkedPatchAttemptIds": [],
+  "createdByRunId": "20260517T095713-0fd29e",
+  "createdAt": "2026-05-17T09:58:01.491Z",
+  "updatedAt": "2026-05-17T09:58:01.491Z"
+}

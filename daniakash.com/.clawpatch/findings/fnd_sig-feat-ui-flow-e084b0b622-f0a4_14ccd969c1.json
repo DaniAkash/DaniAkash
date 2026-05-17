@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "findingId": "fnd_sig-feat-ui-flow-e084b0b622-f0a4_14ccd969c1",
+  "featureId": "feat_ui-flow_e084b0b622",
+  "title": "Resize handler never resizes or recreates the globe",
+  "category": "bug",
+  "severity": "medium",
+  "confidence": "high",
+  "triage": "confirmed-bug",
+  "evidence": [
+    {
+      "path": "src/components/Globe.tsx",
+      "startLine": 209,
+      "endLine": 213,
+      "symbol": "Globe useEffect",
+      "quote": "const globe = createGlobe(canvas, {\n      devicePixelRatio: 2,\n      width: w * 2,\n      height: h * 2,"
+    },
+    {
+      "path": "src/components/Globe.tsx",
+      "startLine": 324,
+      "endLine": 336,
+      "symbol": "handleResize",
+      "quote": "const handleResize = () => {\n      clearTimeout(resizeTimeout);\n      resizeTimeout = setTimeout(() => {\n        observer.disconnect();\n        // Trigger re-mount by observer logic\n        observer.observe(document.documentElement, {\n          attributes: true,\n          attributeFilter: [\"class\"],\n        });\n      }, 200);\n    };"
+    }
+  ],
+  "reasoning": "The globe canvas dimensions are captured from the wrapper only when createGlobe is called. On resize, the handler only disconnects and re-attaches the MutationObserver; that does not mutate the document class and does not call createGlobe, update the canvas width/height, or update cobe dimensions. After the wrapper changes size, the rendered globe can remain at the old bitmap dimensions while overlay projection uses the new wrapper dimensions, causing a blurry or misaligned globe and marker card.",
+  "reproduction": "Mount the component, resize the viewport so .globe-wrap changes dimensions, and observe that handleResize does not recreate or update the cobe instance with the new width/height.",
+  "recommendation": "Replace the resize handler with logic that actually resizes/recreates the cobe instance using the current wrapper dimensions, or factor globe creation into a shared function used by mount, theme changes, and resize. Keep the overlay projection and canvas dimensions sourced from the same measured size.",
+  "whyTestsDoNotAlreadyCoverThis": "No linked tests are provided, and there is no resize behavior test or visual regression coverage for the canvas and overlay alignment.",
+  "suggestedRegressionTest": "Add a browser/component test that changes the wrapper size and asserts createGlobe/update receives dimensions based on the new wrapper size, or a visual test that verifies marker overlay alignment after resize.",
+  "minimumFixScope": "src/components/Globe.tsx",
+  "status": "open",
+  "history": [],
+  "signature": "sig_feat-ui-flow-e084b0b622_f0a48495eb",
+  "linkedPatchAttemptIds": [],
+  "createdByRunId": "20260517T095713-0fd29e",
+  "createdAt": "2026-05-17T09:59:29.071Z",
+  "updatedAt": "2026-05-17T09:59:29.071Z"
+}

@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "findingId": "fnd_sig-feat-release-775032a0f4-f0bf_eb81595ab1",
+  "featureId": "feat_release_775032a0f4",
+  "title": "`start` runs the Astro development server instead of a production server",
+  "category": "build-release",
+  "severity": "medium",
+  "confidence": "medium",
+  "triage": "risk",
+  "evidence": [
+    {
+      "path": "package.json",
+      "startLine": 8,
+      "endLine": 8,
+      "symbol": "scripts.start",
+      "quote": "\"start\": \"astro dev\""
+    },
+    {
+      "path": "package.json",
+      "startLine": 10,
+      "endLine": 10,
+      "symbol": "scripts.preview",
+      "quote": "\"preview\": \"astro preview\""
+    }
+  ],
+  "reasoning": "The package `start` entrypoint is commonly used by release tooling and Node hosts as the production launch command, but it currently starts `astro dev`. That runs the development server rather than serving the built output, while the package already has a separate `preview` script for serving a built Astro site. In environments that invoke `pnpm start`, this can deploy a dev server path instead of the production artifact path.",
+  "reproduction": "Run `pnpm start` after a production build; it invokes `astro dev` rather than `astro preview` or another production adapter command.",
+  "recommendation": "Point `start` at the intended production command, such as `astro preview` for serving built output locally, or the deployment adapter/server entrypoint if this app is meant to run on a Node host. Keep `dev` as the development-only command.",
+  "whyTestsDoNotAlreadyCoverThis": "No linked tests or release checks exercise the package `start` script or assert that it serves production build output.",
+  "suggestedRegressionTest": "Add a release smoke check that runs the build and then validates the configured start command uses the production serving path rather than `astro dev`.",
+  "minimumFixScope": "Update the `scripts.start` value in `package.json` and, if needed, add a lightweight release smoke check for the start command.",
+  "status": "open",
+  "history": [],
+  "signature": "sig_feat-release-775032a0f4_f0bf1b761e",
+  "linkedPatchAttemptIds": [],
+  "createdByRunId": "20260517T095713-0fd29e",
+  "createdAt": "2026-05-17T09:58:01.359Z",
+  "updatedAt": "2026-05-17T09:58:01.359Z"
+}

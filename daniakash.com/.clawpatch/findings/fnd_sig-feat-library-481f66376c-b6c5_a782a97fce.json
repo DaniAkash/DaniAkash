@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "findingId": "fnd_sig-feat-library-481f66376c-b6c5_a782a97fce",
+  "featureId": "feat_library_481f66376c",
+  "title": "Dist file writes can escape the intended output directory",
+  "category": "security",
+  "severity": "medium",
+  "confidence": "medium",
+  "triage": "risk",
+  "evidence": [
+    {
+      "path": "src/utils/writeFileToDist.ts",
+      "startLine": 5,
+      "endLine": 9,
+      "symbol": "writeFileToDist",
+      "quote": "const imagePath = resolve(process.cwd(), `${targetDir}${filePath}`);\n  const imageDir = dirname(imagePath);\n  mkdirSync(imageDir, { recursive: true });\n  writeFileSync(imagePath, fileBuffer);"
+    },
+    {
+      "path": "src/utils/getOGImage.ts",
+      "startLine": 13,
+      "endLine": 18,
+      "symbol": "getOGImage",
+      "quote": "path,\n}: {\n  title: string;\n  description: string;\n  path: string;\n  cover?: string;"
+    },
+    {
+      "path": "src/utils/getOGImage.ts",
+      "startLine": 107,
+      "endLine": 107,
+      "symbol": "getOGImage",
+      "quote": "writeFileToDist(path, imageFile);"
+    }
+  ],
+  "reasoning": "`writeFileToDist` concatenates `targetDir` and caller-provided `filePath`, resolves the result, and writes it without checking that the resolved path remains under `public` or `dist`. A path containing traversal after a leading slash, such as `/../package.json`, resolves outside the target directory and can overwrite files in the project root. `getOGImage` passes its `path` parameter directly to this helper, so any caller mistake or content-derived path can become an arbitrary project-file write during dev/build.",
+  "reproduction": "Calling `writeFileToDist('/../tmp-owned', Buffer.from('x'))` from the project root writes to `<project>/tmp-owned` instead of `<project>/dist/tmp-owned` or `<project>/public/tmp-owned`.",
+  "recommendation": "Normalize `filePath` as a relative path, reject absolute paths and any `..` traversal segments, then verify the final resolved path starts with the resolved target output directory before writing.",
+  "whyTestsDoNotAlreadyCoverThis": "No tests are included for `writeFileToDist`, and no negative cases cover traversal or absolute-style input.",
+  "suggestedRegressionTest": "Add tests that assert normal paths write under the selected output directory and that `/../...`, `../...`, and absolute paths are rejected without writing files.",
+  "minimumFixScope": "Harden `src/utils/writeFileToDist.ts` path handling; optionally validate `path` before passing it from `getOGImage`.",
+  "status": "open",
+  "history": [],
+  "signature": "sig_feat-library-481f66376c_b6c5c7dfa8",
+  "linkedPatchAttemptIds": [],
+  "createdByRunId": "20260517T095713-0fd29e",
+  "createdAt": "2026-05-17T09:57:50.857Z",
+  "updatedAt": "2026-05-17T09:57:50.857Z"
+}
