@@ -1,13 +1,13 @@
 #!/usr/bin/env node
 import { spawn } from "node:child_process";
-import { mkdir, readFile, stat, writeFile } from "node:fs/promises";
+import { readFile, stat, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { parseArgs } from "node:util";
 
 const HELP = `Usage:
   pnpm clawpr           Review this branch's changed features and post a comment on the open PR.
-  pnpm clawpr --all     Review the whole repo and write a report under .clawpatch/reports/.
+  pnpm clawpr --all     Review the whole repo and print the report path.
   pnpm clawpr --help    Show this help.
 `;
 
@@ -28,13 +28,13 @@ function runStreaming(cmd, args) {
   });
 }
 
-function runCapture(cmd, args) {
+function runCapture(cmd, args, opts = {}) {
   return new Promise((resolveP, rejectP) => {
-    const child = spawn(cmd, args, { stdio: ["ignore", "pipe", "pipe"] });
+    const child = spawn(cmd, args, { stdio: ["ignore", "pipe", opts.teeStderr ? "inherit" : "pipe"] });
     let stdout = "";
     let stderr = "";
     child.stdout.on("data", (d) => (stdout += d));
-    child.stderr.on("data", (d) => (stderr += d));
+    if (child.stderr) child.stderr.on("data", (d) => (stderr += d));
     child.on("error", rejectP);
     child.on("exit", (code) => {
       if (code === 0) resolveP({ stdout, stderr });
@@ -57,6 +57,11 @@ async function openPr() {
   }
 }
 
+function parseReportPath(reviewStdout) {
+  const match = reviewStdout.match(/^report:\s*(.+)$/m);
+  return match ? match[1].trim() : null;
+}
+
 async function reviewPr() {
   const branch = await currentBranch();
   if (branch === "main" || branch === "master") {
@@ -72,14 +77,22 @@ async function reviewPr() {
   const base = `origin/${pr.baseRefName}`;
 
   logStatus(`reviewing changes vs ${base} (PR #${pr.number})`);
-  await runStreaming("clawpatch", ["review", "--root", ROOT, "--since", base, "--jobs", "4"]);
+  const { stdout } = await runCapture(
+    "clawpatch",
+    ["review", "--root", ROOT, "--since", base, "--jobs", "4"],
+    { teeStderr: true },
+  );
+  process.stdout.write(stdout);
 
-  const reportPath = join(tmpdir(), `clawpr-report-${Date.now()}.md`);
-  await runStreaming("clawpatch", ["report", "--root", ROOT, "--since", base, "-o", reportPath]);
+  const reportPath = parseReportPath(stdout);
+  if (!reportPath) {
+    logStatus("no features changed in this branch; nothing to post");
+    return;
+  }
 
   const reportStat = await stat(reportPath).catch(() => null);
   if (!reportStat || reportStat.size === 0) {
-    logStatus("empty report; skipping PR comment");
+    logStatus("report file empty; skipping PR comment");
     return;
   }
 
@@ -94,16 +107,19 @@ async function reviewPr() {
 
 async function reviewAll() {
   logStatus("running full-repo review (no PR scope)");
-  await runStreaming("clawpatch", ["review", "--root", ROOT, "--jobs", "4"]);
+  const { stdout } = await runCapture(
+    "clawpatch",
+    ["review", "--root", ROOT, "--jobs", "4"],
+    { teeStderr: true },
+  );
+  process.stdout.write(stdout);
 
-  const reportDir = join(ROOT, ".clawpatch", "reports");
-  await mkdir(reportDir, { recursive: true });
-  const stamp = new Date().toISOString().replace(/[:.]/g, "-").replace(/Z$/, "");
-  const reportPath = join(reportDir, `full-${stamp}.md`);
-  await runStreaming("clawpatch", ["report", "--root", ROOT, "-o", reportPath]);
-
+  const reportPath = parseReportPath(stdout);
+  if (!reportPath) {
+    logStatus("no pending features to review");
+    return;
+  }
   logStatus(`full report written to ${reportPath}`);
-  process.stdout.write(`${reportPath}\n`);
 }
 
 async function main() {
