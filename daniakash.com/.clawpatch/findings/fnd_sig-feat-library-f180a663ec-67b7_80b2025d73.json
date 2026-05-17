@@ -22,11 +22,29 @@
   "whyTestsDoNotAlreadyCoverThis": "No release or publish-safety tests are linked for this feature.",
   "suggestedRegressionTest": "Add a lightweight manifest check that asserts private is true for this website project, if the repository has a package metadata validation step.",
   "minimumFixScope": "package.json manifest metadata.",
-  "status": "open",
-  "history": [],
+  "status": "fixed",
+  "history": [
+    {
+      "runId": "20260517T121923-e1e6fa",
+      "kind": "revalidate",
+      "status": "fixed",
+      "note": null,
+      "reasoning": "The original evidence path still exists at package.json. The manifest now has \"private\": true on line 3, with name still \"daniakash.com\" on line 2 and version \"0.0.1\" on line 5, so the publish-safety issue described by the finding has been addressed. A direct Node manifest check confirmed {\"name\":\"daniakash.com\",\"private\":true,\"version\":\"0.0.1\",\"packageManager\":\"pnpm@10.33.0\"}. I attempted `pnpm publish --dry-run --no-git-checks`, but it was inconclusive because the read-only sandbox blocked pnpm from creating a temp directory before publish semantics could be evaluated.",
+      "commands": [
+        "pwd && rg --files -g 'package.json' -g 'pnpm-lock.yaml' -g 'package-lock.json' -g 'yarn.lock' -g 'npm-shrinkwrap.json'",
+        "nl -ba package.json | sed -n '1,80p'",
+        "git status --short",
+        "node -e \"const p=require('./package.json'); console.log(JSON.stringify({name:p.name, private:p.private, version:p.version, packageManager:p.packageManager}))\"",
+        "pnpm publish --dry-run --no-git-checks"
+      ],
+      "createdAt": "2026-05-17T12:19:59.815Z"
+    }
+  ],
   "signature": "sig_feat-library-f180a663ec_67b70cc1af",
-  "linkedPatchAttemptIds": [],
+  "linkedPatchAttemptIds": [
+    "pat_fnd-sig-feat-library-f180a663ec-_6582ed80f7"
+  ],
   "createdByRunId": "20260517T104148-ff577f",
   "createdAt": "2026-05-17T10:42:19.303Z",
-  "updatedAt": "2026-05-17T10:42:19.303Z"
+  "updatedAt": "2026-05-17T12:19:59.815Z"
 }

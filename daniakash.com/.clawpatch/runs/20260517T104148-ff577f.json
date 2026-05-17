@@ -2,13 +2,7 @@
   "schemaVersion": 1,
   "runId": "20260517T104148-ff577f",
   "command": "review",
-  "args": [
-    "--root",
-    "./",
-    "review",
-    "--limit",
-    "10"
-  ],
+  "args": ["--root", "./", "review", "--limit", "10"],
   "rootPath": "./",
   "headSha": "9f1fc82f99dc756ec508c3df890c6671cbd1457b",
   "startedAt": "2026-05-17T10:41:48.882Z",

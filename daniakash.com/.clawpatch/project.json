@@ -10,14 +10,9 @@
     "headSha": "66026de6265218bf23f354b33875ad933791d1f7"
   },
   "detected": {
-    "languages": [
-      "typescript",
-      "javascript"
-    ],
+    "languages": ["typescript", "javascript"],
     "frameworks": [],
-    "packageManagers": [
-      "pnpm"
-    ],
+    "packageManagers": ["pnpm"],
     "commands": {
       "typecheck": "pnpm typecheck",
       "lint": "pnpm lint",

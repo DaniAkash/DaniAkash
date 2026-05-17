@@ -37,9 +37,7 @@
   "trustBoundaries": [],
   "status": "needs-fix",
   "lock": null,
-  "findingIds": [
-    "fnd_sig-feat-library-f8bf0b65a1-25e6_32053b1a94"
-  ],
+  "findingIds": ["fnd_sig-feat-library-f8bf0b65a1-25e6_32053b1a94"],
   "patchAttemptIds": [],
   "analysisHistory": [
     {

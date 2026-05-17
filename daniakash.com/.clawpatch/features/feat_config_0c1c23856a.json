@@ -22,13 +22,8 @@
   ],
   "contextFiles": [],
   "tests": [],
-  "tags": [
-    "config"
-  ],
-  "trustBoundaries": [
-    "process-exec",
-    "filesystem"
-  ],
+  "tags": ["config"],
+  "trustBoundaries": ["process-exec", "filesystem"],
   "status": "reviewed",
   "lock": null,
   "findingIds": [],

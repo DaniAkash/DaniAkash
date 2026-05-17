@@ -31,12 +31,7 @@
     }
   ],
   "tests": [],
-  "tags": [
-    "node",
-    "package",
-    "project:daniakash.com",
-    "project-root:."
-  ],
+  "tags": ["node", "package", "project:daniakash.com", "project-root:."],
   "trustBoundaries": [],
   "status": "needs-fix",
   "lock": null,
