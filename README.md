@@ -8,6 +8,7 @@ Founding Engineer at [browseros-ai](https://github.com/browseros-ai) · Based in
 - 📟 **[Agent Terminal](https://github.com/DaniAkash/agent-terminal)** — A terminal where coding agents are first-class citizens, not bolted-on guests.
 - 🧵 **[acpx](https://github.com/DaniAkash/acpx)** — Headless ACP toolkit. Talk to coding agents over the protocol, no UI required.
 - 🛠️ **[skills](https://github.com/DaniAkash/skills)** — A growing toolbox of agent skills I reach for every day.
+- 🎨 **[stylecn](https://github.com/DaniAkash/stylecn)** — Brand-themed presets for shadcn/ui. Apple, Stripe, Linear, Airbnb, and more — copy the CSS, ship the look.
 - 🌲 **[worktree-env-copy](https://github.com/DaniAkash/worktree-env-copy)** — Global git post-checkout hook that auto-copies .env* files into new worktrees. Built for AI coding agents that spin up worktrees on demand.
 
 ## What I do
