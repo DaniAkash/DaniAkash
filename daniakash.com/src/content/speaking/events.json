@@ -3,6 +3,44 @@
     "year": 2026,
     "events": [
       {
+        "date": "May 30, 2026",
+        "name": "Expert Talks Chennai",
+        "title": "React + Postgres - The AI-Ready Stack You Already Know",
+        "description": "How PostgreSQL paired with React Server Components collapses the service sprawl of AI-heavy apps: row-level security for auth, pgvector for search, LISTEN/NOTIFY for realtime, and full-text search for RAG.",
+        "video": "https://youtu.be/O9r2SeC6hw8",
+        "cta": [
+          {
+            "title": "Event Website",
+            "url": "https://www.meetup.com/expert-talks-chennai/events/314841617/"
+          },
+          {
+            "title": "Community",
+            "url": "https://www.meetup.com/expert-talks-chennai/"
+          },
+          {
+            "title": "Slides + Demo",
+            "url": "https://github.com/DaniAkash/React-and-Postgres-for-AI"
+          }
+        ]
+      },
+      {
+        "date": "May 9, 2026",
+        "name": "Digital Dreamers Den (D3) Anniversary Meetup",
+        "title": "Building Agent-Native Apps with JavaScript",
+        "description": "Why the next generation of software is built for agents, not humans, and how JavaScript ships that context through three substrates over one schema: an MCP server, a CLI, and a typed API.",
+        "video": "https://www.youtube.com/live/Un4SmWPMH5Y?t=14538",
+        "cta": [
+          {
+            "title": "Event Website",
+            "url": "https://luma.com/event/evt-bBejtIHiuOOGaq1"
+          },
+          {
+            "title": "Slides + Demo",
+            "url": "https://github.com/DaniAkash/agent-native-apps"
+          }
+        ]
+      },
+      {
         "date": "Mar 7, 2026",
         "name": "JSLovers Chennai Meetup #9",
         "title": "AI driven Web Development with Chrome DevTools Protocol",
