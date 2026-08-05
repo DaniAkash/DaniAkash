@@ -1,0 +1,34 @@
+version: 2
+
+updates:
+  # "npm" is Dependabot's ecosystem key for the whole Node world: npm, yarn,
+  # and pnpm. There is no "pnpm" value. Dependabot detects pnpm-lock.yaml and
+  # updates it with pnpm automatically.
+  - package-ecosystem: "npm"
+    directory: "/daniakash.com"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "Asia/Kolkata"
+    open-pull-requests-limit: 10
+    cooldown:
+      default-days: 3
+    # Major bumps are opt-in only. Routine version PRs stay limited to
+    # minor + patch so the queue stays actionable. A security update that
+    # needs a major bump is still opened: `ignore` rules do not apply to
+    # security advisories.
+    ignore:
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-major"
+    groups:
+      minor-and-patch:
+        update-types:
+          - "minor"
+          - "patch"
+    commit-message:
+      prefix: "chore(deps)"
+      include: "scope"
+    labels:
+      - "dependencies"
