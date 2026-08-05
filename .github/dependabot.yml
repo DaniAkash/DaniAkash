@@ -1,6 +1,9 @@
 version: 2
 
 updates:
+  # "npm" is Dependabot's ecosystem key for the whole Node world: npm, yarn,
+  # and pnpm. There is no "pnpm" value. Dependabot detects pnpm-lock.yaml and
+  # updates it with pnpm automatically.
   - package-ecosystem: "npm"
     directory: "/daniakash.com"
     schedule:
