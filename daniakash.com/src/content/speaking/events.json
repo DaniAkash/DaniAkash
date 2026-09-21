@@ -3,6 +3,52 @@
     "year": 2026,
     "events": [
       {
+        "date": "Sep 19, 2026",
+        "name": "React India x Chennai React Meetup 2026",
+        "title": "Automate your software delivery with AI Factories",
+        "description": "A delivery pipeline where every stage is an agent, and the finding that the conveyor belt is only a third of the code: the rest is trust enforcement and memory namespacing, which is what makes a factory safe to leave running unattended.",
+        "video": "https://www.youtube.com/live/7dc6tJOG_Yo?t=9255",
+        "cta": [
+          {
+            "title": "Event Website",
+            "url": "https://luma.com/49bulo2m"
+          },
+          {
+            "title": "Community",
+            "url": "https://www.chennaireact.in/socials"
+          },
+          {
+            "title": "Slides",
+            "url": "https://ai-factories.vercel.app"
+          },
+          {
+            "title": "Code",
+            "url": "https://github.com/DaniAkash/ai-factories"
+          }
+        ]
+      },
+      {
+        "date": "Aug 8, 2026",
+        "name": "TypedCoders 3.0",
+        "title": "Building AI-powered Workflows for Large-Scale TypeScript Code Refactors",
+        "description": "Two case studies in keeping types honest across a language boundary: migrating a production TypeScript service to Rust while the TypeScript client stays type-safe, and a typed comms layer between a Tauri desktop app and an Expo companion.",
+        "video": "https://www.youtube.com/live/U8WIiXl5zhc?t=1074",
+        "cta": [
+          {
+            "title": "Event Website",
+            "url": "https://luma.com/f5lwl2zz"
+          },
+          {
+            "title": "Slides",
+            "url": "https://ai-workflows-for-ts-refactors.vercel.app"
+          },
+          {
+            "title": "Code",
+            "url": "https://github.com/DaniAkash/ai-workflows-for-ts-refactors"
+          }
+        ]
+      },
+      {
         "date": "May 30, 2026",
         "name": "Expert Talks Chennai",
         "title": "React + Postgres - The AI-Ready Stack You Already Know",
