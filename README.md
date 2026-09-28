@@ -23,8 +23,6 @@ I'm a regular speaker at tech communities in Chennai and Bangalore — talking a
 
 Open to discuss and brainstorm startup ideas — reach out on [X](https://twitter.com/dani_akash_).
 
-Currently also building [Inaily](https://inaily.com) — an app for AI-driven networking at meetups.
-
 ## How I work
 
 Expert in vibe coding and prompt engineering — but I've been shipping complete products solo long before the age of AI.
