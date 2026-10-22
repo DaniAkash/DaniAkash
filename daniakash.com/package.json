@@ -52,7 +52,7 @@
     "astro-robots-txt": "^1.0.0",
     "astro-seo-meta": "^6.0.0",
     "clawpatch": "^0.8.1",
-    "markdown-it": "^14.3.2",
+    "markdown-it": "^14.3.3",
     "prettier": "^3.9.8",
     "prettier-plugin-astro": "^0.14.1",
     "prettier-plugin-tailwindcss": "^0.8.1",
