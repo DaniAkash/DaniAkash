@@ -8,6 +8,7 @@ Founding Engineer at [browseros-ai](https://github.com/browseros-ai) · Based in
 - 📟 **[Agent Terminal](https://github.com/DaniAkash/agent-terminal)** — A terminal where coding agents are first-class citizens, not bolted-on guests.
 - 🤖 **[herbie](https://github.com/DaniAkash/herbie)** — One menubar window for every AI coding agent. Pick Claude, Codex, or Gemini, share skills across them, drive them from your phone.
 - 🧵 **[agent-toolkit](https://github.com/DaniAkash/agent-toolkit)** — Vercel AI SDK adapters, a local microVM sandbox, skill and MCP installers, ACP-protocol utilities.
+- 🦀 **[Google-Rust-Style-Guide](https://github.com/DaniAkash/Google-Rust-Style-Guide)**: Google's Rust style guide, enforced. Drop-in rustfmt, clippy and cargo-deny configs, AGENTS.md for coding agents, and a human review guide. [Adopt it in 5 minutes](https://daniakash.github.io/Google-Rust-Style-Guide/).
 - 🍎 **[mac-mcp](https://github.com/DaniAkash/mac-mcp)** — Read-only MCP server that exposes native macOS apps (Mail, Calendar, Reminders, Contacts, Notes, Messages, Spotlight) to AI agents.
 - 🛠️ **[skills](https://github.com/DaniAkash/skills)** — A growing toolbox of agent skills I reach for every day.
 - 🎨 **[stylecn](https://github.com/DaniAkash/stylecn)** — Brand-themed presets for shadcn/ui. Apple, Stripe, Linear, Airbnb, and more — copy the CSS, ship the look.
