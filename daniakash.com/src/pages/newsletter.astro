@@ -1,5 +1,6 @@
 ---
 import { getCollection } from "astro:content";
+import AppSheet from "../components/AppSheet.astro";
 import NewsletterWidget from "../components/Newsletter.astro";
 import MainLayout from "../layouts/MainLayout.astro";
 
@@ -21,69 +22,70 @@ const years = [...issuesByYear.keys()].sort((a, b) => b - a);
   title="Newsletter"
   description="Dani Akash's newsletter on AI, tech, science, and the web | delivered to your inbox, zero spam."
 >
-  <div class="mx-auto max-w-[720px] pb-20 pt-[120px]">
-    <!-- Header -->
-    <header class="mb-20">
-      <p class="mb-6 font-mono text-[11px] uppercase tracking-[0.15em] text-muted-foreground">
-        03 // NEWSLETTER
-      </p>
-      <h1
-        class="mb-4 font-bold leading-[1.1] tracking-[-0.03em]"
-        style="font-size: clamp(32px, 5vw, 48px);"
-      >
-        Letters of the News Kind
-      </h1>
-      <p class="text-lg leading-relaxed text-muted-foreground">
-        Thoughts delivered straight to your inbox, with zero spam (I promise).
-      </p>
-    </header>
-
-    <!-- Subscribe box -->
+  <AppSheet
+    title="Letters of the News Kind"
+    lede="Thoughts delivered straight to your inbox, with zero spam (I promise)."
+  >
     <NewsletterWidget
       heading="Get notified when I publish something new"
       description="Unsubscribe at any time. No spam, ever."
-      label="Stay up to date"
-      center={false}
-      class="mb-20 p-6"
+      class="ring-border ring-1"
     />
 
-    <!-- Issues list -->
-    <div>
-      <div class="mb-6 border-b border-dashed border-border pb-2 font-mono text-[11px] uppercase tracking-[0.1em] text-muted-foreground">
+    <section aria-labelledby="all-issues" class="mt-8 md:mt-10">
+      <h2
+        id="all-issues"
+        class="font-display text-title font-extrabold tracking-[-0.02em]"
+      >
         All Issues
-      </div>
-
-      {years.map((year) => {
-        const yearIssues = issuesByYear.get(year)!;
-        return (
-          <>
-            <div class="py-6 pb-2 font-mono text-xs tracking-[0.1em] text-foreground/10">
-              {year}
-            </div>
-            {yearIssues.map((issue) => {
-              const date = new Date(issue.data.dateValue);
-              const dateDisplay = date.toLocaleDateString("en-US", {
-                month: "short",
-                day: "numeric",
-              });
-              return (
-                <a
-                  href={`/newsletter/${issue.data.slug}/`}
-                  class="group -mx-4 flex items-baseline justify-between gap-6 rounded-lg border-b border-dashed border-border px-4 py-4 transition-colors last:border-b-0 hover:bg-foreground/5"
+      </h2>
+      <div class="mt-4 flex flex-col gap-6">
+        {
+          years.map((year) => {
+            const yearIssues = issuesByYear.get(year) ?? [];
+            return (
+              <section
+                aria-labelledby={`issues-${year}`}
+                class="grid gap-2 md:grid-cols-[8rem_1fr] md:gap-6"
+              >
+                <h3
+                  id={`issues-${year}`}
+                  class="text-muted-foreground text-label tabular font-bold md:pt-3.5"
                 >
-                  <span class="text-[17px] font-medium leading-snug transition-colors group-hover:text-primary">
-                    {issue.data.title}
-                  </span>
-                  <span class="shrink-0 font-mono text-xs tracking-wide text-muted-foreground">
-                    {dateDisplay}
-                  </span>
-                </a>
-              );
-            })}
-          </>
-        );
-      })}
-    </div>
-  </div>
+                  {year}
+                </h3>
+                <ul class="flex flex-col">
+                  {yearIssues.map((issue) => {
+                    const date = new Date(issue.data.dateValue);
+                    const dateDisplay = date.toLocaleDateString("en-US", {
+                      month: "short",
+                      day: "numeric",
+                    });
+                    return (
+                      <li class="border-border border-t first:border-t-0">
+                        <a
+                          href={`/newsletter/${issue.data.slug}/`}
+                          class="group hover:bg-muted -mx-3 flex items-baseline justify-between gap-6 rounded-2xl px-3 py-3 transition-colors"
+                        >
+                          <span class="text-lede group-hover:text-primary leading-snug font-bold transition-colors">
+                            {issue.data.title}
+                          </span>
+                          <time
+                            datetime={issue.data.dateValue}
+                            class="text-muted-foreground text-meta tabular shrink-0 font-semibold"
+                          >
+                            {dateDisplay}
+                          </time>
+                        </a>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </section>
+            );
+          })
+        }
+      </div>
+    </section>
+  </AppSheet>
 </MainLayout>
-

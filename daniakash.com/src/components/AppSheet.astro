@@ -1,0 +1,94 @@
+---
+import { sectionFor } from "../constants/sections";
+import { cn } from "../utils/cn";
+import AppIcon from "./AppIcon.astro";
+import Icon from "./Icon.astro";
+
+interface Props {
+  /** The page heading; rendered as the sheet's h1. */
+  title: string;
+  /** Optional line under the heading. */
+  lede?: string | undefined;
+  /** Override the section used for the header icon (defaults to the current path). */
+  sectionHref?: string;
+  /** Parent page for the back button; posts and newsletter issues get one automatically. */
+  backHref?: string;
+  backLabel?: string;
+  class?: string;
+}
+
+const {
+  title,
+  lede,
+  sectionHref,
+  backHref,
+  backLabel,
+  class: className,
+} = Astro.props;
+const path = Astro.url.pathname;
+const section = sectionFor(sectionHref ?? path);
+
+const autoBack = path.startsWith("/posts/")
+  ? { href: "/blog/", label: "Blog" }
+  : /^\/newsletter\/[^/]+\/?$/.test(path)
+    ? { href: "/newsletter/", label: "Newsletter" }
+    : undefined;
+const back = backHref
+  ? { href: backHref, label: backLabel ?? "Back" }
+  : autoBack;
+---
+
+<article
+  class={cn(
+    "bg-sheet text-card-foreground rounded-widget mx-auto w-full p-4 md:p-8",
+    className,
+  )}
+>
+  {
+    back && (
+      <a
+        href={back.href}
+        class="text-primary hover:bg-muted text-label -mt-1 -ml-2 mb-3 inline-flex min-h-9 items-center gap-0.5 rounded-full pr-3 pl-1.5 font-bold transition-colors md:-mt-3 md:mb-4 print:hidden"
+      >
+        <Icon name="chevron-left" class="size-[18px]" />
+        {back.label}
+      </a>
+    )
+  }
+  <header
+    class="grid grid-cols-[auto_1fr_auto] items-start gap-x-4 md:grid-cols-[auto_1fr_auto]"
+  >
+    {
+      section && (
+        <AppIcon
+          art={{
+            kind: "section",
+            glyph: section.glyph,
+            tint: section.tint,
+            ink: section.ink,
+          }}
+          size="md"
+          class="-m-1.5 size-14 md:row-span-2 md:size-[4.5rem]"
+        />
+      )
+    }
+    <h1 class="font-display text-heading md:text-display min-w-0 self-center font-extrabold tracking-[-0.03em] md:pt-1">
+      {title}
+    </h1>
+    <a
+      href="/"
+      class="bg-muted hover:bg-foreground hover:text-background inline-flex size-10 shrink-0 items-center justify-center rounded-full transition-colors print:hidden"
+      aria-label="Back to the home screen"
+      title="Home screen"
+    >
+      <Icon name="close" class="size-[18px]" />
+    </a>
+    <div class="col-span-3 min-w-0 md:col-span-2 md:col-start-2">
+      {lede && <p class="text-muted-foreground text-lede mt-3 max-w-[60ch] md:mt-2">{lede}</p>}
+      <slot name="header" />
+    </div>
+  </header>
+  <div class="mt-6 md:mt-8">
+    <slot />
+  </div>
+</article>

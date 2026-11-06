@@ -1,0 +1,153 @@
+---
+import AppIcon, { type AppIconArt } from "./AppIcon.astro";
+import Icon from "./Icon.astro";
+
+export interface FolderApp {
+  name: string;
+  href: string;
+  description?: string | undefined;
+  art: AppIconArt;
+}
+
+interface Props {
+  id: string;
+  title: string;
+  apps: FolderApp[];
+}
+
+const { id, title, apps } = Astro.props;
+const preview = apps.slice(0, 9);
+const isExternal = (href: string) => href.startsWith("http");
+---
+
+<div class="flex flex-col items-center gap-1.5">
+  <button
+    type="button"
+    popovertarget={id}
+    data-folder-trigger
+    class="bg-folder group grid size-[4.5rem] cursor-pointer grid-cols-3 content-start gap-[3px] rounded-[22.5%] p-[11px] transition-transform duration-300 ease-out-expo hover:-translate-y-0.5 active:scale-90 md:size-[5.5rem] md:gap-1 md:p-[13px]"
+    aria-label={`Open ${title} folder, ${apps.length} projects`}
+  >
+    {
+      preview.map((app) => (
+        <AppIcon art={app.art} size="xs" class="aspect-square size-auto w-full" />
+      ))
+    }
+  </button>
+  <span class="text-label max-w-[5.5rem] text-center font-semibold">{title}</span>
+</div>
+
+<div
+  id={id}
+  popover
+  class="folder-panel bg-card text-card-foreground rounded-widget m-auto w-[min(92vw,44rem)] p-5 md:p-7"
+>
+  <div class="flex items-center justify-between gap-4">
+    <h2 class="font-display text-heading font-extrabold tracking-[-0.025em]">
+      {title}
+    </h2>
+    <button
+      type="button"
+      popovertarget={id}
+      popovertargetaction="hide"
+      class="bg-muted hover:bg-foreground hover:text-background inline-flex size-10 cursor-pointer items-center justify-center rounded-full transition-colors"
+      aria-label={`Close ${title}`}
+    >
+      <Icon name="close" class="size-[18px]" />
+    </button>
+  </div>
+  <ul class="mt-5 grid grid-cols-1 gap-2 sm:grid-cols-2">
+    {
+      apps.map((app) => (
+        <li>
+          <a
+            href={app.href}
+            target={isExternal(app.href) ? "_blank" : undefined}
+            rel={isExternal(app.href) ? "noopener" : undefined}
+            class="hover:bg-muted group flex items-start gap-3 rounded-2xl p-2 transition-colors"
+          >
+            <AppIcon art={app.art} size="sm" class="size-12" />
+            <span class="min-w-0 pt-1">
+              <span class="text-body block leading-tight font-bold">
+                {app.name}
+              </span>
+              {app.description && (
+                <span class="text-muted-foreground text-caption mt-0.5 line-clamp-2 block">
+                  {app.description}
+                </span>
+              )}
+            </span>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</div>
+
+<style>
+  /* Popover open/close transitions need @starting-style and discrete display, which utilities cannot express. */
+  .folder-panel {
+    opacity: 0;
+    translate: var(--folder-dx, 0) var(--folder-dy, 0);
+    scale: 0.2;
+    transition:
+      opacity 0.3s var(--ease-out-expo),
+      translate 0.5s var(--ease-out-expo),
+      scale 0.5s var(--ease-out-expo),
+      display 0.5s allow-discrete,
+      overlay 0.5s allow-discrete;
+  }
+
+  .folder-panel:popover-open {
+    opacity: 1;
+    translate: 0 0;
+    scale: 1;
+  }
+
+  @starting-style {
+    .folder-panel:popover-open {
+      opacity: 0;
+      translate: var(--folder-dx, 0) var(--folder-dy, 0);
+      scale: 0.2;
+    }
+  }
+
+  .folder-panel::backdrop {
+    background-color: oklch(0.2 0.03 285 / 0%);
+    transition:
+      background-color 0.4s var(--ease-out-expo),
+      display 0.4s allow-discrete,
+      overlay 0.4s allow-discrete;
+  }
+
+  .folder-panel:popover-open::backdrop {
+    background-color: oklch(0.2 0.03 285 / 35%);
+  }
+
+  @starting-style {
+    .folder-panel:popover-open::backdrop {
+      background-color: oklch(0.2 0.03 285 / 0%);
+    }
+  }
+</style>
+
+<script is:inline>
+  // The panel is centred on the viewport, so offsetting it to the folder's centre makes it grow out of the tile.
+  document.addEventListener("astro:page-load", function () {
+    document.querySelectorAll("[data-folder-trigger]").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var panel = document.getElementById(btn.getAttribute("popovertarget"));
+        if (!panel) return;
+        var r = btn.getBoundingClientRect();
+        panel.style.setProperty(
+          "--folder-dx",
+          Math.round(r.left + r.width / 2 - window.innerWidth / 2) + "px",
+        );
+        panel.style.setProperty(
+          "--folder-dy",
+          Math.round(r.top + r.height / 2 - window.innerHeight / 2) + "px",
+        );
+      });
+    });
+  });
+</script>

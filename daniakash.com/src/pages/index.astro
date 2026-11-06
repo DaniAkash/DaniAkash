@@ -1,13 +1,10 @@
 ---
 import { getCollection } from "astro:content";
-import AmbientCanvas from "../components/AmbientCanvas";
-import BlueskyIcon from "../components/icons/BlueskyIcon.astro";
-import GithubIcon from "../components/icons/GithubIcon.astro";
-import InstagramIcon from "../components/icons/InstagramIcon.astro";
-import LinkedinIcon from "../components/icons/LinkedinIcon.astro";
-import MailIcon from "../components/icons/MailIcon.astro";
-import TwitterIcon from "../components/icons/TwitterIcon.astro";
+import AppIcon, { type AppIconArt } from "../components/AppIcon.astro";
+import Folder, { type FolderApp } from "../components/Folder.astro";
+import Icon, { type IconName } from "../components/Icon.astro";
 import Newsletter from "../components/Newsletter.astro";
+import Widget from "../components/Widget.astro";
 import { assetUrl } from "../constants/asset-prefix";
 import MainLayout from "../layouts/MainLayout.astro";
 
@@ -16,362 +13,550 @@ const posts = (await getCollection("blog"))
     (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime(),
   )
   .slice(0, 11);
+const latestPosts = posts.slice(0, 4);
+const morePosts = posts.slice(4);
 
-const career = await getCollection("career");
-const experience = career[0]?.data?.items ?? [];
+const experience = (await getCollection("career"))[0]?.data?.items ?? [];
+const socialData = (await getCollection("social"))[0]?.data;
 
-const social = await getCollection("social");
-const socialData = social[0]?.data;
+const projects = (await getCollection("project"))[0]?.data.items ?? [];
+const starsStat = projects.find((p) => p.name === "GitHub Stars")?.stat ?? {
+  number: "473+",
+  label: "GitHub Stars",
+};
 
-const connectLinks = [
+const toApp = (p: (typeof projects)[number]): FolderApp | undefined =>
+  p.icon && p.link
+    ? {
+        name: p.name,
+        href: p.link.href,
+        description: p.description,
+        art: p.icon as AppIconArt,
+      }
+    : undefined;
+
+const byName = (name: string) => {
+  const project = projects.find((p) => p.name === name);
+  return project ? toApp(project) : undefined;
+};
+
+const inCategory = (category: string) =>
+  projects
+    .filter((p) => p.category === category)
+    .map(toApp)
+    .filter((app): app is FolderApp => Boolean(app));
+
+const homeApps = [
+  { app: byName("BrowserOS"), lg: "lg:col-start-4 lg:row-start-1" },
+  { app: byName("aalai"), lg: "lg:col-start-5 lg:row-start-1" },
+  { app: byName("Agent Terminal"), lg: "lg:col-start-6 lg:row-start-1" },
+  { app: byName("herbie"), lg: "lg:col-start-4 lg:row-start-2" },
+  { app: byName("Screen Time Overlay"), lg: "lg:col-start-5 lg:row-start-2" },
+  { app: byName("stylecn"), lg: "lg:col-start-6 lg:row-start-2" },
+  {
+    app: byName("Google Rust Style Guide"),
+    lg: "lg:col-start-1 lg:row-start-3",
+  },
+];
+
+const folders = [
+  {
+    id: "folder-ai-tools",
+    title: "AI Tools",
+    apps: inCategory("ai-tool"),
+    lg: "lg:col-start-2 lg:row-start-3",
+  },
+  {
+    id: "folder-open-source",
+    title: "Open Source",
+    apps: inCategory("oss"),
+    lg: "lg:col-start-3 lg:row-start-3",
+  },
+  {
+    id: "folder-earlier",
+    title: "Earlier Work",
+    apps: inCategory("earlier"),
+    lg: "lg:col-start-4 lg:row-start-3",
+  },
+];
+
+const speakingGroups = await getCollection("speaking");
+const talkCount = speakingGroups.reduce(
+  (total, group) => total + group.data.events.length,
+  0,
+);
+const firstTalkYear = Math.min(...speakingGroups.map((g) => g.data.year));
+
+const email = socialData?.email ?? "hello@daniakash.com";
+
+const connectLinks: {
+  platform: string;
+  handle: string;
+  href: string;
+  icon: IconName;
+}[] = [
   {
     platform: "GitHub",
-    handle: `@DaniAkash`,
+    handle: "@DaniAkash",
     href: socialData?.github ?? "https://github.com/DaniAkash",
+    icon: "github",
   },
   {
     platform: "X / Twitter",
-    handle: `@dani_akash_`,
+    handle: "@dani_akash_",
     href: socialData?.twitter ?? "https://x.com/dani_akash_",
+    icon: "x",
   },
   {
     platform: "Bluesky",
-    handle: `@daniakash.com`,
+    handle: "@daniakash.com",
     href: socialData?.bluesky ?? "https://bsky.app/profile/daniakash.com",
+    icon: "bluesky",
   },
   {
     platform: "LinkedIn",
     handle: "Dani Akash",
     href: socialData?.linkedIn ?? "https://www.linkedin.com/in/daniakash",
+    icon: "linkedin",
   },
   {
     platform: "Instagram",
-    handle: `@dani_akash_`,
+    handle: "@dani_akash_",
     href: socialData?.instagram ?? "https://www.instagram.com/dani_akash_",
+    icon: "instagram",
   },
   {
     platform: "Email",
-    handle: socialData?.email ?? "hello@daniakash.com",
-    href: `mailto:${socialData?.email ?? "hello@daniakash.com"}`,
+    handle: email,
+    href: `mailto:${email}`,
+    icon: "mail",
   },
 ];
 
-const heroImages = [
-  {
+const photos = {
+  cosplay: {
     src: assetUrl("image-1.jpg"),
     alt: "Dani Akash posing with a cosplayer in a fighting stance",
   },
-  {
+  cat: {
     src: assetUrl("image-2.jpg"),
     alt: "Dani Akash coding at his desk with a cat on his lap",
   },
-  {
+  talk: {
     src: assetUrl("image-3.jpg"),
     alt: "Dani Akash speaking at a tech meetup with a microphone",
   },
-  {
+  hike: {
     src: assetUrl("image-4.jpg"),
     alt: "Dani Akash overlooking a river gorge on a hike",
   },
-  {
+  market: {
     src: assetUrl("image-5.jpg"),
     alt: "Dani Akash examining a large decorative sculpture at a market",
   },
-];
+};
+
+const formatDate = (value: string) => {
+  const date = new Date(value);
+  return `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2, "0")}.${String(date.getDate()).padStart(2, "0")}`;
+};
+
+const isExternal = (href: string) => href.startsWith("http");
 ---
 
 <MainLayout title="">
-  <!-- Ambient Background -->
-  <AmbientCanvas client:visible />
-
-  <!-- System Labels -->
-  <div
-    class="text-muted-foreground pointer-events-none fixed bottom-6 left-6 z-50 hidden font-mono text-[10px] tracking-widest uppercase md:block"
+  <section
+    aria-label="Home screen"
+    class="grid grid-flow-row-dense auto-rows-[minmax(6.75rem,auto)] grid-cols-4 gap-x-2 gap-y-3 sm:grid-cols-6 md:gap-x-4 md:gap-y-4 lg:grid-cols-8 lg:auto-rows-[7.5rem]"
   >
-    CHENNAI, IN &middot; UTC+5:30
-  </div>
-  <div
-    class="text-muted-foreground pointer-events-none fixed right-6 bottom-6 z-50 hidden font-mono text-[10px] tracking-widest uppercase md:block"
-  >
-    V4.0 // 2026
-  </div>
-
-  <!-- ═══ HERO ═══ -->
-  <section class="relative -mt-24 flex h-screen flex-col pt-24">
-    <div class="flex flex-1 items-center pb-[320px]">
-      <div>
-        <p
-          class="text-muted-foreground mb-6 font-mono text-[11px] tracking-[1.65px] uppercase"
-        >
-          SYSTEM.ROLE // AI_ENGINEER &middot; BUILDER &middot; SPEAKER
-        </p>
-        <h1
-          class="mb-6 leading-[1.05] font-bold tracking-[-0.03em]"
-          style="font-size: clamp(48px, 8vw, 96px);"
-        >
-          Dani Akash
-        </h1>
-        <p
-          class="text-muted-foreground mb-12 max-w-[700px] leading-[1.4] font-light"
-          style="font-size: clamp(18px, 2.5vw, 28px);"
-        >
-          A simple developer building AI agents for humans.
-        </p>
-
-        <!-- Social icons -->
-        <div class="mb-12 flex flex-wrap gap-4">
+    <Widget
+      as="div"
+      class="col-span-4 row-span-2 flex flex-col justify-between sm:col-span-3 lg:col-span-3 lg:col-start-1 lg:row-span-2 lg:row-start-1"
+    >
+      <div class="flex items-center justify-between gap-3">
+        <img
+          src={photos.cat.src}
+          alt=""
+          width="56"
+          height="56"
+          class="size-12 rounded-full object-cover object-[30%_20%] md:size-14"
+          loading="eager"
+          decoding="async"
+        />
+        <ul class="flex gap-0.5" aria-label="Social links">
           {
-            [
-              { href: socialData?.github, Icon: GithubIcon, label: "GitHub" },
-              { href: socialData?.twitter, Icon: TwitterIcon, label: "X" },
-              {
-                href: socialData?.bluesky,
-                Icon: BlueskyIcon,
-                label: "Bluesky",
-              },
-              {
-                href: socialData?.linkedIn,
-                Icon: LinkedinIcon,
-                label: "LinkedIn",
-              },
-              {
-                href: socialData?.instagram,
-                Icon: InstagramIcon,
-                label: "Instagram",
-              },
-              {
-                href: `mailto:${socialData?.email}`,
-                Icon: MailIcon,
-                label: "Email",
-              },
-            ].map(({ href, Icon, label }) => (
-              <a
-                href={href}
-                aria-label={label}
-                title={label}
-                target={href?.startsWith("mailto") ? undefined : "_blank"}
-                rel={href?.startsWith("mailto") ? undefined : "noopener"}
-                class="border-border bg-foreground/5 text-muted-foreground hover:border-primary hover:bg-primary/15 hover:text-primary flex size-11 items-center justify-center rounded-full border transition-all hover:-translate-y-0.5"
-              >
-                <Icon class="size-5" />
-              </a>
+            connectLinks.map((link) => (
+              <li>
+                <a
+                  href={link.href}
+                  aria-label={link.platform}
+                  title={link.platform}
+                  target={isExternal(link.href) ? "_blank" : undefined}
+                  rel={isExternal(link.href) ? "noopener" : undefined}
+                  class="text-muted-foreground hover:bg-muted hover:text-foreground inline-flex size-9 items-center justify-center rounded-full transition-colors"
+                >
+                  <Icon name={link.icon} class="size-4" />
+                </a>
+              </li>
             ))
           }
-        </div>
-
-        <!-- Status line -->
-        <div
-          class="text-muted-foreground flex items-center gap-2 font-mono text-xs"
-        >
-          <span class="bg-primary size-1.5 animate-pulse rounded-full"></span>
-          Building BrowserOS — an AI-powered browser for agents
-        </div>
+        </ul>
       </div>
-    </div>
-
-    <!-- Photo gallery — full viewport width, bleeding off bottom -->
-    <div
-      class="pointer-events-none absolute bottom-0 left-1/2 z-1 h-[380px] w-screen -translate-x-1/2 overflow-clip"
-    >
-      <div
-        class="pointer-events-auto absolute bottom-[-120px] left-1/2 flex -translate-x-1/2 items-start gap-4"
-      >
-        {
-          heroImages.map((img, i) => {
-            /* Center card tallest (300x400), flanking shorter and pushed down */
-            const sizes = [
-              "w-[240px] h-[340px] mt-[60px]",
-              "w-[260px] h-[370px] mt-[30px]",
-              "w-[300px] h-[400px] mt-0",
-              "w-[260px] h-[370px] mt-[30px]",
-              "w-[240px] h-[340px] mt-[60px]",
-            ];
-            const hideClasses = [
-              "hidden lg:block",
-              "hidden md:block",
-              "",
-              "hidden md:block",
-              "hidden lg:block",
-            ];
-            return (
-              <div
-                class:list={[
-                  "flex-shrink-0 overflow-hidden rounded-3xl shadow-lg shadow-black/25 transition-transform duration-500 hover:-translate-y-3 hover:shadow-2xl hover:shadow-black/40",
-                  sizes[i],
-                  hideClasses[i],
-                ]}
-              >
-                <img
-                  src={img.src}
-                  alt={img.alt}
-                  loading="lazy"
-                  class="size-full object-cover"
-                />
-              </div>
-            );
-          })
-        }
-      </div>
-    </div>
-  </section>
-
-  <hr class="border-border border-dashed" />
-
-  <!-- ═══ 01 BLOG + WORK (two-column) ═══ -->
-  <section class="py-20" id="work">
-    <div class="grid items-start gap-12 lg:grid-cols-2">
-      <!-- Left: Blog -->
       <div>
-        <div class="mb-12 flex items-baseline gap-4">
-          <span class="text-foreground/10 font-mono text-5xl font-light"
-            >01</span
-          >
-          <span
-            class="text-muted-foreground font-mono text-[11px] font-medium tracking-[0.2em] uppercase"
-            >Blog</span
-          >
+        <h1 class="font-display text-heading md:text-display font-extrabold tracking-[-0.03em]">
+          Dani Akash
+        </h1>
+        <p class="text-label mt-2 font-bold">AI Engineer · Builder · Speaker</p>
+        <p class="text-muted-foreground text-body mt-0.5">
+          A simple developer building AI agents for humans.
+        </p>
+      </div>
+    </Widget>
+
+    {
+      homeApps.map(
+        ({ app, lg }) =>
+          app && (
+            <a
+              href={app.href}
+              target={isExternal(app.href) ? "_blank" : undefined}
+              rel={isExternal(app.href) ? "noopener" : undefined}
+              title={app.description}
+              class:list={[
+                "group flex flex-col items-center justify-start gap-1.5 pt-1",
+                lg,
+              ]}
+            >
+              <AppIcon
+                art={app.art}
+                size="lg"
+                class="size-[4.5rem] group-hover:-translate-y-1 group-active:scale-90 md:size-[5.5rem]"
+              />
+              <span class="text-label max-w-[6.5rem] text-center leading-tight font-semibold">
+                {app.name}
+              </span>
+            </a>
+          ),
+      )
+    }
+
+    <Widget
+      tone="photo"
+      class="col-span-4 row-span-2 sm:col-span-3 lg:col-span-2 lg:col-start-7 lg:row-span-2 lg:row-start-1"
+    >
+      <img
+        src={photos.talk.src}
+        alt={photos.talk.alt}
+        class="absolute inset-0 size-full object-cover object-[60%_40%]"
+        loading="eager"
+        decoding="async"
+      />
+    </Widget>
+
+    {
+      folders.map((folder) => (
+        <div class:list={["flex justify-center pt-1", folder.lg]}>
+          <Folder id={folder.id} title={folder.title} apps={folder.apps} />
         </div>
-        <div class="flex flex-col">
-          {
-            posts.map((post) => {
-              const date = new Date(post.data.date);
-              const formatted = `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2, "0")}.${String(date.getDate()).padStart(2, "0")}`;
-              return (
-                <a
-                  href={`/posts/${post.id}/`}
-                  class="group border-border hover:bg-foreground/5 -mx-4 grid grid-cols-[90px_1fr] items-baseline gap-4 border-b border-dashed px-4 py-4 transition-colors last:border-b-0 hover:rounded-sm sm:grid-cols-[140px_1fr_auto] sm:gap-6"
-                >
-                  <span class="text-muted-foreground font-mono text-xs">
-                    {formatted}
-                  </span>
-                  <span class="group-hover:text-primary text-base font-medium transition-colors">
-                    {post.data.title}
-                  </span>
-                  <span class="text-muted-foreground hidden font-mono text-sm transition-transform group-hover:translate-x-1 sm:inline">
-                    →
-                  </span>
-                </a>
-              );
-            })
-          }
-        </div>
+      ))
+    }
+
+    <Widget
+      href="/projects/"
+      tone="blue"
+      class="col-span-4 flex flex-col justify-between sm:col-span-4 lg:col-span-3 lg:col-start-5 lg:row-start-3"
+    >
+      <span class="bg-on-blue size-2 animate-pulse rounded-full" aria-hidden="true"></span>
+      <div class="flex items-end justify-between gap-3">
+        <p class="text-body leading-snug font-semibold">
+          <span class="font-display text-title block font-extrabold tracking-[-0.02em]">
+            BrowserOS
+          </span>
+          Building now: an AI-powered browser for agents
+        </p>
+        <span
+          class="bg-on-blue text-blue text-caption inline-flex shrink-0 items-center gap-1 rounded-full px-3 py-1.5 font-bold whitespace-nowrap transition-transform duration-300 ease-out-expo group-hover:translate-x-0.5"
+        >
+          Explore the work <Icon name="arrow-right" class="size-3.5" />
+        </span>
+      </div>
+    </Widget>
+
+    <Widget
+      href={socialData?.github ?? "https://github.com/DaniAkash"}
+      target="_blank"
+      rel="noopener"
+      class="col-span-2 flex flex-col justify-between lg:col-span-1 lg:col-start-8 lg:row-start-3"
+    >
+      <Icon name="github" class="size-4" />
+      <div>
+        <p class="font-display text-title font-extrabold tracking-[-0.02em]">
+          {starsStat.number}
+        </p>
+        <p class="text-muted-foreground text-meta font-semibold">
+          {starsStat.label}
+        </p>
+      </div>
+    </Widget>
+
+    <Widget
+      href="/speaking/"
+      tone="ink"
+      class="col-span-2 flex flex-col justify-between lg:col-span-2 lg:col-start-1 lg:row-start-4"
+    >
+      <span class="text-on-ink-muted text-caption font-bold">
+        Talks since {firstTalkYear}
+      </span>
+      <div class="flex items-end justify-between">
+        <p class="font-display text-stat font-extrabold tracking-[-0.03em]">
+          {talkCount}
+        </p>
+        <Icon
+          name="arrow-right"
+          class="mb-1 size-4 transition-transform duration-300 ease-out-expo group-hover:translate-x-0.5"
+        />
+      </div>
+    </Widget>
+
+    <Widget
+      tone="photo"
+      class="col-span-2 row-span-3 lg:col-span-2 lg:col-start-1 lg:row-span-1 lg:row-start-5"
+    >
+      <img
+        src={photos.hike.src}
+        alt={photos.hike.alt}
+        class="absolute inset-0 size-full object-cover object-[70%_55%]"
+        loading="lazy"
+        decoding="async"
+      />
+    </Widget>
+
+    <Widget
+      tone="photo"
+      class="col-span-2 row-span-2 lg:col-span-2 lg:col-start-3 lg:row-span-2 lg:row-start-4"
+    >
+      <img
+        src={photos.cosplay.src}
+        alt={photos.cosplay.alt}
+        class="absolute inset-0 size-full object-cover object-[40%_30%]"
+        loading="lazy"
+        decoding="async"
+      />
+    </Widget>
+
+    <Widget
+      as="section"
+      aria-labelledby="latest-writing"
+      class="col-span-4 flex flex-col sm:col-span-6 lg:col-span-4 lg:col-start-5 lg:row-span-2 lg:row-start-4"
+    >
+      <div class="flex items-center justify-between gap-4">
+        <h2
+          id="latest-writing"
+          class="font-display text-title font-extrabold tracking-[-0.02em]"
+        >
+          Latest writing
+        </h2>
         <a
           href="/blog/"
-          class="text-primary hover:text-primary/80 mt-6 inline-flex font-mono text-[13px]"
+          class="text-muted-foreground hover:text-foreground text-caption inline-flex min-h-8 items-center gap-1 font-bold whitespace-nowrap transition-colors"
         >
-          View all posts →
+          View all posts <Icon name="arrow-right" class="size-3.5" />
         </a>
       </div>
+      <ul class="mt-2 flex flex-1 flex-col lg:justify-between">
+        {
+          latestPosts.map((post) => (
+            <li class="border-border border-t first:border-t-0">
+              <a
+                href={`/posts/${post.id}/`}
+                class="hover:text-primary flex items-baseline gap-3 py-1.5 transition-colors"
+              >
+                <time
+                  datetime={new Date(post.data.date).toISOString()}
+                  class="text-muted-foreground text-meta w-[4.75rem] shrink-0 font-semibold"
+                >
+                  {formatDate(post.data.date)}
+                </time>
+                <span class="text-body line-clamp-2 leading-snug font-semibold lg:truncate">
+                  {post.data.title}
+                </span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </Widget>
+  </section>
 
-      <!-- Right: Work (mt matches the blog section header height) -->
-      <div class="mt-[88px]">
-        <div class="border-border rounded-xl border p-6">
-          <div
-            class="mb-6 flex items-center gap-2 font-mono text-sm font-medium"
-          >
-            <span>💼</span> Work
-          </div>
-          <div class="flex flex-col">
-            {
-              experience.map((job) => (
-                <div class="border-border flex items-center gap-6 border-b border-dashed py-4 last:border-b-0">
-                  <div class="border-border bg-foreground/5 flex size-12 shrink-0 items-center justify-center overflow-hidden rounded-full border">
-                    <img
-                      src={assetUrl(job.logo)}
-                      alt={job.company}
-                      class="size-7 overflow-clip rounded-full border-0 bg-slate-300"
-                    />
-                  </div>
-                  <div class="flex min-w-0 flex-1 flex-col gap-0.5">
-                    <span class="font-semibold">{job.company}</span>
-                    <span class="text-muted-foreground text-sm">
-                      {job.role}
-                    </span>
-                  </div>
-                  <span class="text-muted-foreground shrink-0 font-mono text-xs">
-                    {job.startDate} — {job.endDate}
+  <section
+    aria-label="Writing, work and contact"
+    class="mt-4 grid grid-cols-4 gap-3 md:mt-6 md:gap-4 lg:grid-cols-8"
+    id="work"
+  >
+    <Widget
+      as="section"
+      aria-labelledby="more-writing"
+      class="col-span-4 lg:col-span-5"
+    >
+      <h2
+        id="more-writing"
+        class="font-display text-title font-extrabold tracking-[-0.02em]"
+      >
+        More from the blog
+      </h2>
+      <ul class="mt-2">
+        {
+          morePosts.map((post) => (
+            <li class="border-border border-t first:border-t-0">
+              <a
+                href={`/posts/${post.id}/`}
+                class="hover:text-primary flex items-baseline gap-3 py-2 transition-colors"
+              >
+                <time
+                  datetime={new Date(post.data.date).toISOString()}
+                  class="text-muted-foreground text-meta w-[4.75rem] shrink-0 font-semibold"
+                >
+                  {formatDate(post.data.date)}
+                </time>
+                <span class="text-body leading-snug font-semibold">
+                  {post.data.title}
+                </span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </Widget>
+
+    <Widget
+      as="section"
+      aria-labelledby="work-heading"
+      class="col-span-4 flex flex-col lg:col-span-3 lg:row-span-2"
+    >
+      <h2
+        id="work-heading"
+        class="font-display text-title font-extrabold tracking-[-0.02em]"
+      >
+        Work
+      </h2>
+      <ul class="mt-2 flex flex-1 flex-col justify-between">
+        {
+          experience.map((job) => (
+            <li class="border-border flex items-center gap-3 border-t py-2 first:border-t-0">
+              <img
+                src={assetUrl(job.logo)}
+                alt=""
+                width="32"
+                height="32"
+                loading="lazy"
+                class="bg-muted size-8 shrink-0 rounded-[22.5%] object-contain p-1"
+              />
+              <div class="min-w-0 flex-1">
+                <p class="text-body truncate leading-tight font-bold">
+                  {job.company}
+                </p>
+                <p class="text-muted-foreground text-caption truncate">
+                  {job.role}
+                </p>
+              </div>
+              <span class="text-muted-foreground text-meta shrink-0 text-right font-semibold">
+                {job.startDate}
+                <br />
+                {job.endDate}
+              </span>
+            </li>
+          ))
+        }
+      </ul>
+      <a
+        href="/resume/"
+        class="bg-foreground text-background hover:bg-primary hover:text-primary-foreground text-label mt-3 inline-flex min-h-10 items-center justify-center gap-1.5 rounded-full px-4 font-bold transition-colors"
+      >
+        Resume <Icon name="arrow-right" class="size-3.5" />
+      </a>
+    </Widget>
+
+    <Widget
+      as="section"
+      aria-labelledby="speaking-heading"
+      tone="ink"
+      class="col-span-4 flex flex-col justify-between gap-4 sm:col-span-2 lg:col-span-3"
+    >
+      <h2
+        id="speaking-heading"
+        class="font-display text-title font-extrabold tracking-[-0.02em]"
+      >
+        Speaking
+      </h2>
+      <p class="text-on-ink-muted text-body">
+        I regularly speak at community meetups and conferences about AI,
+        JavaScript, React Native, and the web. I've given 25+ talks since 2017
+        across events like React Nexus, JSLovers, Thoughtworks Geeknight, React
+        Bangalore, and more.
+      </p>
+      <a
+        href="/speaking/"
+        class="bg-on-ink text-ink text-label inline-flex min-h-10 items-center justify-center gap-1.5 self-start rounded-full px-4 font-bold transition-opacity hover:opacity-85"
+      >
+        View all talks <Icon name="arrow-right" class="size-3.5" />
+      </a>
+    </Widget>
+
+    <Widget
+      tone="photo"
+      class="col-span-4 aspect-[16/10] sm:col-span-2 sm:aspect-auto lg:col-span-2"
+    >
+      <img
+        src={photos.market.src}
+        alt={photos.market.alt}
+        class="absolute inset-0 size-full object-cover"
+        loading="lazy"
+        decoding="async"
+      />
+    </Widget>
+
+    <Widget
+      as="section"
+      aria-labelledby="connect-heading"
+      class="col-span-4 lg:col-span-8"
+    >
+      <h2
+        id="connect-heading"
+        class="font-display text-title font-extrabold tracking-[-0.02em]"
+      >
+        Connect
+      </h2>
+      <ul class="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+        {
+          connectLinks.map((link) => (
+            <li>
+              <a
+                href={link.href}
+                target={isExternal(link.href) ? "_blank" : undefined}
+                rel={isExternal(link.href) ? "noopener" : undefined}
+                class="bg-muted hover:bg-foreground hover:text-background flex min-h-12 items-center gap-3 rounded-2xl px-3.5 py-2 transition-colors"
+              >
+                <Icon name={link.icon} class="size-4" />
+                <span class="min-w-0">
+                  <span class="text-meta block font-semibold opacity-70">
+                    {link.platform}
                   </span>
-                </div>
-              ))
-            }
-          </div>
-          <a
-            href="/resume/"
-            class="border-border text-muted-foreground hover:border-border hover:bg-foreground/5 hover:text-foreground mt-4 block rounded-lg border py-3 text-center font-mono text-sm transition-all"
-          >
-            Resume
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
+                  <span class="text-label block truncate font-bold">
+                    {link.handle}
+                  </span>
+                </span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </Widget>
 
-  <hr class="border-border border-dashed" />
-
-  <!-- ═══ 02 SPEAKING ═══ -->
-  <section class="py-20" id="speaking">
-    <div class="mb-12 flex items-baseline gap-4">
-      <span class="text-foreground/10 font-mono text-5xl font-light">02</span>
-      <span
-        class="text-muted-foreground font-mono text-[11px] font-medium tracking-[0.2em] uppercase"
-        >Speaking</span
-      >
-    </div>
-    <p
-      class="text-muted-foreground mb-6 max-w-[640px] text-[17px] leading-[1.7]"
-    >
-      I regularly speak at community meetups and conferences about AI,
-      JavaScript, React Native, and the web. I've given 25+ talks since 2017
-      across events like React Nexus, JSLovers, Thoughtworks Geeknight, React
-      Bangalore, and more.
-    </p>
-    <a
-      href="/speaking/"
-      class="text-primary hover:text-primary/80 inline-flex font-mono text-[13px]"
-    >
-      View all talks →
-    </a>
-  </section>
-
-  <hr class="border-border border-dashed" />
-
-  <!-- ═══ 03 CONNECT ═══ -->
-  <section class="py-20" id="connect">
-    <div class="mb-12 flex items-baseline gap-4">
-      <span class="text-foreground/10 font-mono text-5xl font-light">03</span>
-      <span
-        class="text-muted-foreground font-mono text-[11px] font-medium tracking-[0.2em] uppercase"
-        >Connect</span
-      >
-    </div>
-    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-      {
-        connectLinks.map((link) => (
-          <a
-            href={link.href}
-            target={link.href.startsWith("mailto") ? undefined : "_blank"}
-            rel={link.href.startsWith("mailto") ? undefined : "noopener"}
-            class="border-border hover:border-primary hover:bg-foreground/5 flex flex-col gap-2 rounded-xl border p-6 transition-all hover:-translate-y-0.5"
-          >
-            <span class="text-muted-foreground font-mono text-[11px] tracking-[0.1em] uppercase">
-              {link.platform}
-            </span>
-            <span class="text-base font-medium">{link.handle}</span>
-          </a>
-        ))
-      }
-    </div>
-  </section>
-
-  <hr class="border-border border-dashed" />
-
-  <!-- ═══ NEWSLETTER ═══ -->
-  <section class="py-20">
     <Newsletter
       heading="Stay in the loop"
       description="Thoughts delivered straight to your inbox. Zero spam, I promise."
-      buttonLabel="SUBSCRIBE"
-      class="bg-card p-12"
+      buttonLabel="Subscribe"
+      class="col-span-4 lg:col-span-8"
     />
   </section>
 </MainLayout>

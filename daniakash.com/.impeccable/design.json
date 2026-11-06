@@ -1,0 +1,208 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-06T14:52:32Z",
+  "title": "Design System: daniakash.com",
+  "extensions": {
+    "colorMeta": {
+      "wallpaper": { "role": "neutral", "displayName": "Lavender Wallpaper", "canonical": "oklch(0.945 0.025 290)", "tonalRamp": ["oklch(0.15 0.014 290)", "oklch(0.25 0.021 290)", "oklch(0.35 0.025 290)", "oklch(0.45 0.025 290)", "oklch(0.55 0.025 290)", "oklch(0.65 0.025 290)", "oklch(0.8 0.018 290)", "oklch(0.95 0.005 290)"] },
+      "wallpaper-dark": { "role": "neutral", "displayName": "Deep Ink Wallpaper", "canonical": "oklch(0.17 0.02 285)", "tonalRamp": ["oklch(0.15 0.011 285)", "oklch(0.25 0.017 285)", "oklch(0.35 0.02 285)", "oklch(0.45 0.02 285)", "oklch(0.55 0.02 285)", "oklch(0.65 0.02 285)", "oklch(0.8 0.014 285)", "oklch(0.95 0.004 285)"] },
+      "foreground": { "role": "neutral", "displayName": "Violet Ink Text", "canonical": "oklch(0.2 0.012 285)", "tonalRamp": ["oklch(0.15 0.007 285)", "oklch(0.25 0.01 285)", "oklch(0.35 0.012 285)", "oklch(0.45 0.012 285)", "oklch(0.55 0.012 285)", "oklch(0.65 0.012 285)", "oklch(0.8 0.008 285)", "oklch(0.95 0.003 285)"] },
+      "foreground-dark": { "role": "neutral", "displayName": "Moonlit Text", "canonical": "oklch(0.96 0.008 290)", "tonalRamp": ["oklch(0.15 0.004 290)", "oklch(0.25 0.007 290)", "oklch(0.35 0.008 290)", "oklch(0.45 0.008 290)", "oklch(0.55 0.008 290)", "oklch(0.65 0.008 290)", "oklch(0.8 0.006 290)", "oklch(0.95 0.002 290)"] },
+      "muted-foreground": { "role": "neutral", "displayName": "Dusk Gray", "canonical": "oklch(0.48 0.02 285)", "tonalRamp": ["oklch(0.15 0.011 285)", "oklch(0.25 0.017 285)", "oklch(0.35 0.02 285)", "oklch(0.45 0.02 285)", "oklch(0.55 0.02 285)", "oklch(0.65 0.02 285)", "oklch(0.8 0.014 285)", "oklch(0.95 0.004 285)"] },
+      "muted-foreground-dark": { "role": "neutral", "displayName": "Haze Gray", "canonical": "oklch(0.74 0.015 290)", "tonalRamp": ["oklch(0.15 0.008 290)", "oklch(0.25 0.012 290)", "oklch(0.35 0.015 290)", "oklch(0.45 0.015 290)", "oklch(0.55 0.015 290)", "oklch(0.65 0.015 290)", "oklch(0.8 0.011 290)", "oklch(0.95 0.003 290)"] },
+      "card": { "role": "neutral", "displayName": "Widget White", "canonical": "oklch(1 0 0)", "tonalRamp": ["oklch(0.15 0 0)", "oklch(0.25 0 0)", "oklch(0.35 0 0)", "oklch(0.45 0 0)", "oklch(0.55 0 0)", "oklch(0.65 0 0)", "oklch(0.8 0 0)", "oklch(0.95 0 0)"] },
+      "card-dark": { "role": "neutral", "displayName": "Raised Ink", "canonical": "oklch(0.235 0.022 285)", "tonalRamp": ["oklch(0.15 0.012 285)", "oklch(0.25 0.018 285)", "oklch(0.35 0.022 285)", "oklch(0.45 0.022 285)", "oklch(0.55 0.022 285)", "oklch(0.65 0.022 285)", "oklch(0.8 0.015 285)", "oklch(0.95 0.005 285)"] },
+      "sheet": { "role": "neutral", "displayName": "Sheet White", "canonical": "oklch(1 0 0)", "tonalRamp": ["oklch(0.15 0 0)", "oklch(0.25 0 0)", "oklch(0.35 0 0)", "oklch(0.45 0 0)", "oklch(0.55 0 0)", "oklch(0.65 0 0)", "oklch(0.8 0 0)", "oklch(0.95 0 0)"] },
+      "sheet-dark": { "role": "neutral", "displayName": "Sheet Ink", "canonical": "oklch(0.21 0.02 285)", "tonalRamp": ["oklch(0.15 0.011 285)", "oklch(0.25 0.017 285)", "oklch(0.35 0.02 285)", "oklch(0.45 0.02 285)", "oklch(0.55 0.02 285)", "oklch(0.65 0.02 285)", "oklch(0.8 0.014 285)", "oklch(0.95 0.004 285)"] },
+      "muted": { "role": "neutral", "displayName": "Lilac Wash", "canonical": "oklch(0.955 0.014 290)", "tonalRamp": ["oklch(0.15 0.008 290)", "oklch(0.25 0.012 290)", "oklch(0.35 0.014 290)", "oklch(0.45 0.014 290)", "oklch(0.55 0.014 290)", "oklch(0.65 0.014 290)", "oklch(0.8 0.01 290)", "oklch(0.95 0.003 290)"] },
+      "muted-dark": { "role": "neutral", "displayName": "Slate Wash", "canonical": "oklch(0.27 0.02 285)", "tonalRamp": ["oklch(0.15 0.011 285)", "oklch(0.25 0.017 285)", "oklch(0.35 0.02 285)", "oklch(0.45 0.02 285)", "oklch(0.55 0.02 285)", "oklch(0.65 0.02 285)", "oklch(0.8 0.014 285)", "oklch(0.95 0.004 285)"] },
+      "hairline": { "role": "neutral", "displayName": "Ink Hairline", "canonical": "oklch(0.2 0.012 285 / 9%)", "tonalRamp": ["oklch(0.15 0.007 285)", "oklch(0.25 0.01 285)", "oklch(0.35 0.012 285)", "oklch(0.45 0.012 285)", "oklch(0.55 0.012 285)", "oklch(0.65 0.012 285)", "oklch(0.8 0.008 285)", "oklch(0.95 0.003 285)"] },
+      "hairline-dark": { "role": "neutral", "displayName": "Light Hairline", "canonical": "oklch(1 0 0 / 9%)", "tonalRamp": ["oklch(0.15 0 0)", "oklch(0.25 0 0)", "oklch(0.35 0 0)", "oklch(0.45 0 0)", "oklch(0.55 0 0)", "oklch(0.65 0 0)", "oklch(0.8 0 0)", "oklch(0.95 0 0)"] },
+      "folder": { "role": "neutral", "displayName": "Frosted Folder", "canonical": "oklch(1 0 0 / 55%)", "tonalRamp": ["oklch(0.15 0 0)", "oklch(0.25 0 0)", "oklch(0.35 0 0)", "oklch(0.45 0 0)", "oklch(0.55 0 0)", "oklch(0.65 0 0)", "oklch(0.8 0 0)", "oklch(0.95 0 0)"] },
+      "folder-dark": { "role": "neutral", "displayName": "Smoked Folder", "canonical": "oklch(1 0 0 / 10%)", "tonalRamp": ["oklch(0.15 0 0)", "oklch(0.25 0 0)", "oklch(0.35 0 0)", "oklch(0.45 0 0)", "oklch(0.55 0 0)", "oklch(0.65 0 0)", "oklch(0.8 0 0)", "oklch(0.95 0 0)"] },
+      "dock": { "role": "neutral", "displayName": "Dock White", "canonical": "oklch(1 0 0)", "tonalRamp": ["oklch(0.15 0 0)", "oklch(0.25 0 0)", "oklch(0.35 0 0)", "oklch(0.45 0 0)", "oklch(0.55 0 0)", "oklch(0.65 0 0)", "oklch(0.8 0 0)", "oklch(0.95 0 0)"] },
+      "dock-dark": { "role": "neutral", "displayName": "Dock Slate", "canonical": "oklch(0.27 0.022 285)", "tonalRamp": ["oklch(0.15 0.012 285)", "oklch(0.25 0.018 285)", "oklch(0.35 0.022 285)", "oklch(0.45 0.022 285)", "oklch(0.55 0.022 285)", "oklch(0.65 0.022 285)", "oklch(0.8 0.015 285)", "oklch(0.95 0.005 285)"] },
+      "primary": { "role": "primary", "displayName": "Signal Blue", "canonical": "oklch(0.54 0.23 265)", "tonalRamp": ["oklch(0.15 0.129 265)", "oklch(0.25 0.19 265)", "oklch(0.35 0.23 265)", "oklch(0.45 0.23 265)", "oklch(0.55 0.23 265)", "oklch(0.65 0.23 265)", "oklch(0.8 0.162 265)", "oklch(0.95 0.048 265)"] },
+      "primary-dark": { "role": "primary", "displayName": "Signal Blue, Lifted", "canonical": "oklch(0.7 0.16 265)", "tonalRamp": ["oklch(0.15 0.09 265)", "oklch(0.25 0.132 265)", "oklch(0.35 0.16 265)", "oklch(0.45 0.16 265)", "oklch(0.55 0.16 265)", "oklch(0.65 0.16 265)", "oklch(0.8 0.113 265)", "oklch(0.95 0.033 265)"] },
+      "live-blue": { "role": "primary", "displayName": "Live Blue", "canonical": "oklch(0.54 0.23 265)", "tonalRamp": ["oklch(0.15 0.129 265)", "oklch(0.25 0.19 265)", "oklch(0.35 0.23 265)", "oklch(0.45 0.23 265)", "oklch(0.55 0.23 265)", "oklch(0.65 0.23 265)", "oklch(0.8 0.162 265)", "oklch(0.95 0.048 265)"] },
+      "live-blue-dark": { "role": "primary", "displayName": "Live Blue, Night", "canonical": "oklch(0.58 0.21 265)", "tonalRamp": ["oklch(0.15 0.118 265)", "oklch(0.25 0.173 265)", "oklch(0.35 0.21 265)", "oklch(0.45 0.21 265)", "oklch(0.55 0.21 265)", "oklch(0.65 0.21 265)", "oklch(0.8 0.148 265)", "oklch(0.95 0.044 265)"] },
+      "on-blue": { "role": "neutral", "displayName": "On Blue", "canonical": "oklch(0.99 0 0)", "tonalRamp": ["oklch(0.15 0 0)", "oklch(0.25 0 0)", "oklch(0.35 0 0)", "oklch(0.45 0 0)", "oklch(0.55 0 0)", "oklch(0.65 0 0)", "oklch(0.8 0 0)", "oklch(0.95 0 0)"] },
+      "ink": { "role": "secondary", "displayName": "Ink Widget", "canonical": "oklch(0.2 0.012 285)", "tonalRamp": ["oklch(0.15 0.007 285)", "oklch(0.25 0.01 285)", "oklch(0.35 0.012 285)", "oklch(0.45 0.012 285)", "oklch(0.55 0.012 285)", "oklch(0.65 0.012 285)", "oklch(0.8 0.008 285)", "oklch(0.95 0.003 285)"] },
+      "ink-dark": { "role": "secondary", "displayName": "Ink Widget, Lifted", "canonical": "oklch(0.31 0.03 285)", "tonalRamp": ["oklch(0.15 0.017 285)", "oklch(0.25 0.025 285)", "oklch(0.35 0.03 285)", "oklch(0.45 0.03 285)", "oklch(0.55 0.03 285)", "oklch(0.65 0.03 285)", "oklch(0.8 0.021 285)", "oklch(0.95 0.006 285)"] },
+      "on-ink": { "role": "neutral", "displayName": "On Ink", "canonical": "oklch(0.97 0.006 290)", "tonalRamp": ["oklch(0.15 0.003 290)", "oklch(0.25 0.005 290)", "oklch(0.35 0.006 290)", "oklch(0.45 0.006 290)", "oklch(0.55 0.006 290)", "oklch(0.65 0.006 290)", "oklch(0.8 0.004 290)", "oklch(0.95 0.001 290)"] },
+      "on-ink-dark": { "role": "neutral", "displayName": "On Ink, Night", "canonical": "oklch(0.96 0.008 290)", "tonalRamp": ["oklch(0.15 0.004 290)", "oklch(0.25 0.007 290)", "oklch(0.35 0.008 290)", "oklch(0.45 0.008 290)", "oklch(0.55 0.008 290)", "oklch(0.65 0.008 290)", "oklch(0.8 0.006 290)", "oklch(0.95 0.002 290)"] },
+      "on-ink-muted": { "role": "neutral", "displayName": "On Ink Muted", "canonical": "oklch(0.8 0.012 290)", "tonalRamp": ["oklch(0.15 0.007 290)", "oklch(0.25 0.01 290)", "oklch(0.35 0.012 290)", "oklch(0.45 0.012 290)", "oklch(0.55 0.012 290)", "oklch(0.65 0.012 290)", "oklch(0.8 0.008 290)", "oklch(0.95 0.003 290)"] },
+      "on-ink-muted-dark": { "role": "neutral", "displayName": "On Ink Muted, Night", "canonical": "oklch(0.78 0.012 290)", "tonalRamp": ["oklch(0.15 0.007 290)", "oklch(0.25 0.01 290)", "oklch(0.35 0.012 290)", "oklch(0.45 0.012 290)", "oklch(0.55 0.012 290)", "oklch(0.65 0.012 290)", "oklch(0.8 0.008 290)", "oklch(0.95 0.003 290)"] },
+      "tint-blog": { "role": "tertiary", "displayName": "Blog Tangerine", "canonical": "#FF5A1F", "tonalRamp": ["oklch(0.15 0.118 37.7)", "oklch(0.25 0.174 37.7)", "oklch(0.35 0.211 37.7)", "oklch(0.45 0.211 37.7)", "oklch(0.55 0.211 37.7)", "oklch(0.65 0.211 37.7)", "oklch(0.8 0.149 37.7)", "oklch(0.95 0.044 37.7)"] },
+      "tint-newsletter": { "role": "tertiary", "displayName": "Newsletter Jade", "canonical": "#00A876", "tonalRamp": ["oklch(0.15 0.078 163.3)", "oklch(0.25 0.115 163.3)", "oklch(0.35 0.139 163.3)", "oklch(0.45 0.139 163.3)", "oklch(0.55 0.139 163.3)", "oklch(0.65 0.139 163.3)", "oklch(0.8 0.098 163.3)", "oklch(0.95 0.029 163.3)"] },
+      "tint-speaking": { "role": "tertiary", "displayName": "Speaking Magenta", "canonical": "#E5357F", "tonalRamp": ["oklch(0.15 0.121 0.8)", "oklch(0.25 0.178 0.8)", "oklch(0.35 0.216 0.8)", "oklch(0.45 0.216 0.8)", "oklch(0.55 0.216 0.8)", "oklch(0.65 0.216 0.8)", "oklch(0.8 0.152 0.8)", "oklch(0.95 0.045 0.8)"] },
+      "tint-projects": { "role": "tertiary", "displayName": "Projects Cobalt", "canonical": "#2E5BFF", "tonalRamp": ["oklch(0.15 0.139 266)", "oklch(0.25 0.204 266)", "oklch(0.35 0.247 266)", "oklch(0.45 0.247 266)", "oklch(0.55 0.247 266)", "oklch(0.65 0.247 266)", "oklch(0.8 0.174 266)", "oklch(0.95 0.052 266)"] },
+      "tint-about": { "role": "tertiary", "displayName": "About Iris", "canonical": "#7A5CFF", "tonalRamp": ["oklch(0.15 0.129 285.5)", "oklch(0.25 0.19 285.5)", "oklch(0.35 0.23 285.5)", "oklch(0.45 0.23 285.5)", "oklch(0.55 0.23 285.5)", "oklch(0.65 0.23 285.5)", "oklch(0.8 0.162 285.5)", "oklch(0.95 0.048 285.5)"] },
+      "tint-uses": { "role": "tertiary", "displayName": "Uses Graphite", "canonical": "#1C1B22", "tonalRamp": ["oklch(0.15 0.008 291.8)", "oklch(0.25 0.012 291.8)", "oklch(0.35 0.014 291.8)", "oklch(0.45 0.014 291.8)", "oklch(0.55 0.014 291.8)", "oklch(0.65 0.014 291.8)", "oklch(0.8 0.01 291.8)", "oklch(0.95 0.003 291.8)"] },
+      "tint-now": { "role": "tertiary", "displayName": "Now Marigold", "canonical": "#FFC21A", "tonalRamp": ["oklch(0.15 0.095 84.9)", "oklch(0.25 0.139 84.9)", "oklch(0.35 0.169 84.9)", "oklch(0.45 0.169 84.9)", "oklch(0.55 0.169 84.9)", "oklch(0.65 0.169 84.9)", "oklch(0.8 0.119 84.9)", "oklch(0.95 0.035 84.9)"] },
+      "tint-resume": { "role": "tertiary", "displayName": "Resume Slate", "canonical": "#5B6474", "tonalRamp": ["oklch(0.15 0.016 262)", "oklch(0.25 0.023 262)", "oklch(0.35 0.028 262)", "oklch(0.45 0.028 262)", "oklch(0.55 0.028 262)", "oklch(0.65 0.028 262)", "oklch(0.8 0.02 262)", "oklch(0.95 0.006 262)"] },
+      "tint-home": { "role": "tertiary", "displayName": "Home Key Lilac", "canonical": "#E9E7F5", "tonalRamp": ["oklch(0.15 0.011 292.6)", "oklch(0.25 0.016 292.6)", "oklch(0.35 0.019 292.6)", "oklch(0.45 0.019 292.6)", "oklch(0.55 0.019 292.6)", "oklch(0.65 0.019 292.6)", "oklch(0.8 0.013 292.6)", "oklch(0.95 0.004 292.6)"] },
+      "tint-ink": { "role": "neutral", "displayName": "Tint Ink", "canonical": "#1C1B22", "tonalRamp": ["oklch(0.15 0.008 291.8)", "oklch(0.25 0.012 291.8)", "oklch(0.35 0.014 291.8)", "oklch(0.45 0.014 291.8)", "oklch(0.55 0.014 291.8)", "oklch(0.65 0.014 291.8)", "oklch(0.8 0.01 291.8)", "oklch(0.95 0.003 291.8)"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "The hello widget name and every sheet h1 from md up." },
+      "stat": { "displayName": "Stat", "purpose": "The single big number in a counter widget." },
+      "heading": { "displayName": "Heading", "purpose": "Sheet h1 on mobile, folder panel titles, section headings inside sheets." },
+      "title": { "displayName": "Title", "purpose": "Widget titles, project names, talk titles, year headings." },
+      "lede": { "displayName": "Lede", "purpose": "The line under a sheet h1 (max 60ch) and post titles in the blog list." },
+      "prose": { "displayName": "Prose", "purpose": "Long-form posts, newsletter issues and About copy at a 68ch measure." },
+      "body": { "displayName": "Body", "purpose": "Descriptions, list items, widget copy." },
+      "label": { "displayName": "Label", "purpose": "Icon names, chips, buttons, the status bar clock." },
+      "caption": { "displayName": "Caption", "purpose": "Secondary lines in rows, tags, small pill buttons." },
+      "meta": { "displayName": "Meta", "purpose": "Dates as YYYY.MM.DD, counts in chips, small platform labels; tabular figures." }
+    },
+    "shadows": [
+      { "name": "dock-lift", "value": "0 14px 40px -18px rgb(30 20 80 / 45%)", "purpose": "The one cast shadow in the system: floats the fixed dock over scrolling content." },
+      { "name": "night-icon-halo", "value": "drop-shadow(0 0 0.75px rgb(255 255 255 / 45%))", "purpose": "Dark mode only, a filter on native app icons so dark silhouettes hold against the night wallpaper." },
+      { "name": "night-squircle-rim", "value": "inset 0 0 0 1px rgb(255 255 255 / 12%)", "purpose": "Dark mode only, a 1px inner ring on bleed, mark, glyph and section squircles." },
+      { "name": "folder-scrim", "value": "oklch(0.2 0.03 285 / 35%)", "purpose": "Backdrop colour behind an open folder popover." }
+    ],
+    "motion": [
+      { "name": "ease-out-expo", "value": "cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "The single easing for lifts, presses, folder zooms and arrow nudges." },
+      { "name": "press", "value": "transform 300ms ease-out-expo; scale(0.9) icons, scale(0.98) linked widgets", "purpose": "Tap physics on icons, folders, dock keys and linked widgets." },
+      { "name": "lift", "value": "transform 300ms ease-out-expo; translateY(-4px) icons, translateY(-2px) folders", "purpose": "Hover lift on home screen and dock icons." },
+      { "name": "folder-zoom", "value": "translate and scale 500ms ease-out-expo from the tile centre at scale(0.2); opacity 300ms", "purpose": "Folder popover grows out of the tile it was opened from, via @starting-style and discrete display/overlay transitions." },
+      { "name": "folder-scrim-fade", "value": "background-color 400ms ease-out-expo", "purpose": "Backdrop fade behind the folder panel." },
+      { "name": "photo-zoom", "value": "transform 500ms ease-out-expo; scale(1.03)", "purpose": "Talk thumbnail hover." },
+      { "name": "color", "value": "150ms", "purpose": "Colour and underline transitions on chips, rows, links and buttons." },
+      { "name": "live-pulse", "value": "animate-pulse", "purpose": "The on-blue dot in the building-now widget." },
+      { "name": "reduced-motion", "value": "all animation and transition durations 0.01ms", "purpose": "prefers-reduced-motion: reduce collapses every animation." }
+    ],
+    "breakpoints": [
+      { "name": "base", "value": "0px", "note": "4-column home grid, 108px rows, 8px x 12px gaps, 16px gutter" },
+      { "name": "sm", "value": "640px", "note": "6-column home grid; status bar clock appears" },
+      { "name": "md", "value": "768px", "note": "16px grid gaps, 32px gutter, larger icons, dock and sheet padding" },
+      { "name": "lg", "value": "1024px", "note": "8-column home grid, 120px rows, explicit cell placement" }
+    ]
+  },
+  "components": [
+    {
+      "name": "App Icon",
+      "kind": "custom",
+      "refersTo": "app-icon-home",
+      "description": "A section app icon on the macOS squircle grid with its name beneath; lifts on hover, presses to 0.9.",
+      "html": "<a class='ds-app' href='#'><span class='ds-app-icon'><span class='ds-app-squircle' style='background:#FF5A1F;color:#FFFFFF'><svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true'><path d='M12 7v14'/><path d='M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3Z'/></svg></span></span><span class='ds-app-label'>Blog</span></a>",
+      "css": ".ds-app{display:inline-flex;flex-direction:column;align-items:center;gap:6px;color:var(--foreground);text-decoration:none;font-family:'Hanken Grotesk Variable',ui-sans-serif,system-ui,sans-serif}.ds-app-icon{position:relative;display:block;width:88px;height:88px;transition:transform .3s cubic-bezier(0.16,1,0.3,1)}.ds-app-squircle{position:absolute;inset:9.6%;border-radius:22.5%;overflow:hidden;display:flex;align-items:center;justify-content:center}.ds-app-squircle svg{width:52%;height:52%}.ds-app-label{font-size:13px;line-height:1.3;font-weight:600;text-align:center;max-width:6.5rem}.ds-app:hover .ds-app-icon{transform:translateY(-4px)}.ds-app:active .ds-app-icon{transform:scale(.9)}.ds-app:focus-visible{outline:3px solid var(--ring);outline-offset:3px;border-radius:16px}"
+    },
+    {
+      "name": "Folder Tile",
+      "kind": "custom",
+      "refersTo": "folder-tile",
+      "description": "A translucent squircle previewing up to nine member icons; opens a popover panel that grows from the tile.",
+      "html": "<div class='ds-folder'><button type='button' class='ds-folder-tile' aria-label='Open AI Tools folder'><span style='background:#CB3837'></span><span style='background:#3178C6'></span><span style='background:#4EAA25'></span><span style='background:#CB3837'></span><span style='background:#3178C6'></span><span style='background:#CB3837'></span><span style='background:#20232A'></span></button><span class='ds-folder-label'>AI Tools</span></div>",
+      "css": ".ds-folder{display:inline-flex;flex-direction:column;align-items:center;gap:6px;font-family:'Hanken Grotesk Variable',ui-sans-serif,system-ui,sans-serif;color:var(--foreground)}.ds-folder-tile{display:grid;grid-template-columns:repeat(3,1fr);align-content:start;gap:4px;width:88px;height:88px;padding:13px;border:0;border-radius:22.5%;background:var(--folder);cursor:pointer;transition:transform .3s cubic-bezier(0.16,1,0.3,1)}.ds-folder-tile span{display:block;aspect-ratio:1;margin:9.6%;border-radius:22.5%}.ds-folder-tile:hover{transform:translateY(-2px)}.ds-folder-tile:active{transform:scale(.9)}.ds-folder-tile:focus-visible{outline:3px solid var(--ring);outline-offset:3px}.ds-folder-label{font-size:13px;line-height:1.3;font-weight:600}"
+    },
+    {
+      "name": "Widget",
+      "kind": "card",
+      "refersTo": "widget",
+      "description": "The plain home screen widget: opaque card, 1.75rem radius, no border, no shadow.",
+      "html": "<div class='ds-widget'><h2 class='ds-widget-name'>Dani Akash</h2><p class='ds-widget-role'>AI Engineer · Builder · Speaker</p><p class='ds-widget-body'>A simple developer building AI agents for humans.</p></div>",
+      "css": ".ds-widget{background:var(--card);color:var(--card-foreground);border-radius:1.75rem;padding:20px;max-width:360px;font-family:'Hanken Grotesk Variable',ui-sans-serif,system-ui,sans-serif}.ds-widget-name{margin:0;font-family:'Archivo Variable','Hanken Grotesk Variable',sans-serif;font-size:3rem;line-height:.95;font-weight:800;letter-spacing:-0.03em}.ds-widget-role{margin:8px 0 0;font-size:13px;line-height:1.3;font-weight:700}.ds-widget-body{margin:2px 0 0;font-size:15px;line-height:1.55;color:var(--muted-foreground)}"
+    },
+    {
+      "name": "Live Widget",
+      "kind": "card",
+      "refersTo": "widget-blue",
+      "description": "The blue widget for live state: pulsing dot, title, and an on-blue pill; presses to 0.98.",
+      "html": "<a class='ds-live' href='#'><span class='ds-live-dot' aria-hidden='true'></span><span class='ds-live-row'><span class='ds-live-text'><span class='ds-live-title'>BrowserOS</span>Building now: an AI-powered browser for agents</span><span class='ds-live-pill'>Explore the work <svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true'><path d='M5 12h14'/><path d='m13 6 6 6-6 6'/></svg></span></span></a>",
+      "css": ".ds-live{display:flex;flex-direction:column;justify-content:space-between;gap:24px;min-height:120px;max-width:420px;padding:20px;border-radius:1.75rem;background:var(--blue);color:var(--on-blue);text-decoration:none;font-family:'Hanken Grotesk Variable',ui-sans-serif,system-ui,sans-serif;transition:transform .3s cubic-bezier(0.16,1,0.3,1)}.ds-live:active{transform:scale(.98)}.ds-live:focus-visible{outline:3px solid var(--ring);outline-offset:3px}.ds-live-dot{width:8px;height:8px;border-radius:9999px;background:var(--on-blue);animation:ds-pulse 2s cubic-bezier(0.4,0,0.6,1) infinite}@keyframes ds-pulse{50%{opacity:.5}}.ds-live-row{display:flex;align-items:flex-end;justify-content:space-between;gap:12px}.ds-live-text{font-size:15px;line-height:1.35;font-weight:600}.ds-live-title{display:block;font-family:'Archivo Variable','Hanken Grotesk Variable',sans-serif;font-size:20px;line-height:1.2;font-weight:800;letter-spacing:-0.02em}.ds-live-pill{display:inline-flex;align-items:center;gap:4px;flex-shrink:0;padding:6px 12px;border-radius:9999px;background:var(--on-blue);color:var(--blue);font-size:12px;font-weight:700;white-space:nowrap;transition:transform .3s cubic-bezier(0.16,1,0.3,1)}.ds-live-pill svg{width:14px;height:14px}.ds-live:hover .ds-live-pill{transform:translateX(2px)}"
+    },
+    {
+      "name": "Ink Counter Widget",
+      "kind": "card",
+      "refersTo": "widget-ink",
+      "description": "The ink widget holding one big stat; lifted above the card tone at night.",
+      "html": "<a class='ds-ink' href='#'><span class='ds-ink-cap'>Talks since 2017</span><span class='ds-ink-row'><span class='ds-ink-stat'>29</span><svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true'><path d='M5 12h14'/><path d='m13 6 6 6-6 6'/></svg></span></a>",
+      "css": ".ds-ink{display:flex;flex-direction:column;justify-content:space-between;width:240px;height:120px;padding:20px;border-radius:1.75rem;background:var(--ink);color:var(--on-ink);text-decoration:none;font-family:'Hanken Grotesk Variable',ui-sans-serif,system-ui,sans-serif;transition:transform .3s cubic-bezier(0.16,1,0.3,1)}.ds-ink:active{transform:scale(.98)}.ds-ink:focus-visible{outline:3px solid var(--ring);outline-offset:3px}.ds-ink-cap{font-size:12px;line-height:1.4;font-weight:700;color:var(--on-ink-muted)}.ds-ink-row{display:flex;align-items:flex-end;justify-content:space-between}.ds-ink-stat{font-family:'Archivo Variable','Hanken Grotesk Variable',sans-serif;font-size:2.75rem;line-height:1;font-weight:800;letter-spacing:-0.03em;font-variant-numeric:tabular-nums}.ds-ink-row svg{width:16px;height:16px;margin-bottom:4px;transition:transform .3s cubic-bezier(0.16,1,0.3,1)}.ds-ink:hover .ds-ink-row svg{transform:translateX(2px)}"
+    },
+    {
+      "name": "App Sheet Header",
+      "kind": "custom",
+      "refersTo": "app-sheet",
+      "description": "The header of every inner page: back link, section icon, Archivo h1, round close button, lede.",
+      "html": "<article class='ds-sheet'><a class='ds-sheet-back' href='#'><svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true'><path d='m15 5-7 7 7 7'/></svg>Blog</a><header class='ds-sheet-head'><span class='ds-sheet-icon'><span style='background:#FF5A1F;color:#FFFFFF'><svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true'><path d='M12 7v14'/><path d='M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3Z'/></svg></span></span><h1 class='ds-sheet-title'>The Blog Zone</h1><a class='ds-sheet-close' href='#' aria-label='Back to the home screen'><svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true'><path d='M6 6l12 12'/><path d='M18 6 6 18'/></svg></a><p class='ds-sheet-lede'>Where my thoughts get some air time and occasionally make sense.</p></header></article>",
+      "css": ".ds-sheet{background:var(--sheet);color:var(--card-foreground);border-radius:1.75rem;padding:32px;font-family:'Hanken Grotesk Variable',ui-sans-serif,system-ui,sans-serif}.ds-sheet-back{display:inline-flex;align-items:center;gap:2px;min-height:36px;margin:-12px 0 16px -8px;padding:0 12px 0 6px;border-radius:9999px;color:var(--primary);font-size:13px;font-weight:700;text-decoration:none;transition:background-color .15s}.ds-sheet-back:hover{background:var(--muted)}.ds-sheet-back svg{width:18px;height:18px}.ds-sheet-head{display:grid;grid-template-columns:auto 1fr auto;align-items:start;column-gap:16px}.ds-sheet-icon{position:relative;grid-row:span 2;width:72px;height:72px;margin:-6px}.ds-sheet-icon span{position:absolute;inset:9.6%;border-radius:22.5%;display:flex;align-items:center;justify-content:center}.ds-sheet-icon svg{width:52%;height:52%}.ds-sheet-title{margin:0;padding-top:4px;align-self:center;font-family:'Archivo Variable','Hanken Grotesk Variable',sans-serif;font-size:3rem;line-height:.95;font-weight:800;letter-spacing:-0.03em;text-wrap:balance}.ds-sheet-close{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:9999px;background:var(--muted);color:var(--foreground);transition:background-color .15s,color .15s}.ds-sheet-close:hover{background:var(--foreground);color:var(--background)}.ds-sheet-close:focus-visible,.ds-sheet-back:focus-visible{outline:3px solid var(--ring);outline-offset:3px}.ds-sheet-close svg{width:18px;height:18px}.ds-sheet-lede{grid-column:2 / span 2;margin:8px 0 0;max-width:60ch;font-size:17px;line-height:1.5;color:var(--muted-foreground)}"
+    },
+    {
+      "name": "Dock",
+      "kind": "nav",
+      "refersTo": "dock",
+      "description": "The opaque dock with the Home key split by a hairline, section keys, hover lift, press and an active dot.",
+      "html": "<nav class='ds-dock' aria-label='Main'><ul><li class='ds-dock-home'><a href='#' aria-current='page' title='Home'><span class='ds-dock-key' style='background:#E9E7F5;color:#1C1B22'><svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true'><path d='M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8'/><path d='M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z'/></svg></span><span class='ds-dock-dot'></span></a></li><li><a href='#' title='Blog'><span class='ds-dock-key' style='background:#FF5A1F;color:#FFFFFF'><svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true'><path d='M12 7v14'/><path d='M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3Z'/></svg></span><span class='ds-dock-dot'></span></a></li><li><a href='#' title='Newsletter'><span class='ds-dock-key' style='background:#00A876;color:#FFFFFF'><svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true'><path d='M2.75 7.75a3 3 0 0 1 3-3h12.5a3 3 0 0 1 3 3v8.5a3 3 0 0 1-3 3H5.75a3 3 0 0 1-3-3v-8.5Z'/><path d='m4 6 6.024 5.479a2.915 2.915 0 0 0 3.952 0L20 6'/></svg></span><span class='ds-dock-dot'></span></a></li><li><a href='#' title='Speaking'><span class='ds-dock-key' style='background:#E5357F;color:#FFFFFF'><svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true'><path d='M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z'/><path d='M19 10v2a7 7 0 0 1-14 0v-2'/><path d='M12 19v3'/></svg></span><span class='ds-dock-dot'></span></a></li></ul></nav>",
+      "css": ".ds-dock{display:inline-block;padding:8px;border-radius:1.75rem;background:var(--dock);box-shadow:0 14px 40px -18px rgb(30 20 80 / 45%)}.ds-dock ul{display:flex;align-items:flex-end;gap:8px;margin:0;padding:0;list-style:none}.ds-dock-home{margin-right:4px;padding-right:10px;border-right:1px solid var(--border)}.ds-dock a{display:flex;flex-direction:column;align-items:center;border-radius:16px;text-decoration:none}.ds-dock a:focus-visible{outline:3px solid var(--ring);outline-offset:3px}.ds-dock-key{position:relative;display:block;width:56px;height:56px;transition:transform .3s cubic-bezier(0.16,1,0.3,1);border-radius:22.5%;clip-path:inset(9.6% round 22.5%)}.ds-dock-key svg{position:absolute;inset:24%;width:52%;height:52%}.ds-dock a:hover .ds-dock-key{transform:translateY(-4px)}.ds-dock a:active .ds-dock-key{transform:scale(.9)}.ds-dock-dot{width:4px;height:4px;margin-top:2px;border-radius:9999px;background:var(--foreground);opacity:0;transition:opacity .15s}.ds-dock a[aria-current='page'] .ds-dock-dot{opacity:1}"
+    },
+    {
+      "name": "Filter Chip",
+      "kind": "chip",
+      "refersTo": "chip",
+      "description": "A muted pill jump link with a count; inverts to foreground on hover.",
+      "html": "<a class='ds-chip' href='#'>Open Source <span class='ds-chip-count'>9</span></a>",
+      "css": ".ds-chip{display:inline-flex;align-items:center;gap:8px;min-height:36px;padding:0 14px;border-radius:9999px;background:var(--muted);color:var(--foreground);font-family:'Hanken Grotesk Variable',ui-sans-serif,system-ui,sans-serif;font-size:13px;line-height:1.3;font-weight:700;text-decoration:none;transition:background-color .15s,color .15s}.ds-chip:hover{background:var(--foreground);color:var(--background)}.ds-chip:focus-visible{outline:3px solid var(--ring);outline-offset:3px}.ds-chip-count{font-size:11px;opacity:.6;font-variant-numeric:tabular-nums}"
+    },
+    {
+      "name": "Solid Button",
+      "kind": "button",
+      "refersTo": "button-solid",
+      "description": "Foreground pill with an arrow; turns Signal Blue on hover.",
+      "html": "<a class='ds-btn-solid' href='#'>Resume <svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true'><path d='M5 12h14'/><path d='m13 6 6 6-6 6'/></svg></a>",
+      "css": ".ds-btn-solid{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:40px;padding:0 16px;border-radius:9999px;background:var(--foreground);color:var(--background);font-family:'Hanken Grotesk Variable',ui-sans-serif,system-ui,sans-serif;font-size:13px;font-weight:700;text-decoration:none;transition:background-color .15s,color .15s}.ds-btn-solid:hover{background:var(--primary);color:var(--primary-foreground)}.ds-btn-solid:focus-visible{outline:3px solid var(--ring);outline-offset:3px}.ds-btn-solid svg{width:14px;height:14px}"
+    },
+    {
+      "name": "Subscribe Field",
+      "kind": "input",
+      "refersTo": "input-pill",
+      "description": "Muted pill email input with a Newsletter Jade subscribe button.",
+      "html": "<form class='ds-subscribe' onsubmit='return false'><label class='ds-sr' for='ds-email'>Email address</label><input id='ds-email' class='ds-input' type='email' placeholder='you@example.com'><button class='ds-btn-subscribe' type='submit'>Subscribe</button></form>",
+      "css": ".ds-subscribe{display:flex;gap:8px;font-family:'Hanken Grotesk Variable',ui-sans-serif,system-ui,sans-serif}.ds-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}.ds-input{width:256px;height:44px;padding:0 16px;border:0;border-radius:9999px;background:var(--muted);color:var(--foreground);font:inherit;font-size:15px;outline:none}.ds-input::placeholder{color:var(--muted-foreground)}.ds-input:focus-visible{outline:3px solid var(--ring);outline-offset:2px}.ds-btn-subscribe{height:44px;padding:0 20px;border:0;border-radius:9999px;background:#00A876;color:#FFFFFF;font:inherit;font-size:13px;font-weight:700;cursor:pointer;transition:opacity .15s}.ds-btn-subscribe:hover{opacity:.9}.ds-btn-subscribe:focus-visible{outline:3px solid var(--ring);outline-offset:3px}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Home Screen",
+    "overview": "The site is Dani's phone home screen laid flat on the web. The homepage is a grid of real things he made: native app icons pulled from each repository, language and npm glyph icons for the libraries without one, folders that zoom open out of their own tile, and widgets that hold who he is, what he is building now, and his photos. A dock pinned to the bottom of every page carries a Home key and the site sections as apps. Every inner page is an app opened from that screen: an app sheet with its section icon, an Archivo headline and a close button that returns home.\n\nThe world is calm and flat. A pale lavender wallpaper (deep ink at night) sits behind opaque white widgets with large, soft corners and no borders. Colour comes from the icons themselves, the section tints and one blue that means \"live\". Depth is tonal, not shadowed: the only cast shadow in the system belongs to the dock. Density is high on the home screen (icons pack an 8-column grid) and generous inside sheets, where long-form reading gets a 68ch measure and 17px text.\n\nThe physics are a phone's: icons lift on hover and press down to 90% on tap, folders grow from the tile you touched, and everything settles on one expo ease-out curve. The rejected alternatives were the long project list and the dark terminal portfolio; there is no glass, no gradient and no decorative shadow.",
+    "keyCharacteristics": [
+      "Real app icons on the macOS squircle grid (22.5% corner radius, 9.6% inset margin), names set beneath.",
+      "Opaque, borderless widgets at a 1.75rem radius on a tinted wallpaper.",
+      "One blue for live state; every other hue is an icon, a photo, or a section tint.",
+      "Archivo 800 with negative tracking for every heading, Hanken Grotesk for everything read.",
+      "A fixed dock on every page; inner pages are sheets, never a separate site chrome.",
+      "Light and dark ship together, switched by the status bar toggle and remembered per visitor."
+    ],
+    "rules": [
+      { "name": "The One Blue Rule", "body": "Blue means live or actionable: links, focus, selection, the building-now widget, the Active badge. It never decorates.", "section": "colors" },
+      { "name": "The Icon Owns Its Colour Rule", "body": "Hue on the home screen comes from app icons, photos and section tints. Neutrals stay in the 285 to 290 hue band and never compete.", "section": "colors" },
+      { "name": "The Tint Is The Section Rule", "body": "A section's tint and glyph appear together, everywhere that section is represented. Never recolour a section, and never borrow another section's tint for unrelated UI.", "section": "colors" },
+      { "name": "The Heavy Headline Rule", "body": "Every heading is Archivo at 800 with negative tracking between -0.02em and -0.03em, balanced with `text-wrap: balance`. Text below title size is always Hanken.", "section": "typography" },
+      { "name": "The Ramp Only Rule", "body": "Sizes come from the nine-step ramp (11, 12, 13, 15, 17, 20, 28, 44, 48px). Nothing is set in uppercase, and no letter-spaced small caps are used as section labels.", "section": "typography" },
+      { "name": "The Tabular Time Rule", "body": "Every `time` element and every count renders with tabular figures so dates and numbers align in columns.", "section": "typography" },
+      { "name": "The Grid Is The Screen Rule", "body": "Home screen content lives in grid cells, never in free-flowing sections. A new tool is a new icon or a folder entry, not a new block of prose.", "section": "layout" },
+      { "name": "The Single Lift Rule", "body": "Only the dock casts a shadow. Everything else is lifted by tone.", "section": "elevation" }
+    ],
+    "dos": [
+      "**Do** put every new tool, library or app on the home screen as an icon or inside a folder, using its real icon from its repository when one exists; otherwise a mark or glyph icon on the project's language or registry tint.",
+      "**Do** draw every non-native icon on the inset squircle (22.5% radius, 9.6% margin) so it aligns with downloaded app art.",
+      "**Do** record the provenance of every shipped raster or icon file (repository or Simple Icons version and licence).",
+      "**Do** open every inner page as an AppSheet with its section icon, h1 and close button, and keep the dock on every page.",
+      "**Do** use one ease (`cubic-bezier(0.16, 1, 0.3, 1)`) for lifts, presses, folder zooms and arrow nudges: 0.3s for presses and lifts, 0.5s for zooms.",
+      "**Do** give icons the press physics: lift on hover, scale to 0.9 on press; widgets that link press to 0.98.",
+      "**Do** keep touch targets at 36px minimum for chips and links and 40px for icon buttons.",
+      "**Do** design both themes together; at night, lift ink widgets and the dock above the card tone and rim icons so they do not sink.",
+      "**Do** let `prefers-reduced-motion` collapse every animation and transition, and hide the status bar, dock and footer when printing."
+    ],
+    "donts": [
+      "**Don't** add shadows to widgets, icons or sheets; the dock is the only surface that casts one.",
+      "**Don't** use glass, backdrop blur or gradients; the folder tile is a flat translucency.",
+      "**Don't** add borders to widgets; separate by tone, and keep hairlines for list rows and section rules.",
+      "**Don't** use blue for decoration; it is reserved for live state, links and focus.",
+      "**Don't** recolour a section's tint or pair a section glyph with another tint.",
+      "**Don't** set sizes outside the ramp or set labels in uppercase with letter-spacing.",
+      "**Don't** use emoji or text characters as icons; glyph icons are vector logo masks.",
+      "**Don't** invent catalog entries; an icon on the screen must be a real public repo or a package verified on the registry."
+    ]
+  }
+}

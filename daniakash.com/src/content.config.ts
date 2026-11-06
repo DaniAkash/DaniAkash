@@ -141,6 +141,17 @@ const project = defineCollection({
             label: z.string(),
           })
           .optional(),
+        category: z.enum(["app", "ai-tool", "oss", "earlier"]).optional(),
+        icon: z
+          .object({
+            kind: z.enum(["app", "bleed", "mark", "glyph"]),
+            src: z.string(),
+            tint: z.string().optional(),
+            ink: z.string().optional(),
+          })
+          .optional(),
+        npm: z.string().optional(),
+        language: z.string().optional(),
       }),
     ),
   }),

@@ -2,6 +2,8 @@
 import { getCollection, render } from "astro:content";
 import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
 import { Schema } from "astro-seo-schema";
+import AppSheet from "../../components/AppSheet.astro";
+import Icon from "../../components/Icon.astro";
 import Newsletter from "../../components/Newsletter.astro";
 import { PERSON_ENTITY_ID } from "../../constants/seo";
 import MainLayout from "../../layouts/MainLayout.astro";
@@ -17,7 +19,7 @@ export const getStaticPaths = (async () => {
   }));
 }) satisfies GetStaticPaths;
 
-type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+export type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
 const { post } = Astro.props;
 const { Content } = await render(post);
@@ -72,79 +74,64 @@ await getOGImage({
       keywords: post.data.tags?.join(", "),
     }}
   />
-  <article class="mx-auto max-w-[720px] pt-[120px] pb-20" id="article">
-    <!-- Navigation -->
-    <div class="mb-12 flex items-center gap-4 font-mono text-xs tracking-wide">
-      <button
-        onclick="history.back()"
-        class="inline-flex items-center gap-2 text-muted-foreground transition-colors hover:text-primary"
-      >
-        ← Back
-      </button>
-      <span class="text-border" aria-hidden="true">|</span>
-      <a
-        href="/blog/"
-        class="text-muted-foreground transition-colors hover:text-primary"
-      >
-        All posts
-      </a>
-    </div>
 
-    <!-- Post header -->
-    <div class="mb-4 flex items-center gap-3 font-mono text-[13px] tracking-wide text-muted-foreground">
-      <time datetime={dateValue}>
-        {dateDisplay}
-      </time>
-      <span class="text-border" aria-hidden="true">|</span>
-      <a href="/about/" class="transition-colors hover:text-primary">
-        Dani Akash
-      </a>
-    </div>
-
-    <h1
-      class="mb-6 font-bold leading-[1.15] tracking-[-0.03em]"
-      style="font-size: clamp(32px, 5vw, 48px);"
+  <div id="article">
+    <AppSheet
+      title={post.data.title}
+      lede={post.data.subtitle}
+      sectionHref="/blog/"
+      class="max-w-[60rem]"
     >
-      {post.data.title}
-    </h1>
+      <div slot="header" class="mt-4 flex flex-col gap-3">
+        <p class="text-muted-foreground text-label flex flex-wrap items-center gap-x-2 font-semibold">
+          <time datetime={dateValue} class="tabular">{dateDisplay}</time>
+          <span aria-hidden="true">·</span>
+          <a
+            href="/about/"
+            class="text-foreground hover:text-primary transition-colors"
+          >
+            Dani Akash
+          </a>
+        </p>
+        {
+          post.data.tags.length > 0 && (
+            <ul class="flex flex-wrap gap-1.5" aria-label="Tags">
+              {post.data.tags.map((tag) => (
+                <li class="bg-muted text-muted-foreground text-caption rounded-full px-2.5 py-0.5 font-semibold">
+                  {tag}
+                </li>
+              ))}
+            </ul>
+          )
+        }
+      </div>
 
-    <p
-      class="mb-12 border-b border-dashed border-border pb-12 text-xl font-light leading-relaxed text-muted-foreground"
-    >
-      {post.data.subtitle}
-    </p>
+      <div class="border-border border-t pt-6 md:pt-8">
+        <div class="prose dark:prose-invert mx-auto max-w-[68ch]">
+          <Content />
+        </div>
+      </div>
 
-    <!-- Prose body -->
-    <div class="prose dark:prose-invert max-w-none">
-      <Content />
-    </div>
-
-    <!-- Subscribe box -->
-    <Newsletter
-      heading="Enjoyed this post?"
-      description="Get new posts delivered straight to your inbox. No spam, ever."
-      class="mt-20"
-    />
-
-    <!-- Article footer -->
-    <div
-      class="mt-12 flex items-center gap-4 border-t border-dashed border-border pt-12 font-mono text-[13px]"
-    >
-      <button
-        onclick="history.back()"
-        class="text-muted-foreground transition-colors hover:text-primary"
+      <nav
+        aria-label="Post navigation"
+        class="border-border mt-10 flex flex-wrap items-center gap-2 border-t pt-6"
       >
-        ← Back
-      </button>
-      <span class="text-border" aria-hidden="true">|</span>
-      <a
-        href="/blog/"
-        class="text-muted-foreground transition-colors hover:text-primary"
-      >
-        All posts
-      </a>
-    </div>
-  </article>
+        <a
+          href="/blog/"
+          class="bg-muted hover:bg-foreground hover:text-background text-label inline-flex min-h-10 items-center gap-1.5 rounded-full px-4 font-bold transition-colors"
+        >
+          <Icon name="chevron-left" class="size-4" />
+          All posts
+        </a>
+      </nav>
+    </AppSheet>
+  </div>
+
+  <Newsletter
+    heading="Enjoyed this post?"
+    description="Get new posts delivered straight to your inbox. No spam, ever."
+    class="mx-auto mt-4 max-w-[60rem] md:mt-5"
+  />
 </MainLayout>
 
 <script is:inline>
@@ -160,10 +147,10 @@ await getOGImage({
     var container = document.createElement("div");
     container.id = "readingProgress";
     container.style.cssText =
-      "position:fixed;top:0;left:0;right:0;height:2px;z-index:9999;pointer-events:none;";
+      "position:fixed;top:0;left:0;right:0;height:3px;z-index:9999;pointer-events:none;";
     var bar = document.createElement("div");
     bar.style.cssText =
-      "height:100%;width:0;background:var(--primary);transition:none;";
+      "height:100%;width:0;background:var(--blue);transition:none;";
     container.appendChild(bar);
     document.body.appendChild(container);
 
