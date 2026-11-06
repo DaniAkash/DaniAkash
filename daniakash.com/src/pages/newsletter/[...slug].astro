@@ -1,7 +1,9 @@
 ---
 import { getCollection } from "astro:content";
 import type { GetStaticPaths } from "astro";
+import Icon from "../../components/Icon.astro";
 import Newsletter from "../../components/Newsletter.astro";
+import Tile from "../../components/Tile.astro";
 import { ASSET_PREFIX } from "../../constants/asset-prefix";
 import MainLayout from "../../layouts/MainLayout.astro";
 import { getOGImage } from "../../utils/getOGImage";
@@ -29,7 +31,8 @@ export const getStaticPaths = (async () => {
   });
 }) satisfies GetStaticPaths;
 
-const { content, dateDisplay, title, canonical, prev, next } = Astro.props;
+const { content, dateValue, dateDisplay, title, canonical, prev, next } =
+  Astro.props;
 
 // Extract unique description from issue content, fallback to generic
 const fallbackDescription =
@@ -61,77 +64,72 @@ await getOGImage({
   image={image}
   canonical={canonical}
 >
-  <article class="mx-auto max-w-[720px] pt-[120px] pb-20" id="article">
-    <!-- Back link -->
-    <a
-      href="/newsletter/"
-      class="text-muted-foreground hover:text-primary mb-12 inline-flex items-center gap-2 font-mono text-xs tracking-wide transition-colors"
-    >
-      ← Back to newsletter
-    </a>
+  <article id="article" class="mx-auto flex max-w-[52rem] flex-col gap-3 md:gap-5">
+    <nav aria-label="Newsletter navigation" class="flex flex-wrap gap-1.5">
+      <a
+        href="/newsletter/"
+        class="bg-card hover:bg-foreground hover:text-background inline-flex min-h-9 items-center gap-1.5 rounded-full px-3.5 text-caption font-medium transition-colors"
+      >
+        <Icon name="arrow-right" class="size-3.5 rotate-180" />
+        Back to newsletter
+      </a>
+    </nav>
 
-    <!-- Issue badge -->
-    <span
-      class="bg-primary/15 text-primary mb-4 inline-block rounded-full px-2.5 py-0.5 font-mono text-[11px] tracking-[0.08em] uppercase"
-    >
-      Newsletter
-    </span>
+    <header class="grid gap-3 md:grid-cols-4 md:gap-5">
+      <Tile as="div" class="md:col-span-3 md:p-7">
+        <h1 class="font-display text-subdisplay md:text-display leading-[1.05] font-extrabold tracking-[-0.03em]">
+          {title}
+        </h1>
+      </Tile>
+      <Tile tone="green" class="flex flex-col justify-between gap-5">
+        <span class="bg-on-green/10 self-start rounded-full px-2.5 py-0.5 text-caption font-semibold">
+          Newsletter
+        </span>
+        <time datetime={dateValue} class="font-mono text-meta font-medium">
+          {dateDisplay}
+        </time>
+      </Tile>
+    </header>
 
-    <!-- Date -->
-    <div class="text-muted-foreground mb-4 font-mono text-[13px] tracking-wide">
-      {dateDisplay}
-    </div>
+    <Tile as="div" class="px-5 py-7 md:px-10 md:py-10">
+      <div class="prose mx-auto max-w-[68ch]" set:html={content} />
+    </Tile>
 
-    <!-- Title -->
-    <h1
-      class="border-border mb-12 border-b border-dashed pb-12 leading-[1.15] font-bold tracking-[-0.03em]"
-      style="font-size: clamp(28px, 4vw, 40px);"
-    >
-      {title}
-    </h1>
-
-    <!-- Prose body -->
-    <div
-      class="prose dark:prose-invert max-w-none"
-      set:html={content}
-    />
-
-    <!-- Subscribe CTA -->
     <Newsletter
       heading="Enjoyed this issue?"
       description="Subscribe to get future issues delivered to your inbox."
-      class="mt-20 rounded-xl p-6"
+      class="md:flex-row md:items-end"
     />
 
-    <!-- Prev/Next navigation -->
-    <div
-      class="border-border mt-12 flex justify-between border-t border-dashed pt-12"
-    >
-      {
-        prev ? (
-          <a
-            href={`/newsletter/${prev.slug}/`}
-            class="text-muted-foreground hover:text-primary font-mono text-[13px] transition-colors"
-          >
-            ← {prev.title}
-          </a>
-        ) : (
-          <span />
-        )
-      }
-      {
-        next ? (
-          <a
-            href={`/newsletter/${next.slug}/`}
-            class="text-muted-foreground hover:text-primary font-mono text-[13px] transition-colors"
-          >
-            {next.title} →
-          </a>
-        ) : (
-          <span />
-        )
-      }
-    </div>
+    {
+      (prev || next) && (
+        <nav aria-label="More issues" class="grid gap-3 md:grid-cols-2 md:gap-5">
+          {prev ? (
+            <Tile href={`/newsletter/${prev.slug}/`} class="flex items-center gap-3">
+              <Icon
+                name="arrow-right"
+                class="text-muted-foreground size-4 rotate-180 transition-transform duration-300 ease-out-expo group-hover:-translate-x-1"
+              />
+              <span class="text-body leading-snug font-semibold">{prev.title}</span>
+            </Tile>
+          ) : (
+            <span class="hidden md:block" />
+          )}
+          {next && (
+            <Tile
+              href={`/newsletter/${next.slug}/`}
+              class="flex items-center justify-end gap-3 text-right"
+            >
+              <span class="text-body leading-snug font-semibold">{next.title}</span>
+              <Icon
+                name="arrow-right"
+                class="text-muted-foreground size-4 transition-transform duration-300 ease-out-expo group-hover:translate-x-1"
+              />
+            </Tile>
+          )}
+        </nav>
+      )
+    }
   </article>
 </MainLayout>
 
@@ -149,10 +147,10 @@ await getOGImage({
     var container = document.createElement("div");
     container.id = "readingProgress";
     container.style.cssText =
-      "position:fixed;top:0;left:0;right:0;height:2px;z-index:9999;pointer-events:none;";
+      "position:fixed;top:0;left:0;right:0;height:4px;z-index:9999;pointer-events:none;";
     var bar = document.createElement("div");
     bar.style.cssText =
-      "height:100%;width:0;background:var(--primary);transition:none;";
+      "height:100%;width:0;background:var(--blue);transition:none;";
     container.appendChild(bar);
     document.body.appendChild(container);
 

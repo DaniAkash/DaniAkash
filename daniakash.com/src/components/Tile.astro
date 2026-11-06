@@ -1,0 +1,62 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { cn } from "../utils/cn";
+
+export type TileTone =
+  | "plain"
+  | "blue"
+  | "yellow"
+  | "pink"
+  | "green"
+  | "ink"
+  | "photo";
+
+type Props = Omit<HTMLAttributes<"div">, "class"> & {
+  as?: "div" | "section" | "article" | "aside" | "header" | "li" | "a";
+  href?: string | undefined;
+  tone?: TileTone;
+  class?: string;
+  target?: string | undefined;
+  rel?: string | undefined;
+};
+
+const { as, href, tone = "plain", class: className, ...rest } = Astro.props;
+
+const Tag = href ? "a" : (as ?? "div");
+const interactive = Boolean(href);
+
+const toneClasses: Record<TileTone, string> = {
+  plain: "bg-card text-card-foreground",
+  blue: "bg-blue text-on-blue",
+  yellow: "bg-yellow text-on-yellow",
+  pink: "bg-pink text-on-pink",
+  green: "bg-green text-on-green",
+  ink: "bg-ink text-on-ink",
+  photo: "bg-muted p-0",
+};
+
+const hoverClasses: Record<TileTone, string> = {
+  plain: "hover:bg-tile-hover",
+  blue: "hover:bg-blue-hover",
+  yellow: "hover:bg-yellow-hover",
+  pink: "hover:bg-pink-hover",
+  green: "hover:bg-green-hover",
+  ink: "hover:bg-ink-hover",
+  photo: "",
+};
+---
+
+<Tag
+  href={href}
+  class={cn(
+    "rounded-tile relative overflow-hidden p-4 md:p-[18px]",
+    toneClasses[tone],
+    interactive &&
+      "group block transition-[background-color,transform] duration-300 ease-out-expo active:scale-[0.985]",
+    interactive && hoverClasses[tone],
+    className,
+  )}
+  {...rest}
+>
+  <slot />
+</Tag>

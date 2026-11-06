@@ -1,13 +1,9 @@
 ---
 import { getCollection } from "astro:content";
-import AmbientCanvas from "../components/AmbientCanvas";
-import BlueskyIcon from "../components/icons/BlueskyIcon.astro";
-import GithubIcon from "../components/icons/GithubIcon.astro";
-import InstagramIcon from "../components/icons/InstagramIcon.astro";
-import LinkedinIcon from "../components/icons/LinkedinIcon.astro";
-import MailIcon from "../components/icons/MailIcon.astro";
-import TwitterIcon from "../components/icons/TwitterIcon.astro";
+import GlobeMini from "../components/GlobeMini";
+import Icon, { type IconName } from "../components/Icon.astro";
 import Newsletter from "../components/Newsletter.astro";
+import Tile from "../components/Tile.astro";
 import { assetUrl } from "../constants/asset-prefix";
 import MainLayout from "../layouts/MainLayout.astro";
 
@@ -16,6 +12,8 @@ const posts = (await getCollection("blog"))
     (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime(),
   )
   .slice(0, 11);
+const latestPosts = posts.slice(0, 3);
+const morePosts = posts.slice(3);
 
 const career = await getCollection("career");
 const experience = career[0]?.data?.items ?? [];
@@ -23,355 +21,448 @@ const experience = career[0]?.data?.items ?? [];
 const social = await getCollection("social");
 const socialData = social[0]?.data;
 
-const connectLinks = [
+const projectItems = (await getCollection("project"))[0]?.data.items ?? [];
+const starsStat = projectItems.find((item) => item.name === "GitHub Stars")
+  ?.stat ?? { number: "473+", label: "GitHub Stars" };
+
+const speakingGroups = await getCollection("speaking");
+const talkCount = speakingGroups.reduce(
+  (total, group) => total + group.data.events.length,
+  0,
+);
+const firstTalkYear = Math.min(
+  ...speakingGroups.map((group) => group.data.year),
+);
+
+const destinations = (await getCollection("destinations"))[0]?.data.items ?? [];
+const globeMarkers = destinations.map(
+  (d) => [d.lat, d.lng] as [number, number],
+);
+
+const email = socialData?.email ?? "hello@daniakash.com";
+
+const connectLinks: {
+  platform: string;
+  handle: string;
+  href: string;
+  icon: IconName;
+}[] = [
   {
     platform: "GitHub",
-    handle: `@DaniAkash`,
+    handle: "@DaniAkash",
     href: socialData?.github ?? "https://github.com/DaniAkash",
+    icon: "github",
   },
   {
     platform: "X / Twitter",
-    handle: `@dani_akash_`,
+    handle: "@dani_akash_",
     href: socialData?.twitter ?? "https://x.com/dani_akash_",
+    icon: "x",
   },
   {
     platform: "Bluesky",
-    handle: `@daniakash.com`,
+    handle: "@daniakash.com",
     href: socialData?.bluesky ?? "https://bsky.app/profile/daniakash.com",
+    icon: "bluesky",
   },
   {
     platform: "LinkedIn",
     handle: "Dani Akash",
     href: socialData?.linkedIn ?? "https://www.linkedin.com/in/daniakash",
+    icon: "linkedin",
   },
   {
     platform: "Instagram",
-    handle: `@dani_akash_`,
+    handle: "@dani_akash_",
     href: socialData?.instagram ?? "https://www.instagram.com/dani_akash_",
+    icon: "instagram",
   },
   {
     platform: "Email",
-    handle: socialData?.email ?? "hello@daniakash.com",
-    href: `mailto:${socialData?.email ?? "hello@daniakash.com"}`,
+    handle: email,
+    href: `mailto:${email}`,
+    icon: "mail",
   },
 ];
 
-const heroImages = [
-  {
+const photos = {
+  cosplay: {
     src: assetUrl("image-1.jpg"),
     alt: "Dani Akash posing with a cosplayer in a fighting stance",
   },
-  {
+  cat: {
     src: assetUrl("image-2.jpg"),
     alt: "Dani Akash coding at his desk with a cat on his lap",
   },
-  {
+  talk: {
     src: assetUrl("image-3.jpg"),
     alt: "Dani Akash speaking at a tech meetup with a microphone",
   },
-  {
+  hike: {
     src: assetUrl("image-4.jpg"),
     alt: "Dani Akash overlooking a river gorge on a hike",
   },
-  {
+  market: {
     src: assetUrl("image-5.jpg"),
     alt: "Dani Akash examining a large decorative sculpture at a market",
   },
-];
+};
+
+const formatDate = (value: string) => {
+  const date = new Date(value);
+  return `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2, "0")}.${String(date.getDate()).padStart(2, "0")}`;
+};
+
+const isExternal = (href: string) => href.startsWith("http");
 ---
 
 <MainLayout title="">
-  <!-- Ambient Background -->
-  <AmbientCanvas client:visible />
-
-  <!-- System Labels -->
-  <div
-    class="text-muted-foreground pointer-events-none fixed bottom-6 left-6 z-50 hidden font-mono text-[10px] tracking-widest uppercase md:block"
+  <!-- First viewport bento -->
+  <section
+    aria-label="Introduction"
+    class="grid grid-flow-row-dense grid-cols-2 gap-3 md:grid-cols-4 md:gap-5 lg:grid-cols-6 lg:grid-rows-[repeat(4,minmax(8.625rem,auto))]"
   >
-    CHENNAI, IN &middot; UTC+5:30
-  </div>
-  <div
-    class="text-muted-foreground pointer-events-none fixed right-6 bottom-6 z-50 hidden font-mono text-[10px] tracking-widest uppercase md:block"
-  >
-    V4.0 // 2026
-  </div>
-
-  <!-- ═══ HERO ═══ -->
-  <section class="relative -mt-24 flex h-screen flex-col pt-24">
-    <div class="flex flex-1 items-center pb-[320px]">
+    <Tile
+      as="div"
+      class="col-span-2 flex flex-col justify-between gap-6 md:col-span-2 lg:row-span-2"
+    >
+      <img
+        src={photos.cat.src}
+        alt=""
+        width="48"
+        height="48"
+        class="size-12 rounded-full object-cover object-[30%_20%]"
+        loading="eager"
+        decoding="async"
+      />
       <div>
-        <p
-          class="text-muted-foreground mb-6 font-mono text-[11px] tracking-[1.65px] uppercase"
-        >
-          SYSTEM.ROLE // AI_ENGINEER &middot; BUILDER &middot; SPEAKER
-        </p>
-        <h1
-          class="mb-6 leading-[1.05] font-bold tracking-[-0.03em]"
-          style="font-size: clamp(48px, 8vw, 96px);"
-        >
-          Dani Akash
+        <h1 class="font-display text-subdisplay md:text-display leading-none font-extrabold tracking-[-0.03em]">
+          Hi, I’m <br class="hidden md:block" />Dani Akash.
         </h1>
-        <p
-          class="text-muted-foreground mb-12 max-w-[700px] leading-[1.4] font-light"
-          style="font-size: clamp(18px, 2.5vw, 28px);"
-        >
+        <p class="text-body mt-2.5 font-semibold">
+          AI Engineer · Builder · Speaker
+        </p>
+        <p class="text-muted-foreground text-body mt-0.5 max-w-[30ch] leading-snug">
           A simple developer building AI agents for humans.
         </p>
-
-        <!-- Social icons -->
-        <div class="mb-12 flex flex-wrap gap-4">
-          {
-            [
-              { href: socialData?.github, Icon: GithubIcon, label: "GitHub" },
-              { href: socialData?.twitter, Icon: TwitterIcon, label: "X" },
-              {
-                href: socialData?.bluesky,
-                Icon: BlueskyIcon,
-                label: "Bluesky",
-              },
-              {
-                href: socialData?.linkedIn,
-                Icon: LinkedinIcon,
-                label: "LinkedIn",
-              },
-              {
-                href: socialData?.instagram,
-                Icon: InstagramIcon,
-                label: "Instagram",
-              },
-              {
-                href: `mailto:${socialData?.email}`,
-                Icon: MailIcon,
-                label: "Email",
-              },
-            ].map(({ href, Icon, label }) => (
-              <a
-                href={href}
-                aria-label={label}
-                title={label}
-                target={href?.startsWith("mailto") ? undefined : "_blank"}
-                rel={href?.startsWith("mailto") ? undefined : "noopener"}
-                class="border-border bg-foreground/5 text-muted-foreground hover:border-primary hover:bg-primary/15 hover:text-primary flex size-11 items-center justify-center rounded-full border transition-all hover:-translate-y-0.5"
-              >
-                <Icon class="size-5" />
-              </a>
-            ))
-          }
-        </div>
-
-        <!-- Status line -->
-        <div
-          class="text-muted-foreground flex items-center gap-2 font-mono text-xs"
-        >
-          <span class="bg-primary size-1.5 animate-pulse rounded-full"></span>
-          Building BrowserOS — an AI-powered browser for agents
-        </div>
       </div>
-    </div>
+    </Tile>
 
-    <!-- Photo gallery — full viewport width, bleeding off bottom -->
-    <div
-      class="pointer-events-none absolute bottom-0 left-1/2 z-1 h-[380px] w-screen -translate-x-1/2 overflow-clip"
+    <Tile
+      tone="photo"
+      class="col-span-2 aspect-[4/3] md:col-span-2 md:aspect-auto lg:row-span-2"
     >
-      <div
-        class="pointer-events-auto absolute bottom-[-120px] left-1/2 flex -translate-x-1/2 items-start gap-4"
-      >
-        {
-          heroImages.map((img, i) => {
-            /* Center card tallest (300x400), flanking shorter and pushed down */
-            const sizes = [
-              "w-[240px] h-[340px] mt-[60px]",
-              "w-[260px] h-[370px] mt-[30px]",
-              "w-[300px] h-[400px] mt-0",
-              "w-[260px] h-[370px] mt-[30px]",
-              "w-[240px] h-[340px] mt-[60px]",
-            ];
-            const hideClasses = [
-              "hidden lg:block",
-              "hidden md:block",
-              "",
-              "hidden md:block",
-              "hidden lg:block",
-            ];
-            return (
-              <div
-                class:list={[
-                  "flex-shrink-0 overflow-hidden rounded-3xl shadow-lg shadow-black/25 transition-transform duration-500 hover:-translate-y-3 hover:shadow-2xl hover:shadow-black/40",
-                  sizes[i],
-                  hideClasses[i],
-                ]}
-              >
-                <img
-                  src={img.src}
-                  alt={img.alt}
-                  loading="lazy"
-                  class="size-full object-cover"
-                />
-              </div>
-            );
-          })
-        }
+      <img
+        src={photos.talk.src}
+        alt={photos.talk.alt}
+        class="absolute inset-0 size-full object-cover object-[60%_40%]"
+        loading="eager"
+        decoding="async"
+      />
+    </Tile>
+
+    <Tile
+      href="/projects/"
+      tone="blue"
+      class="col-span-2 flex min-h-[8.625rem] flex-col justify-end gap-4"
+    >
+      <div class="flex flex-col items-start gap-3 sm:flex-row sm:items-end sm:justify-between">
+        <div class="min-w-0">
+          <h2 class="font-display text-heading flex items-center gap-2 leading-none font-extrabold tracking-[-0.025em]">
+            BrowserOS
+            <span class="bg-on-blue size-2 animate-pulse rounded-full" aria-hidden="true"></span>
+          </h2>
+          <p class="text-caption mt-1 opacity-90">
+            Building now: an AI-powered browser for agents
+          </p>
+        </div>
+        <span class="bg-on-blue text-blue inline-flex shrink-0 items-center gap-1.5 text-caption rounded-full px-3 py-1.5 font-semibold whitespace-nowrap transition-transform duration-300 ease-out-expo group-hover:translate-x-1">
+          Explore the work <Icon name="arrow-right" class="size-3.5" />
+        </span>
       </div>
-    </div>
-  </section>
+    </Tile>
 
-  <hr class="border-border border-dashed" />
-
-  <!-- ═══ 01 BLOG + WORK (two-column) ═══ -->
-  <section class="py-20" id="work">
-    <div class="grid items-start gap-12 lg:grid-cols-2">
-      <!-- Left: Blog -->
+    <Tile
+      href={socialData?.github ?? "https://github.com/DaniAkash"}
+      target="_blank"
+      rel="noopener"
+      tone="yellow"
+      class="flex min-h-[8.625rem] flex-col justify-between"
+    >
+      <Icon name="github" class="size-4.5" />
       <div>
-        <div class="mb-12 flex items-baseline gap-4">
-          <span class="text-foreground/10 font-mono text-5xl font-light"
-            >01</span
-          >
-          <span
-            class="text-muted-foreground font-mono text-[11px] font-medium tracking-[0.2em] uppercase"
-            >Blog</span
-          >
-        </div>
-        <div class="flex flex-col">
-          {
-            posts.map((post) => {
-              const date = new Date(post.data.date);
-              const formatted = `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2, "0")}.${String(date.getDate()).padStart(2, "0")}`;
-              return (
-                <a
-                  href={`/posts/${post.id}/`}
-                  class="group border-border hover:bg-foreground/5 -mx-4 grid grid-cols-[90px_1fr] items-baseline gap-4 border-b border-dashed px-4 py-4 transition-colors last:border-b-0 hover:rounded-sm sm:grid-cols-[140px_1fr_auto] sm:gap-6"
-                >
-                  <span class="text-muted-foreground font-mono text-xs">
-                    {formatted}
-                  </span>
-                  <span class="group-hover:text-primary text-base font-medium transition-colors">
-                    {post.data.title}
-                  </span>
-                  <span class="text-muted-foreground hidden font-mono text-sm transition-transform group-hover:translate-x-1 sm:inline">
-                    →
-                  </span>
-                </a>
-              );
-            })
-          }
-        </div>
+        <p class="font-display tabular text-stat leading-none font-extrabold tracking-[-0.03em]">
+          {starsStat.number}
+        </p>
+        <p class="text-caption mt-1 font-semibold">{starsStat.label}</p>
+      </div>
+    </Tile>
+
+    <Tile tone="photo" class="min-h-[8.625rem]">
+      <img
+        src={photos.cosplay.src}
+        alt={photos.cosplay.alt}
+        class="absolute inset-0 size-full object-cover object-[40%_30%]"
+        loading="eager"
+        decoding="async"
+      />
+    </Tile>
+
+    <Tile
+      as="section"
+      aria-labelledby="latest-writing"
+      class="col-span-2 flex flex-col md:col-span-2 lg:row-span-2"
+    >
+      <div class="flex items-baseline justify-between gap-4">
+        <h2
+          id="latest-writing"
+          class="font-display text-title font-bold tracking-[-0.015em]"
+        >
+          Latest writing
+        </h2>
         <a
           href="/blog/"
-          class="text-primary hover:text-primary/80 mt-6 inline-flex font-mono text-[13px]"
+          class="text-muted-foreground hover:text-foreground text-caption inline-flex min-h-8 shrink-0 items-center gap-1 font-medium whitespace-nowrap transition-colors"
         >
-          View all posts →
+          View all posts <Icon name="arrow-right" class="size-3.5" />
         </a>
       </div>
+      <ul class="mt-1.5 flex flex-1 flex-col justify-around">
+        {
+          latestPosts.map((post) => (
+            <li class="border-border border-t first:border-t-0">
+              <a
+                href={`/posts/${post.id}/`}
+                class="group/post hover:text-primary flex flex-col gap-0.5 py-2 transition-colors"
+              >
+                <time
+                  datetime={new Date(post.data.date).toISOString()}
+                  class="text-muted-foreground text-meta font-mono"
+                >
+                  {formatDate(post.data.date)}
+                </time>
+                <span class="text-body leading-snug font-semibold">
+                  {post.data.title}
+                </span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </Tile>
 
-      <!-- Right: Work (mt matches the blog section header height) -->
-      <div class="mt-[88px]">
-        <div class="border-border rounded-xl border p-6">
-          <div
-            class="mb-6 flex items-center gap-2 font-mono text-sm font-medium"
-          >
-            <span>💼</span> Work
-          </div>
-          <div class="flex flex-col">
-            {
-              experience.map((job) => (
-                <div class="border-border flex items-center gap-6 border-b border-dashed py-4 last:border-b-0">
-                  <div class="border-border bg-foreground/5 flex size-12 shrink-0 items-center justify-center overflow-hidden rounded-full border">
-                    <img
-                      src={assetUrl(job.logo)}
-                      alt={job.company}
-                      class="size-7 overflow-clip rounded-full border-0 bg-slate-300"
-                    />
-                  </div>
-                  <div class="flex min-w-0 flex-1 flex-col gap-0.5">
-                    <span class="font-semibold">{job.company}</span>
-                    <span class="text-muted-foreground text-sm">
-                      {job.role}
-                    </span>
-                  </div>
-                  <span class="text-muted-foreground shrink-0 font-mono text-xs">
-                    {job.startDate} — {job.endDate}
-                  </span>
-                </div>
-              ))
-            }
-          </div>
-          <a
-            href="/resume/"
-            class="border-border text-muted-foreground hover:border-border hover:bg-foreground/5 hover:text-foreground mt-4 block rounded-lg border py-3 text-center font-mono text-sm transition-all"
-          >
-            Resume
-          </a>
-        </div>
+    <Tile tone="photo" class="aspect-[3/4] md:aspect-auto lg:row-span-2">
+      <img
+        src={photos.hike.src}
+        alt={photos.hike.alt}
+        class="absolute inset-0 size-full object-cover object-[70%_50%]"
+        loading="lazy"
+        decoding="async"
+      />
+    </Tile>
+
+    <Tile
+      href="/about/"
+      tone="ink"
+      class="col-span-2 flex min-h-[8.625rem] items-center gap-4 py-3 md:col-span-2"
+    >
+      <div class="w-24 shrink-0" aria-hidden="true">
+        <GlobeMini client:visible markers={globeMarkers} />
       </div>
-    </div>
-  </section>
+      <div>
+        <h2 class="font-display text-title leading-tight font-bold tracking-[-0.02em]">
+          {destinations.length} places on my globe
+        </h2>
+        <p class="text-on-ink-muted text-caption mt-1 inline-flex items-center gap-1 font-medium">
+          Spin it on the about page <Icon name="arrow-right" class="size-3.5 transition-transform duration-300 ease-out-expo group-hover:translate-x-1" />
+        </p>
+      </div>
+    </Tile>
 
-  <hr class="border-border border-dashed" />
-
-  <!-- ═══ 02 SPEAKING ═══ -->
-  <section class="py-20" id="speaking">
-    <div class="mb-12 flex items-baseline gap-4">
-      <span class="text-foreground/10 font-mono text-5xl font-light">02</span>
-      <span
-        class="text-muted-foreground font-mono text-[11px] font-medium tracking-[0.2em] uppercase"
-        >Speaking</span
-      >
-    </div>
-    <p
-      class="text-muted-foreground mb-6 max-w-[640px] text-[17px] leading-[1.7]"
-    >
-      I regularly speak at community meetups and conferences about AI,
-      JavaScript, React Native, and the web. I've given 25+ talks since 2017
-      across events like React Nexus, JSLovers, Thoughtworks Geeknight, React
-      Bangalore, and more.
-    </p>
-    <a
+    <Tile
       href="/speaking/"
-      class="text-primary hover:text-primary/80 inline-flex font-mono text-[13px]"
+      tone="pink"
+      class="flex min-h-[8.625rem] flex-col justify-between lg:row-span-2"
     >
-      View all talks →
-    </a>
+      <h2 class="text-caption font-semibold">Talks since {firstTalkYear}</h2>
+      <div>
+        <p class="font-display tabular text-stat leading-none font-extrabold tracking-[-0.03em]">
+          {talkCount}
+        </p>
+        <p class="text-caption mt-1.5 inline-flex items-center gap-1 font-semibold">
+          See every talk <Icon name="arrow-right" class="size-3.5 transition-transform duration-300 ease-out-expo group-hover:translate-x-1" />
+        </p>
+      </div>
+    </Tile>
+
+    <Tile href="/now/" class="flex min-h-[8.625rem] flex-col justify-between">
+      <span class="bg-blue size-2 animate-pulse rounded-full" aria-hidden="true"></span>
+      <div>
+        <h2 class="font-display text-title font-bold tracking-[-0.015em]">Now</h2>
+        <p class="text-muted-foreground text-caption font-medium whitespace-nowrap">
+          What I’m up to <Icon name="arrow-right" class="inline-block size-3.5 align-[-2px] transition-transform duration-300 ease-out-expo group-hover:translate-x-1" />
+        </p>
+      </div>
+    </Tile>
+
+    <Tile href="/uses/" class="flex min-h-[8.625rem] flex-col justify-between">
+      <span class="bg-muted-foreground/40 size-2 rounded-full" aria-hidden="true"></span>
+      <div>
+        <h2 class="font-display text-title font-bold tracking-[-0.015em]">Uses</h2>
+        <p class="text-muted-foreground text-caption font-medium whitespace-nowrap">
+          My desk and tools <Icon name="arrow-right" class="inline-block size-3.5 align-[-2px] transition-transform duration-300 ease-out-expo group-hover:translate-x-1" />
+        </p>
+      </div>
+    </Tile>
   </section>
 
-  <hr class="border-border border-dashed" />
-
-  <!-- ═══ 03 CONNECT ═══ -->
-  <section class="py-20" id="connect">
-    <div class="mb-12 flex items-baseline gap-4">
-      <span class="text-foreground/10 font-mono text-5xl font-light">03</span>
-      <span
-        class="text-muted-foreground font-mono text-[11px] font-medium tracking-[0.2em] uppercase"
-        >Connect</span
+  <!-- Second band: more writing, work, speaking, connect -->
+  <section
+    aria-label="Writing and work"
+    class="mt-3 grid grid-cols-2 gap-3 md:mt-5 md:grid-cols-4 md:gap-5 lg:grid-cols-6"
+    id="work"
+  >
+    <Tile as="section" aria-labelledby="more-writing" class="col-span-2 md:col-span-4">
+      <h2
+        id="more-writing"
+        class="font-display text-title font-bold tracking-[-0.015em]"
       >
-    </div>
-    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-      {
-        connectLinks.map((link) => (
-          <a
-            href={link.href}
-            target={link.href.startsWith("mailto") ? undefined : "_blank"}
-            rel={link.href.startsWith("mailto") ? undefined : "noopener"}
-            class="border-border hover:border-primary hover:bg-foreground/5 flex flex-col gap-2 rounded-xl border p-6 transition-all hover:-translate-y-0.5"
-          >
-            <span class="text-muted-foreground font-mono text-[11px] tracking-[0.1em] uppercase">
-              {link.platform}
-            </span>
-            <span class="text-base font-medium">{link.handle}</span>
-          </a>
-        ))
-      }
-    </div>
-  </section>
+        More from the blog
+      </h2>
+      <ul class="mt-1.5">
+        {
+          morePosts.map((post) => (
+            <li class="border-border border-t first:border-t-0">
+              <a
+                href={`/posts/${post.id}/`}
+                class="group/post hover:text-primary grid grid-cols-[5rem_1fr_auto] items-baseline gap-3 py-2 transition-colors sm:grid-cols-[5.5rem_1fr_auto]"
+              >
+                <time
+                  datetime={new Date(post.data.date).toISOString()}
+                  class="text-muted-foreground text-meta font-mono"
+                >
+                  {formatDate(post.data.date)}
+                </time>
+                <span class="text-body leading-snug font-semibold">
+                  {post.data.title}
+                </span>
+                <Icon
+                  name="arrow-right"
+                  class="text-muted-foreground hidden size-3.5 transition-transform duration-300 ease-out-expo group-hover/post:translate-x-1 sm:block"
+                />
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </Tile>
 
-  <hr class="border-border border-dashed" />
+    <Tile as="section" aria-labelledby="work-heading" class="col-span-2 flex flex-col lg:row-span-2">
+      <h2
+        id="work-heading"
+        class="font-display text-title font-bold tracking-[-0.015em]"
+      >
+        Work
+      </h2>
+      <ul class="mt-1.5 flex flex-1 flex-col justify-between">
+        {
+          experience.map((job) => (
+            <li class="border-border flex items-center gap-2.5 border-t py-2 first:border-t-0">
+              <img
+                src={assetUrl(job.logo)}
+                alt=""
+                width="28"
+                height="28"
+                loading="lazy"
+                class="bg-muted size-7 shrink-0 rounded-lg object-contain p-1"
+              />
+              <div class="min-w-0 flex-1">
+                <p class="text-body truncate leading-tight font-semibold">{job.company}</p>
+                <p class="text-muted-foreground text-meta truncate">{job.role}</p>
+              </div>
+              <span class="text-muted-foreground text-meta shrink-0 text-right font-mono">
+                {job.startDate}
+                <br />
+                {job.endDate}
+              </span>
+            </li>
+          ))
+        }
+      </ul>
+      <a
+        href="/resume/"
+        class="bg-foreground text-background hover:bg-primary hover:text-primary-foreground mt-3 inline-flex min-h-9 items-center justify-center text-caption gap-1.5 rounded-full px-4 font-semibold transition-colors"
+      >
+        Resume <Icon name="arrow-right" class="size-3.5" />
+      </a>
+    </Tile>
 
-  <!-- ═══ NEWSLETTER ═══ -->
-  <section class="py-20">
+    <Tile as="section" aria-labelledby="speaking-heading" tone="pink" class="col-span-2 flex flex-col justify-between gap-4">
+      <h2
+        id="speaking-heading"
+        class="font-display text-title font-bold tracking-[-0.015em]"
+      >
+        Speaking
+      </h2>
+      <p class="text-body">
+        I regularly speak at community meetups and conferences about AI,
+        JavaScript, React Native, and the web. I've given 25+ talks since 2017
+        across events like React Nexus, JSLovers, Thoughtworks Geeknight, React
+        Bangalore, and more.
+      </p>
+      <a
+        href="/speaking/"
+        class="bg-ink text-on-ink hover:bg-ink-hover inline-flex min-h-9 items-center justify-center gap-1.5 text-caption self-start rounded-full px-4 font-semibold transition-colors"
+      >
+        View all talks <Icon name="arrow-right" class="size-3.5" />
+      </a>
+    </Tile>
+
+    <Tile tone="photo" class="col-span-2 aspect-[16/9] md:col-span-4 lg:col-span-2 lg:aspect-auto">
+      <img
+        src={photos.market.src}
+        alt={photos.market.alt}
+        class="absolute inset-0 size-full object-cover"
+        loading="lazy"
+        decoding="async"
+      />
+    </Tile>
+
+    <Tile as="section" aria-labelledby="connect-heading" class="col-span-2 md:col-span-4 lg:col-span-6">
+      <h2
+        id="connect-heading"
+        class="font-display text-title font-bold tracking-[-0.015em]"
+      >
+        Connect
+      </h2>
+      <ul class="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+        {
+          connectLinks.map((link) => (
+            <li>
+              <a
+                href={link.href}
+                target={isExternal(link.href) ? "_blank" : undefined}
+                rel={isExternal(link.href) ? "noopener" : undefined}
+                class="bg-muted hover:bg-foreground hover:text-background flex min-h-11 items-center gap-2.5 rounded-xl px-3 py-1.5 transition-colors"
+              >
+                <Icon name={link.icon} class="size-4" />
+                <span class="min-w-0">
+                  <span class="text-meta block font-medium opacity-70">
+                    {link.platform}
+                  </span>
+                  <span class="text-caption block truncate font-semibold">{link.handle}</span>
+                </span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </Tile>
+
     <Newsletter
       heading="Stay in the loop"
       description="Thoughts delivered straight to your inbox. Zero spam, I promise."
-      buttonLabel="SUBSCRIBE"
-      class="bg-card p-12"
+      class="col-span-2 md:col-span-4 lg:col-span-6 lg:flex-row lg:items-end"
     />
   </section>
 </MainLayout>

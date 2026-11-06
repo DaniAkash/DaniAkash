@@ -1,4 +1,8 @@
 ---
+import { getCollection } from "astro:content";
+import Icon, { type IconName } from "./Icon.astro";
+import Tile from "./Tile.astro";
+
 const footerLinks = [
   { label: "About", href: "/about/" },
   { label: "Blog", href: "/blog/" },
@@ -6,40 +10,85 @@ const footerLinks = [
   { label: "Projects", href: "/projects/" },
   { label: "Speaking", href: "/speaking/" },
   { label: "Uses", href: "/uses/" },
+  { label: "Now", href: "/now/" },
   { label: "Resume", href: "/resume/" },
-  { label: "GitHub", href: "https://github.com/DaniAkash" },
+];
+
+const social = (await getCollection("social"))[0]?.data;
+
+const socialLinks: { label: string; href: string; icon: IconName }[] = [
+  {
+    label: "GitHub",
+    href: social?.github ?? "https://github.com/DaniAkash",
+    icon: "github",
+  },
+  {
+    label: "X",
+    href: social?.twitter ?? "https://x.com/dani_akash_",
+    icon: "x",
+  },
+  {
+    label: "Bluesky",
+    href: social?.bluesky ?? "https://bsky.app/profile/daniakash.com",
+    icon: "bluesky",
+  },
+  {
+    label: "LinkedIn",
+    href: social?.linkedIn ?? "https://www.linkedin.com/in/daniakash",
+    icon: "linkedin",
+  },
+  { label: "RSS feed", href: "/rss.xml", icon: "rss" },
 ];
 ---
 
-<footer class="border-t border-dashed border-border py-12">
-  <div
-    class="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-6 text-center sm:flex-row sm:text-left"
-  >
-    <span class="font-mono text-xs text-muted-foreground">
-      &copy; {new Date().getFullYear()}{" "}
-      <a
-        href="https://github.com/DaniAkash/DaniAkash"
-        class="font-calorie text-lg text-muted-foreground underline underline-offset-4 transition-colors hover:text-primary"
-      >
-        Dani Akash
-      </a>. All rights reserved.
-    </span>
-
-    <ul class="flex flex-wrap justify-center gap-4 sm:justify-end">
-      {
-        footerLinks.map((link) => (
-          <li>
-            <a
-              href={link.href}
-              class="inline-flex min-h-[44px] items-center font-mono text-xs text-muted-foreground transition-colors hover:text-primary"
-              target={link.href.startsWith("http") ? "_blank" : undefined}
-              rel={link.href.startsWith("http") ? "noopener" : undefined}
-            >
-              {link.label}
-            </a>
-          </li>
-        ))
-      }
-    </ul>
-  </div>
+<footer class="mx-auto w-full max-w-[1088px] px-4 pt-0 pb-6 md:px-6 md:pb-10 print:hidden">
+  <Tile tone="ink" class="flex flex-col gap-7">
+    <div class="flex flex-col gap-5 md:flex-row md:items-start md:justify-between">
+      <p class="font-display max-w-[16ch] text-heading md:text-subdisplay leading-[1.05] font-extrabold tracking-[-0.025em]">
+        Thanks for scrolling all the way down.
+      </p>
+      <ul class="flex flex-wrap gap-1.5">
+        {
+          socialLinks.map((link) => (
+            <li>
+              <a
+                href={link.href}
+                aria-label={link.label}
+                title={link.label}
+                target={link.href.startsWith("http") ? "_blank" : undefined}
+                rel={link.href.startsWith("http") ? "noopener" : undefined}
+                class="bg-on-ink/10 hover:bg-on-ink hover:text-ink inline-flex size-9 items-center justify-center rounded-[10px] transition-colors"
+              >
+                <Icon name={link.icon} class="size-4" />
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+    <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+      <ul class="flex flex-wrap gap-x-4 gap-y-0">
+        {
+          footerLinks.map((link) => (
+            <li>
+              <a
+                href={link.href}
+                class="text-on-ink-muted hover:text-on-ink inline-flex min-h-9 items-center text-body font-medium transition-colors"
+              >
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <p class="text-on-ink-muted text-caption">
+        &copy; {new Date().getFullYear()}{" "}
+        <a
+          href="https://github.com/DaniAkash/DaniAkash"
+          class="text-on-ink hover:text-yellow font-medium underline decoration-2 underline-offset-4 transition-colors"
+          >Dani Akash</a
+        >. All rights reserved.
+      </p>
+    </div>
+  </Tile>
 </footer>

@@ -1,0 +1,46 @@
+---
+import { cn } from "../utils/cn";
+import Icon from "./Icon.astro";
+
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<button
+  type="button"
+  data-theme-toggle
+  aria-label="Switch to dark theme"
+  class={cn(
+    "text-foreground bg-card hover:bg-tile-hover ml-1 inline-flex size-9 cursor-pointer items-center justify-center rounded-full transition-colors",
+    className,
+  )}
+>
+  <Icon name="moon" class="size-4 dark:hidden" />
+  <Icon name="sun" class="hidden size-4 dark:block" />
+</button>
+
+<script is:inline>
+  document.addEventListener("astro:page-load", function () {
+    document.querySelectorAll("[data-theme-toggle]").forEach(function (btn) {
+      function sync() {
+        var dark = document.documentElement.classList.contains("dark");
+        btn.setAttribute(
+          "aria-label",
+          dark ? "Switch to light theme" : "Switch to dark theme",
+        );
+      }
+      sync();
+      btn.onclick = function () {
+        var dark = !document.documentElement.classList.contains("dark");
+        document.documentElement.classList.toggle("dark", dark);
+        try {
+          localStorage.setItem("theme", dark ? "dark" : "light");
+        } catch (e) {}
+        sync();
+      };
+    });
+  });
+</script>
