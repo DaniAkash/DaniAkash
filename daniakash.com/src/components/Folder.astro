@@ -91,9 +91,9 @@ const isExternal = (href: string) => href.startsWith("http");
     translate: var(--folder-dx, 0) var(--folder-dy, 0);
     scale: 0.2;
     transition:
-      opacity 0.3s var(--ease-out-expo),
-      translate 0.5s var(--ease-out-expo),
-      scale 0.5s var(--ease-out-expo),
+      opacity 0.3s var(--ease-expo),
+      translate 0.5s var(--ease-expo),
+      scale 0.5s var(--ease-expo),
       display 0.5s allow-discrete,
       overlay 0.5s allow-discrete;
   }
@@ -115,7 +115,7 @@ const isExternal = (href: string) => href.startsWith("http");
   .folder-panel::backdrop {
     background-color: oklch(0.2 0.03 285 / 0%);
     transition:
-      background-color 0.4s var(--ease-out-expo),
+      background-color 0.4s var(--ease-expo),
       display 0.4s allow-discrete,
       overlay 0.4s allow-discrete;
   }

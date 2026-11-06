@@ -11,6 +11,7 @@ import {
   FALLBACK_DESCRIPTION,
   PERSON_ENTITY_ID,
   SEGMENT_LABELS,
+  SEGMENT_PARENTS,
 } from "../constants/seo";
 import { getOGImage } from "../utils/getOGImage";
 
@@ -60,7 +61,7 @@ const breadcrumbItems: Array<{ name: string; url: string }> = [
 if (pathSegments.length > 0) {
   const firstSegment = pathSegments[0] as string;
   const parentLabel = SEGMENT_LABELS[firstSegment] || firstSegment;
-  const parentPath = firstSegment === "posts" ? "/blog/" : `/${firstSegment}/`;
+  const parentPath = SEGMENT_PARENTS[firstSegment] ?? `/${firstSegment}/`;
 
   if (pathSegments.length > 1) {
     breadcrumbItems.push({
@@ -198,5 +199,8 @@ const isHomePage = Astro.url.pathname === "/";
     </main>
     {hideFooter ? <div class="h-28" /> : <SiteFooter />}
     <Dock />
+    <script>
+      import "../scripts/transitions";
+    </script>
   </body>
 </html>

@@ -2,12 +2,10 @@
 import {
   dockSections,
   type SiteSection,
-  sectionFor,
+  sections,
 } from "../constants/sections";
 import AppIcon from "./AppIcon.astro";
-
-const path = Astro.url.pathname;
-const current = sectionFor(path);
+import Icon from "./Icon.astro";
 
 const home: SiteSection = {
   title: "Home",
@@ -16,56 +14,198 @@ const home: SiteSection = {
   tint: "#E9E7F5",
   ink: "#1C1B22",
 };
-const items = [home, ...dockSections];
 
-const isActive = (section: SiteSection) =>
-  section.href === "/" ? path === "/" : current?.href === section.href;
+/** On phones the dock keeps these; everything else lives in the App Library. */
+const phoneSections = new Set(["Blog", "Projects", "About"]);
+const items = [home, ...dockSections];
 ---
 
 <nav
   aria-label="Main"
-  class="bg-dock fixed bottom-3 left-1/2 z-40 -translate-x-1/2 rounded-[1.5rem] p-1.5 shadow-[0_14px_40px_-18px_rgb(30_20_80/45%)] md:bottom-5 md:rounded-[1.75rem] md:p-2 print:hidden"
+  data-dock
+  transition:persist="dock"
+  class="vt-dock bg-dock fixed bottom-3 left-1/2 z-40 -translate-x-1/2 rounded-[1.5rem] p-1.5 shadow-[0_14px_40px_-18px_rgb(30_20_80/45%)] md:bottom-5 md:rounded-[1.75rem] md:p-2 print:hidden"
 >
-  <ul class="flex items-end gap-1 md:gap-2">
+  <ul class="flex items-end gap-1.5 md:gap-2">
     {
-      items.map((section, index) => {
-        const active = isActive(section);
-        return (
-          <li
-            class:list={[
-              "relative",
-              index === 0 &&
-                "border-border mr-0.5 border-r pr-1.5 md:mr-1 md:pr-2.5",
-            ]}
+      items.map((section, index) => (
+        <li
+          class:list={[
+            "relative",
+            index === 0 && "border-border mr-0.5 border-r pr-2 md:mr-1 md:pr-2.5",
+            index > 0 && !phoneSections.has(section.title) && "max-md:hidden",
+          ]}
+        >
+          <a
+            href={section.href}
+            data-dock-link
+            title={section.title}
+            class="group flex flex-col items-center rounded-2xl"
           >
-            <a
-              href={section.href}
-              aria-current={active ? "page" : undefined}
-              title={section.title}
-              class="group flex flex-col items-center rounded-2xl"
-            >
-              <AppIcon
-                art={{
-                  kind: "section",
-                  glyph: section.glyph,
-                  tint: section.tint,
-                  ink: section.ink,
-                }}
-                size="sm"
-                class="size-10 group-hover:-translate-y-1 group-active:scale-90 md:size-14"
-              />
-              <span class="sr-only">{section.title}</span>
-              <span
-                aria-hidden="true"
-                class:list={[
-                  "bg-foreground mt-0.5 size-1 rounded-full transition-opacity",
-                  active ? "opacity-100" : "opacity-0",
-                ]}
-              />
-            </a>
-          </li>
-        );
-      })
+            <AppIcon
+              art={{
+                kind: "section",
+                glyph: section.glyph,
+                tint: section.tint,
+                ink: section.ink,
+              }}
+              size="sm"
+              class="size-12 group-hover:-translate-y-1 group-active:scale-90 md:size-14"
+            />
+            <span class="sr-only">{section.title}</span>
+            <span
+              aria-hidden="true"
+              data-dock-dot
+              class="bg-foreground mt-0.5 size-1 rounded-full opacity-0 transition-opacity"
+            />
+          </a>
+        </li>
+      ))
     }
+    <li class="border-border ml-0.5 border-l pl-2 md:hidden">
+      <button
+        type="button"
+        popovertarget="app-library"
+        aria-label="All apps"
+        class="group flex cursor-pointer flex-col items-center rounded-2xl"
+      >
+        <AppIcon
+          art={{ kind: "section", glyph: "apps", tint: "#E9E7F5", ink: "#1C1B22" }}
+          size="sm"
+          class="size-12 group-active:scale-90"
+        />
+        <span aria-hidden="true" class="mt-0.5 size-1"></span>
+      </button>
+    </li>
   </ul>
 </nav>
+
+<div
+  id="app-library"
+  popover
+  transition:persist="app-library"
+  class="app-library bg-dock text-foreground fixed inset-x-3 top-auto bottom-[5.25rem] m-0 w-auto rounded-[1.75rem] p-4 shadow-[0_14px_40px_-18px_rgb(30_20_80/45%)] md:hidden"
+>
+  <div class="flex items-center justify-between">
+    <h2 class="font-display text-title font-extrabold tracking-[-0.02em]">
+      App Library
+    </h2>
+    <button
+      type="button"
+      popovertarget="app-library"
+      popovertargetaction="hide"
+      aria-label="Close App Library"
+      class="bg-muted hover:bg-foreground hover:text-background inline-flex size-9 cursor-pointer items-center justify-center rounded-full transition-colors"
+    >
+      <Icon name="close" class="size-4" />
+    </button>
+  </div>
+  <ul class="mt-4 grid grid-cols-4 gap-x-2 gap-y-4">
+    {
+      sections.map((section) => (
+        <li>
+          <a
+            href={section.href}
+            data-library-link
+            class="group flex flex-col items-center gap-1"
+          >
+            <AppIcon
+              art={{
+                kind: "section",
+                glyph: section.glyph,
+                tint: section.tint,
+                ink: section.ink,
+              }}
+              size="sm"
+              class="size-14 group-active:scale-90"
+            />
+            <span class="text-caption text-center font-semibold">
+              {section.title}
+            </span>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</div>
+
+<style>
+  /* Slide-up entrance for the popover needs @starting-style and discrete display. */
+  .app-library {
+    opacity: 0;
+    translate: 0 24px;
+    scale: 0.96;
+    transition:
+      opacity 0.25s var(--ease-expo),
+      translate 0.45s var(--ease-expo),
+      scale 0.45s var(--ease-expo),
+      display 0.45s allow-discrete,
+      overlay 0.45s allow-discrete;
+  }
+
+  .app-library:popover-open {
+    opacity: 1;
+    translate: 0 0;
+    scale: 1;
+  }
+
+  @starting-style {
+    .app-library:popover-open {
+      opacity: 0;
+      translate: 0 24px;
+      scale: 0.96;
+    }
+  }
+
+  .app-library::backdrop {
+    background-color: oklch(0.2 0.03 285 / 0%);
+    transition:
+      background-color 0.35s var(--ease-expo),
+      display 0.35s allow-discrete,
+      overlay 0.35s allow-discrete;
+  }
+
+  .app-library:popover-open::backdrop {
+    background-color: oklch(0.2 0.03 285 / 30%);
+  }
+
+  @starting-style {
+    .app-library:popover-open::backdrop {
+      background-color: oklch(0.2 0.03 285 / 0%);
+    }
+  }
+</style>
+
+<script>
+  // The dock persists across navigations, so its active state is synced here, not at render.
+  const sectionPath = (path: string) => {
+    const first = path.split("/").filter(Boolean)[0] ?? "";
+    if (!first) return "/";
+    if (first === "posts") return "/blog/";
+    return `/${first}/`;
+  };
+
+  document.addEventListener("astro:page-load", () => {
+    const current = sectionPath(location.pathname);
+    for (const link of document.querySelectorAll<HTMLAnchorElement>(
+      "[data-dock-link]",
+    )) {
+      const active = link.getAttribute("href") === current;
+      if (active) link.setAttribute("aria-current", "page");
+      else link.removeAttribute("aria-current");
+      link
+        .querySelector("[data-dock-dot]")
+        ?.classList.toggle("opacity-100", active);
+    }
+  });
+
+  // The library persists across the swap, so close it before the new view is captured; with
+  // its exit transition off, it never plays over the page animation.
+  document.addEventListener("astro:before-swap", () => {
+    const library = document.getElementById("app-library");
+    if (!library?.matches(":popover-open")) return;
+    library.style.transition = "none";
+    library.hidePopover();
+    requestAnimationFrame(() => library.style.removeProperty("transition"));
+  });
+</script>

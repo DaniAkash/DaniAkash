@@ -220,6 +220,11 @@ const now = defineCollection({
   loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/now" }),
 });
 
+/** One story per app, named by its slug (src/content/apps/<slug>.mdx); an empty body shows no story. */
+const apps = defineCollection({
+  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/apps" }),
+});
+
 const resume = defineCollection({
   loader: async () => [
     {
@@ -294,4 +299,5 @@ export const collections = {
   now,
   resume,
   destinations,
+  apps,
 };

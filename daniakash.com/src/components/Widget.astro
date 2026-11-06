@@ -2,7 +2,14 @@
 import type { HTMLAttributes } from "astro/types";
 import { cn } from "../utils/cn";
 
-export type WidgetTone = "plain" | "blue" | "ink" | "yellow" | "photo";
+export type WidgetTone =
+  | "plain"
+  | "blue"
+  | "ink"
+  | "yellow"
+  | "pink"
+  | "green"
+  | "photo";
 
 type Props = Omit<HTMLAttributes<"div">, "class"> & {
   as?: "div" | "section" | "article" | "aside" | "li" | "a";
@@ -21,7 +28,9 @@ const tones: Record<WidgetTone, string> = {
   plain: "bg-card text-card-foreground",
   blue: "bg-blue text-on-blue",
   ink: "bg-ink text-on-ink",
-  yellow: "bg-yellow text-ink",
+  yellow: "bg-yellow text-on-bright",
+  pink: "bg-pink text-on-bright",
+  green: "bg-green text-on-bright",
   photo: "bg-muted p-0 md:p-0",
 };
 ---

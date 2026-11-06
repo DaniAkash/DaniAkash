@@ -29,16 +29,21 @@
   --sheet: oklch(1 0 0);
   --folder: oklch(1 0 0 / 55%);
   --dock: oklch(1 0 0);
-  --blue: oklch(0.54 0.23 265);
+  /* Bento tile palette: one flat colour per content type. */
+  --blue: oklch(0.53 0.24 268);
   --on-blue: oklch(0.99 0 0);
   --orange: oklch(0.68 0.2 40);
-  --green: oklch(0.68 0.15 160);
-  --yellow: oklch(0.87 0.16 90);
+  --green: oklch(0.74 0.15 170);
+  --yellow: oklch(0.89 0.15 92);
+  --pink: oklch(0.76 0.16 358);
+  --on-bright: oklch(0.2 0.008 290);
   --ink: oklch(0.2 0.012 285);
   --on-ink: oklch(0.97 0.006 290);
   --on-ink-muted: oklch(0.8 0.012 290);
 
   --radius: 1rem;
+  --ease-native: cubic-bezier(0.2, 0.9, 0.1, 1);
+  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* Dark: a deep ink wallpaper with raised widgets. */
@@ -65,7 +70,10 @@
   --sheet: oklch(0.21 0.02 285);
   --folder: oklch(1 0 0 / 10%);
   --dock: oklch(0.27 0.022 285);
-  --blue: oklch(0.58 0.21 265);
+  --blue: oklch(0.55 0.22 268);
+  --green: oklch(0.72 0.14 170);
+  --yellow: oklch(0.86 0.15 92);
+  --pink: oklch(0.74 0.15 358);
   --ink: oklch(0.31 0.03 285);
   --on-ink: oklch(0.96 0.008 290);
   --on-ink-muted: oklch(0.78 0.012 290);
@@ -124,6 +132,8 @@
   --color-orange: var(--orange);
   --color-green: var(--green);
   --color-yellow: var(--yellow);
+  --color-pink: var(--pink);
+  --color-on-bright: var(--on-bright);
   --color-ink: var(--ink);
   --color-on-ink: var(--on-ink);
   --color-on-ink-muted: var(--on-ink-muted);
@@ -191,6 +201,202 @@
   }
 }
 
+/*
+ * Navigation motion. src/scripts/transitions.ts classifies each navigation into
+ * html[data-astro-transition]; `app-zoom` is the one shared element (icon <-> sheet or dialog).
+ */
+@keyframes vt-recede {
+  to {
+    scale: 0.94;
+    opacity: 0.4;
+    filter: blur(2px);
+  }
+}
+
+@keyframes vt-advance {
+  from {
+    scale: 0.94;
+    opacity: 0.4;
+    filter: blur(2px);
+  }
+}
+
+@keyframes vt-fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes vt-fade-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes vt-out-left {
+  to {
+    translate: -24% 0;
+    opacity: 0;
+  }
+}
+
+@keyframes vt-in-right {
+  from {
+    translate: 60% 0;
+    opacity: 0;
+  }
+}
+
+@keyframes vt-out-right {
+  to {
+    translate: 60% 0;
+    opacity: 0;
+  }
+}
+
+@keyframes vt-in-left {
+  from {
+    translate: -24% 0;
+    opacity: 0;
+  }
+}
+
+/* A class, not an inline style: the engine's inline `app-zoom` name overrides it during zooms. */
+.vt-sheet {
+  view-transition-name: sheet-body;
+}
+
+.vt-backdrop {
+  view-transition-name: app-backdrop;
+}
+
+/* The dock and status bar are chrome: they never recede, fade or move with the page. */
+.vt-dock {
+  view-transition-name: app-dock;
+}
+
+.vt-status {
+  view-transition-name: status-bar;
+}
+
+::view-transition-group(app-dock),
+::view-transition-group(status-bar) {
+  animation: none;
+  z-index: 1;
+}
+
+::view-transition-old(app-dock),
+::view-transition-old(status-bar) {
+  display: none;
+}
+
+::view-transition-new(app-dock),
+::view-transition-new(status-bar) {
+  animation: none;
+}
+
+::view-transition-group(app-backdrop) {
+  z-index: 2;
+}
+
+::view-transition-group(app-zoom) {
+  animation-duration: 0.5s;
+  animation-timing-function: var(--ease-native);
+  z-index: 50;
+}
+
+::view-transition-old(app-zoom) {
+  animation: 0.2s ease-out both vt-fade-out;
+}
+
+::view-transition-new(app-zoom) {
+  animation: 0.35s var(--ease-native) both vt-fade-in;
+}
+
+/* Exits run faster than entrances. */
+html[data-astro-transition="app-close"]::view-transition-group(app-zoom),
+html[data-astro-transition="zoom-out"]::view-transition-group(app-zoom) {
+  animation-duration: 0.36s;
+}
+
+html[data-astro-transition="app-close"]::view-transition-old(app-zoom),
+html[data-astro-transition="zoom-out"]::view-transition-old(app-zoom) {
+  animation: 0.24s ease-out both vt-fade-out;
+}
+
+html[data-astro-transition="app-close"]::view-transition-new(app-zoom),
+html[data-astro-transition="zoom-out"]::view-transition-new(app-zoom) {
+  animation: 0.18s ease-out both vt-fade-in;
+}
+
+html[data-astro-transition="zoom-in"]::view-transition-old(root) {
+  animation: 0.45s var(--ease-native) both vt-recede;
+}
+
+html[data-astro-transition="zoom-in"]::view-transition-new(root) {
+  animation: 0.3s var(--ease-native) 0.12s both vt-fade-in;
+}
+
+html[data-astro-transition="zoom-out"]::view-transition-old(root) {
+  animation: 0.22s ease-out both vt-fade-out;
+}
+
+html[data-astro-transition="zoom-out"]::view-transition-new(root) {
+  animation: 0.45s var(--ease-native) both vt-advance;
+}
+
+/* The home screen stays put under a story dialog: only the dialog and its backdrop move. */
+html[data-astro-transition="app-open"]::view-transition-old(root),
+html[data-astro-transition="app-open"]::view-transition-new(root),
+html[data-astro-transition="app-close"]::view-transition-old(root),
+html[data-astro-transition="app-close"]::view-transition-new(root) {
+  animation: none;
+}
+
+::view-transition-new(app-backdrop) {
+  animation: 0.35s ease-out both vt-fade-in;
+}
+
+::view-transition-old(app-backdrop) {
+  animation: 0.25s ease-out both vt-fade-out;
+}
+
+html[data-astro-transition="push"]::view-transition-old(sheet-body) {
+  animation: 0.32s var(--ease-native) both vt-out-left;
+}
+
+html[data-astro-transition="push"]::view-transition-new(sheet-body) {
+  animation: 0.42s var(--ease-native) both vt-in-right;
+}
+
+html[data-astro-transition="pop"]::view-transition-old(sheet-body) {
+  animation: 0.26s var(--ease-native) both vt-out-right;
+}
+
+html[data-astro-transition="pop"]::view-transition-new(sheet-body) {
+  animation: 0.34s var(--ease-native) both vt-in-left;
+}
+
+/* Reduced motion: no movement or scaling, only a short crossfade. */
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*) {
+    animation: none !important;
+  }
+
+  ::view-transition-old(*) {
+    animation: 0.15s ease both vt-fade-out !important;
+  }
+
+  ::view-transition-new(*) {
+    animation: 0.15s ease both vt-fade-in !important;
+  }
+
+  ::view-transition-new(app-dock),
+  ::view-transition-new(status-bar) {
+    animation: none !important;
+  }
+}
+
 /* Long-form reading inside app sheets. */
 .prose {
   --tw-prose-body: var(--foreground);
@@ -244,7 +450,7 @@
 
 .prose :where(:not(pre) > code):not(:where(.not-prose *)) {
   background: var(--muted);
-  border-radius: 0.375rem;
+  border-radius: 0.5rem;
   padding: 0.15em 0.4em;
   font-weight: 500;
 }

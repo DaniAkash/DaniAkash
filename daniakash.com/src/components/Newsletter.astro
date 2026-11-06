@@ -1,6 +1,5 @@
 ---
 import { cn } from "../utils/cn";
-import AppIcon from "./AppIcon.astro";
 
 interface Props {
   heading: string;
@@ -22,22 +21,15 @@ const inputId = `newsletter-email-${heading.toLowerCase().replace(/[^a-z0-9]+/g,
 
 <div
   class={cn(
-    "bg-card text-card-foreground rounded-widget flex flex-col gap-4 p-4 md:flex-row md:items-center md:gap-6 md:p-5",
+    "bg-green text-on-bright rounded-widget flex flex-col gap-4 p-4 md:flex-row md:items-center md:gap-6 md:p-5",
     className,
   )}
 >
-  <div class="flex flex-1 items-center gap-3">
-    <AppIcon
-      art={{ kind: "section", glyph: "mail", tint: "#00A876", ink: "#FFFFFF" }}
-      size="sm"
-      class="-m-1 size-14"
-    />
-    <div class="min-w-0">
-      <h2 class="font-display text-title font-extrabold tracking-[-0.02em]">
-        {heading}
-      </h2>
-      <p class="text-muted-foreground text-body">{description}</p>
-    </div>
+  <div class="min-w-0 flex-1">
+    <h2 class="font-display text-title font-extrabold tracking-[-0.02em]">
+      {heading}
+    </h2>
+    <p class="text-body opacity-80">{description}</p>
   </div>
   <form
     action="https://buttondown.com/api/emails/embed-subscribe/daniakash"
@@ -54,11 +46,11 @@ const inputId = `newsletter-email-${heading.toLowerCase().replace(/[^a-z0-9]+/g,
       placeholder="you@example.com"
       required
       autocomplete="email"
-      class="bg-muted text-foreground placeholder:text-muted-foreground text-body h-11 w-full min-w-0 rounded-full px-4 outline-none focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-[var(--ring)] sm:flex-1 md:w-64"
+      class="bg-card text-card-foreground placeholder:text-muted-foreground text-body h-11 w-full min-w-0 rounded-full px-4 outline-none focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-[var(--on-bright)] sm:flex-1 md:w-64"
     />
     <button
       type="submit"
-      class="text-label h-11 cursor-pointer rounded-full bg-[#00A876] px-5 font-bold text-white transition-opacity hover:opacity-90"
+      class="bg-on-bright text-label h-11 cursor-pointer rounded-full px-5 font-bold text-white transition-opacity hover:opacity-90"
     >
       {buttonLabel}
     </button>

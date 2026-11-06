@@ -5,6 +5,7 @@ import AppSheet from "../components/AppSheet.astro";
 import Icon from "../components/Icon.astro";
 import Widget from "../components/Widget.astro";
 import MainLayout from "../layouts/MainLayout.astro";
+import { appHref } from "../utils/slugify";
 
 const items = (await getCollection("project"))[0]?.data.items ?? [];
 
@@ -111,7 +112,7 @@ const isExternal = (href: string) => href.startsWith("http");
               ]}
             >
               {group.projects.map((item) => {
-                const href = item.link?.href;
+                const href = item.icon ? appHref(item.name) : item.link?.href;
                 const Tag = href ? "a" : "div";
                 const linkProps = href
                   ? {
@@ -171,11 +172,11 @@ const isExternal = (href: string) => href.startsWith("http");
                               ))}
                             </ul>
                           )}
-                          {item.link && (
+                          {href && (
                             <span class="text-primary text-caption inline-flex items-center gap-1 font-bold">
-                              {item.link.label}
+                              {item.icon ? "Open" : item.link?.label}
                               <Icon
-                                name={isExternal(item.link.href) ? "arrow-up-right" : "arrow-right"}
+                                name={isExternal(href) ? "arrow-up-right" : "arrow-right"}
                                 class="size-3.5 transition-transform duration-300 ease-out-expo group-hover:translate-x-0.5"
                               />
                             </span>
