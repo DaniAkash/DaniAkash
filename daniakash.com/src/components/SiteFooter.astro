@@ -1,45 +1,82 @@
 ---
-const footerLinks = [
-  { label: "About", href: "/about/" },
-  { label: "Blog", href: "/blog/" },
-  { label: "Newsletter", href: "/newsletter/" },
-  { label: "Projects", href: "/projects/" },
-  { label: "Speaking", href: "/speaking/" },
-  { label: "Uses", href: "/uses/" },
-  { label: "Resume", href: "/resume/" },
-  { label: "GitHub", href: "https://github.com/DaniAkash" },
+import { getCollection } from "astro:content";
+import { sections } from "../constants/sections";
+import Icon, { type IconName } from "./Icon.astro";
+
+const social = (await getCollection("social"))[0]?.data;
+
+const socialLinks: { label: string; href: string; icon: IconName }[] = [
+  {
+    label: "GitHub",
+    href: social?.github ?? "https://github.com/DaniAkash",
+    icon: "github",
+  },
+  {
+    label: "X",
+    href: social?.twitter ?? "https://x.com/dani_akash_",
+    icon: "x",
+  },
+  {
+    label: "Bluesky",
+    href: social?.bluesky ?? "https://bsky.app/profile/daniakash.com",
+    icon: "bluesky",
+  },
+  {
+    label: "LinkedIn",
+    href: social?.linkedIn ?? "https://www.linkedin.com/in/daniakash",
+    icon: "linkedin",
+  },
+  { label: "RSS feed", href: "/rss.xml", icon: "rss" },
 ];
 ---
 
-<footer class="border-t border-dashed border-border py-12">
+<footer
+  class="mx-auto w-full max-w-[1200px] px-4 pt-10 pb-28 md:px-8 md:pb-32 print:hidden"
+>
   <div
-    class="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-6 text-center sm:flex-row sm:text-left"
+    class="border-border flex flex-col gap-5 border-t pt-6 md:flex-row md:items-center md:justify-between"
   >
-    <span class="font-mono text-xs text-muted-foreground">
-      &copy; {new Date().getFullYear()}{" "}
-      <a
-        href="https://github.com/DaniAkash/DaniAkash"
-        class="font-calorie text-lg text-muted-foreground underline underline-offset-4 transition-colors hover:text-primary"
-      >
-        Dani Akash
-      </a>. All rights reserved.
-    </span>
-
-    <ul class="flex flex-wrap justify-center gap-4 sm:justify-end">
+    <ul class="flex flex-wrap gap-x-5 gap-y-1">
       {
-        footerLinks.map((link) => (
+        sections.map((section) => (
           <li>
             <a
-              href={link.href}
-              class="inline-flex min-h-[44px] items-center font-mono text-xs text-muted-foreground transition-colors hover:text-primary"
-              target={link.href.startsWith("http") ? "_blank" : undefined}
-              rel={link.href.startsWith("http") ? "noopener" : undefined}
+              href={section.href}
+              class="text-muted-foreground hover:text-foreground text-label inline-flex min-h-9 items-center font-semibold transition-colors"
             >
-              {link.label}
+              {section.title}
             </a>
           </li>
         ))
       }
     </ul>
+    <div class="flex items-center gap-4">
+      <ul class="flex gap-1">
+        {
+          socialLinks.map((link) => (
+            <li>
+              <a
+                href={link.href}
+                aria-label={link.label}
+                title={link.label}
+                target={link.href.startsWith("http") ? "_blank" : undefined}
+                rel={link.href.startsWith("http") ? "noopener" : undefined}
+                class="text-muted-foreground hover:bg-card hover:text-foreground inline-flex size-9 items-center justify-center rounded-full transition-colors"
+              >
+                <Icon name={link.icon} class="size-4" />
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <p class="text-muted-foreground text-caption">
+        &copy; {new Date().getFullYear()}{" "}
+        <a
+          href="https://github.com/DaniAkash/DaniAkash"
+          class="text-foreground hover:text-primary font-semibold underline decoration-2 underline-offset-4 transition-colors"
+          >Dani Akash</a
+        >. All rights reserved.
+      </p>
+    </div>
   </div>
 </footer>

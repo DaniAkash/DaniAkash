@@ -2,6 +2,8 @@
 import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
 import { Schema } from "astro-seo-schema";
+import AppSheet from "../components/AppSheet.astro";
+import Icon from "../components/Icon.astro";
 import { ASSET_PREFIX } from "../constants/asset-prefix";
 import { PERSON_ENTITY_ID } from "../constants/seo";
 import MainLayout from "../layouts/MainLayout.astro";
@@ -9,6 +11,11 @@ import { getYoutubeThumbnail } from "../utils/getYoutubeThumbnail";
 
 const events = (await getCollection("speaking")).sort(
   (a, b) => b.data.year - a.data.year,
+);
+
+const talkCount = events.reduce(
+  (total, group) => total + group.data.events.length,
+  0,
 );
 ---
 
@@ -39,212 +46,139 @@ const events = (await getCollection("speaking")).sort(
       ),
     }}
   />
-  <!-- Header -->
-  <header class="pb-12 pt-[120px]">
-    <p
-      class="mb-6 font-mono text-[11px] uppercase tracking-[1.65px] text-muted-foreground"
-    >
-      05 // SPEAKING
-    </p>
-    <h1
-      class="mb-4 font-bold leading-[1.1] tracking-[-0.03em]"
-      style="font-size: clamp(36px, 5vw, 56px);"
-    >
-      Words I've Said
-    </h1>
-    <p class="max-w-[600px] text-lg leading-relaxed text-muted-foreground">
-      You can actually hear me talk, not just type.
-    </p>
-  </header>
 
-  <!-- Timeline -->
-  <div class="relative overflow-clip" id="timelineComponent">
-    <!-- Vertical progress track -->
-    <div
-      class="absolute top-0 bottom-0 w-[2px] bg-foreground/10"
-      id="progressTrack"
-    >
-      <div
-        class="absolute top-0 left-0 w-[2px] bg-primary"
-        id="progressBar"
-        style="height: 0;"
-      ></div>
-    </div>
-
-    <!-- Fade overlays -->
-    <div
-      class="pointer-events-none absolute inset-x-0 top-0 z-2 h-20 bg-gradient-to-b from-background to-transparent"
-    ></div>
-    <div
-      class="pointer-events-none absolute inset-x-0 bottom-0 z-2 h-20 bg-gradient-to-t from-background to-transparent"
-    ></div>
-
-    {
-      events.map((yearGroup) => (
-        <div
-          class="timeline-item relative grid gap-0 py-12"
-          style="grid-template-columns: 120px 30px 1fr;"
-        >
-          {/* Left — sticky year */}
-          <div class="pr-4">
-            <div class="sticky top-[45vh] self-start text-right font-mono text-sm font-medium tracking-wide text-muted-foreground">
-              {yearGroup.data.year}
-            </div>
-          </div>
-
-          {/* Centre — sticky dot */}
-          <div class="flex justify-center">
-            <div class="sticky top-[50vh] z-1 size-[9px] self-start rounded-full bg-primary" />
-          </div>
-
-          {/* Right — talks */}
-          <div class="flex flex-col pl-6">
-            {yearGroup.data.events.map((event) => {
-              const youtubeThumbnail = getYoutubeThumbnail(event.video ?? "");
-              const primaryLink = event.video ?? event.cta?.[0]?.url;
-              const hasThumbnail = !!(
-                event.thumbnail ||
-                (event.video && youtubeThumbnail)
-              );
-
-              return (
-                <div
-                  class:list={[
-                    "talk-card group relative transition-colors",
-                    // Mobile: card style
-                    "max-sm:rounded-xl max-sm:border max-sm:border-border max-sm:bg-foreground/[0.02] max-sm:p-4 max-sm:mb-3 max-sm:hover:bg-foreground/5",
-                    // Desktop: timeline row style
-                    "sm:-mx-4 sm:border-b sm:border-dashed sm:border-border sm:px-4 sm:py-4 sm:last:border-b-0 sm:hover:rounded-sm sm:hover:bg-foreground/5",
-                    hasThumbnail ? "flex flex-col gap-3 sm:flex-row sm:items-start sm:gap-6" : "block",
-                  ]}
-                >
-                  {/* Full-card click target (behind everything) */}
-                  {primaryLink && (
-                    <a
-                      href={primaryLink}
-                      target="_blank"
-                      rel="noopener"
-                      class="absolute inset-0 z-0"
-                      aria-label={event.title}
-                    />
-                  )}
-                  {hasThumbnail && (
-                    <div class="pointer-events-none relative z-1 shrink-0 overflow-hidden rounded-lg border border-border w-full aspect-video sm:w-[160px] sm:aspect-auto sm:h-[90px]">
-                      {event.thumbnail ? (
-                        <Image
-                          height={90}
-                          width={160}
-                          alt={event.title}
-                          src={ASSET_PREFIX + event.thumbnail}
-                          class="size-full object-cover transition-transform duration-300 group-hover:scale-105"
-                        />
-                      ) : (
-                        <img
-                          src={youtubeThumbnail!}
-                          alt={event.title}
-                          class="size-full object-cover transition-transform duration-300 group-hover:scale-105"
-                          loading="lazy"
-                        />
-                      )}
-                      <div class="absolute inset-0 flex items-center justify-center rounded-lg bg-black/30 text-xl text-white opacity-0 transition-opacity group-hover:opacity-100">
-                        ▶
-                      </div>
-                    </div>
-                  )}
-                  <div class="pointer-events-none relative z-1 min-w-0 flex-1">
-                    <div class="mb-1 font-mono text-xs tracking-wide text-muted-foreground">
-                      {event.name}
-                    </div>
-                    <h3 class="mb-1 text-[17px] font-medium leading-snug tracking-tight transition-colors group-hover:text-primary">
-                      {event.title}
-                    </h3>
-                    <p class="mb-2 text-sm leading-relaxed text-muted-foreground">
-                      {event.description}
-                    </p>
-                    {event.cta && event.cta.length > 0 && (
-                      <div class="flex flex-wrap gap-2">
-                        {event.cta.map((cta) => (
-                          <a
-                            href={cta.url}
-                            target="_blank"
-                            rel="noopener"
-                            class="pointer-events-auto relative z-2 inline-flex min-h-[44px] items-center px-2 font-mono text-[11px] tracking-wide text-primary hover:underline"
-                          >
-                            {cta.title}
-                          </a>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      ))
-    }
-  </div>
-
-  <hr class="mt-20 border-dashed border-border" />
-</MainLayout>
-
-<style>
-  @media (max-width: 900px) {
-    .timeline-item {
-      grid-template-columns: 90px 24px 1fr !important;
-    }
-  }
-
-  @media (max-width: 600px) {
-    .timeline-item {
-      grid-template-columns: 24px 1fr !important;
-    }
-    .timeline-item > div:first-child {
-      display: none;
-    }
-  }
-</style>
-
-<script is:inline>
-  document.addEventListener("astro:page-load", function () {
-    if (window.__timelineCleanup) window.__timelineCleanup();
-
-    var comp = document.getElementById("timelineComponent");
-    var bar = document.getElementById("progressBar");
-    var track = document.getElementById("progressTrack");
-    if (!comp || !bar || !track) return;
-
-    function alignProgress() {
-      var circle = comp.querySelector(".sticky.rounded-full");
-      if (circle) {
-        var compRect = comp.getBoundingClientRect();
-        var circleRect = circle.getBoundingClientRect();
-        var left =
-          circleRect.left + circleRect.width / 2 - compRect.left - 1;
-        track.style.left = left + "px";
+  <AppSheet
+    title="Words I've Said"
+    lede="You can actually hear me talk, not just type."
+  >
+    <nav aria-label="Years" class="flex flex-wrap gap-2">
+      {
+        events.map((yearGroup) => (
+          <a
+            href={`#year-${yearGroup.data.year}`}
+            class="bg-muted hover:bg-foreground hover:text-background text-label inline-flex min-h-9 items-center gap-2 rounded-full px-3.5 font-bold transition-colors"
+          >
+            {yearGroup.data.year}
+            <span class="text-meta tabular opacity-60">
+              {yearGroup.data.events.length}
+            </span>
+          </a>
+        ))
       }
-    }
-    alignProgress();
+      <span class="text-muted-foreground text-label inline-flex min-h-9 items-center px-1 font-semibold">
+        {talkCount} talks in all
+      </span>
+    </nav>
 
-    var resizeHandler = function () {
-      alignProgress();
-    };
-    window.addEventListener("resize", resizeHandler);
+    <div class="mt-10 flex flex-col gap-12 md:mt-12 md:gap-14">
+      {
+        events.map((yearGroup) => (
+          <section
+            id={`year-${yearGroup.data.year}`}
+            aria-labelledby={`year-${yearGroup.data.year}-heading`}
+            class="scroll-mt-6"
+          >
+            <div class="border-border flex items-baseline justify-between gap-4 border-b pb-3">
+              <h2
+                id={`year-${yearGroup.data.year}-heading`}
+                class="font-display text-heading tabular font-extrabold tracking-[-0.025em]"
+              >
+                {yearGroup.data.year}
+              </h2>
+              <p class="text-muted-foreground text-label font-semibold">
+                {yearGroup.data.events.length}{" "}
+                {yearGroup.data.events.length === 1 ? "talk" : "talks"}
+              </p>
+            </div>
 
-    var animId;
-    function updateProgress() {
-      var rect = comp.getBoundingClientRect();
-      var viewportMid = window.innerHeight * 0.5;
-      var fillPx = viewportMid - rect.top;
-      bar.style.height =
-        Math.max(0, Math.min(fillPx, rect.height)) + "px";
-      animId = requestAnimationFrame(updateProgress);
-    }
-    animId = requestAnimationFrame(updateProgress);
+            <ul class="mt-5 grid gap-x-6 gap-y-8 md:grid-cols-2">
+              {yearGroup.data.events.map((event) => {
+                const youtubeThumbnail = getYoutubeThumbnail(event.video ?? "");
+                const primaryLink = event.video ?? event.cta?.[0]?.url;
+                const hasThumbnail = !!(
+                  event.thumbnail ||
+                  (event.video && youtubeThumbnail)
+                );
 
-    window.__timelineCleanup = function () {
-      cancelAnimationFrame(animId);
-      window.removeEventListener("resize", resizeHandler);
-    };
-  });
-</script>
+                return (
+                  <li class="group relative flex flex-col">
+                    {primaryLink && (
+                      <a
+                        href={primaryLink}
+                        target="_blank"
+                        rel="noopener"
+                        class="absolute inset-0 z-0 rounded-2xl"
+                        aria-label={event.title}
+                      />
+                    )}
+                    <div class="pointer-events-none relative z-1 aspect-video overflow-hidden rounded-2xl">
+                      {hasThumbnail ? (
+                        event.thumbnail ? (
+                          <Image
+                            height={360}
+                            width={640}
+                            alt={event.title}
+                            src={ASSET_PREFIX + event.thumbnail}
+                            class="bg-muted size-full object-cover transition-transform duration-500 ease-out-expo group-hover:scale-[1.03]"
+                          />
+                        ) : (
+                          <img
+                            src={youtubeThumbnail!}
+                            alt={event.title}
+                            class="bg-muted size-full object-cover transition-transform duration-500 ease-out-expo group-hover:scale-[1.03]"
+                            loading="lazy"
+                          />
+                        )
+                      ) : (
+                        <div class="flex size-full items-end bg-[#E5357F] p-5 text-white">
+                          <p class="font-display text-heading font-extrabold tracking-[-0.025em]">
+                            {event.name}
+                          </p>
+                        </div>
+                      )}
+                      {event.video && (
+                        <span class="bg-card text-card-foreground absolute bottom-3 left-3 inline-flex size-9 items-center justify-center rounded-full">
+                          <Icon name="play" class="ml-0.5 size-4" />
+                        </span>
+                      )}
+                    </div>
+                    <div class="pointer-events-none relative z-1 mt-3 flex flex-1 flex-col">
+                      <p class="text-label font-bold">{event.name}</p>
+                      <time
+                        class="text-muted-foreground text-caption tabular mt-0.5 block font-semibold whitespace-nowrap"
+                        datetime={new Date(event.date).toISOString().split("T")[0]}
+                      >
+                        {event.date}
+                      </time>
+                      <h3 class="font-display text-title group-hover:text-primary mt-2 font-extrabold tracking-[-0.02em] transition-colors">
+                        {event.title}
+                      </h3>
+                      <p class="text-muted-foreground text-body mt-1.5">
+                        {event.description}
+                      </p>
+                      {event.cta && event.cta.length > 0 && (
+                        <div class="mt-3 flex flex-wrap gap-1.5">
+                          {event.cta.map((cta) => (
+                            <a
+                              href={cta.url}
+                              target="_blank"
+                              rel="noopener"
+                              class="bg-muted hover:bg-foreground hover:text-background text-caption pointer-events-auto relative z-2 inline-flex min-h-9 items-center gap-1 rounded-full px-3 font-bold transition-colors"
+                            >
+                              {cta.title}
+                              <Icon name="arrow-up-right" class="size-3.5" />
+                            </a>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
+          </section>
+        ))
+      }
+    </div>
+  </AppSheet>
+</MainLayout>

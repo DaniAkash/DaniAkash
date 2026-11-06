@@ -8,7 +8,10 @@
       "href": "https://github.com/BrowserOS-ai/BrowserOS",
       "label": "View project"
     },
-    "size": "2col"
+    "size": "2col",
+    "category": "app",
+    "icon": { "kind": "app", "src": "/apps/browseros.png" },
+    "language": "TypeScript"
   },
   {
     "name": "Skills",
@@ -19,7 +22,295 @@
       "href": "https://github.com/DaniAkash/skills",
       "label": "View project"
     },
-    "size": "2col"
+    "size": "2col",
+    "category": "ai-tool",
+    "icon": {
+      "kind": "glyph",
+      "src": "/apps/lang/gnubash.svg",
+      "tint": "#4EAA25",
+      "ink": "#FFFFFF"
+    },
+    "language": "Shell"
+  },
+  {
+    "name": "aalai",
+    "description": "Local-first AI software factory: issues in, reviewed draft pull requests out.",
+    "status": "active",
+    "tech": ["TypeScript", "AI Agents"],
+    "link": {
+      "href": "https://github.com/DaniAkash/aalai",
+      "label": "View on GitHub"
+    },
+    "category": "app",
+    "icon": { "kind": "app", "src": "/apps/aalai.svg" },
+    "language": "TypeScript"
+  },
+  {
+    "name": "Agent Terminal",
+    "description": "A terminal that understands AI agents. Project workspaces, live process metrics, and native Claude Code + Codex support.",
+    "status": "active",
+    "tech": ["TypeScript", "Tauri", "AI Agents"],
+    "link": { "href": "https://agent-terminal.org/", "label": "Visit site" },
+    "category": "app",
+    "icon": { "kind": "app", "src": "/apps/agent-terminal.svg" },
+    "language": "TypeScript"
+  },
+  {
+    "name": "herbie",
+    "description": "One menubar window for every AI coding agent. Pick Claude, Codex, or Gemini, share skills across them, drive them from your phone.",
+    "status": "active",
+    "tech": ["TypeScript", "macOS", "AI Agents"],
+    "link": {
+      "href": "https://github.com/DaniAkash/herbie",
+      "label": "View on GitHub"
+    },
+    "category": "app",
+    "icon": { "kind": "app", "src": "/apps/herbie.svg" },
+    "language": "TypeScript"
+  },
+  {
+    "name": "Screen Time Overlay",
+    "description": "Android overlay that shows a live screen-on timer and per-app timer to build phone-usage self-awareness.",
+    "status": "active",
+    "tech": ["Kotlin", "Android"],
+    "link": {
+      "href": "https://screentimeoverlay.daniakash.com/",
+      "label": "Visit site"
+    },
+    "category": "app",
+    "icon": { "kind": "bleed", "src": "/apps/screen-time-overlay.png" },
+    "language": "Kotlin"
+  },
+  {
+    "name": "stylecn",
+    "description": "Brand-themed presets for shadcn/ui - Apple, Stripe, Linear, Airbnb, and 10 more. Copy the CSS, ship the look.",
+    "status": "oss",
+    "tech": ["TypeScript", "shadcn/ui"],
+    "link": {
+      "href": "https://daniakash.github.io/stylecn/",
+      "label": "Visit site"
+    },
+    "category": "app",
+    "icon": { "kind": "mark", "src": "/apps/stylecn.png", "tint": "#FFFFFF" },
+    "language": "TypeScript"
+  },
+  {
+    "name": "Google Rust Style Guide",
+    "description": "Unofficial kit that enforces Google's Rust style guide: drop-in rustfmt, clippy and cargo-deny configs, AGENTS.md for Claude Code, Codex and Cursor, and a human code review guide. Adopt it in 5 minutes.",
+    "status": "oss",
+    "tech": ["Rust", "Style Guide"],
+    "link": {
+      "href": "https://daniakash.github.io/Google-Rust-Style-Guide/",
+      "label": "Visit site"
+    },
+    "category": "app",
+    "icon": {
+      "kind": "mark",
+      "src": "/apps/google-rust-style-guide.svg",
+      "tint": "#FFF6EE"
+    },
+    "language": "Rust"
+  },
+  {
+    "name": "agent-toolkit",
+    "description": "Tooling for AI coding agents. Vercel AI SDK adapters, sandbox providers, skill and MCP managers, ACP-protocol utilities.",
+    "status": "oss",
+    "tech": ["TypeScript", "npm", "AI SDK"],
+    "link": {
+      "href": "https://github.com/DaniAkash/agent-toolkit",
+      "label": "View on GitHub"
+    },
+    "category": "ai-tool",
+    "icon": {
+      "kind": "glyph",
+      "src": "/apps/lang/npm.svg",
+      "tint": "#CB3837",
+      "ink": "#FFFFFF"
+    },
+    "npm": "acpx-ai-provider",
+    "language": "TypeScript"
+  },
+  {
+    "name": "mac-mcp",
+    "description": "Read-only MCP server for native macOS apps (Mail, Notes, Calendar, Reminders, Contacts, Messages, Spotlight).",
+    "status": "oss",
+    "tech": ["TypeScript", "MCP", "macOS"],
+    "link": {
+      "href": "https://github.com/DaniAkash/mac-mcp",
+      "label": "View on GitHub"
+    },
+    "category": "ai-tool",
+    "icon": {
+      "kind": "glyph",
+      "src": "/apps/lang/typescript.svg",
+      "tint": "#3178C6",
+      "ink": "#FFFFFF"
+    },
+    "language": "TypeScript"
+  },
+  {
+    "name": "internal-tool-agent",
+    "description": "Coding agent that safely connects to internal tools and produces verifiable, computed facts and stats. Built with Bun and OpenTUI React.",
+    "status": "oss",
+    "tech": ["TypeScript", "Bun", "AI Agents"],
+    "link": {
+      "href": "https://github.com/DaniAkash/internal-tool-agent",
+      "label": "View on GitHub"
+    },
+    "category": "ai-tool",
+    "icon": {
+      "kind": "glyph",
+      "src": "/apps/lang/typescript.svg",
+      "tint": "#3178C6",
+      "ink": "#FFFFFF"
+    },
+    "language": "TypeScript"
+  },
+  {
+    "name": "skill-reporter",
+    "description": "Standalone static HTML reports for skill iteration workspaces.",
+    "status": "oss",
+    "tech": ["JavaScript", "npm"],
+    "link": {
+      "href": "https://github.com/DaniAkash/skill-reporter",
+      "label": "View on GitHub"
+    },
+    "category": "ai-tool",
+    "icon": {
+      "kind": "glyph",
+      "src": "/apps/lang/npm.svg",
+      "tint": "#CB3837",
+      "ink": "#FFFFFF"
+    },
+    "npm": "skill-reporter",
+    "language": "JavaScript"
+  },
+  {
+    "name": "claude-code-backup",
+    "description": "Snapshot Claude Code history and config into a timestamped backup directory.",
+    "status": "oss",
+    "tech": ["TypeScript", "npm"],
+    "link": {
+      "href": "https://github.com/DaniAkash/claude-code-backup",
+      "label": "View on GitHub"
+    },
+    "category": "ai-tool",
+    "icon": {
+      "kind": "glyph",
+      "src": "/apps/lang/npm.svg",
+      "tint": "#CB3837",
+      "ink": "#FFFFFF"
+    },
+    "npm": "cc-backup",
+    "language": "TypeScript"
+  },
+  {
+    "name": "clawpatch-reporter",
+    "description": "CLI that renders clawpatch findings into GitHub-flavored Markdown or semantic HTML reports.",
+    "status": "oss",
+    "tech": ["TypeScript", "npm"],
+    "link": {
+      "href": "https://github.com/DaniAkash/clawpatch-reporter",
+      "label": "View on GitHub"
+    },
+    "category": "ai-tool",
+    "icon": {
+      "kind": "glyph",
+      "src": "/apps/lang/npm.svg",
+      "tint": "#CB3837",
+      "ink": "#FFFFFF"
+    },
+    "npm": "clawpatch-reporter",
+    "language": "TypeScript"
+  },
+  {
+    "name": "worktree-env-copy",
+    "description": "Global git post-checkout hook that auto-copies .env* files into new worktrees. Monorepo-aware, gitignore-respecting, chains per-repo hooks (git-lfs, husky). Essential for AI coding agents (Claude Code, Codex, Cursor) that spin up worktrees on demand.",
+    "status": "oss",
+    "tech": ["Shell", "git"],
+    "link": {
+      "href": "https://github.com/DaniAkash/worktree-env-copy",
+      "label": "View on GitHub"
+    },
+    "category": "oss",
+    "icon": {
+      "kind": "glyph",
+      "src": "/apps/lang/gnubash.svg",
+      "tint": "#4EAA25",
+      "ink": "#FFFFFF"
+    },
+    "language": "Shell"
+  },
+  {
+    "name": "vite-plugin-esm.sh",
+    "description": "Rewrite imports with esm.sh at build time.",
+    "status": "oss",
+    "tech": ["TypeScript", "Vite", "npm"],
+    "link": {
+      "href": "https://github.com/DaniAkash/vite-plugin-esm.sh",
+      "label": "View on GitHub"
+    },
+    "category": "oss",
+    "icon": {
+      "kind": "glyph",
+      "src": "/apps/lang/npm.svg",
+      "tint": "#CB3837",
+      "ink": "#FFFFFF"
+    },
+    "npm": "vite-plugin-esm.sh",
+    "language": "TypeScript"
+  },
+  {
+    "name": "rex-state",
+    "description": "Convert hooks into shared states between React components.",
+    "status": "oss",
+    "tech": ["TypeScript", "React", "npm"],
+    "link": { "href": "https://rex-state.netlify.app", "label": "Visit docs" },
+    "category": "oss",
+    "icon": {
+      "kind": "glyph",
+      "src": "/apps/lang/npm.svg",
+      "tint": "#CB3837",
+      "ink": "#FFFFFF"
+    },
+    "npm": "rex-state",
+    "language": "TypeScript"
+  },
+  {
+    "name": "wundergraph-svelte-query",
+    "description": "Wundergraph <> Svelte Query code generation.",
+    "status": "oss",
+    "tech": ["TypeScript", "Svelte"],
+    "link": {
+      "href": "https://github.com/DaniAkash/wundergraph-svelte-query",
+      "label": "View on GitHub"
+    },
+    "category": "oss",
+    "icon": {
+      "kind": "glyph",
+      "src": "/apps/lang/svelte.svg",
+      "tint": "#FF3E00",
+      "ink": "#FFFFFF"
+    },
+    "language": "TypeScript"
+  },
+  {
+    "name": "playstation-backlogs",
+    "description": "An app to view the backlogs in your playstation library and sort by ratings.",
+    "status": "oss",
+    "tech": ["TypeScript", "React"],
+    "link": {
+      "href": "https://github.com/DaniAkash/playstation-backlogs",
+      "label": "View on GitHub"
+    },
+    "category": "oss",
+    "icon": {
+      "kind": "glyph",
+      "src": "/apps/lang/react.svg",
+      "tint": "#20232A",
+      "ink": "#61DAFB"
+    },
+    "language": "TypeScript"
   },
   {
     "name": "GitHub Stars",
@@ -35,7 +326,16 @@
       "href": "https://github.com/DaniAkash/react-native-responsive-dimensions",
       "label": "View on GitHub"
     },
-    "size": "3col"
+    "size": "3col",
+    "category": "oss",
+    "icon": {
+      "kind": "glyph",
+      "src": "/apps/lang/npm.svg",
+      "tint": "#CB3837",
+      "ink": "#FFFFFF"
+    },
+    "npm": "react-native-responsive-dimensions",
+    "language": "TypeScript"
   },
   {
     "name": "Years Shipping",
@@ -47,7 +347,15 @@
     "description": "Founding Engineer & team lead. Built v1 of OSlash for Chrome, Safari & Firefox. Shortcuts for work, shipped to thousands of teams.",
     "status": "previous",
     "tech": ["Browser Extension", "React", "TypeScript"],
-    "size": "3col"
+    "size": "3col",
+    "category": "earlier",
+    "icon": {
+      "kind": "glyph",
+      "src": "/apps/lang/typescript.svg",
+      "tint": "#3178C6",
+      "ink": "#FFFFFF"
+    },
+    "language": "TypeScript"
   },
   {
     "name": "Libraries Published",
@@ -68,7 +376,15 @@
       "href": "https://play.google.com/store/apps/details?id=com.pickyourtrail",
       "label": "Get the app"
     },
-    "size": "2col"
+    "size": "2col",
+    "category": "earlier",
+    "icon": {
+      "kind": "glyph",
+      "src": "/apps/lang/react.svg",
+      "tint": "#20232A",
+      "ink": "#61DAFB"
+    },
+    "language": "JavaScript"
   },
   {
     "name": "React Native Toolkit",
@@ -79,7 +395,15 @@
       "href": "https://github.com/react-native-toolkit",
       "label": "View on GitHub"
     },
-    "size": "2col"
+    "size": "2col",
+    "category": "oss",
+    "icon": {
+      "kind": "glyph",
+      "src": "/apps/lang/react.svg",
+      "tint": "#20232A",
+      "ink": "#61DAFB"
+    },
+    "language": "TypeScript"
   },
   {
     "name": "React Native Docs",
@@ -90,7 +414,15 @@
       "href": "https://github.com/facebook/react-native-website/issues/1579",
       "label": "Link to project"
     },
-    "size": "2col"
+    "size": "2col",
+    "category": "oss",
+    "icon": {
+      "kind": "glyph",
+      "src": "/apps/lang/react.svg",
+      "tint": "#20232A",
+      "ink": "#61DAFB"
+    },
+    "language": "Markdown"
   },
   {
     "name": "Pickyourtrail — Travel Guide",
@@ -101,7 +433,15 @@
       "href": "https://pickyourtrail.com/guides/",
       "label": "Checkout the guides"
     },
-    "size": "2col"
+    "size": "2col",
+    "category": "earlier",
+    "icon": {
+      "kind": "glyph",
+      "src": "/apps/lang/react.svg",
+      "tint": "#20232A",
+      "ink": "#61DAFB"
+    },
+    "language": "JavaScript"
   },
   {
     "name": "JavaScript by Example — Book (2017)",
@@ -112,7 +452,15 @@
       "href": "https://www.oreilly.com/library/view/javascript-by-example/9781788293969/",
       "label": "Read the book"
     },
-    "size": "2col"
+    "size": "2col",
+    "category": "earlier",
+    "icon": {
+      "kind": "glyph",
+      "src": "/apps/lang/javascript.svg",
+      "tint": "#F7DF1E",
+      "ink": "#1A1A1A"
+    },
+    "language": "JavaScript"
   },
   {
     "name": "Learning Git — Video Course",
@@ -123,7 +471,15 @@
       "href": "https://www.guvi.in/courses/git_git",
       "label": "Course videos"
     },
-    "size": "2col"
+    "size": "2col",
+    "category": "earlier",
+    "icon": {
+      "kind": "glyph",
+      "src": "/apps/lang/git.svg",
+      "tint": "#F05032",
+      "ink": "#FFFFFF"
+    },
+    "language": "Git"
   },
   {
     "name": "Always building",

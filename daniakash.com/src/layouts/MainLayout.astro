@@ -3,8 +3,9 @@ import "../styles/global.css";
 import { ClientRouter } from "astro:transitions";
 import { Seo } from "astro-seo-meta";
 import { Schema } from "astro-seo-schema";
-import Nav from "../components/Nav.astro";
+import Dock from "../components/Dock.astro";
 import SiteFooter from "../components/SiteFooter.astro";
+import StatusBar from "../components/StatusBar.astro";
 import { ASSET_PREFIX } from "../constants/asset-prefix";
 import {
   FALLBACK_DESCRIPTION,
@@ -81,7 +82,7 @@ if (pathSegments.length > 0) {
 const isHomePage = Astro.url.pathname === "/";
 ---
 
-<html lang="en" class="dark overflow-x-clip">
+<html lang="en" class="overflow-x-clip">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
@@ -103,9 +104,9 @@ const isHomePage = Astro.url.pathname === "/";
       href="/favicon-16x16.png"
     />
     <link rel="manifest" href="/manifest.json" />
-    <link rel="preconnect" href="https://fonts.cdnfonts.com" crossorigin />
-    <link href="https://fonts.cdnfonts.com/css/calorie" rel="stylesheet" />
-    <meta name="theme-color" content="#08080D" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#EAE8FB" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#16141F" media="(prefers-color-scheme: dark)" />
     <meta name="generator" content={Astro.generator} />
     <Seo
       title={title ? `${title} | Dani Akash` : "Dani Akash"}
@@ -118,8 +119,6 @@ const isHomePage = Astro.url.pathname === "/";
         "Web Development",
       ]}
       icon="/favicon.ico"
-      themeColor="#08080D"
-      colorScheme="dark"
       facebook={{
         url: "https://daniakash.com",
         type: publishedTime ? "article" : "website",
@@ -172,30 +171,32 @@ const isHomePage = Astro.url.pathname === "/";
     />
     <ClientRouter />
     <script is:inline>
-      // Restore theme before first paint
+      // Runs before first paint so the stored or system theme never flashes.
       function restoreTheme() {
-        const theme = localStorage.getItem("theme");
-        if (theme === "light") {
-          document.documentElement.classList.remove("dark");
-        } else {
-          document.documentElement.classList.add("dark");
-        }
+        let theme = null;
+        try {
+          theme = localStorage.getItem("theme");
+        } catch (e) {}
+        const dark = theme
+          ? theme === "dark"
+          : window.matchMedia("(prefers-color-scheme: dark)").matches;
+        document.documentElement.classList.toggle("dark", dark);
       }
       restoreTheme();
       document.addEventListener("astro:after-swap", restoreTheme);
     </script>
   </head>
-  <body class="min-h-screen bg-background text-foreground">
-    <Nav />
-    <main class="relative z-1 mx-auto max-w-7xl px-6 pt-24">
+  <body class="bg-background text-foreground min-h-screen">
+    <a
+      href="#main"
+      class="bg-foreground text-background sr-only z-50 rounded-full px-4 py-2 font-semibold focus:not-sr-only focus:fixed focus:top-4 focus:left-4"
+      >Skip to content</a
+    >
+    <StatusBar />
+    <main id="main" class="mx-auto w-full max-w-[1200px] px-4 pt-2 md:px-8 md:pt-4">
       <slot />
     </main>
-    {
-      !hideFooter && (
-        <div class="relative z-1 mx-auto max-w-7xl px-6">
-          <SiteFooter />
-        </div>
-      )
-    }
+    {hideFooter ? <div class="h-28" /> : <SiteFooter />}
+    <Dock />
   </body>
 </html>

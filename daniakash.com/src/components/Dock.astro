@@ -1,0 +1,71 @@
+---
+import {
+  dockSections,
+  type SiteSection,
+  sectionFor,
+} from "../constants/sections";
+import AppIcon from "./AppIcon.astro";
+
+const path = Astro.url.pathname;
+const current = sectionFor(path);
+
+const home: SiteSection = {
+  title: "Home",
+  href: "/",
+  glyph: "home",
+  tint: "#E9E7F5",
+  ink: "#1C1B22",
+};
+const items = [home, ...dockSections];
+
+const isActive = (section: SiteSection) =>
+  section.href === "/" ? path === "/" : current?.href === section.href;
+---
+
+<nav
+  aria-label="Main"
+  class="bg-dock fixed bottom-3 left-1/2 z-40 -translate-x-1/2 rounded-[1.5rem] p-1.5 shadow-[0_14px_40px_-18px_rgb(30_20_80/45%)] md:bottom-5 md:rounded-[1.75rem] md:p-2 print:hidden"
+>
+  <ul class="flex items-end gap-1 md:gap-2">
+    {
+      items.map((section, index) => {
+        const active = isActive(section);
+        return (
+          <li
+            class:list={[
+              "relative",
+              index === 0 &&
+                "border-border mr-0.5 border-r pr-1.5 md:mr-1 md:pr-2.5",
+            ]}
+          >
+            <a
+              href={section.href}
+              aria-current={active ? "page" : undefined}
+              title={section.title}
+              class="group flex flex-col items-center rounded-2xl"
+            >
+              <AppIcon
+                art={{
+                  kind: "section",
+                  glyph: section.glyph,
+                  tint: section.tint,
+                  ink: section.ink,
+                }}
+                size="sm"
+                class="size-10 group-hover:-translate-y-1 group-active:scale-90 md:size-14"
+              />
+              <span class="sr-only">{section.title}</span>
+              <span
+                aria-hidden="true"
+                class:list={[
+                  "bg-foreground mt-0.5 size-1 rounded-full transition-opacity",
+                  active ? "opacity-100" : "opacity-0",
+                ]}
+              />
+            </a>
+          </li>
+        );
+      })
+    }
+  </ul>
+</nav>
