@@ -50,22 +50,22 @@ const firstYear = Math.min(...events.map((group) => group.data.year));
 
   <section
     aria-label="Speaking introduction"
-    class="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4 lg:grid-cols-6"
+    class="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-5 lg:grid-cols-6"
   >
     <Tile
       as="header"
-      class="col-span-2 flex flex-col justify-end gap-4 md:col-span-4 md:min-h-[18rem] lg:col-span-3"
+      class="col-span-2 flex flex-col justify-end gap-2 md:col-span-4 md:min-h-[13rem] lg:col-span-3"
     >
-      <h1 class="font-display text-[clamp(2.5rem,5vw,4.5rem)] leading-[0.95] font-extrabold tracking-[-0.035em]">
+      <h1 class="font-display text-subdisplay md:text-display leading-[1] font-extrabold tracking-[-0.03em]">
         Words I've Said
       </h1>
-      <p class="text-muted-foreground max-w-[44ch] text-lg leading-snug md:text-xl">
+      <p class="text-muted-foreground text-lede max-w-[44ch] leading-snug">
         You can actually hear me talk, not just type.
       </p>
     </Tile>
-    <Tile tone="pink" class="flex min-h-[11rem] flex-col justify-between md:col-span-1 lg:col-span-1">
-      <p class="text-sm font-semibold">Talks since {firstYear}</p>
-      <p class="font-display tabular text-6xl leading-none font-extrabold tracking-[-0.03em] md:text-7xl">
+    <Tile tone="pink" class="flex min-h-[8.5rem] flex-col justify-between md:col-span-1 lg:col-span-1">
+      <p class="text-caption font-semibold">Talks since {firstYear}</p>
+      <p class="font-display tabular text-stat leading-none font-extrabold tracking-[-0.03em]">
         {talkCount}
       </p>
     </Tile>
@@ -86,24 +86,24 @@ const firstYear = Math.min(...events.map((group) => group.data.year));
       return (
         <section
           aria-labelledby={`year-${yearGroup.data.year}`}
-          class="mt-3 grid gap-3 md:mt-4 md:gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,3fr)]"
+          class="mt-6 grid gap-3 md:mt-8 md:gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,3fr)]"
         >
           <Tile
             tone="pink"
-            class="flex items-baseline justify-between gap-4 self-start lg:sticky lg:top-6 lg:min-h-[14rem] lg:flex-col lg:justify-between"
+            class="flex items-baseline justify-between gap-4 self-start lg:sticky lg:top-6 lg:min-h-[9rem] lg:flex-col lg:justify-between"
           >
             <h2
               id={`year-${yearGroup.data.year}`}
-              class="font-display tabular text-5xl leading-none font-extrabold tracking-[-0.03em] md:text-6xl"
+              class="font-display tabular text-stat leading-none font-extrabold tracking-[-0.03em]"
             >
               {yearGroup.data.year}
             </h2>
-            <p class="text-sm font-semibold">
+            <p class="text-caption font-semibold">
               {talks.length} {talks.length === 1 ? "talk" : "talks"}
             </p>
           </Tile>
 
-          <div class="grid gap-3 sm:grid-cols-2 md:gap-4">
+          <div class="grid gap-3 sm:grid-cols-2 md:gap-5">
             {talks.map((event, index) => {
               const youtubeThumbnail = getYoutubeThumbnail(event.video ?? "");
               const primaryLink = event.video ?? event.cta?.[0]?.url;
@@ -118,7 +118,7 @@ const firstYear = Math.min(...events.map((group) => group.data.year));
                 <Tile
                   as="article"
                   class:list={[
-                    "group flex flex-col gap-4 p-0 md:p-0",
+                    "group flex flex-col gap-3 p-0 md:p-0",
                     isWide && "sm:col-span-2 sm:grid sm:grid-cols-2 sm:items-start sm:gap-0",
                   ]}
                 >
@@ -135,7 +135,7 @@ const firstYear = Math.min(...events.map((group) => group.data.year));
                     <div
                       class:list={[
                         "bg-muted pointer-events-none relative z-1 aspect-video overflow-hidden",
-                        isWide && "sm:m-5 sm:rounded-2xl md:m-6",
+                        isWide && "sm:m-4 sm:rounded-xl md:m-[18px]",
                       ]}
                     >
                       {event.thumbnail ? (
@@ -156,8 +156,8 @@ const firstYear = Math.min(...events.map((group) => group.data.year));
                         />
                       )}
                       {event.video && (
-                        <span class="bg-card text-card-foreground absolute bottom-3 left-3 inline-flex size-10 items-center justify-center rounded-full">
-                          <Icon name="play" class="size-4 fill-current" />
+                        <span class="bg-card text-card-foreground absolute bottom-2.5 left-2.5 inline-flex size-8 items-center justify-center rounded-full">
+                          <Icon name="play" class="size-3.5 fill-current" />
                         </span>
                       )}
                     </div>
@@ -166,44 +166,47 @@ const firstYear = Math.min(...events.map((group) => group.data.year));
                     <div
                       aria-hidden="true"
                       class:list={[
-                        "bg-pink text-on-pink pointer-events-none relative z-1 flex aspect-video items-end p-5 md:p-6",
-                        isWide && "sm:m-5 sm:rounded-2xl md:m-6",
+                        "bg-pink text-on-pink pointer-events-none relative z-1 flex aspect-video items-end p-4 md:p-[18px]",
+                        isWide && "sm:m-4 sm:rounded-xl md:m-[18px]",
                       ]}
                     >
-                      <p class="font-display text-2xl leading-tight font-extrabold tracking-[-0.02em] md:text-3xl">
+                      <p class="font-display text-heading leading-tight font-extrabold tracking-[-0.02em]">
                         {event.name}
                       </p>
                     </div>
                   )}
                   <div
                     class:list={[
-                      "pointer-events-none relative z-1 flex flex-1 flex-col gap-2 px-5 pb-5 md:px-6 md:pb-6",
-                      isWide && "sm:pt-6",
+                      "pointer-events-none relative z-1 flex flex-1 flex-col gap-1.5 px-4 pb-4 md:px-[18px] md:pb-[18px]",
+                      isWide && "sm:pt-[18px]",
                     ]}
                   >
-                    <h3 class="font-display group-hover:text-primary text-xl leading-snug font-bold tracking-[-0.015em] transition-colors md:text-[1.375rem]">
+                    <h3 class="font-display group-hover:text-primary text-title leading-snug font-bold tracking-[-0.015em] transition-colors">
                       {event.title}
                     </h3>
-                    <p class="text-sm font-semibold">
+                    <p class="text-caption font-semibold">
                       {event.name}
-                      <span class="text-muted-foreground font-mono text-xs font-normal">
-                        {" "}· <time datetime={new Date(event.date).toISOString().split("T")[0]}>{event.date}</time>
-                      </span>
+                      <time
+                        class="text-muted-foreground text-meta mt-0.5 block font-mono font-normal"
+                        datetime={new Date(event.date).toISOString().split("T")[0]}
+                      >
+                        {event.date}
+                      </time>
                     </p>
-                    <p class="text-muted-foreground text-[15px] leading-relaxed">
+                    <p class="text-muted-foreground text-body leading-relaxed">
                       {event.description}
                     </p>
                     {event.cta && event.cta.length > 0 && (
-                      <div class="mt-auto flex flex-wrap gap-1.5 pt-2">
+                      <div class="mt-auto flex flex-wrap gap-1 pt-1.5">
                         {event.cta.map((cta) => (
                           <a
                             href={cta.url}
                             target="_blank"
                             rel="noopener"
-                            class="bg-muted hover:bg-foreground hover:text-background pointer-events-auto relative z-2 inline-flex min-h-10 items-center gap-1 rounded-full px-3.5 text-[13px] font-semibold transition-colors"
+                            class="bg-muted hover:bg-foreground hover:text-background pointer-events-auto relative z-2 text-caption inline-flex min-h-8 items-center gap-1 rounded-full px-3 font-semibold transition-colors"
                           >
                             {cta.title}
-                            <Icon name="arrow-up-right" class="size-3.5" />
+                            <Icon name="arrow-up-right" class="size-3" />
                           </a>
                         ))}
                       </div>

@@ -64,34 +64,34 @@ await getOGImage({
   image={image}
   canonical={canonical}
 >
-  <article id="article" class="mx-auto flex max-w-[60rem] flex-col gap-3 md:gap-4">
-    <nav aria-label="Newsletter navigation" class="flex flex-wrap gap-2">
+  <article id="article" class="mx-auto flex max-w-[52rem] flex-col gap-3 md:gap-5">
+    <nav aria-label="Newsletter navigation" class="flex flex-wrap gap-1.5">
       <a
         href="/newsletter/"
-        class="bg-card hover:bg-foreground hover:text-background inline-flex min-h-11 items-center gap-2 rounded-full px-4 text-sm font-medium transition-colors"
+        class="bg-card hover:bg-foreground hover:text-background inline-flex min-h-9 items-center gap-1.5 rounded-full px-3.5 text-caption font-medium transition-colors"
       >
-        <Icon name="arrow-right" class="size-4 rotate-180" />
+        <Icon name="arrow-right" class="size-3.5 rotate-180" />
         Back to newsletter
       </a>
     </nav>
 
-    <header class="grid gap-3 md:grid-cols-4 md:gap-4">
-      <Tile as="div" class="md:col-span-3 md:p-10">
-        <h1 class="font-display text-[clamp(2.25rem,5vw,3.5rem)] leading-[1.02] font-extrabold tracking-[-0.03em]">
+    <header class="grid gap-3 md:grid-cols-4 md:gap-5">
+      <Tile as="div" class="md:col-span-3 md:p-7">
+        <h1 class="font-display text-subdisplay md:text-display leading-[1.05] font-extrabold tracking-[-0.03em]">
           {title}
         </h1>
       </Tile>
-      <Tile tone="green" class="flex flex-col justify-between gap-6">
-        <span class="bg-on-green/10 self-start rounded-full px-3 py-1 text-sm font-semibold">
+      <Tile tone="green" class="flex flex-col justify-between gap-5">
+        <span class="bg-on-green/10 self-start rounded-full px-2.5 py-0.5 text-caption font-semibold">
           Newsletter
         </span>
-        <time datetime={dateValue} class="font-mono text-sm font-medium">
+        <time datetime={dateValue} class="font-mono text-meta font-medium">
           {dateDisplay}
         </time>
       </Tile>
     </header>
 
-    <Tile as="div" class="px-5 py-8 md:px-10 md:py-12 lg:px-16">
+    <Tile as="div" class="px-5 py-7 md:px-10 md:py-10">
       <div class="prose mx-auto max-w-[68ch]" set:html={content} />
     </Tile>
 
@@ -103,14 +103,14 @@ await getOGImage({
 
     {
       (prev || next) && (
-        <nav aria-label="More issues" class="grid gap-3 md:grid-cols-2 md:gap-4">
+        <nav aria-label="More issues" class="grid gap-3 md:grid-cols-2 md:gap-5">
           {prev ? (
-            <Tile href={`/newsletter/${prev.slug}/`} class="flex items-center gap-4">
+            <Tile href={`/newsletter/${prev.slug}/`} class="flex items-center gap-3">
               <Icon
                 name="arrow-right"
-                class="text-muted-foreground size-5 rotate-180 transition-transform duration-300 ease-out-expo group-hover:-translate-x-1"
+                class="text-muted-foreground size-4 rotate-180 transition-transform duration-300 ease-out-expo group-hover:-translate-x-1"
               />
-              <span class="text-base leading-snug font-semibold">{prev.title}</span>
+              <span class="text-body leading-snug font-semibold">{prev.title}</span>
             </Tile>
           ) : (
             <span class="hidden md:block" />
@@ -118,12 +118,12 @@ await getOGImage({
           {next && (
             <Tile
               href={`/newsletter/${next.slug}/`}
-              class="flex items-center justify-end gap-4 text-right"
+              class="flex items-center justify-end gap-3 text-right"
             >
-              <span class="text-base leading-snug font-semibold">{next.title}</span>
+              <span class="text-body leading-snug font-semibold">{next.title}</span>
               <Icon
                 name="arrow-right"
-                class="text-muted-foreground size-5 transition-transform duration-300 ease-out-expo group-hover:translate-x-1"
+                class="text-muted-foreground size-4 transition-transform duration-300 ease-out-expo group-hover:translate-x-1"
               />
             </Tile>
           )}

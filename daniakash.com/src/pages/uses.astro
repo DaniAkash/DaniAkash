@@ -24,39 +24,39 @@ const resolveImage = (path?: string) => {
 };
 
 const hardwareSpan = {
-  wide: "col-span-2 md:col-span-4",
-  square: "col-span-2 md:col-span-2",
-  small: "col-span-1 md:col-span-1",
+  wide: "col-span-2 md:col-span-4 lg:col-span-4",
+  square: "col-span-2 md:col-span-2 lg:col-span-2",
+  small: "col-span-1 md:col-span-1 lg:col-span-1",
 } as const;
 ---
 
 <MainLayout title="Uses" description="Hardware, software, and tools Dani Akash uses for development.">
   <section
     aria-label="Uses introduction"
-    class="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4 lg:grid-cols-6"
+    class="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-5 lg:grid-cols-6"
   >
     <Tile
       as="header"
-      class="col-span-2 flex flex-col justify-end gap-4 md:col-span-4 md:min-h-[18rem] lg:col-span-4"
+      class="col-span-2 flex flex-col justify-end gap-2 md:col-span-4 md:min-h-[13rem] lg:col-span-4"
     >
-      <h1 class="font-display text-[clamp(2.5rem,5vw,4.5rem)] leading-[0.95] font-extrabold tracking-[-0.035em]">
+      <h1 class="font-display text-subdisplay md:text-display leading-[1] font-extrabold tracking-[-0.03em]">
         Tools of the Trade
       </h1>
-      <p class="text-muted-foreground max-w-[44ch] text-lg leading-snug md:text-xl">
+      <p class="text-muted-foreground text-lede max-w-[44ch] leading-snug">
         A peek behind the curtain — the stuff that keeps me running (and coding).
       </p>
     </Tile>
-    <Tile tone="yellow" class="flex min-h-[10rem] flex-col justify-end md:col-span-2 lg:col-span-1">
-      <p class="font-display tabular text-6xl leading-none font-extrabold tracking-[-0.03em]">
+    <Tile tone="yellow" class="flex min-h-[8.5rem] flex-col justify-end md:col-span-2 lg:col-span-1">
+      <p class="font-display tabular text-stat leading-none font-extrabold tracking-[-0.03em]">
         {toolCount}
       </p>
-      <p class="mt-2 text-sm font-semibold">Tools on this page</p>
+      <p class="text-caption mt-1.5 font-semibold">Tools on this page</p>
     </Tile>
-    <Tile tone="ink" class="flex min-h-[10rem] flex-col justify-end md:col-span-2 lg:col-span-1">
-      <p class="font-display tabular text-6xl leading-none font-extrabold tracking-[-0.03em]">
+    <Tile tone="ink" class="flex min-h-[8.5rem] flex-col justify-end md:col-span-2 lg:col-span-1">
+      <p class="font-display tabular text-stat leading-none font-extrabold tracking-[-0.03em]">
         {agentCount}
       </p>
-      <p class="text-on-ink-muted mt-2 text-sm font-semibold">Coding agents</p>
+      <p class="text-on-ink-muted text-caption mt-1.5 font-semibold">Coding agents</p>
     </Tile>
   </section>
 
@@ -66,16 +66,16 @@ const hardwareSpan = {
       const headingId = `uses-${section.title.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
 
       return (
-        <section aria-labelledby={headingId} class="mt-10 md:mt-14">
+        <section aria-labelledby={headingId} class="mt-8 md:mt-11">
           <h2
             id={headingId}
-            class="font-display mb-4 px-1 text-3xl leading-none font-bold tracking-[-0.025em] md:mb-5 md:text-4xl"
+            class="font-display text-heading mb-3 px-1 leading-none font-bold tracking-[-0.02em] md:mb-4"
           >
             {section.title}
           </h2>
 
           {isHardware ? (
-            <div class="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4">
+            <div class="grid grid-flow-row-dense grid-cols-2 gap-3 md:grid-cols-4 md:gap-5 lg:grid-cols-6">
               {section.tools.map((tool) => {
                 const size = tool.size ?? "square";
                 const img = resolveImage(tool.image);
@@ -92,7 +92,7 @@ const hardwareSpan = {
                       class:list={[
                         "bg-muted relative overflow-hidden",
                         size === "wide" &&
-                          "aspect-[16/10] md:aspect-auto md:min-h-[20rem] md:w-[55%]",
+                          "aspect-[16/10] md:aspect-auto md:min-h-[14rem] md:w-[55%]",
                         size === "square" && "aspect-[4/3]",
                         size === "small" && "aspect-square",
                       ]}
@@ -109,30 +109,30 @@ const hardwareSpan = {
                     </div>
                     <div
                       class:list={[
-                        "flex flex-1 flex-col gap-2",
-                        size === "small" ? "p-4" : "p-5 md:p-6",
-                        size === "wide" && "md:justify-center md:p-8",
+                        "flex flex-1 flex-col gap-1.5",
+                        size === "small" ? "p-3.5" : "p-4 md:p-[18px]",
+                        size === "wide" && "md:justify-center md:p-6",
                       ]}
                     >
                       <h3
                         class:list={[
                           "font-display leading-tight font-bold tracking-[-0.015em]",
-                          size === "wide" && "text-2xl md:text-3xl",
-                          size === "square" && "text-xl md:text-2xl",
-                          size === "small" && "text-base md:text-lg",
+                          size === "wide" && "text-heading",
+                          size === "square" && "text-title",
+                          size === "small" && "text-lede",
                         ]}
                       >
                         {tool.title}
                       </h3>
                       {tool.tag && (
-                        <span class="bg-yellow text-on-yellow self-start rounded-full px-2.5 py-0.5 text-xs font-semibold">
+                        <span class="bg-yellow text-on-yellow text-meta self-start rounded-full px-2 py-0.5 font-semibold">
                           {tool.tag}
                         </span>
                       )}
                       <p
                         class:list={[
                           "text-muted-foreground leading-relaxed",
-                          size === "small" ? "text-[13px]" : "text-[15px]",
+                          size === "small" ? "text-caption" : "text-body",
                         ]}
                       >
                         {tool.description}
@@ -143,7 +143,7 @@ const hardwareSpan = {
               })}
             </div>
           ) : (
-            <div class="grid gap-3 sm:grid-cols-2 md:gap-4 lg:grid-cols-3">
+            <div class="grid gap-3 sm:grid-cols-2 md:gap-5 lg:grid-cols-3">
               {section.tools.map((tool) => {
                 const img = resolveImage(tool.image);
                 return (
@@ -151,9 +151,9 @@ const hardwareSpan = {
                     {...(tool.link
                       ? { href: tool.link, target: "_blank", rel: "noopener" }
                       : {})}
-                    class="flex gap-4"
+                    class="flex gap-3"
                   >
-                    <div class="bg-muted flex size-14 shrink-0 items-center justify-center overflow-hidden rounded-2xl">
+                    <div class="bg-muted flex size-10 shrink-0 items-center justify-center overflow-hidden rounded-xl">
                       {img && (
                         <img
                           src={img}
@@ -164,24 +164,24 @@ const hardwareSpan = {
                         />
                       )}
                     </div>
-                    <div class="flex min-w-0 flex-1 flex-col gap-1.5">
+                    <div class="flex min-w-0 flex-1 flex-col gap-1">
                       <div class="flex items-start justify-between gap-2">
-                        <h3 class="text-lg leading-snug font-semibold">
+                        <h3 class="text-title leading-snug font-semibold">
                           {tool.title}
                         </h3>
                         {tool.link && (
                           <Icon
                             name="arrow-up-right"
-                            class="text-muted-foreground group-hover:text-foreground mt-1 size-4 transition-[color,transform] duration-300 ease-out-expo group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                            class="text-muted-foreground group-hover:text-foreground mt-0.5 size-3.5 transition-[color,transform] duration-300 ease-out-expo group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
                           />
                         )}
                       </div>
                       {tool.tag && (
-                        <span class="bg-muted self-start rounded-full px-2.5 py-0.5 text-xs font-semibold">
+                        <span class="bg-muted text-meta self-start rounded-full px-2 py-0.5 font-semibold">
                           {tool.tag}
                         </span>
                       )}
-                      <p class="text-muted-foreground text-sm leading-relaxed">
+                      <p class="text-muted-foreground text-body leading-relaxed">
                         {tool.description}
                       </p>
                     </div>

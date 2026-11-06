@@ -120,29 +120,29 @@ const isExternal = (href: string) => href.startsWith("http");
   <!-- First viewport bento -->
   <section
     aria-label="Introduction"
-    class="grid grid-flow-row-dense grid-cols-2 gap-3 md:grid-cols-4 md:gap-4 lg:grid-cols-6 lg:grid-rows-[repeat(4,minmax(11.25rem,auto))]"
+    class="grid grid-flow-row-dense grid-cols-2 gap-3 md:grid-cols-4 md:gap-5 lg:grid-cols-6 lg:grid-rows-[repeat(4,minmax(8.625rem,auto))]"
   >
     <Tile
       as="div"
-      class="col-span-2 flex flex-col justify-between gap-8 md:col-span-2 lg:row-span-2"
+      class="col-span-2 flex flex-col justify-between gap-6 md:col-span-2 lg:row-span-2"
     >
       <img
         src={photos.cat.src}
         alt=""
-        width="80"
-        height="80"
-        class="size-16 rounded-full object-cover object-[30%_20%] md:size-20"
+        width="48"
+        height="48"
+        class="size-12 rounded-full object-cover object-[30%_20%]"
         loading="eager"
         decoding="async"
       />
       <div>
-        <h1 class="font-display text-[clamp(2.75rem,4.6vw,4.5rem)] leading-[0.95] font-extrabold tracking-[-0.035em]">
-          Hi, I’m Dani Akash.
+        <h1 class="font-display text-subdisplay md:text-display leading-none font-extrabold tracking-[-0.03em]">
+          Hi, I’m <br class="hidden md:block" />Dani Akash.
         </h1>
-        <p class="mt-4 text-lg font-semibold md:text-xl">
+        <p class="text-body mt-2.5 font-semibold">
           AI Engineer · Builder · Speaker
         </p>
-        <p class="text-muted-foreground mt-2 max-w-[34ch] text-lg leading-snug md:text-xl">
+        <p class="text-muted-foreground text-body mt-0.5 max-w-[30ch] leading-snug">
           A simple developer building AI agents for humans.
         </p>
       </div>
@@ -164,20 +164,20 @@ const isExternal = (href: string) => href.startsWith("http");
     <Tile
       href="/projects/"
       tone="blue"
-      class="col-span-2 flex min-h-[11.25rem] flex-col justify-end gap-6"
+      class="col-span-2 flex min-h-[8.625rem] flex-col justify-end gap-4"
     >
-      <div class="flex flex-col items-start gap-4 sm:flex-row sm:items-end sm:justify-between">
+      <div class="flex flex-col items-start gap-3 sm:flex-row sm:items-end sm:justify-between">
         <div class="min-w-0">
-          <h2 class="font-display flex items-center gap-2.5 text-3xl leading-none font-extrabold tracking-[-0.025em] 2xl:text-4xl">
+          <h2 class="font-display text-heading flex items-center gap-2 leading-none font-extrabold tracking-[-0.025em]">
             BrowserOS
-            <span class="bg-on-blue size-2.5 animate-pulse rounded-full" aria-hidden="true"></span>
+            <span class="bg-on-blue size-2 animate-pulse rounded-full" aria-hidden="true"></span>
           </h2>
-          <p class="mt-2 text-[15px] opacity-90">
+          <p class="text-caption mt-1 opacity-90">
             Building now: an AI-powered browser for agents
           </p>
         </div>
-        <span class="bg-on-blue text-blue inline-flex shrink-0 items-center gap-2 rounded-full px-4 py-2.5 text-sm font-semibold transition-transform duration-300 ease-out-expo group-hover:translate-x-1">
-          Explore the work <Icon name="arrow-right" class="size-4" />
+        <span class="bg-on-blue text-blue inline-flex shrink-0 items-center gap-1.5 text-caption rounded-full px-3 py-1.5 font-semibold whitespace-nowrap transition-transform duration-300 ease-out-expo group-hover:translate-x-1">
+          Explore the work <Icon name="arrow-right" class="size-3.5" />
         </span>
       </div>
     </Tile>
@@ -187,18 +187,18 @@ const isExternal = (href: string) => href.startsWith("http");
       target="_blank"
       rel="noopener"
       tone="yellow"
-      class="flex min-h-[11.25rem] flex-col justify-between"
+      class="flex min-h-[8.625rem] flex-col justify-between"
     >
-      <Icon name="github" class="size-6" />
+      <Icon name="github" class="size-4.5" />
       <div>
-        <p class="font-display tabular text-5xl leading-none font-extrabold tracking-[-0.03em] md:text-[3.5rem]">
+        <p class="font-display tabular text-stat leading-none font-extrabold tracking-[-0.03em]">
           {starsStat.number}
         </p>
-        <p class="mt-2 text-sm font-semibold">{starsStat.label}</p>
+        <p class="text-caption mt-1 font-semibold">{starsStat.label}</p>
       </div>
     </Tile>
 
-    <Tile tone="photo" class="min-h-[11.25rem]">
+    <Tile tone="photo" class="min-h-[8.625rem]">
       <img
         src={photos.cosplay.src}
         alt={photos.cosplay.alt}
@@ -216,32 +216,32 @@ const isExternal = (href: string) => href.startsWith("http");
       <div class="flex items-baseline justify-between gap-4">
         <h2
           id="latest-writing"
-          class="font-display text-2xl font-bold tracking-[-0.02em]"
+          class="font-display text-title font-bold tracking-[-0.015em]"
         >
           Latest writing
         </h2>
         <a
           href="/blog/"
-          class="text-muted-foreground hover:text-foreground inline-flex min-h-11 shrink-0 items-center gap-1 text-sm font-medium whitespace-nowrap transition-colors"
+          class="text-muted-foreground hover:text-foreground text-caption inline-flex min-h-8 shrink-0 items-center gap-1 font-medium whitespace-nowrap transition-colors"
         >
-          View all posts <Icon name="arrow-right" class="size-4" />
+          View all posts <Icon name="arrow-right" class="size-3.5" />
         </a>
       </div>
-      <ul class="mt-2 flex flex-1 flex-col">
+      <ul class="mt-1.5 flex flex-1 flex-col justify-around">
         {
           latestPosts.map((post) => (
             <li class="border-border border-t first:border-t-0">
               <a
                 href={`/posts/${post.id}/`}
-                class="group/post hover:text-primary flex flex-col gap-1 py-3.5 transition-colors"
+                class="group/post hover:text-primary flex flex-col gap-0.5 py-2 transition-colors"
               >
                 <time
                   datetime={new Date(post.data.date).toISOString()}
-                  class="text-muted-foreground font-mono text-xs"
+                  class="text-muted-foreground text-meta font-mono"
                 >
                   {formatDate(post.data.date)}
                 </time>
-                <span class="text-[17px] leading-snug font-semibold">
+                <span class="text-body leading-snug font-semibold">
                   {post.data.title}
                 </span>
               </a>
@@ -264,17 +264,17 @@ const isExternal = (href: string) => href.startsWith("http");
     <Tile
       href="/about/"
       tone="ink"
-      class="col-span-2 flex min-h-[11.25rem] items-center gap-5 py-4 md:col-span-2"
+      class="col-span-2 flex min-h-[8.625rem] items-center gap-4 py-3 md:col-span-2"
     >
-      <div class="w-28 shrink-0 md:w-36" aria-hidden="true">
+      <div class="w-24 shrink-0" aria-hidden="true">
         <GlobeMini client:visible markers={globeMarkers} />
       </div>
       <div>
-        <h2 class="font-display text-2xl leading-tight font-bold tracking-[-0.02em] md:text-[1.75rem]">
+        <h2 class="font-display text-title leading-tight font-bold tracking-[-0.02em]">
           {destinations.length} places on my globe
         </h2>
-        <p class="text-on-ink-muted mt-1 inline-flex items-center gap-1 text-sm font-medium">
-          Spin it on the about page <Icon name="arrow-right" class="size-4 transition-transform duration-300 ease-out-expo group-hover:translate-x-1" />
+        <p class="text-on-ink-muted text-caption mt-1 inline-flex items-center gap-1 font-medium">
+          Spin it on the about page <Icon name="arrow-right" class="size-3.5 transition-transform duration-300 ease-out-expo group-hover:translate-x-1" />
         </p>
       </div>
     </Tile>
@@ -282,70 +282,73 @@ const isExternal = (href: string) => href.startsWith("http");
     <Tile
       href="/speaking/"
       tone="pink"
-      class="flex min-h-[11.25rem] flex-col justify-between lg:row-span-2"
+      class="flex min-h-[8.625rem] flex-col justify-between lg:row-span-2"
     >
-      <h2 class="text-sm font-semibold">Talks since {firstTalkYear}</h2>
+      <h2 class="text-caption font-semibold">Talks since {firstTalkYear}</h2>
       <div>
-        <p class="font-display tabular text-6xl leading-none font-extrabold tracking-[-0.03em] md:text-7xl">
+        <p class="font-display tabular text-stat leading-none font-extrabold tracking-[-0.03em]">
           {talkCount}
         </p>
-        <p class="mt-3 inline-flex items-center gap-1 text-sm font-semibold">
-          See every talk <Icon name="arrow-right" class="size-4 transition-transform duration-300 ease-out-expo group-hover:translate-x-1" />
+        <p class="text-caption mt-1.5 inline-flex items-center gap-1 font-semibold">
+          See every talk <Icon name="arrow-right" class="size-3.5 transition-transform duration-300 ease-out-expo group-hover:translate-x-1" />
         </p>
       </div>
     </Tile>
 
-    <Tile href="/now/" class="flex min-h-[11.25rem] flex-col justify-between">
-      <span class="bg-blue size-2.5 animate-pulse rounded-full" aria-hidden="true"></span>
+    <Tile href="/now/" class="flex min-h-[8.625rem] flex-col justify-between">
+      <span class="bg-blue size-2 animate-pulse rounded-full" aria-hidden="true"></span>
       <div>
-        <h2 class="font-display text-2xl font-bold tracking-[-0.02em]">Now</h2>
-        <p class="text-muted-foreground mt-1 inline-flex items-center gap-1 text-sm font-medium">
-          What I’m up to <Icon name="arrow-right" class="size-4 transition-transform duration-300 ease-out-expo group-hover:translate-x-1" />
+        <h2 class="font-display text-title font-bold tracking-[-0.015em]">Now</h2>
+        <p class="text-muted-foreground text-caption font-medium whitespace-nowrap">
+          What I’m up to <Icon name="arrow-right" class="inline-block size-3.5 align-[-2px] transition-transform duration-300 ease-out-expo group-hover:translate-x-1" />
         </p>
       </div>
     </Tile>
 
-    <Tile href="/uses/" class="flex min-h-[11.25rem] flex-col justify-end">
-      <h2 class="font-display text-2xl font-bold tracking-[-0.02em]">Uses</h2>
-      <p class="text-muted-foreground mt-1 inline-flex items-center gap-1 text-sm font-medium">
-        My desk and tools <Icon name="arrow-right" class="size-4 transition-transform duration-300 ease-out-expo group-hover:translate-x-1" />
-      </p>
+    <Tile href="/uses/" class="flex min-h-[8.625rem] flex-col justify-between">
+      <span class="bg-muted-foreground/40 size-2 rounded-full" aria-hidden="true"></span>
+      <div>
+        <h2 class="font-display text-title font-bold tracking-[-0.015em]">Uses</h2>
+        <p class="text-muted-foreground text-caption font-medium whitespace-nowrap">
+          My desk and tools <Icon name="arrow-right" class="inline-block size-3.5 align-[-2px] transition-transform duration-300 ease-out-expo group-hover:translate-x-1" />
+        </p>
+      </div>
     </Tile>
   </section>
 
   <!-- Second band: more writing, work, speaking, connect -->
   <section
     aria-label="Writing and work"
-    class="mt-3 grid grid-cols-2 gap-3 md:mt-4 md:grid-cols-4 md:gap-4 lg:grid-cols-6"
+    class="mt-3 grid grid-cols-2 gap-3 md:mt-5 md:grid-cols-4 md:gap-5 lg:grid-cols-6"
     id="work"
   >
     <Tile as="section" aria-labelledby="more-writing" class="col-span-2 md:col-span-4">
       <h2
         id="more-writing"
-        class="font-display text-2xl font-bold tracking-[-0.02em] md:text-3xl"
+        class="font-display text-title font-bold tracking-[-0.015em]"
       >
         More from the blog
       </h2>
-      <ul class="mt-2">
+      <ul class="mt-1.5">
         {
           morePosts.map((post) => (
             <li class="border-border border-t first:border-t-0">
               <a
                 href={`/posts/${post.id}/`}
-                class="group/post hover:text-primary grid grid-cols-[5.5rem_1fr_auto] items-baseline gap-4 py-3.5 transition-colors sm:grid-cols-[7rem_1fr_auto]"
+                class="group/post hover:text-primary grid grid-cols-[5rem_1fr_auto] items-baseline gap-3 py-2 transition-colors sm:grid-cols-[5.5rem_1fr_auto]"
               >
                 <time
                   datetime={new Date(post.data.date).toISOString()}
-                  class="text-muted-foreground font-mono text-xs"
+                  class="text-muted-foreground text-meta font-mono"
                 >
                   {formatDate(post.data.date)}
                 </time>
-                <span class="text-base leading-snug font-semibold">
+                <span class="text-body leading-snug font-semibold">
                   {post.data.title}
                 </span>
                 <Icon
                   name="arrow-right"
-                  class="text-muted-foreground hidden size-4 transition-transform duration-300 ease-out-expo group-hover/post:translate-x-1 sm:block"
+                  class="text-muted-foreground hidden size-3.5 transition-transform duration-300 ease-out-expo group-hover/post:translate-x-1 sm:block"
                 />
               </a>
             </li>
@@ -357,27 +360,27 @@ const isExternal = (href: string) => href.startsWith("http");
     <Tile as="section" aria-labelledby="work-heading" class="col-span-2 flex flex-col lg:row-span-2">
       <h2
         id="work-heading"
-        class="font-display text-2xl font-bold tracking-[-0.02em] md:text-3xl"
+        class="font-display text-title font-bold tracking-[-0.015em]"
       >
         Work
       </h2>
-      <ul class="mt-3 flex flex-1 flex-col justify-between">
+      <ul class="mt-1.5 flex flex-1 flex-col justify-between">
         {
           experience.map((job) => (
-            <li class="border-border flex items-center gap-3 border-t py-3 first:border-t-0">
+            <li class="border-border flex items-center gap-2.5 border-t py-2 first:border-t-0">
               <img
                 src={assetUrl(job.logo)}
                 alt=""
-                width="40"
-                height="40"
+                width="28"
+                height="28"
                 loading="lazy"
-                class="bg-muted size-10 shrink-0 rounded-xl object-contain p-1.5"
+                class="bg-muted size-7 shrink-0 rounded-lg object-contain p-1"
               />
               <div class="min-w-0 flex-1">
-                <p class="truncate font-semibold">{job.company}</p>
-                <p class="text-muted-foreground truncate text-sm">{job.role}</p>
+                <p class="text-body truncate leading-tight font-semibold">{job.company}</p>
+                <p class="text-muted-foreground text-meta truncate">{job.role}</p>
               </div>
-              <span class="text-muted-foreground shrink-0 text-right font-mono text-xs">
+              <span class="text-muted-foreground text-meta shrink-0 text-right font-mono">
                 {job.startDate}
                 <br />
                 {job.endDate}
@@ -388,20 +391,20 @@ const isExternal = (href: string) => href.startsWith("http");
       </ul>
       <a
         href="/resume/"
-        class="bg-foreground text-background hover:bg-primary hover:text-primary-foreground mt-4 inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-5 font-semibold transition-colors"
+        class="bg-foreground text-background hover:bg-primary hover:text-primary-foreground mt-3 inline-flex min-h-9 items-center justify-center text-caption gap-1.5 rounded-full px-4 font-semibold transition-colors"
       >
-        Resume <Icon name="arrow-right" class="size-4" />
+        Resume <Icon name="arrow-right" class="size-3.5" />
       </a>
     </Tile>
 
-    <Tile as="section" aria-labelledby="speaking-heading" tone="pink" class="col-span-2 flex flex-col justify-between gap-6">
+    <Tile as="section" aria-labelledby="speaking-heading" tone="pink" class="col-span-2 flex flex-col justify-between gap-4">
       <h2
         id="speaking-heading"
-        class="font-display text-2xl font-bold tracking-[-0.02em] md:text-3xl"
+        class="font-display text-title font-bold tracking-[-0.015em]"
       >
         Speaking
       </h2>
-      <p class="text-[17px] leading-relaxed">
+      <p class="text-body">
         I regularly speak at community meetups and conferences about AI,
         JavaScript, React Native, and the web. I've given 25+ talks since 2017
         across events like React Nexus, JSLovers, Thoughtworks Geeknight, React
@@ -409,9 +412,9 @@ const isExternal = (href: string) => href.startsWith("http");
       </p>
       <a
         href="/speaking/"
-        class="bg-ink text-on-ink hover:bg-ink-hover inline-flex min-h-12 items-center justify-center gap-2 self-start rounded-full px-5 font-semibold transition-colors"
+        class="bg-ink text-on-ink hover:bg-ink-hover inline-flex min-h-9 items-center justify-center gap-1.5 text-caption self-start rounded-full px-4 font-semibold transition-colors"
       >
-        View all talks <Icon name="arrow-right" class="size-4" />
+        View all talks <Icon name="arrow-right" class="size-3.5" />
       </a>
     </Tile>
 
@@ -428,11 +431,11 @@ const isExternal = (href: string) => href.startsWith("http");
     <Tile as="section" aria-labelledby="connect-heading" class="col-span-2 md:col-span-4 lg:col-span-6">
       <h2
         id="connect-heading"
-        class="font-display text-2xl font-bold tracking-[-0.02em] md:text-3xl"
+        class="font-display text-title font-bold tracking-[-0.015em]"
       >
         Connect
       </h2>
-      <ul class="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+      <ul class="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
         {
           connectLinks.map((link) => (
             <li>
@@ -440,14 +443,14 @@ const isExternal = (href: string) => href.startsWith("http");
                 href={link.href}
                 target={isExternal(link.href) ? "_blank" : undefined}
                 rel={isExternal(link.href) ? "noopener" : undefined}
-                class="bg-muted hover:bg-foreground hover:text-background flex min-h-14 items-center gap-3 rounded-2xl px-4 py-2.5 transition-colors"
+                class="bg-muted hover:bg-foreground hover:text-background flex min-h-11 items-center gap-2.5 rounded-xl px-3 py-1.5 transition-colors"
               >
-                <Icon name={link.icon} />
+                <Icon name={link.icon} class="size-4" />
                 <span class="min-w-0">
-                  <span class="block text-xs font-medium opacity-70">
+                  <span class="text-meta block font-medium opacity-70">
                     {link.platform}
                   </span>
-                  <span class="block truncate font-semibold">{link.handle}</span>
+                  <span class="text-caption block truncate font-semibold">{link.handle}</span>
                 </span>
               </a>
             </li>

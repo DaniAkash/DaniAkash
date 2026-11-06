@@ -75,18 +75,18 @@ const connectLinks: { label: string; href: string; icon: IconName }[] = [
     }}
   />
 
-  <div class="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4 lg:grid-cols-6">
+  <div class="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-5 lg:grid-cols-6">
     <Tile
       as="header"
-      class="col-span-2 flex min-h-[16rem] flex-col justify-end gap-4 md:col-span-4 lg:col-span-3 lg:min-h-[20rem]"
+      class="col-span-2 flex min-h-[7.5rem] flex-col justify-end gap-2.5 md:col-span-4 md:min-h-[11rem] lg:col-span-3 lg:min-h-[13rem]"
     >
-      <h1 class="font-display text-[clamp(3rem,6vw,5.5rem)] leading-[0.92] font-extrabold tracking-[-0.035em]">
+      <h1 class="font-display text-subdisplay md:text-display leading-[0.95] font-extrabold tracking-[-0.03em]">
         I’m Dani Akash
       </h1>
-      <p class="text-muted-foreground flex flex-wrap items-center gap-x-4 gap-y-1 text-lg">
+      <p class="text-muted-foreground flex flex-wrap items-center gap-x-3 gap-y-1 text-lede">
         <span class="text-foreground font-semibold">AI Engineer · Builder · Speaker</span>
-        <span class="inline-flex items-center gap-1.5">
-          <Icon name="map-pin" class="size-4" /> Chennai, India
+        <span class="inline-flex items-center gap-1">
+          <Icon name="map-pin" class="size-3.5" /> Chennai, India
         </span>
       </p>
     </Tile>
@@ -111,21 +111,21 @@ const connectLinks: { label: string; href: string; icon: IconName }[] = [
       />
     </Tile>
 
-    <div class="col-span-2 flex flex-col gap-3 md:col-span-4 md:gap-4 lg:col-span-3">
-      <Tile as="article" class="md:p-10">
+    <div class="col-span-2 flex flex-col gap-3 md:col-span-4 md:gap-5 lg:col-span-3">
+      <Tile as="article" class="md:p-7">
         <div class="prose max-w-[68ch]">
           <Content />
         </div>
       </Tile>
 
-      <Tile as="section" aria-labelledby="about-connect" class="md:p-10">
+      <Tile as="section" aria-labelledby="about-connect" class="md:p-6">
         <h2
           id="about-connect"
-          class="font-display text-2xl font-bold tracking-[-0.02em] md:text-3xl"
+          class="font-display text-title font-bold tracking-[-0.02em]"
         >
           SYSTEM.CONNECT // UPLINKS
         </h2>
-        <ul class="mt-5 grid gap-2 sm:grid-cols-2">
+        <ul class="mt-3 grid gap-2 sm:grid-cols-2">
           {
             connectLinks.map((link) => (
               <li>
@@ -133,9 +133,9 @@ const connectLinks: { label: string; href: string; icon: IconName }[] = [
                   href={link.href}
                   target={link.href.startsWith("mailto") ? undefined : "_blank"}
                   rel="noopener"
-                  class="bg-muted hover:bg-foreground hover:text-background flex min-h-14 items-center gap-3 rounded-2xl px-4 py-2.5 font-semibold transition-colors"
+                  class="bg-muted hover:bg-foreground hover:text-background flex min-h-10 items-center gap-2.5 rounded-xl px-3 py-2 text-body font-semibold transition-colors"
                 >
-                  <Icon name={link.icon} />
+                  <Icon name={link.icon} class="size-4" />
                   <span class="min-w-0 truncate">{link.label}</span>
                 </a>
               </li>
@@ -149,16 +149,16 @@ const connectLinks: { label: string; href: string; icon: IconName }[] = [
       as="aside"
       tone="ink"
       aria-labelledby="about-destinations"
-      class="col-span-2 flex h-[34rem] flex-col gap-3 md:col-span-4 md:h-[40rem] lg:sticky lg:top-6 lg:col-span-3 lg:h-[calc(100vh-3rem)] lg:max-h-[56rem] lg:self-start"
+      class="col-span-2 flex h-[28rem] flex-col gap-2 md:col-span-4 md:h-[34rem] lg:sticky lg:top-6 lg:col-span-3 lg:h-[calc(100vh-3rem)] lg:max-h-[40rem] lg:self-start"
     >
       <div class="flex items-baseline justify-between gap-4">
         <h2
           id="about-destinations"
-          class="font-display text-2xl font-bold tracking-[-0.02em] md:text-3xl"
+          class="font-display text-title font-bold tracking-[-0.02em]"
         >
           Destinations
         </h2>
-        <span class="text-on-ink-muted font-mono text-xs">{destinations.length} places</span>
+        <span class="text-on-ink-muted font-mono text-meta">{destinations.length} places</span>
       </div>
       <div class="min-h-0 flex-1">
         <Globe client:only="react" destinations={destinations} />

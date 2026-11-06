@@ -14,12 +14,12 @@ const { class: className } = Astro.props;
   data-theme-toggle
   aria-label="Switch to dark theme"
   class={cn(
-    "text-foreground hover:bg-card inline-flex size-11 cursor-pointer items-center justify-center rounded-full transition-colors",
+    "text-foreground bg-card hover:bg-tile-hover ml-1 inline-flex size-9 cursor-pointer items-center justify-center rounded-full transition-colors",
     className,
   )}
 >
-  <Icon name="moon" class="dark:hidden" />
-  <Icon name="sun" class="hidden dark:block" />
+  <Icon name="moon" class="size-4 dark:hidden" />
+  <Icon name="sun" class="hidden size-4 dark:block" />
 </button>
 
 <script is:inline>

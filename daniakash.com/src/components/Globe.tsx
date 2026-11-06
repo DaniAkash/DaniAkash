@@ -261,9 +261,9 @@ export default function Globe({ destinations: destinationsProp }: GlobeProps) {
         if (proj.visible) {
           polaroidRef.current.style.opacity = "1";
           polaroidRef.current.style.filter = "none";
-          // Clamp so polaroid (140px wide) doesn't overflow either edge
-          const clampedX = Math.min(proj.x, wrapW - 70); // 70 = half of 140px card width
-          const clampedX2 = Math.max(clampedX, 70);
+          // Clamp so polaroid (116px wide) doesn't overflow either edge
+          const clampedX = Math.min(proj.x, wrapW - 58); // 58 = half of 116px card width
+          const clampedX2 = Math.max(clampedX, 58);
           polaroidRef.current.style.left = `${clampedX2}px`;
           polaroidRef.current.style.top = `${proj.y}px`;
           polaroidRef.current.style.transform =
@@ -362,7 +362,7 @@ export default function Globe({ destinations: destinationsProp }: GlobeProps) {
       strokeWidth={1.75}
       strokeLinecap="round"
       strokeLinejoin="round"
-      className="size-5"
+      className="size-4"
     >
       {direction === "left" ? (
         <>
@@ -379,7 +379,7 @@ export default function Globe({ destinations: destinationsProp }: GlobeProps) {
   );
 
   return (
-    <div className="flex h-full flex-col gap-3">
+    <div className="flex h-full flex-col gap-2.5">
       {/* Globe */}
       <div ref={wrapRef} className="relative min-h-0 flex-1 overflow-hidden">
         <canvas
@@ -414,7 +414,7 @@ export default function Globe({ destinations: destinationsProp }: GlobeProps) {
           href={d.w}
           target="_blank"
           rel="noopener"
-          className="absolute z-[3] w-[140px] overflow-hidden rounded-xl bg-on-ink p-1.5 text-ink opacity-0"
+          className="absolute z-[3] w-[116px] overflow-hidden rounded-lg bg-on-ink p-1 text-ink opacity-0"
           style={{
             transition: "opacity 0.6s, filter 0.6s, left 0.3s, top 0.3s",
             pointerEvents: "auto",
@@ -423,9 +423,9 @@ export default function Globe({ destinations: destinationsProp }: GlobeProps) {
           <img
             src={d.img}
             alt={d.n}
-            className="block aspect-[4/3] w-full rounded-lg object-cover"
+            className="block aspect-[4/3] w-full rounded-md object-cover"
           />
-          <div className="truncate px-1 pt-1.5 pb-0.5 text-center font-medium text-xs">
+          <div className="truncate px-1 pt-1 pb-0.5 text-center font-medium text-meta">
             {d.n}
           </div>
         </a>
@@ -444,7 +444,7 @@ export default function Globe({ destinations: destinationsProp }: GlobeProps) {
       {/* biome-ignore lint/a11y/noStaticElementInteractions: redundant mouse affordance; keyboard equivalents are the Prev/Next buttons rendered inside this panel. */}
       {/* biome-ignore lint/a11y/useKeyWithClickEvents: see note above; keyboard equivalent is the Prev/Next buttons inside this panel. */}
       <div
-        className="flex min-h-[112px] cursor-pointer items-start gap-3 rounded-2xl bg-on-ink/[0.07] p-4 transition-colors hover:bg-on-ink/[0.11] sm:gap-4 sm:px-5"
+        className="flex min-h-[88px] cursor-pointer items-start gap-2.5 rounded-xl bg-on-ink/[0.07] p-3 transition-colors hover:bg-on-ink/[0.11] sm:gap-3 sm:px-3.5"
         onClick={(e) => {
           if ((e.target as HTMLElement).closest("a, button, input")) return;
           next();
@@ -452,30 +452,32 @@ export default function Globe({ destinations: destinationsProp }: GlobeProps) {
         }}
       >
         <span
-          className={`mt-1.5 size-2.5 shrink-0 rounded-full ${CAT_COLORS[d.cat]}`}
+          className={`mt-1 size-2 shrink-0 rounded-full ${CAT_COLORS[d.cat]}`}
         />
         <div className="min-w-0 flex-1">
           <a
             href={d.w}
             target="_blank"
             rel="noopener"
-            className="block truncate font-semibold text-[15px] text-on-ink leading-tight underline-offset-4 hover:underline"
+            className="block truncate font-semibold text-body text-on-ink leading-tight underline-offset-4 hover:underline"
             onClick={(e) => e.stopPropagation()}
           >
             {d.n}
           </a>
-          <div className="mt-0.5 truncate text-on-ink-muted text-xs">{d.c}</div>
+          <div className="mt-0.5 truncate text-meta text-on-ink-muted">
+            {d.c}
+          </div>
           <div
-            className="mt-1 line-clamp-1 text-on-ink-muted text-sm leading-snug sm:line-clamp-2"
+            className="mt-1 line-clamp-1 text-caption text-on-ink-muted leading-snug sm:line-clamp-2"
             title={d.sig}
           >
             {d.sig}
           </div>
         </div>
-        <div className="flex shrink-0 items-center gap-1.5">
+        <div className="flex shrink-0 items-center gap-1">
           <button
             type="button"
-            className="inline-flex size-10 cursor-pointer items-center justify-center rounded-full bg-on-ink/10 text-on-ink transition-colors hover:bg-yellow hover:text-on-yellow"
+            className="inline-flex size-9 cursor-pointer items-center justify-center rounded-full bg-on-ink/10 text-on-ink transition-colors hover:bg-yellow hover:text-on-yellow"
             onClick={(e) => {
               e.stopPropagation();
               prev();
@@ -485,11 +487,11 @@ export default function Globe({ destinations: destinationsProp }: GlobeProps) {
           >
             {arrow("left")}
           </button>
-          <span className="flex items-center gap-1 font-mono text-on-ink-muted text-xs">
+          <span className="flex items-center gap-1 font-mono text-meta text-on-ink-muted">
             <input
               type="number"
               aria-label="Destination number"
-              className="h-8 w-10 appearance-none rounded-lg bg-on-ink/10 p-0 text-center font-mono text-on-ink text-xs outline-none [-moz-appearance:textfield] focus-visible:ring-2 focus-visible:ring-yellow [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+              className="h-7 w-9 appearance-none rounded-lg bg-on-ink/10 p-0 text-center font-mono text-caption text-on-ink outline-none [-moz-appearance:textfield] focus-visible:ring-2 focus-visible:ring-yellow [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
               min={1}
               max={DESTINATIONS.length}
               value={currentIdx + 1}
@@ -500,7 +502,7 @@ export default function Globe({ destinations: destinationsProp }: GlobeProps) {
           </span>
           <button
             type="button"
-            className="inline-flex size-10 cursor-pointer items-center justify-center rounded-full bg-on-ink/10 text-on-ink transition-colors hover:bg-yellow hover:text-on-yellow"
+            className="inline-flex size-9 cursor-pointer items-center justify-center rounded-full bg-on-ink/10 text-on-ink transition-colors hover:bg-yellow hover:text-on-yellow"
             onClick={(e) => {
               e.stopPropagation();
               next();

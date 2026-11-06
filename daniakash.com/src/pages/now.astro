@@ -39,19 +39,19 @@ const toIsoDate = (date: string) => {
 const [latest, ...older] = entries;
 
 const entryList =
-  "leading-relaxed [&_ul]:list-disc [&_ul]:pl-5 [&_li]:my-1.5 [&_li>ul]:mt-1.5 [&_li>ul]:list-[circle] [&_strong]:font-semibold [&_a]:font-medium [&_a]:underline [&_a]:decoration-2 [&_a]:underline-offset-4 [&_a]:transition-colors";
+  "leading-relaxed [&_ul]:list-disc [&_ul]:pl-4 [&_li]:my-1 [&_li>ul]:mt-1 [&_li>ul]:list-[circle] [&_strong]:font-semibold [&_a]:font-medium [&_a]:underline [&_a]:decoration-2 [&_a]:underline-offset-4 [&_a]:transition-colors";
 ---
 
 <MainLayout title="Now" description="What Dani Akash is working on right now | current projects, talks, and interests.">
-  <div class="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4 lg:grid-cols-6">
+  <div class="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-5 lg:grid-cols-6">
     <Tile
       as="header"
-      class="col-span-2 flex min-h-[14rem] flex-col justify-end gap-3 md:col-span-4 lg:col-span-2 lg:min-h-[18rem]"
+      class="col-span-2 flex min-h-[7.5rem] flex-col justify-end gap-2 md:col-span-4 md:min-h-[10rem] lg:col-span-2 lg:min-h-[12rem]"
     >
-      <h1 class="font-display text-[clamp(3rem,6vw,5.5rem)] leading-[0.92] font-extrabold tracking-[-0.035em]">
+      <h1 class="font-display text-subdisplay md:text-display leading-[0.95] font-extrabold tracking-[-0.03em]">
         Now
       </h1>
-      <div class="text-muted-foreground [&_a]:text-foreground [&_a]:decoration-primary/40 hover:[&_a]:decoration-primary text-base [&_a]:font-medium [&_a]:underline [&_a]:decoration-2 [&_a]:underline-offset-4">
+      <div class="text-muted-foreground [&_a]:text-foreground [&_a]:decoration-primary/40 hover:[&_a]:decoration-primary text-lede [&_a]:font-medium [&_a]:underline [&_a]:decoration-2 [&_a]:underline-offset-4">
         <Fragment set:html={introHtml} />
       </div>
     </Tile>
@@ -61,21 +61,21 @@ const entryList =
         <Tile
           as="article"
           tone="blue"
-          class="col-span-2 flex flex-col gap-5 md:col-span-4 md:p-8 lg:col-span-4"
+          class="col-span-2 flex flex-col gap-3 md:col-span-4 md:p-6 lg:col-span-4"
         >
-          <div class="flex flex-wrap items-center justify-between gap-3">
-            <h2 class="font-display text-3xl font-extrabold tracking-[-0.025em] md:text-4xl">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <h2 class="font-display text-heading font-extrabold tracking-[-0.025em]">
               <time datetime={toIsoDate(latest.date)}>{latest.date}</time>
             </h2>
-            <span class="bg-on-blue/15 inline-flex items-center gap-2 rounded-full px-3 py-1 text-sm font-medium">
-              <span class="bg-on-blue size-2 animate-pulse rounded-full" />
+            <span class="bg-on-blue/15 inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-caption font-medium">
+              <span class="bg-on-blue size-1.5 animate-pulse rounded-full" />
               Latest update
             </span>
           </div>
           <div
             class:list={[
               entryList,
-              "text-lg md:text-xl [&_a]:decoration-on-blue/45 hover:[&_a]:decoration-on-blue [&_li]:marker:text-on-blue/70",
+              "text-lede [&_a]:decoration-on-blue/45 hover:[&_a]:decoration-on-blue [&_li]:marker:text-on-blue/70",
             ]}
             set:html={latest.html}
           />
@@ -85,17 +85,17 @@ const entryList =
 
   </div>
 
-  <div class="mt-3 gap-3 md:mt-4 md:columns-2 md:gap-4 lg:columns-3">
+  <div class="mt-3 gap-3 md:mt-5 md:columns-2 md:gap-5 lg:columns-3">
     {
       older.map((entry) => (
-        <Tile as="article" class="mb-3 flex break-inside-avoid flex-col gap-4 md:mb-4">
-          <h2 class="text-muted-foreground font-mono text-sm font-medium">
+        <Tile as="article" class="mb-3 flex break-inside-avoid flex-col gap-2.5 md:mb-5">
+          <h2 class="text-muted-foreground font-mono text-meta font-medium">
             <time datetime={toIsoDate(entry.date)}>{entry.date}</time>
           </h2>
           <div
             class:list={[
               entryList,
-              "text-base [&_a]:text-primary [&_a]:decoration-primary/35 hover:[&_a]:decoration-primary [&_li]:marker:text-muted-foreground",
+              "text-body [&_a]:text-primary [&_a]:decoration-primary/35 hover:[&_a]:decoration-primary [&_li]:marker:text-muted-foreground",
             ]}
             set:html={entry.html}
           />

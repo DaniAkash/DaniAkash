@@ -39,16 +39,16 @@ const statusLabel = {
 >
   <section
     aria-label="Projects introduction"
-    class="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4 lg:grid-cols-6"
+    class="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-5 lg:grid-cols-6"
   >
     <Tile
       as="header"
-      class="col-span-2 flex flex-col justify-end gap-4 md:col-span-3 md:min-h-[18rem] lg:col-span-4"
+      class="col-span-2 flex flex-col justify-end gap-2 md:col-span-3 md:min-h-[13rem] lg:col-span-4"
     >
-      <h1 class="font-display text-[clamp(2.5rem,5vw,4.5rem)] leading-[0.95] font-extrabold tracking-[-0.035em]">
+      <h1 class="font-display text-subdisplay md:text-display leading-[1] font-extrabold tracking-[-0.03em]">
         Things I've Built
       </h1>
-      <p class="text-muted-foreground max-w-[44ch] text-lg leading-snug md:text-xl">
+      <p class="text-muted-foreground text-lede max-w-[44ch] leading-snug">
         From tiny experiments to giant time-sinks, here's what's kept me busy.
       </p>
     </Tile>
@@ -65,7 +65,7 @@ const statusLabel = {
 
   <section
     aria-label="Projects"
-    class="mt-3 grid grid-flow-row-dense grid-cols-2 gap-3 md:mt-4 md:grid-cols-4 md:gap-4 lg:grid-cols-6"
+    class="mt-3 grid grid-flow-row-dense grid-cols-2 gap-3 md:mt-5 md:grid-cols-4 md:gap-5 lg:grid-cols-6"
   >
     {
       items.map((item) => {
@@ -75,12 +75,12 @@ const statusLabel = {
           return (
             <Tile
               tone={tone}
-              class={`${spanClasses.stat} flex min-h-[10rem] flex-col justify-end`}
+              class={`${spanClasses.stat} flex min-h-[8.5rem] flex-col justify-end`}
             >
-              <p class="font-display tabular text-[2.75rem] leading-none font-extrabold tracking-[-0.03em] md:text-5xl">
+              <p class="font-display tabular text-stat leading-none font-extrabold tracking-[-0.03em]">
                 {item.stat?.number}
               </p>
-              <p class="mt-2 text-sm font-semibold">{item.stat?.label}</p>
+              <p class="text-caption mt-1.5 font-semibold">{item.stat?.label}</p>
             </Tile>
           );
         }
@@ -89,9 +89,9 @@ const statusLabel = {
           return (
             <Tile
               tone={tone}
-              class={`${spanClasses.full} flex flex-col gap-5 md:flex-row md:items-center md:gap-8`}
+              class={`${spanClasses.full} flex flex-col gap-4 md:flex-row md:items-center md:gap-6`}
             >
-              <div class="bg-yellow text-on-yellow flex size-14 shrink-0 items-center justify-center rounded-2xl">
+              <div class="bg-yellow text-on-yellow flex size-10 shrink-0 items-center justify-center rounded-xl">
                 <svg
                   viewBox="0 0 24 24"
                   aria-hidden="true"
@@ -100,17 +100,17 @@ const statusLabel = {
                   stroke-width="1.75"
                   stroke-linecap="round"
                   stroke-linejoin="round"
-                  class="size-7"
+                  class="size-5"
                 >
                   <path d="M12 2 2 7l10 5 10-5-10-5Z" />
                   <path d="m2 17 10 5 10-5" />
                   <path d="m2 12 10 5 10-5" />
                 </svg>
               </div>
-              <h2 class="font-display shrink-0 text-3xl leading-none font-extrabold tracking-[-0.025em]">
+              <h2 class="font-display text-heading shrink-0 leading-none font-extrabold tracking-[-0.025em]">
                 {item.name}
               </h2>
-              <p class="text-on-ink-muted max-w-[70ch] text-[17px] leading-relaxed">
+              <p class="text-on-ink-muted text-body max-w-[70ch] leading-relaxed">
                 {item.description}
               </p>
             </Tile>
@@ -125,19 +125,19 @@ const statusLabel = {
               ? { href: item.link.href, target: "_blank", rel: "noopener" }
               : {})}
             tone={tone}
-            class={`${spanClasses[item.size]} flex min-h-[15rem] flex-col gap-4`}
+            class={`${spanClasses[item.size]} flex min-h-[11rem] flex-col gap-2.5`}
           >
-            <div class="flex flex-wrap items-start justify-between gap-3">
+            <div class="flex flex-wrap items-start justify-between gap-2">
               <h2
                 class:list={[
-                  "font-display leading-[1.05] font-bold tracking-[-0.025em]",
-                  isWide ? "text-3xl md:text-4xl" : "text-2xl md:text-3xl",
+                  "font-display leading-[1.1] font-bold tracking-[-0.02em]",
+                  isWide ? "text-heading" : "text-title",
                 ]}
               >
                 {item.name}
               </h2>
               {item.status && (
-                <span class="bg-current/10 shrink-0 rounded-full px-3 py-1 text-xs font-semibold">
+                <span class="bg-current/10 shrink-0 rounded-full px-2.5 py-0.5 text-meta font-semibold">
                   {statusLabel[item.status]}
                 </span>
               )}
@@ -145,7 +145,7 @@ const statusLabel = {
             {item.description && (
               <p
                 class:list={[
-                  "max-w-[60ch] text-base leading-relaxed",
+                  "text-body max-w-[60ch] leading-relaxed",
                   tone === "plain" && "text-muted-foreground",
                   tone !== "plain" && "opacity-90",
                 ]}
@@ -153,22 +153,22 @@ const statusLabel = {
                 {item.description}
               </p>
             )}
-            <div class="mt-auto flex flex-wrap items-end justify-between gap-3 pt-2">
+            <div class="mt-auto flex flex-wrap items-end justify-between gap-2 pt-1">
               {item.tech && (
-                <ul class="flex flex-wrap gap-1.5" aria-label="Tech">
+                <ul class="flex flex-wrap gap-1" aria-label="Tech">
                   {item.tech.map((t) => (
-                    <li class="bg-current/10 rounded-lg px-2.5 py-1 text-[13px] font-medium">
+                    <li class="bg-current/10 rounded-md px-2 py-0.5 text-meta font-medium">
                       {t}
                     </li>
                   ))}
                 </ul>
               )}
               {item.link && (
-                <span class="inline-flex items-center gap-1.5 text-sm font-semibold">
+                <span class="text-caption inline-flex items-center gap-1 font-semibold">
                   {item.link.label}
                   <Icon
                     name="arrow-up-right"
-                    class="size-4 transition-transform duration-300 ease-out-expo group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                    class="size-3.5 transition-transform duration-300 ease-out-expo group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
                   />
                 </span>
               )}

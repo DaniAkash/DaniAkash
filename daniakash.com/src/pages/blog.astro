@@ -19,34 +19,34 @@ const firstYear = years[years.length - 1];
 ---
 
 <MainLayout title="Blog" description="Articles on AI, JavaScript, React Native, and building for the web.">
-  <header class="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4 lg:grid-cols-6">
+  <header class="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-5 lg:grid-cols-6">
     <Tile
       as="div"
-      class="col-span-2 flex min-h-[14rem] flex-col justify-end md:col-span-4 lg:col-span-4"
+      class="col-span-2 flex min-h-[8.625rem] flex-col justify-end md:col-span-4 lg:col-span-4"
     >
-      <h1 class="font-display text-[clamp(2.75rem,6vw,5.5rem)] leading-[0.92] font-extrabold tracking-[-0.035em]">
+      <h1 class="font-display text-subdisplay md:text-display leading-[0.95] font-extrabold tracking-[-0.03em]">
         The Blog Zone
       </h1>
-      <p class="text-muted-foreground mt-4 max-w-[48ch] text-lg leading-snug md:text-xl">
+      <p class="text-muted-foreground mt-2 max-w-[48ch] text-lede leading-snug">
         Where my thoughts get some air time and occasionally make sense.
       </p>
     </Tile>
-    <Tile tone="yellow" class="flex min-h-[11rem] flex-col justify-between">
-      <p class="text-sm font-semibold">Since {firstYear}</p>
+    <Tile tone="yellow" class="flex min-h-[8.625rem] flex-col justify-between">
+      <p class="text-caption font-semibold">Since {firstYear}</p>
       <p>
-        <span class="font-display tabular block text-6xl leading-none font-extrabold tracking-[-0.03em]">
+        <span class="font-display tabular block text-stat leading-none font-extrabold tracking-[-0.03em]">
           {posts.length}
         </span>
-        <span class="mt-2 block text-sm font-semibold">posts written</span>
+        <span class="mt-1 block text-caption font-semibold">posts written</span>
       </p>
     </Tile>
     <Tile
       href="/rss.xml"
       tone="ink"
-      class="flex min-h-[11rem] flex-col justify-between"
+      class="flex min-h-[8.625rem] flex-col justify-between"
     >
-      <Icon name="rss" class="size-7" />
-      <p class="inline-flex items-center gap-1 text-lg leading-tight font-semibold">
+      <Icon name="rss" class="size-5" />
+      <p class="inline-flex items-center gap-1 text-body leading-tight font-semibold">
         Follow via RSS
         <Icon
           name="arrow-right"
@@ -56,7 +56,7 @@ const firstYear = years[years.length - 1];
     </Tile>
   </header>
 
-  <div class="mt-3 flex flex-col gap-3 md:mt-4 md:gap-4">
+  <div class="mt-3 flex flex-col gap-3 md:mt-5 md:gap-5">
     {
       years.map((year) => {
         const yearPosts = postsByYear.get(year)!;
@@ -64,11 +64,11 @@ const firstYear = years[years.length - 1];
           <Tile
             as="section"
             aria-labelledby={`year-${year}`}
-            class="grid gap-2 lg:grid-cols-[12rem_1fr] lg:gap-8"
+            class="grid gap-1 lg:grid-cols-[9rem_1fr] lg:gap-6"
           >
             <h2
               id={`year-${year}`}
-              class="font-display tabular text-4xl leading-none font-extrabold tracking-[-0.03em] lg:sticky lg:top-6 lg:self-start lg:text-5xl"
+              class="font-display tabular text-subdisplay leading-none font-extrabold tracking-[-0.03em] lg:sticky lg:top-6 lg:self-start lg:pt-2.5"
             >
               {year}
             </h2>
@@ -84,25 +84,25 @@ const firstYear = years[years.length - 1];
                   <li class="border-border border-t first:border-t-0">
                     <a
                       href={`/posts/${post.id}/`}
-                      class="group/post hover:bg-tile-hover -mx-3 grid gap-1 rounded-2xl px-3 py-4 transition-colors md:grid-cols-[1fr_auto] md:gap-x-8"
+                      class="group/post hover:bg-tile-hover -mx-2.5 grid gap-0.5 rounded-xl px-2.5 py-3 transition-colors md:grid-cols-[1fr_auto] md:gap-x-6"
                     >
                       <time
                         datetime={date.toISOString()}
-                        class="text-muted-foreground font-mono text-xs md:col-start-2 md:row-start-1 md:pt-1.5"
+                        class="text-muted-foreground font-mono text-meta md:col-start-2 md:row-start-1 md:pt-1"
                       >
                         {dateDisplay}
                       </time>
-                      <span class="group-hover/post:text-primary text-lg leading-snug font-semibold tracking-[-0.01em] transition-colors md:col-start-1 md:row-start-1">
+                      <span class="group-hover/post:text-primary text-lede leading-snug font-semibold tracking-[-0.01em] transition-colors md:col-start-1 md:row-start-1">
                         {post.data.title}
                       </span>
-                      <span class="text-muted-foreground line-clamp-2 max-w-[70ch] text-[15px] leading-normal md:col-start-1">
+                      <span class="text-muted-foreground line-clamp-2 max-w-[70ch] text-body leading-normal md:col-start-1">
                         {post.data.subtitle}
                       </span>
-                      <span class="text-primary mt-1 inline-flex items-center gap-1 text-sm font-semibold md:col-start-1">
+                      <span class="text-primary mt-1 inline-flex items-center gap-1 text-caption font-semibold md:col-start-1">
                         Read article
                         <Icon
                           name="arrow-right"
-                          class="size-4 transition-transform duration-300 ease-out-expo group-hover/post:translate-x-1"
+                          class="size-3.5 transition-transform duration-300 ease-out-expo group-hover/post:translate-x-1"
                         />
                       </span>
                     </a>

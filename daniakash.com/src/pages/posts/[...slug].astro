@@ -74,50 +74,50 @@ await getOGImage({
       keywords: post.data.tags?.join(", "),
     }}
   />
-  <article id="article" class="mx-auto flex max-w-[60rem] flex-col gap-3 md:gap-4">
-    <nav aria-label="Post navigation" class="flex flex-wrap gap-2">
+  <article id="article" class="mx-auto flex max-w-[52rem] flex-col gap-3 md:gap-5">
+    <nav aria-label="Post navigation" class="flex flex-wrap gap-1.5">
       <button
         type="button"
         onclick="history.back()"
-        class="bg-card hover:bg-foreground hover:text-background inline-flex min-h-11 cursor-pointer items-center gap-2 rounded-full px-4 text-sm font-medium transition-colors"
+        class="bg-card hover:bg-foreground hover:text-background inline-flex min-h-9 cursor-pointer items-center gap-1.5 rounded-full px-3.5 text-caption font-medium transition-colors"
       >
-        <Icon name="arrow-right" class="size-4 rotate-180" />
+        <Icon name="arrow-right" class="size-3.5 rotate-180" />
         Back
       </button>
       <a
         href="/blog/"
-        class="bg-card hover:bg-foreground hover:text-background inline-flex min-h-11 items-center rounded-full px-4 text-sm font-medium transition-colors"
+        class="bg-card hover:bg-foreground hover:text-background inline-flex min-h-9 items-center rounded-full px-3.5 text-caption font-medium transition-colors"
       >
         All posts
       </a>
     </nav>
 
-    <header class="grid gap-3 md:grid-cols-4 md:gap-4">
-      <Tile as="div" class="md:col-span-3 md:p-10">
-        <h1 class="font-display text-[clamp(2.25rem,5vw,3.75rem)] leading-[1.02] font-extrabold tracking-[-0.03em]">
+    <header class="grid gap-3 md:grid-cols-4 md:gap-5">
+      <Tile as="div" class="md:col-span-3 md:p-7">
+        <h1 class="font-display text-subdisplay md:text-display leading-[1.05] font-extrabold tracking-[-0.03em]">
           {post.data.title}
         </h1>
-        <p class="text-muted-foreground mt-5 max-w-[56ch] text-lg leading-relaxed md:text-xl">
+        <p class="text-muted-foreground mt-3 max-w-[56ch] text-lede leading-relaxed">
           {post.data.subtitle}
         </p>
       </Tile>
-      <Tile tone="yellow" class="flex flex-col justify-between gap-6">
+      <Tile tone="yellow" class="flex flex-col justify-between gap-5">
         <div class="flex flex-col gap-1">
-          <time datetime={dateValue} class="font-mono text-sm font-medium">
+          <time datetime={dateValue} class="font-mono text-meta font-medium">
             {dateDisplay}
           </time>
           <a
             href="/about/"
-            class="self-start text-base font-semibold underline decoration-2 underline-offset-4"
+            class="self-start text-body font-semibold underline decoration-2 underline-offset-4"
           >
             Dani Akash
           </a>
         </div>
         {
           post.data.tags.length > 0 && (
-            <ul class="flex flex-wrap gap-1.5" aria-label="Tags">
+            <ul class="flex flex-wrap gap-1" aria-label="Tags">
               {post.data.tags.map((tag) => (
-                <li class="bg-on-yellow/10 rounded-full px-2.5 py-1 text-xs font-semibold">
+                <li class="bg-on-yellow/10 rounded-full px-2 py-0.5 text-meta font-semibold">
                   {tag}
                 </li>
               ))}
@@ -127,7 +127,7 @@ await getOGImage({
       </Tile>
     </header>
 
-    <Tile as="div" class="px-5 py-8 md:px-10 md:py-12 lg:px-16">
+    <Tile as="div" class="px-5 py-7 md:px-10 md:py-10">
       <div class="prose mx-auto max-w-[68ch]">
         <Content />
       </div>
@@ -139,18 +139,18 @@ await getOGImage({
       class="md:flex-row md:items-end"
     />
 
-    <nav aria-label="Post navigation" class="flex flex-wrap gap-2">
+    <nav aria-label="Post navigation" class="flex flex-wrap gap-1.5">
       <button
         type="button"
         onclick="history.back()"
-        class="bg-card hover:bg-foreground hover:text-background inline-flex min-h-11 cursor-pointer items-center gap-2 rounded-full px-4 text-sm font-medium transition-colors"
+        class="bg-card hover:bg-foreground hover:text-background inline-flex min-h-9 cursor-pointer items-center gap-1.5 rounded-full px-3.5 text-caption font-medium transition-colors"
       >
-        <Icon name="arrow-right" class="size-4 rotate-180" />
+        <Icon name="arrow-right" class="size-3.5 rotate-180" />
         Back
       </button>
       <a
         href="/blog/"
-        class="bg-card hover:bg-foreground hover:text-background inline-flex min-h-11 items-center rounded-full px-4 text-sm font-medium transition-colors"
+        class="bg-card hover:bg-foreground hover:text-background inline-flex min-h-9 items-center rounded-full px-3.5 text-caption font-medium transition-colors"
       >
         All posts
       </a>

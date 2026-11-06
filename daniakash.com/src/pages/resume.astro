@@ -9,33 +9,33 @@ const { tagline, about, skills, jobs, community, education } = resumeData;
 const printTile =
   "print:break-inside-avoid-page print:rounded-none print:bg-white print:p-0 print:text-black";
 const sectionHeading =
-  "font-display text-2xl font-bold tracking-[-0.02em] md:text-3xl print:text-xl";
+  "font-display text-heading font-bold tracking-[-0.02em] print:text-title";
 ---
 
 <MainLayout title="Resume" description="Professional experience and skills of Dani Akash | AI Engineer with expertise in React Native, JavaScript, and web development.">
   <article
     id="article"
-    class="grid grid-cols-1 gap-3 md:gap-4 lg:grid-cols-6 print:block print:space-y-8 print:text-black"
+    class="grid grid-cols-1 gap-3 md:gap-5 lg:grid-cols-6 print:block print:space-y-6 print:text-black"
   >
     <Tile
       as="header"
       class:list={[
-        "grid gap-8 md:p-10 lg:col-span-6 lg:grid-cols-2 lg:items-end",
+        "grid gap-5 md:p-7 lg:col-span-6 lg:grid-cols-2 lg:items-end",
         printTile,
       ]}
     >
       <div>
-        <h1 class="font-display text-[clamp(3rem,6vw,5rem)] leading-[0.92] font-extrabold tracking-[-0.035em] print:text-5xl">
+        <h1 class="font-display text-subdisplay md:text-display leading-[0.95] font-extrabold tracking-[-0.03em] print:text-display">
           Dani Akash
         </h1>
-        <p class="text-primary mt-4 text-lg font-semibold md:text-xl print:text-black">
+        <p class="text-primary mt-2 text-lede font-semibold print:text-black">
           {tagline}
         </p>
       </div>
-      <div class="flex flex-col gap-3">
+      <div class="flex flex-col gap-2">
         {
           about.map((line) => (
-            <p class="text-muted-foreground text-[17px] leading-relaxed print:text-black">
+            <p class="text-muted-foreground text-body leading-relaxed print:text-black">
               {line}
             </p>
           ))
@@ -46,15 +46,15 @@ const sectionHeading =
     <Tile
       as="section"
       aria-labelledby="resume-skills"
-      class:list={["md:p-8 lg:col-span-2 lg:self-start", printTile]}
+      class:list={["md:p-6 lg:col-span-2 lg:self-start", printTile]}
     >
       <h2 id="resume-skills" class={sectionHeading}>Skills</h2>
-      <dl class="mt-5 flex flex-col">
+      <dl class="mt-3 flex flex-col">
         {
           skills.map((skill) => (
-            <div class="border-border border-t py-3 first:border-t-0 first:pt-0 print:border-neutral-300">
-              <dt class="text-sm font-semibold">{skill.label}</dt>
-              <dd class="text-muted-foreground mt-0.5 text-sm leading-relaxed print:text-black">
+            <div class="border-border border-t py-2.5 first:border-t-0 first:pt-0 print:border-neutral-300">
+              <dt class="text-body font-semibold">{skill.label}</dt>
+              <dd class="text-muted-foreground mt-0.5 text-caption leading-relaxed print:text-black">
                 {skill.text}
               </dd>
             </div>
@@ -66,30 +66,30 @@ const sectionHeading =
     <Tile
       as="section"
       aria-labelledby="resume-work"
-      class:list={["md:p-8 lg:col-span-4", printTile]}
+      class:list={["md:p-6 lg:col-span-4", printTile]}
     >
       <h2 id="resume-work" class={sectionHeading}>Work Experience</h2>
-      <div class="mt-2">
+      <div class="mt-1">
         {
           jobs.map((job) => (
-            <div class="border-border border-t py-6 first:border-t-0 print:break-inside-avoid print:border-neutral-300 print:py-4">
-              <div class="mb-2 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-                <h3 class="text-xl font-semibold tracking-tight print:text-base">
+            <div class="border-border border-t py-4 first:border-t-0 print:break-inside-avoid print:border-neutral-300 print:py-3">
+              <div class="mb-1.5 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+                <h3 class="text-lede font-semibold tracking-tight print:text-body">
                   {job.title}
                 </h3>
-                <span class="text-muted-foreground shrink-0 font-mono text-xs print:text-black">
+                <span class="text-muted-foreground shrink-0 font-mono text-meta print:text-black">
                   {job.duration}
                 </span>
               </div>
               {job.description && (
-                <p class="text-muted-foreground mb-4 text-[15px] leading-relaxed print:text-black">
+                <p class="text-muted-foreground mb-3 text-body leading-relaxed print:text-black">
                   {job.description}
                 </p>
               )}
-              <h4 class="mb-2 text-sm font-semibold">Key Contributions</h4>
-              <ul class="marker:text-muted-foreground flex list-disc flex-col gap-1.5 pl-5">
+              <h4 class="mb-1.5 text-caption font-semibold">Key Contributions</h4>
+              <ul class="marker:text-muted-foreground flex list-disc flex-col gap-1 pl-4">
                 {job.contributions.map((c) => (
-                  <li class="text-muted-foreground text-sm leading-relaxed print:text-black [&_a]:text-foreground [&_a]:underline [&_a]:decoration-2 [&_a]:underline-offset-4">
+                  <li class="text-muted-foreground text-body leading-relaxed print:text-black [&_a]:text-foreground [&_a]:underline [&_a]:decoration-2 [&_a]:underline-offset-4">
                     <Fragment set:html={c} />
                   </li>
                 ))}
@@ -103,15 +103,15 @@ const sectionHeading =
     <Tile
       as="section"
       aria-labelledby="resume-community"
-      class:list={["md:p-8 lg:col-span-4", printTile]}
+      class:list={["md:p-6 lg:col-span-4", printTile]}
     >
       <h2 id="resume-community" class={sectionHeading}>Developer Community</h2>
-      <div class="mt-2">
+      <div class="mt-1">
         {
           community.map((item) => (
-            <div class="border-border border-t py-4 first:border-t-0 print:break-inside-avoid print:border-neutral-300">
-              <h3 class="mb-1 text-[17px] font-semibold">{item.title}</h3>
-              <p class="text-muted-foreground text-sm leading-relaxed print:text-black [&_a]:text-foreground [&_a]:underline [&_a]:decoration-2 [&_a]:underline-offset-4">
+            <div class="border-border border-t py-3 first:border-t-0 print:break-inside-avoid print:border-neutral-300">
+              <h3 class="mb-0.5 text-lede font-semibold">{item.title}</h3>
+              <p class="text-muted-foreground text-body leading-relaxed print:text-black [&_a]:text-foreground [&_a]:underline [&_a]:decoration-2 [&_a]:underline-offset-4">
                 <Fragment set:html={item.description} />
               </p>
             </div>
@@ -123,14 +123,14 @@ const sectionHeading =
     <Tile
       as="section"
       aria-labelledby="resume-education"
-      class:list={["md:p-8 lg:col-span-2 lg:self-start", printTile]}
+      class:list={["md:p-6 lg:col-span-2 lg:self-start", printTile]}
     >
       <h2 id="resume-education" class={sectionHeading}>Education</h2>
-      <h3 class="mt-5 text-xl font-semibold print:text-base">{education.school}</h3>
-      <p class="text-muted-foreground mt-1 font-mono text-[13px] print:text-black">
+      <h3 class="mt-3 text-lede font-semibold print:text-body">{education.school}</h3>
+      <p class="text-muted-foreground mt-1 font-mono text-meta print:text-black">
         {education.degree}
       </p>
-      <p class="text-muted-foreground mt-3 text-sm leading-relaxed print:text-black">
+      <p class="text-muted-foreground mt-2 text-body leading-relaxed print:text-black">
         {education.description}
       </p>
     </Tile>

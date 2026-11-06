@@ -9,19 +9,19 @@ const isActive = (href: string) =>
   (href === "/blog/" && currentPath.startsWith("/posts/"));
 ---
 
-<header class="mx-auto w-full max-w-[1440px] px-4 pt-4 md:px-8 md:pt-6 lg:px-12 print:hidden">
+<header class="mx-auto w-full max-w-[1088px] px-4 pt-4 pb-2 md:px-6 md:pt-7 md:pb-5 print:hidden">
   <nav
     aria-label="Main"
-    class="flex items-center gap-2 py-2"
+    class="flex items-center gap-1.5 py-1"
   >
     <a
       href="/"
-      class="font-display hover:text-primary mr-auto inline-flex min-h-11 items-center text-xl font-extrabold tracking-[-0.02em] transition-colors"
+      class="font-display hover:text-primary mr-auto inline-flex min-h-10 items-center text-title font-extrabold tracking-[-0.02em] transition-colors"
     >
       dani_akash_
     </a>
 
-    <ul class="hidden items-center gap-1 lg:flex">
+    <ul class="hidden items-center gap-0.5 md:flex">
       {
         navLinks.map((link) => (
           <li>
@@ -29,7 +29,7 @@ const isActive = (href: string) =>
               href={link.href}
               aria-current={isActive(link.href) ? "page" : undefined}
               class:list={[
-                "inline-flex min-h-11 items-center rounded-full px-4 text-[15px] font-medium transition-colors",
+                "inline-flex min-h-8 items-center rounded-full px-3 text-body font-medium transition-colors",
                 isActive(link.href)
                   ? "bg-foreground text-background"
                   : "text-muted-foreground hover:bg-card hover:text-foreground",
@@ -47,7 +47,7 @@ const isActive = (href: string) =>
     <button
       id="mobile-menu-toggle"
       type="button"
-      class="text-foreground hover:bg-card inline-flex size-11 cursor-pointer items-center justify-center rounded-full transition-colors lg:hidden"
+      class="text-foreground bg-card hover:bg-tile-hover inline-flex size-9 cursor-pointer items-center justify-center rounded-full transition-colors md:hidden"
       aria-label="Open navigation menu"
       aria-expanded="false"
       aria-controls="mobile-menu"
@@ -57,8 +57,8 @@ const isActive = (href: string) =>
     </button>
   </nav>
 
-  <div id="mobile-menu" class="hidden pb-2 lg:hidden">
-    <ul class="bg-card grid grid-cols-2 gap-1 rounded-[1.25rem] p-2">
+  <div id="mobile-menu" class="hidden pt-2 md:hidden">
+    <ul class="bg-card rounded-tile grid grid-cols-2 gap-1 p-2">
       {
         navLinks.map((link) => (
           <li>
@@ -66,7 +66,7 @@ const isActive = (href: string) =>
               href={link.href}
               aria-current={isActive(link.href) ? "page" : undefined}
               class:list={[
-                "mobile-nav-link flex min-h-12 items-center rounded-2xl px-4 text-base font-medium transition-colors",
+                "mobile-nav-link flex min-h-11 items-center rounded-xl px-3.5 text-body font-medium transition-colors",
                 isActive(link.href)
                   ? "bg-foreground text-background"
                   : "hover:bg-muted",
