@@ -44,9 +44,17 @@ function mapDestinations(input: DestinationInput[]): Destination[] {
 }
 
 const CAT_COLORS: Record<string, string> = {
-  s: "bg-primary",
-  c: "bg-amber-500",
-  i: "bg-rose-400",
+  s: "bg-yellow",
+  c: "bg-green",
+  i: "bg-pink",
+};
+
+// The globe always sits on the ink tile, so it renders dark in both site themes.
+const GLOBE_COLORS = {
+  dark: 1,
+  baseColor: [0.32, 0.31, 0.36] as [number, number, number],
+  markerColor: [1, 0.84, 0.3] as [number, number, number],
+  glowColor: [0.16, 0.15, 0.19] as [number, number, number],
 };
 
 // Replicate cobe's exact internal projection (from cobe source: functions U, O, W)
@@ -138,7 +146,7 @@ export default function Globe({ destinations: destinationsProp }: GlobeProps) {
       targetPhiRef.current = -lngRad - Math.PI / 2;
       if (globeRef.current) {
         globeRef.current.update({
-          markers: [{ location: dest.loc, size: 0.03 }],
+          markers: [{ location: dest.loc, size: 0.04 }],
         });
       }
     },
@@ -185,7 +193,7 @@ export default function Globe({ destinations: destinationsProp }: GlobeProps) {
     progressTimerRef.current = setInterval(() => {
       pct = Math.min(pct + step, 100);
       if (progressBarRef.current)
-        progressBarRef.current.style.width = pct + "%";
+        progressBarRef.current.style.width = `${pct}%`;
     }, interval);
   }, []);
 
@@ -206,7 +214,6 @@ export default function Globe({ destinations: destinationsProp }: GlobeProps) {
 
     const canvas = canvasRef.current;
     const wrap = wrapRef.current;
-    const isDark = document.documentElement.classList.contains("dark");
     const w = wrap.offsetWidth;
     const h = wrap.offsetHeight;
 
@@ -219,15 +226,12 @@ export default function Globe({ destinations: destinationsProp }: GlobeProps) {
       height: h * 2,
       phi: phiRef.current,
       theta: 0.15,
-      dark: isDark ? 1 : 0,
+      ...GLOBE_COLORS,
       diffuse: 1.2,
       mapSamples: 16000,
       mapBrightness: 6,
-      mapBaseBrightness: 0.05,
-      baseColor: isDark ? [0.3, 0.3, 0.3] : [1, 1, 1],
-      markerColor: isDark ? [0.18, 0.83, 0.75] : [0.05, 0.58, 0.53],
-      glowColor: isDark ? [0.15, 0.15, 0.2] : [1, 1, 1],
-      markers: [{ location: DESTINATIONS[currentIdx]!.loc, size: 0.03 }],
+      mapBaseBrightness: 0.03,
+      markers: [{ location: DESTINATIONS[currentIdx]!.loc, size: 0.04 }],
     });
     globeRef.current = globe;
 
@@ -283,7 +287,6 @@ export default function Globe({ destinations: destinationsProp }: GlobeProps) {
 
     // Theme observer
     const observer = new MutationObserver(() => {
-      const dark = document.documentElement.classList.contains("dark");
       if (globeRef.current) globeRef.current.destroy();
       if (animRef.current) cancelAnimationFrame(animRef.current);
 
@@ -293,15 +296,12 @@ export default function Globe({ destinations: destinationsProp }: GlobeProps) {
         height: wrap.offsetHeight * 2,
         phi: phiRef.current,
         theta: 0.15,
-        dark: dark ? 1 : 0,
+        ...GLOBE_COLORS,
         diffuse: 1.2,
         mapSamples: 16000,
         mapBrightness: 6,
-        mapBaseBrightness: 0.05,
-        baseColor: dark ? [0.3, 0.3, 0.3] : [1, 1, 1],
-        markerColor: dark ? [0.18, 0.83, 0.75] : [0.05, 0.58, 0.53],
-        glowColor: dark ? [0.15, 0.15, 0.2] : [1, 1, 1],
-        markers: [{ location: DESTINATIONS[currentIdx]!.loc, size: 0.03 }],
+        mapBaseBrightness: 0.03,
+        markers: [{ location: DESTINATIONS[currentIdx]!.loc, size: 0.04 }],
       });
       globeRef.current = newGlobe;
 
@@ -346,17 +346,42 @@ export default function Globe({ destinations: destinationsProp }: GlobeProps) {
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const val = parseInt(e.target.value);
+    const val = Number.parseInt(e.target.value, 10);
     if (val >= 1 && val <= DESTINATIONS.length) {
       switchTo(val - 1);
       resetTimer();
     }
   };
 
+  const arrow = (direction: "left" | "right") => (
+    <svg
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={1.75}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="size-5"
+    >
+      {direction === "left" ? (
+        <>
+          <path d="M19 12H5" />
+          <path d="m11 6-6 6 6 6" />
+        </>
+      ) : (
+        <>
+          <path d="M5 12h14" />
+          <path d="m13 6 6 6-6 6" />
+        </>
+      )}
+    </svg>
+  );
+
   return (
-    <div className="flex h-full flex-col">
+    <div className="flex h-full flex-col gap-3">
       {/* Globe */}
-      <div ref={wrapRef} className="globe-wrap">
+      <div ref={wrapRef} className="relative min-h-0 flex-1 overflow-hidden">
         <canvas
           ref={canvasRef}
           className="block h-full w-full cursor-grab active:cursor-grabbing"
@@ -383,40 +408,43 @@ export default function Globe({ destinations: destinationsProp }: GlobeProps) {
             }
           }}
         />
-        {/* Polaroid card — anchored to marker, clickable */}
+        {/* Polaroid card, anchored to the marker and clickable */}
         <a
           ref={polaroidRef}
           href={d.w}
           target="_blank"
           rel="noopener"
-          className="polaroid"
+          className="absolute z-[3] w-[140px] overflow-hidden rounded-xl bg-on-ink p-1.5 text-ink opacity-0"
           style={{
             transition: "opacity 0.6s, filter 0.6s, left 0.3s, top 0.3s",
             pointerEvents: "auto",
           }}
         >
-          <img src={d.img} alt={d.n} className="polaroid-img" />
-          <div className="polaroid-caption">{d.n}</div>
+          <img
+            src={d.img}
+            alt={d.n}
+            className="block aspect-[4/3] w-full rounded-lg object-cover"
+          />
+          <div className="truncate px-1 pt-1.5 pb-0.5 text-center font-medium text-xs">
+            {d.n}
+          </div>
         </a>
-        <span className="pointer-events-none absolute right-4 bottom-2 font-mono text-[9px] text-muted-foreground/60 uppercase tracking-wider">
-          DESTINATIONS {/* WISHLIST */}
-        </span>
       </div>
 
       {/* Progress line */}
-      <div className="relative h-[2px] bg-foreground/10">
+      <div className="relative h-1 overflow-hidden rounded-full bg-on-ink/15">
         <div
           ref={progressBarRef}
-          className="absolute inset-y-0 left-0 bg-primary transition-[width] duration-100 ease-linear"
+          className="absolute inset-y-0 left-0 rounded-full bg-yellow transition-[width] duration-100 ease-linear"
           style={{ width: "0%" }}
         />
       </div>
 
-      {/* Spotlight panel: clicking empty area advances destination as a mouse affordance — keyboard users use the Prev/Next buttons inside. */}
+      {/* Spotlight panel: clicking empty area advances destination as a mouse affordance; keyboard users use the Prev/Next buttons inside. */}
       {/* biome-ignore lint/a11y/noStaticElementInteractions: redundant mouse affordance; keyboard equivalents are the Prev/Next buttons rendered inside this panel. */}
-      {/* biome-ignore lint/a11y/useKeyWithClickEvents: see note above — keyboard equivalent is the Prev/Next buttons inside this panel. */}
+      {/* biome-ignore lint/a11y/useKeyWithClickEvents: see note above; keyboard equivalent is the Prev/Next buttons inside this panel. */}
       <div
-        className="spotlight"
+        className="flex min-h-[112px] cursor-pointer items-start gap-3 rounded-2xl bg-on-ink/[0.07] p-4 transition-colors hover:bg-on-ink/[0.11] sm:gap-4 sm:px-5"
         onClick={(e) => {
           if ((e.target as HTMLElement).closest("a, button, input")) return;
           next();
@@ -431,38 +459,37 @@ export default function Globe({ destinations: destinationsProp }: GlobeProps) {
             href={d.w}
             target="_blank"
             rel="noopener"
-            className="block truncate font-semibold text-[15px] text-foreground leading-tight hover:text-primary hover:underline hover:underline-offset-2"
+            className="block truncate font-semibold text-[15px] text-on-ink leading-tight underline-offset-4 hover:underline"
             onClick={(e) => e.stopPropagation()}
           >
             {d.n}
           </a>
-          <div className="mt-0.5 truncate font-mono text-[11px] text-muted-foreground">
-            {d.c}
-          </div>
+          <div className="mt-0.5 truncate text-on-ink-muted text-xs">{d.c}</div>
           <div
-            className="mt-1 line-clamp-1 text-[13px] text-muted-foreground/80 leading-snug sm:line-clamp-2"
+            className="mt-1 line-clamp-1 text-on-ink-muted text-sm leading-snug sm:line-clamp-2"
             title={d.sig}
           >
             {d.sig}
           </div>
         </div>
-        <div className="mt-1 flex shrink-0 items-center gap-2">
+        <div className="flex shrink-0 items-center gap-1.5">
           <button
             type="button"
-            className="spotlight-btn"
+            className="inline-flex size-10 cursor-pointer items-center justify-center rounded-full bg-on-ink/10 text-on-ink transition-colors hover:bg-yellow hover:text-on-yellow"
             onClick={(e) => {
               e.stopPropagation();
               prev();
               resetTimer();
             }}
-            aria-label="Previous"
+            aria-label="Previous destination"
           >
-            ←
+            {arrow("left")}
           </button>
-          <span className="flex items-center gap-1 font-mono text-[11px] text-muted-foreground">
+          <span className="flex items-center gap-1 font-mono text-on-ink-muted text-xs">
             <input
               type="number"
-              className="spotlight-input"
+              aria-label="Destination number"
+              className="h-8 w-10 appearance-none rounded-lg bg-on-ink/10 p-0 text-center font-mono text-on-ink text-xs outline-none [-moz-appearance:textfield] focus-visible:ring-2 focus-visible:ring-yellow [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
               min={1}
               max={DESTINATIONS.length}
               value={currentIdx + 1}
@@ -473,15 +500,15 @@ export default function Globe({ destinations: destinationsProp }: GlobeProps) {
           </span>
           <button
             type="button"
-            className="spotlight-btn"
+            className="inline-flex size-10 cursor-pointer items-center justify-center rounded-full bg-on-ink/10 text-on-ink transition-colors hover:bg-yellow hover:text-on-yellow"
             onClick={(e) => {
               e.stopPropagation();
               next();
               resetTimer();
             }}
-            aria-label="Next"
+            aria-label="Next destination"
           >
-            →
+            {arrow("right")}
           </button>
         </div>
       </div>

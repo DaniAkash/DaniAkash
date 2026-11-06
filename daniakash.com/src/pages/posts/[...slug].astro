@@ -2,7 +2,9 @@
 import { getCollection, render } from "astro:content";
 import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
 import { Schema } from "astro-seo-schema";
+import Icon from "../../components/Icon.astro";
 import Newsletter from "../../components/Newsletter.astro";
+import Tile from "../../components/Tile.astro";
 import { PERSON_ENTITY_ID } from "../../constants/seo";
 import MainLayout from "../../layouts/MainLayout.astro";
 import { getDateDisplay } from "../../utils/getDateDisplay";
@@ -17,7 +19,7 @@ export const getStaticPaths = (async () => {
   }));
 }) satisfies GetStaticPaths;
 
-type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+export type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
 const { post } = Astro.props;
 const { Content } = await render(post);
@@ -72,78 +74,87 @@ await getOGImage({
       keywords: post.data.tags?.join(", "),
     }}
   />
-  <article class="mx-auto max-w-[720px] pt-[120px] pb-20" id="article">
-    <!-- Navigation -->
-    <div class="mb-12 flex items-center gap-4 font-mono text-xs tracking-wide">
+  <article id="article" class="mx-auto flex max-w-[60rem] flex-col gap-3 md:gap-4">
+    <nav aria-label="Post navigation" class="flex flex-wrap gap-2">
       <button
+        type="button"
         onclick="history.back()"
-        class="inline-flex items-center gap-2 text-muted-foreground transition-colors hover:text-primary"
+        class="bg-card hover:bg-foreground hover:text-background inline-flex min-h-11 cursor-pointer items-center gap-2 rounded-full px-4 text-sm font-medium transition-colors"
       >
-        ← Back
+        <Icon name="arrow-right" class="size-4 rotate-180" />
+        Back
       </button>
-      <span class="text-border" aria-hidden="true">|</span>
       <a
         href="/blog/"
-        class="text-muted-foreground transition-colors hover:text-primary"
+        class="bg-card hover:bg-foreground hover:text-background inline-flex min-h-11 items-center rounded-full px-4 text-sm font-medium transition-colors"
       >
         All posts
       </a>
-    </div>
+    </nav>
 
-    <!-- Post header -->
-    <div class="mb-4 flex items-center gap-3 font-mono text-[13px] tracking-wide text-muted-foreground">
-      <time datetime={dateValue}>
-        {dateDisplay}
-      </time>
-      <span class="text-border" aria-hidden="true">|</span>
-      <a href="/about/" class="transition-colors hover:text-primary">
-        Dani Akash
-      </a>
-    </div>
+    <header class="grid gap-3 md:grid-cols-4 md:gap-4">
+      <Tile as="div" class="md:col-span-3 md:p-10">
+        <h1 class="font-display text-[clamp(2.25rem,5vw,3.75rem)] leading-[1.02] font-extrabold tracking-[-0.03em]">
+          {post.data.title}
+        </h1>
+        <p class="text-muted-foreground mt-5 max-w-[56ch] text-lg leading-relaxed md:text-xl">
+          {post.data.subtitle}
+        </p>
+      </Tile>
+      <Tile tone="yellow" class="flex flex-col justify-between gap-6">
+        <div class="flex flex-col gap-1">
+          <time datetime={dateValue} class="font-mono text-sm font-medium">
+            {dateDisplay}
+          </time>
+          <a
+            href="/about/"
+            class="self-start text-base font-semibold underline decoration-2 underline-offset-4"
+          >
+            Dani Akash
+          </a>
+        </div>
+        {
+          post.data.tags.length > 0 && (
+            <ul class="flex flex-wrap gap-1.5" aria-label="Tags">
+              {post.data.tags.map((tag) => (
+                <li class="bg-on-yellow/10 rounded-full px-2.5 py-1 text-xs font-semibold">
+                  {tag}
+                </li>
+              ))}
+            </ul>
+          )
+        }
+      </Tile>
+    </header>
 
-    <h1
-      class="mb-6 font-bold leading-[1.15] tracking-[-0.03em]"
-      style="font-size: clamp(32px, 5vw, 48px);"
-    >
-      {post.data.title}
-    </h1>
+    <Tile as="div" class="px-5 py-8 md:px-10 md:py-12 lg:px-16">
+      <div class="prose mx-auto max-w-[68ch]">
+        <Content />
+      </div>
+    </Tile>
 
-    <p
-      class="mb-12 border-b border-dashed border-border pb-12 text-xl font-light leading-relaxed text-muted-foreground"
-    >
-      {post.data.subtitle}
-    </p>
-
-    <!-- Prose body -->
-    <div class="prose dark:prose-invert max-w-none">
-      <Content />
-    </div>
-
-    <!-- Subscribe box -->
     <Newsletter
       heading="Enjoyed this post?"
       description="Get new posts delivered straight to your inbox. No spam, ever."
-      class="mt-20"
+      class="md:flex-row md:items-end"
     />
 
-    <!-- Article footer -->
-    <div
-      class="mt-12 flex items-center gap-4 border-t border-dashed border-border pt-12 font-mono text-[13px]"
-    >
+    <nav aria-label="Post navigation" class="flex flex-wrap gap-2">
       <button
+        type="button"
         onclick="history.back()"
-        class="text-muted-foreground transition-colors hover:text-primary"
+        class="bg-card hover:bg-foreground hover:text-background inline-flex min-h-11 cursor-pointer items-center gap-2 rounded-full px-4 text-sm font-medium transition-colors"
       >
-        ← Back
+        <Icon name="arrow-right" class="size-4 rotate-180" />
+        Back
       </button>
-      <span class="text-border" aria-hidden="true">|</span>
       <a
         href="/blog/"
-        class="text-muted-foreground transition-colors hover:text-primary"
+        class="bg-card hover:bg-foreground hover:text-background inline-flex min-h-11 items-center rounded-full px-4 text-sm font-medium transition-colors"
       >
         All posts
       </a>
-    </div>
+    </nav>
   </article>
 </MainLayout>
 
@@ -160,10 +171,10 @@ await getOGImage({
     var container = document.createElement("div");
     container.id = "readingProgress";
     container.style.cssText =
-      "position:fixed;top:0;left:0;right:0;height:2px;z-index:9999;pointer-events:none;";
+      "position:fixed;top:0;left:0;right:0;height:4px;z-index:9999;pointer-events:none;";
     var bar = document.createElement("div");
     bar.style.cssText =
-      "height:100%;width:0;background:var(--primary);transition:none;";
+      "height:100%;width:0;background:var(--blue);transition:none;";
     container.appendChild(bar);
     document.body.appendChild(container);
 

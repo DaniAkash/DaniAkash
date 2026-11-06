@@ -2,13 +2,9 @@
 import { getCollection, render } from "astro:content";
 import { Schema } from "astro-seo-schema";
 import Globe from "../components/Globe.tsx";
-import BlueskyIcon from "../components/icons/BlueskyIcon.astro";
-import GithubIcon from "../components/icons/GithubIcon.astro";
-import InstagramIcon from "../components/icons/InstagramIcon.astro";
-import LinkedinIcon from "../components/icons/LinkedinIcon.astro";
-import MailDarkIcon from "../components/icons/MailDarkIcon.astro";
-import TwitterIcon from "../components/icons/TwitterIcon.astro";
-import { ASSET_PREFIX } from "../constants/asset-prefix";
+import Icon, { type IconName } from "../components/Icon.astro";
+import Tile from "../components/Tile.astro";
+import { ASSET_PREFIX, assetUrl } from "../constants/asset-prefix";
 import { PERSON_ENTITY_ID } from "../constants/seo";
 import MainLayout from "../layouts/MainLayout.astro";
 
@@ -18,6 +14,23 @@ const { Content } = await render(about);
 const social = (await getCollection("social"))[0]!;
 const destinationsData = (await getCollection("destinations"))[0]!;
 const destinations = destinationsData.data.items;
+
+const connectLinks: { label: string; href: string; icon: IconName }[] = [
+  { label: "Follow on Bluesky", href: social.data.bluesky, icon: "bluesky" },
+  { label: "Follow on X", href: social.data.twitter, icon: "x" },
+  {
+    label: "Follow on Instagram",
+    href: social.data.instagram,
+    icon: "instagram",
+  },
+  { label: "Follow on GitHub", href: social.data.github, icon: "github" },
+  { label: "Follow on LinkedIn", href: social.data.linkedIn, icon: "linkedin" },
+  {
+    label: social.data.email,
+    href: `mailto:${social.data.email}`,
+    icon: "mail",
+  },
+];
 ---
 
 <MainLayout title="About" description="Dani Akash | AI Engineer, builder, and speaker based in Chennai, India. Building AI agents and writing about JavaScript, React Native, and the web.">
@@ -61,291 +74,95 @@ const destinations = destinationsData.data.items;
       ],
     }}
   />
-  <main class="about-page">
-    <div class="mx-auto max-w-[1200px] px-6">
-      <div class="about-grid">
 
-        <!-- Left: Content -->
-        <div class="about-content">
-          <p class="mb-6 font-mono text-[11px] uppercase tracking-[0.15em] text-muted-foreground">
-            01 // ABOUT
-          </p>
-          <h1
-            class="mb-12 font-bold leading-[1.1] tracking-[-0.03em]"
-            style="font-size: clamp(36px, 5vw, 56px);"
-          >
-            I'm Dani Akash
-          </h1>
+  <div class="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4 lg:grid-cols-6">
+    <Tile
+      as="header"
+      class="col-span-2 flex min-h-[16rem] flex-col justify-end gap-4 md:col-span-4 lg:col-span-3 lg:min-h-[20rem]"
+    >
+      <h1 class="font-display text-[clamp(3rem,6vw,5.5rem)] leading-[0.92] font-extrabold tracking-[-0.035em]">
+        I’m Dani Akash
+      </h1>
+      <p class="text-muted-foreground flex flex-wrap items-center gap-x-4 gap-y-1 text-lg">
+        <span class="text-foreground font-semibold">AI Engineer · Builder · Speaker</span>
+        <span class="inline-flex items-center gap-1.5">
+          <Icon name="map-pin" class="size-4" /> Chennai, India
+        </span>
+      </p>
+    </Tile>
 
-          <div class="prose dark:prose-invert max-w-none">
-            <Content />
-          </div>
+    <Tile tone="photo" class="col-span-2 aspect-[4/3] md:aspect-auto lg:col-span-2">
+      <img
+        src={assetUrl("image-2.jpg")}
+        alt="Dani Akash coding at his desk with a cat on his lap"
+        class="absolute inset-0 size-full object-cover object-[30%_25%]"
+        loading="eager"
+        decoding="async"
+      />
+    </Tile>
 
-          <div class="about-section">
-            <div class="about-subtitle">SYSTEM.CONNECT // UPLINKS</div>
-            <div class="about-connect">
-              <a href={social.data.bluesky} class="connect-link" target="_blank" rel="noopener">
-                <BlueskyIcon /><span class="ml-4">Follow on Bluesky</span>
-              </a>
-              <a href={social.data.twitter} class="connect-link" target="_blank" rel="noopener">
-                <TwitterIcon /><span class="ml-4">Follow on X</span>
-              </a>
-              <a href={social.data.instagram} class="connect-link" target="_blank" rel="noopener">
-                <InstagramIcon /><span class="ml-4">Follow on Instagram</span>
-              </a>
-              <a href={social.data.github} class="connect-link" target="_blank" rel="noopener">
-                <GithubIcon /><span class="ml-4">Follow on GitHub</span>
-              </a>
-              <a href={social.data.linkedIn} class="connect-link" target="_blank" rel="noopener">
-                <LinkedinIcon /><span class="ml-4">Follow on LinkedIn</span>
-              </a>
-              <a href={`mailto:${social.data.email}`} class="connect-link" rel="noopener">
-                <MailDarkIcon /><span class="ml-4">{social.data.email}</span>
-              </a>
-            </div>
-          </div>
+    <Tile tone="photo" class="col-span-2 aspect-[4/3] md:col-span-2 md:aspect-auto lg:col-span-1">
+      <img
+        src={assetUrl("image-4.jpg")}
+        alt="Dani Akash overlooking a river gorge on a hike"
+        class="absolute inset-0 size-full object-cover object-[70%_50%]"
+        loading="eager"
+        decoding="async"
+      />
+    </Tile>
+
+    <div class="col-span-2 flex flex-col gap-3 md:col-span-4 md:gap-4 lg:col-span-3">
+      <Tile as="article" class="md:p-10">
+        <div class="prose max-w-[68ch]">
+          <Content />
         </div>
+      </Tile>
 
-        <!-- Right: Globe + Spotlight (sticky) -->
-        <div class="about-viz">
-          <Globe client:only="react" destinations={destinations} />
-        </div>
-
-      </div>
+      <Tile as="section" aria-labelledby="about-connect" class="md:p-10">
+        <h2
+          id="about-connect"
+          class="font-display text-2xl font-bold tracking-[-0.02em] md:text-3xl"
+        >
+          SYSTEM.CONNECT // UPLINKS
+        </h2>
+        <ul class="mt-5 grid gap-2 sm:grid-cols-2">
+          {
+            connectLinks.map((link) => (
+              <li>
+                <a
+                  href={link.href}
+                  target={link.href.startsWith("mailto") ? undefined : "_blank"}
+                  rel="noopener"
+                  class="bg-muted hover:bg-foreground hover:text-background flex min-h-14 items-center gap-3 rounded-2xl px-4 py-2.5 font-semibold transition-colors"
+                >
+                  <Icon name={link.icon} />
+                  <span class="min-w-0 truncate">{link.label}</span>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </Tile>
     </div>
-  </main>
+
+    <Tile
+      as="aside"
+      tone="ink"
+      aria-labelledby="about-destinations"
+      class="col-span-2 flex h-[34rem] flex-col gap-3 md:col-span-4 md:h-[40rem] lg:sticky lg:top-6 lg:col-span-3 lg:h-[calc(100vh-3rem)] lg:max-h-[56rem] lg:self-start"
+    >
+      <div class="flex items-baseline justify-between gap-4">
+        <h2
+          id="about-destinations"
+          class="font-display text-2xl font-bold tracking-[-0.02em] md:text-3xl"
+        >
+          Destinations
+        </h2>
+        <span class="text-on-ink-muted font-mono text-xs">{destinations.length} places</span>
+      </div>
+      <div class="min-h-0 flex-1">
+        <Globe client:only="react" destinations={destinations} />
+      </div>
+    </Tile>
+  </div>
 </MainLayout>
-
-<style>
-  .about-page {
-    min-height: 100vh;
-  }
-
-  .about-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 48px;
-    align-items: start;
-  }
-
-  /* Left column — scrolls naturally */
-  .about-content {
-    padding: 80px 0;
-  }
-
-  /* Subsection dividers */
-  .about-section {
-    margin-top: 48px;
-  }
-
-  .about-subtitle {
-    font-family: var(--font-mono, 'JetBrains Mono', monospace);
-    font-size: 11px;
-    color: var(--muted-foreground);
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    margin-bottom: 24px;
-    padding-bottom: 8px;
-    border-bottom: 1px dashed var(--border);
-  }
-
-  /* Connect links */
-  .about-connect {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-  }
-
-  .connect-link {
-    font-family: var(--font-mono, 'JetBrains Mono', monospace);
-    font-size: 13px;
-    color: var(--muted-foreground);
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 0;
-    transition: all 0.2s ease;
-    text-decoration: none;
-  }
-
-  .connect-link:hover {
-    color: var(--primary);
-  }
-
-  /* Right column — sticky globe */
-  .about-viz {
-    position: sticky;
-    top: 80px;
-    height: calc(100vh - 100px);
-  }
-
-  /* Globe wrap */
-  .about-viz :global(.globe-wrap) {
-    flex: 1;
-    min-height: 0;
-    border-radius: 16px 16px 0 0;
-    overflow: hidden;
-    border: 1px solid #1e1e2a;
-    border-bottom: none;
-    position: relative;
-  }
-
-  :global(html:not(.dark)) .about-viz :global(.globe-wrap) {
-    border-color: #d8d8d0;
-  }
-
-  /* Spotlight panel */
-  /* Polaroid card — JS-positioned to track marker */
-  .about-viz :global(.polaroid) {
-    position: absolute;
-    width: 140px;
-    background: #08080D;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 8px;
-    overflow: hidden;
-    z-index: 3;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
-    opacity: 0;
-  }
-
-  :global(html:not(.dark)) .about-viz :global(.polaroid) {
-    background: #F5F5F0;
-    border-color: rgba(0, 0, 0, 0.08);
-  }
-
-  .about-viz :global(.polaroid-img) {
-    width: 100%;
-    aspect-ratio: 4/3;
-    object-fit: cover;
-    display: block;
-  }
-
-  .about-viz :global(.polaroid-caption) {
-    padding: 6px 8px;
-    font-family: var(--font-mono, 'JetBrains Mono', monospace);
-    font-size: 10px;
-    font-weight: 500;
-    text-align: center;
-    color: var(--foreground);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .about-viz :global(.spotlight) {
-    border: 1px solid #1e1e2a;
-    border-radius: 0 0 16px 16px;
-    padding: 16px 24px;
-    background: rgba(255, 255, 255, 0.025);
-    cursor: pointer;
-    transition: all 0.2s ease;
-    min-height: 110px;
-    display: flex;
-    align-items: flex-start;
-    gap: 16px;
-  }
-
-  :global(html:not(.dark)) .about-viz :global(.spotlight) {
-    border-color: #d8d8d0;
-    background: rgba(0, 0, 0, 0.025);
-  }
-
-  .about-viz :global(.spotlight:hover) {
-    background: rgba(255, 255, 255, 0.05);
-  }
-
-  :global(html:not(.dark)) .about-viz :global(.spotlight:hover) {
-    background: rgba(0, 0, 0, 0.05);
-  }
-
-  .about-viz :global(.spotlight-btn) {
-    font-family: var(--font-mono, 'JetBrains Mono', monospace);
-    font-size: 14px;
-    color: var(--muted-foreground);
-    background: none;
-    border: 1px solid #1e1e2a;
-    border-radius: 8px;
-    width: 28px;
-    height: 28px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    padding: 0;
-  }
-
-  :global(html:not(.dark)) .about-viz :global(.spotlight-btn) {
-    border-color: #d8d8d0;
-  }
-
-  .about-viz :global(.spotlight-btn:hover) {
-    color: var(--primary);
-    border-color: var(--primary);
-    background: oklch(from var(--primary) l c h / 0.15);
-  }
-
-  .about-viz :global(.spotlight-input) {
-    font-family: var(--font-mono, 'JetBrains Mono', monospace);
-    font-size: 11px;
-    color: var(--foreground);
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid #1e1e2a;
-    border-radius: 4px;
-    width: 32px;
-    height: 24px;
-    text-align: center;
-    padding: 0;
-    outline: none;
-    -moz-appearance: textfield;
-  }
-
-  :global(html:not(.dark)) .about-viz :global(.spotlight-input) {
-    background: rgba(0, 0, 0, 0.05);
-    border-color: #d8d8d0;
-  }
-
-  .about-viz :global(.spotlight-input:focus) {
-    border-color: var(--primary);
-  }
-
-  .about-viz :global(.spotlight-input::-webkit-inner-spin-button),
-  .about-viz :global(.spotlight-input::-webkit-outer-spin-button) {
-    -webkit-appearance: none;
-    margin: 0;
-  }
-
-  /* Tablet */
-  @media (max-width: 900px) {
-    .about-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .about-content {
-      padding-top: 24px;
-    }
-
-    .about-viz {
-      position: relative;
-      top: 0;
-      height: 460px;
-    }
-  }
-
-  /* Mobile */
-  @media (max-width: 600px) {
-    .about-viz {
-      height: 480px;
-      overflow: hidden;
-    }
-  }
-
-  /* Very small screens — reduce spotlight padding */
-  @media (max-width: 360px) {
-    .about-viz :global(.spotlight) {
-      padding: 12px 16px;
-      gap: 8px;
-    }
-  }
-</style>
-

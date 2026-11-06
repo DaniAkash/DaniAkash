@@ -24,9 +24,11 @@ export const getOGImage = async ({
     key: "0",
     type: "div",
     props: {
-      tw: "flex h-[600px] w-[1200px] flex-col justify-between overflow-hidden bg-zinc-900 p-16 text-white",
+      tw: "flex h-[600px] w-[1200px] flex-col justify-between overflow-hidden p-16",
       style: {
         fontFamily: "Roboto",
+        backgroundColor: "#F3F1EC",
+        color: "#17161A",
       },
       children: [
         {
@@ -44,7 +46,7 @@ export const getOGImage = async ({
               {
                 type: "p",
                 props: {
-                  tw: "max-w-3xl text-2xl text-zinc-300",
+                  tw: "max-w-3xl text-2xl text-[#5E5B66]",
                   children: description,
                 },
               },
@@ -65,7 +67,7 @@ export const getOGImage = async ({
                       type: "img",
                       props: {
                         src: `${ASSET_PREFIX}/avatar.jpg`,
-                        tw: "h-20 w-20 rounded-full border-2 border-zinc-500",
+                        tw: "h-20 w-20 rounded-full",
                       },
                     },
                     {
@@ -83,11 +85,10 @@ export const getOGImage = async ({
                     type: "img",
                     props: {
                       src: cover,
-                      tw: "h-[250px] w-[250px] rounded-2xl bg-zinc-800",
+                      tw: "h-[250px] w-[250px] rounded-[32px] bg-[#E6E3DC]",
                       style: {
                         aspectRatio: "1 / 1",
                         objectFit: "cover",
-                        transform: "rotate(3deg)",
                       },
                     },
                   }

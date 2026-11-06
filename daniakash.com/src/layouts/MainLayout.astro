@@ -81,7 +81,7 @@ if (pathSegments.length > 0) {
 const isHomePage = Astro.url.pathname === "/";
 ---
 
-<html lang="en" class="dark overflow-x-clip">
+<html lang="en" class="overflow-x-clip">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
@@ -103,9 +103,9 @@ const isHomePage = Astro.url.pathname === "/";
       href="/favicon-16x16.png"
     />
     <link rel="manifest" href="/manifest.json" />
-    <link rel="preconnect" href="https://fonts.cdnfonts.com" crossorigin />
-    <link href="https://fonts.cdnfonts.com/css/calorie" rel="stylesheet" />
-    <meta name="theme-color" content="#08080D" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#F3F1EC" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#121116" media="(prefers-color-scheme: dark)" />
     <meta name="generator" content={Astro.generator} />
     <Seo
       title={title ? `${title} | Dani Akash` : "Dani Akash"}
@@ -118,8 +118,6 @@ const isHomePage = Astro.url.pathname === "/";
         "Web Development",
       ]}
       icon="/favicon.ico"
-      themeColor="#08080D"
-      colorScheme="dark"
       facebook={{
         url: "https://daniakash.com",
         type: publishedTime ? "article" : "website",
@@ -172,30 +170,31 @@ const isHomePage = Astro.url.pathname === "/";
     />
     <ClientRouter />
     <script is:inline>
-      // Restore theme before first paint
+      // Runs before first paint so the stored or system theme never flashes.
       function restoreTheme() {
-        const theme = localStorage.getItem("theme");
-        if (theme === "light") {
-          document.documentElement.classList.remove("dark");
-        } else {
-          document.documentElement.classList.add("dark");
-        }
+        let theme = null;
+        try {
+          theme = localStorage.getItem("theme");
+        } catch (e) {}
+        const dark = theme
+          ? theme === "dark"
+          : window.matchMedia("(prefers-color-scheme: dark)").matches;
+        document.documentElement.classList.toggle("dark", dark);
       }
       restoreTheme();
       document.addEventListener("astro:after-swap", restoreTheme);
     </script>
   </head>
-  <body class="min-h-screen bg-background text-foreground">
+  <body class="bg-background text-foreground min-h-screen">
+    <a
+      href="#main"
+      class="bg-foreground text-background sr-only z-50 rounded-full px-4 py-2 font-medium focus:not-sr-only focus:fixed focus:top-4 focus:left-4"
+      >Skip to content</a
+    >
     <Nav />
-    <main class="relative z-1 mx-auto max-w-7xl px-6 pt-24">
+    <main id="main" class="mx-auto w-full max-w-[1440px] px-4 pt-2 pb-3 md:px-8 md:pb-4 lg:px-12">
       <slot />
     </main>
-    {
-      !hideFooter && (
-        <div class="relative z-1 mx-auto max-w-7xl px-6">
-          <SiteFooter />
-        </div>
-      )
-    }
+    {!hideFooter && <SiteFooter />}
   </body>
 </html>

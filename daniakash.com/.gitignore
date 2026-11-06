@@ -35,3 +35,8 @@ public/og/
 
 # Ignore locally installed models
 models/
+
+# impeccable decision mocks, review captures and local config overrides
+.impeccable/mocks/
+.impeccable/review/
+.impeccable/config.local.json

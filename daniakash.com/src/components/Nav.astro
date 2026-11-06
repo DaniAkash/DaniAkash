@@ -1,88 +1,85 @@
 ---
 import { navLinks } from "../constants/navLinks";
-import ThemeToggle from "./ThemeToggle";
+import Icon from "./Icon.astro";
+import ThemeToggle from "./ThemeToggle.astro";
 
 const currentPath = Astro.url.pathname;
+const isActive = (href: string) =>
+  currentPath.startsWith(href) ||
+  (href === "/blog/" && currentPath.startsWith("/posts/"));
 ---
 
-<nav
-  class="border-border bg-background/70 fixed inset-x-0 top-0 z-50 border-b backdrop-blur-xl transition-colors"
->
-  <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-3">
+<header class="mx-auto w-full max-w-[1440px] px-4 pt-4 md:px-8 md:pt-6 lg:px-12 print:hidden">
+  <nav
+    aria-label="Main"
+    class="flex items-center gap-2 py-2"
+  >
     <a
       href="/"
-      class="text-foreground inline-flex min-h-[44px] items-center font-mono text-sm font-medium tracking-wide"
+      class="font-display hover:text-primary mr-auto inline-flex min-h-11 items-center text-xl font-extrabold tracking-[-0.02em] transition-colors"
     >
       dani_akash_
     </a>
 
-    <ul class="hidden gap-1 md:flex">
+    <ul class="hidden items-center gap-1 lg:flex">
       {
-        navLinks.map((link) => {
-          const isActive = currentPath.startsWith(link.href);
-          return (
-            <li>
-              <a
-                href={link.href}
-                class:list={[
-                  "rounded-full px-4 py-1 font-mono text-xs tracking-wide transition-all",
-                  isActive
-                    ? "text-primary"
-                    : "text-muted-foreground hover:bg-foreground/5 hover:text-foreground",
-                ]}
-              >
-                {link.title}
-              </a>
-            </li>
-          );
-        })
+        navLinks.map((link) => (
+          <li>
+            <a
+              href={link.href}
+              aria-current={isActive(link.href) ? "page" : undefined}
+              class:list={[
+                "inline-flex min-h-11 items-center rounded-full px-4 text-[15px] font-medium transition-colors",
+                isActive(link.href)
+                  ? "bg-foreground text-background"
+                  : "text-muted-foreground hover:bg-card hover:text-foreground",
+              ]}
+            >
+              {link.title}
+            </a>
+          </li>
+        ))
       }
     </ul>
 
-    <div class="flex items-center gap-3">
-      <ThemeToggle client:idle />
+    <ThemeToggle />
 
-      <button
-        id="mobile-menu-toggle"
-        class="text-muted-foreground hover:text-foreground flex h-8 w-8 items-center justify-center font-mono text-lg transition-colors md:hidden"
-        aria-label="Toggle navigation menu"
-        aria-expanded="false"
-        aria-controls="mobile-menu"
-      >
-        <span id="hamburger-icon" aria-hidden="true">≡</span>
-        <span id="close-icon" aria-hidden="true" class="hidden">✕</span>
-      </button>
-    </div>
-  </div>
+    <button
+      id="mobile-menu-toggle"
+      type="button"
+      class="text-foreground hover:bg-card inline-flex size-11 cursor-pointer items-center justify-center rounded-full transition-colors lg:hidden"
+      aria-label="Open navigation menu"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+    >
+      <span id="hamburger-icon"><Icon name="menu" /></span>
+      <span id="close-icon" class="hidden"><Icon name="close" /></span>
+    </button>
+  </nav>
 
-  <div
-    id="mobile-menu"
-    class="border-border bg-background/70 hidden border-t backdrop-blur-xl md:hidden"
-  >
-    <ul class="mx-auto max-w-7xl px-6 py-4 flex flex-col gap-1">
+  <div id="mobile-menu" class="hidden pb-2 lg:hidden">
+    <ul class="bg-card grid grid-cols-2 gap-1 rounded-[1.25rem] p-2">
       {
-        navLinks.map((link) => {
-          const isActive = currentPath.startsWith(link.href);
-          return (
-            <li>
-              <a
-                href={link.href}
-                class:list={[
-                  "mobile-nav-link block rounded-md px-4 py-2 font-mono text-[11px] uppercase tracking-[0.15em] transition-all",
-                  isActive
-                    ? "text-primary"
-                    : "text-muted-foreground hover:bg-foreground/5 hover:text-foreground",
-                ]}
-              >
-                {link.title}
-              </a>
-            </li>
-          );
-        })
+        navLinks.map((link) => (
+          <li>
+            <a
+              href={link.href}
+              aria-current={isActive(link.href) ? "page" : undefined}
+              class:list={[
+                "mobile-nav-link flex min-h-12 items-center rounded-2xl px-4 text-base font-medium transition-colors",
+                isActive(link.href)
+                  ? "bg-foreground text-background"
+                  : "hover:bg-muted",
+              ]}
+            >
+              {link.title}
+            </a>
+          </li>
+        ))
       }
     </ul>
   </div>
-</nav>
+</header>
 
 <script is:inline>
   document.addEventListener("astro:page-load", function () {
@@ -95,37 +92,40 @@ const currentPath = Astro.url.pathname;
 
     if (!toggle || !menu) return;
 
-    function openMenu() {
-      menu.classList.remove("hidden");
-      if (hamburgerIcon) hamburgerIcon.classList.add("hidden");
-      if (closeIcon) closeIcon.classList.remove("hidden");
-      toggle.setAttribute("aria-expanded", "true");
-    }
-
-    function closeMenu() {
-      menu.classList.add("hidden");
-      if (hamburgerIcon) hamburgerIcon.classList.remove("hidden");
-      if (closeIcon) closeIcon.classList.add("hidden");
-      toggle.setAttribute("aria-expanded", "false");
+    function setOpen(open) {
+      menu.classList.toggle("hidden", !open);
+      if (hamburgerIcon) hamburgerIcon.classList.toggle("hidden", open);
+      if (closeIcon) closeIcon.classList.toggle("hidden", !open);
+      toggle.setAttribute("aria-expanded", open ? "true" : "false");
+      toggle.setAttribute(
+        "aria-label",
+        open ? "Close navigation menu" : "Open navigation menu",
+      );
     }
 
     function handleToggle() {
-      if (toggle.getAttribute("aria-expanded") === "true") {
-        closeMenu();
-      } else {
-        openMenu();
-      }
+      setOpen(toggle.getAttribute("aria-expanded") !== "true");
+    }
+
+    function closeMenu() {
+      setOpen(false);
+    }
+
+    function handleKey(event) {
+      if (event.key === "Escape") closeMenu();
     }
 
     var mobileLinks = document.querySelectorAll(".mobile-nav-link");
 
     toggle.addEventListener("click", handleToggle);
+    document.addEventListener("keydown", handleKey);
     mobileLinks.forEach(function (link) {
       link.addEventListener("click", closeMenu);
     });
 
     window.__mobileNavCleanup = function () {
       toggle.removeEventListener("click", handleToggle);
+      document.removeEventListener("keydown", handleKey);
       mobileLinks.forEach(function (link) {
         link.removeEventListener("click", closeMenu);
       });

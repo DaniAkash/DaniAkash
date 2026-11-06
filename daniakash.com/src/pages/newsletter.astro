@@ -1,13 +1,14 @@
 ---
 import { getCollection } from "astro:content";
+import Icon from "../components/Icon.astro";
 import NewsletterWidget from "../components/Newsletter.astro";
+import Tile from "../components/Tile.astro";
 import MainLayout from "../layouts/MainLayout.astro";
 
 const rss = (await getCollection("rss")).sort(
   (a, b) => b.data.dateMillis - a.data.dateMillis,
 );
 
-// Group issues by year
 const issuesByYear = new Map<number, typeof rss>();
 for (const issue of rss) {
   const year = new Date(issue.data.dateValue).getFullYear();
@@ -21,69 +22,77 @@ const years = [...issuesByYear.keys()].sort((a, b) => b - a);
   title="Newsletter"
   description="Dani Akash's newsletter on AI, tech, science, and the web | delivered to your inbox, zero spam."
 >
-  <div class="mx-auto max-w-[720px] pb-20 pt-[120px]">
-    <!-- Header -->
-    <header class="mb-20">
-      <p class="mb-6 font-mono text-[11px] uppercase tracking-[0.15em] text-muted-foreground">
-        03 // NEWSLETTER
-      </p>
-      <h1
-        class="mb-4 font-bold leading-[1.1] tracking-[-0.03em]"
-        style="font-size: clamp(32px, 5vw, 48px);"
-      >
+  <header class="grid gap-3 md:grid-cols-2 md:gap-4 lg:grid-cols-6">
+    <Tile as="div" class="flex min-h-[14rem] flex-col justify-end lg:col-span-3">
+      <h1 class="font-display text-[clamp(2.75rem,5.4vw,5rem)] leading-[0.92] font-extrabold tracking-[-0.035em]">
         Letters of the News Kind
       </h1>
-      <p class="text-lg leading-relaxed text-muted-foreground">
+      <p class="text-muted-foreground mt-4 max-w-[44ch] text-lg leading-snug md:text-xl">
         Thoughts delivered straight to your inbox, with zero spam (I promise).
       </p>
-    </header>
-
-    <!-- Subscribe box -->
+    </Tile>
     <NewsletterWidget
       heading="Get notified when I publish something new"
       description="Unsubscribe at any time. No spam, ever."
-      label="Stay up to date"
-      center={false}
-      class="mb-20 p-6"
+      class="lg:col-span-3"
     />
+  </header>
 
-    <!-- Issues list -->
-    <div>
-      <div class="mb-6 border-b border-dashed border-border pb-2 font-mono text-[11px] uppercase tracking-[0.1em] text-muted-foreground">
-        All Issues
-      </div>
-
-      {years.map((year) => {
-        const yearIssues = issuesByYear.get(year)!;
-        return (
-          <>
-            <div class="py-6 pb-2 font-mono text-xs tracking-[0.1em] text-foreground/10">
-              {year}
-            </div>
-            {yearIssues.map((issue) => {
-              const date = new Date(issue.data.dateValue);
-              const dateDisplay = date.toLocaleDateString("en-US", {
-                month: "short",
-                day: "numeric",
-              });
-              return (
-                <a
-                  href={`/newsletter/${issue.data.slug}/`}
-                  class="group -mx-4 flex items-baseline justify-between gap-6 rounded-lg border-b border-dashed border-border px-4 py-4 transition-colors last:border-b-0 hover:bg-foreground/5"
-                >
-                  <span class="text-[17px] font-medium leading-snug transition-colors group-hover:text-primary">
-                    {issue.data.title}
-                  </span>
-                  <span class="shrink-0 font-mono text-xs tracking-wide text-muted-foreground">
-                    {dateDisplay}
-                  </span>
-                </a>
-              );
-            })}
-          </>
-        );
-      })}
+  <Tile
+    as="section"
+    aria-labelledby="all-issues"
+    class="mt-3 grid gap-6 md:mt-4 lg:grid-cols-[12rem_1fr] lg:gap-8"
+  >
+    <h2
+      id="all-issues"
+      class="font-display text-3xl leading-none font-extrabold tracking-[-0.03em] lg:sticky lg:top-6 lg:self-start lg:text-4xl"
+    >
+      All Issues
+    </h2>
+    <div class="flex flex-col gap-6">
+      {
+        years.map((year) => {
+          const yearIssues = issuesByYear.get(year)!;
+          return (
+            <section aria-labelledby={`issues-${year}`}>
+              <h3
+                id={`issues-${year}`}
+                class="text-muted-foreground tabular font-mono text-sm font-medium"
+              >
+                {year}
+              </h3>
+              <ul class="mt-1">
+                {yearIssues.map((issue) => {
+                  const date = new Date(issue.data.dateValue);
+                  const dateDisplay = date.toLocaleDateString("en-US", {
+                    month: "short",
+                    day: "numeric",
+                  });
+                  return (
+                    <li class="border-border border-t first:border-t-0">
+                      <a
+                        href={`/newsletter/${issue.data.slug}/`}
+                        class="group/issue hover:bg-tile-hover -mx-3 flex items-baseline justify-between gap-6 rounded-2xl px-3 py-4 transition-colors"
+                      >
+                        <span class="group-hover/issue:text-primary inline-flex items-baseline gap-2 text-lg leading-snug font-semibold tracking-[-0.01em] transition-colors">
+                          {issue.data.title}
+                        </span>
+                        <span class="text-muted-foreground inline-flex shrink-0 items-center gap-2 font-mono text-xs">
+                          <time datetime={issue.data.dateValue}>{dateDisplay}</time>
+                          <Icon
+                            name="arrow-right"
+                            class="hidden size-4 transition-transform duration-300 ease-out-expo group-hover/issue:translate-x-1 sm:block"
+                          />
+                        </span>
+                      </a>
+                    </li>
+                  );
+                })}
+              </ul>
+            </section>
+          );
+        })
+      }
     </div>
-  </div>
+  </Tile>
 </MainLayout>
-

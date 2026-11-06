@@ -1,73 +1,96 @@
 @import "tailwindcss";
-@import "@fontsource-variable/space-grotesk";
-@import "@fontsource-variable/jetbrains-mono";
+@import "@fontsource-variable/bricolage-grotesque";
+@import "@fontsource-variable/geist";
+@import "@fontsource-variable/geist-mono";
 @plugin "@tailwindcss/typography";
 
 @custom-variant dark (&:is(.dark *));
 
-/* ═══════════════════════════════════════════
-   shadcn Design Tokens — Light Mode
-   ═══════════════════════════════════════════ */
+/* Light: warm paper ground, white tiles, flat colour tiles per content type. */
 :root {
-  --background: oklch(0.965 0.005 106.5); /* #F5F5F0 */
-  --foreground: oklch(0.15 0.01 260); /* #0A0A0F */
-  --card: oklch(0.96 0.004 106.5);
-  --card-foreground: oklch(0.15 0.01 260);
-  --popover: oklch(0.965 0.005 106.5);
-  --popover-foreground: oklch(0.15 0.01 260);
-  --primary: oklch(0.58 0.14 175); /* #0D9488 teal */
-  --primary-foreground: oklch(0.98 0.005 175);
-  --secondary: oklch(0.95 0.005 106.5);
-  --secondary-foreground: oklch(0.25 0.01 260);
-  --muted: oklch(0.92 0.004 106.5);
-  --muted-foreground: oklch(0.45 0.02 260);
-  --accent: oklch(0.92 0.004 106.5);
-  --accent-foreground: oklch(0.15 0.01 260);
+  --background: oklch(0.959 0.007 85);
+  --foreground: oklch(0.2 0.008 290);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.2 0.008 290);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.2 0.008 290);
+  --primary: oklch(0.53 0.24 268);
+  --primary-foreground: oklch(0.99 0 0);
+  --secondary: oklch(0.935 0.008 85);
+  --secondary-foreground: oklch(0.2 0.008 290);
+  --muted: oklch(0.935 0.008 85);
+  --muted-foreground: oklch(0.5 0.013 290);
+  --accent: oklch(0.935 0.008 85);
+  --accent-foreground: oklch(0.2 0.008 290);
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0 0 0 / 8%);
-  --input: oklch(0 0 0 / 8%);
-  --ring: oklch(0.58 0.14 175);
-  --radius: 0.75rem;
+  --border: oklch(0.2 0.008 290 / 9%);
+  --input: oklch(0.2 0.008 290 / 14%);
+  --ring: oklch(0.53 0.24 268);
+
+  --tile-hover: oklch(0.985 0.004 85);
+  --blue: oklch(0.53 0.24 268);
+  --blue-hover: oklch(0.49 0.24 268);
+  --on-blue: oklch(0.99 0 0);
+  --yellow: oklch(0.89 0.15 92);
+  --yellow-hover: oklch(0.86 0.16 90);
+  --on-yellow: oklch(0.2 0.008 290);
+  --pink: oklch(0.76 0.16 358);
+  --pink-hover: oklch(0.72 0.17 358);
+  --on-pink: oklch(0.2 0.008 290);
+  --green: oklch(0.74 0.15 170);
+  --green-hover: oklch(0.7 0.15 170);
+  --on-green: oklch(0.2 0.008 290);
+  --ink: oklch(0.2 0.008 290);
+  --ink-hover: oklch(0.26 0.01 290);
+  --on-ink: oklch(0.96 0.007 85);
+  --on-ink-muted: oklch(0.78 0.01 85);
+
+  --radius: 1rem;
 }
 
-/* ═══════════════════════════════════════════
-   shadcn Design Tokens — Dark Mode
-   ═══════════════════════════════════════════ */
+/* Dark: near-black ground, raised tiles; colour tiles keep their identity. */
 .dark {
-  --background: oklch(0.13 0.015 270); /* #08080D */
-  --foreground: oklch(0.95 0.005 260); /* #F0F0F5 */
-  --card: oklch(0.15 0.015 270);
-  --card-foreground: oklch(0.95 0.005 260);
-  --popover: oklch(0.15 0.015 270);
-  --popover-foreground: oklch(0.95 0.005 260);
-  --primary: oklch(0.76 0.15 175); /* #2DD4BF teal */
-  --primary-foreground: oklch(0.13 0.015 270);
-  --secondary: oklch(0.18 0.015 270);
-  --secondary-foreground: oklch(0.95 0.005 260);
-  --muted: oklch(0.2 0.012 270);
-  --muted-foreground: oklch(0.6 0.015 260);
-  --accent: oklch(0.2 0.012 270);
-  --accent-foreground: oklch(0.95 0.005 260);
+  --background: oklch(0.155 0.006 290);
+  --foreground: oklch(0.955 0.006 85);
+  --card: oklch(0.21 0.008 290);
+  --card-foreground: oklch(0.955 0.006 85);
+  --popover: oklch(0.21 0.008 290);
+  --popover-foreground: oklch(0.955 0.006 85);
+  --primary: oklch(0.72 0.15 268);
+  --primary-foreground: oklch(0.155 0.006 290);
+  --secondary: oklch(0.25 0.008 290);
+  --secondary-foreground: oklch(0.955 0.006 85);
+  --muted: oklch(0.25 0.008 290);
+  --muted-foreground: oklch(0.72 0.01 290);
+  --accent: oklch(0.25 0.008 290);
+  --accent-foreground: oklch(0.955 0.006 85);
   --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 8%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.76 0.15 175);
+  --border: oklch(1 0 0 / 9%);
+  --input: oklch(1 0 0 / 16%);
+  --ring: oklch(0.72 0.15 268);
+
+  --tile-hover: oklch(0.245 0.009 290);
+  --blue: oklch(0.55 0.22 268);
+  --blue-hover: oklch(0.6 0.2 268);
+  --yellow: oklch(0.86 0.15 92);
+  --yellow-hover: oklch(0.9 0.14 92);
+  --pink: oklch(0.74 0.15 358);
+  --pink-hover: oklch(0.78 0.14 358);
+  --green: oklch(0.72 0.14 170);
+  --green-hover: oklch(0.76 0.13 170);
+  --ink: oklch(0.31 0.014 290);
+  --ink-hover: oklch(0.35 0.016 290);
+  --on-ink: oklch(0.955 0.006 85);
+  --on-ink-muted: oklch(0.78 0.01 85);
 }
 
-/* ═══════════════════════════════════════════
-   Tailwind 4 — CSS-driven theme
-   (replaces tailwind.config.mjs entirely)
-   ═══════════════════════════════════════════ */
 @theme inline {
-  /* Fonts */
-  --font-sans: "Space Grotesk Variable", system-ui, sans-serif;
-  --font-mono: "JetBrains Mono Variable", "SF Mono", monospace;
-  --font-calorie: "Calorie", cursive, sans-serif;
+  --font-sans: "Geist Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Bricolage Grotesque Variable", "Geist Variable", sans-serif;
+  --font-mono: "Geist Mono Variable", ui-monospace, "SF Mono", monospace;
 
-  /* Screens */
   --breakpoint-mobile: 375px;
 
-  /* Colors — shadcn token mapping */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -87,112 +110,177 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
 
-  /* Radii */
-  --radius-sm: calc(var(--radius) * 0.6);
-  --radius-md: calc(var(--radius) * 0.8);
+  --color-tile-hover: var(--tile-hover);
+  --color-blue: var(--blue);
+  --color-blue-hover: var(--blue-hover);
+  --color-on-blue: var(--on-blue);
+  --color-yellow: var(--yellow);
+  --color-yellow-hover: var(--yellow-hover);
+  --color-on-yellow: var(--on-yellow);
+  --color-pink: var(--pink);
+  --color-pink-hover: var(--pink-hover);
+  --color-on-pink: var(--on-pink);
+  --color-green: var(--green);
+  --color-green-hover: var(--green-hover);
+  --color-on-green: var(--on-green);
+  --color-ink: var(--ink);
+  --color-ink-hover: var(--ink-hover);
+  --color-on-ink: var(--on-ink);
+  --color-on-ink-muted: var(--on-ink-muted);
+
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
   --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) * 1.4);
-  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-xl: 1.25rem;
+  --radius-2xl: 1.5rem;
+  --radius-tile: 1.5rem;
   --radius-pill: 999px;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* ═══════════════════════════════════════════
-   Base Layer
-   ═══════════════════════════════════════════ */
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    @apply border-border outline-ring/60;
+  }
+
+  html {
+    color-scheme: light;
+    scrollbar-color: var(--muted-foreground) var(--background);
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  html.dark {
+    color-scheme: dark;
   }
 
   body {
-    @apply bg-background text-foreground font-sans;
+    @apply bg-background text-foreground font-sans antialiased;
+    caret-color: var(--primary);
+    font-feature-settings: "ss01";
+  }
+
+  ::selection {
+    background: var(--yellow);
+    color: var(--on-yellow);
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--ring);
+    outline-offset: 3px;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  time,
+  .tabular {
+    font-variant-numeric: tabular-nums;
   }
 }
 
-/* ═══════════════════════════════════════════
-   Typography Plugin Overrides
-   Prose colors mapped to design token system
-   ═══════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Long-form reading: the typography plugin mapped onto the bento tokens. */
 .prose {
-  --tw-prose-body: var(--muted-foreground);
+  --tw-prose-body: var(--foreground);
   --tw-prose-headings: var(--foreground);
+  --tw-prose-lead: var(--muted-foreground);
   --tw-prose-links: var(--primary);
   --tw-prose-bold: var(--foreground);
-  --tw-prose-counters: var(--foreground);
-  --tw-prose-bullets: var(--foreground);
+  --tw-prose-counters: var(--muted-foreground);
+  --tw-prose-bullets: var(--muted-foreground);
   --tw-prose-hr: var(--border);
-  --tw-prose-quote-borders: var(--border);
+  --tw-prose-quotes: var(--foreground);
   --tw-prose-captions: var(--muted-foreground);
   --tw-prose-code: var(--foreground);
-  --tw-prose-pre-code: var(--foreground);
-  --tw-prose-pre-bg: var(--card);
-}
-
-/* Match production typography (Tailwind Typography v3 defaults) */
-.prose {
-  font-size: 16px;
+  --tw-prose-pre-code: var(--on-ink);
+  --tw-prose-pre-bg: var(--ink);
+  --tw-prose-th-borders: var(--border);
+  --tw-prose-td-borders: var(--border);
+  font-size: 1.0625rem;
   line-height: 1.75;
 }
 
-.prose h2 {
+.prose :where(h2, h3, h4):not(:where(.not-prose *)) {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.prose :where(h2):not(:where(.not-prose *)) {
+  font-size: 1.6em;
+  margin-top: 2.2em;
+  margin-bottom: 0.6em;
+}
+
+.prose :where(h3):not(:where(.not-prose *)) {
   font-size: 1.25em;
-  line-height: 1.4;
-  margin-top: 40px;
-  margin-bottom: 40px;
+  margin-top: 1.8em;
+  margin-bottom: 0.5em;
 }
 
-.prose h3 {
-  font-size: 1em;
-  line-height: 1.75;
-  margin-top: 40px;
-  margin-bottom: 40px;
+.prose :where(a):not(:where(.not-prose *)) {
+  font-weight: 500;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+  text-decoration-color: color-mix(in oklch, var(--primary) 35%, transparent);
+  transition: text-decoration-color 150ms;
 }
 
-.prose p {
-  margin-top: 2.5em;
-  margin-bottom: 2.5em;
+.prose :where(a):not(:where(.not-prose *)):hover {
+  text-decoration-color: var(--primary);
 }
 
-.prose ul,
-.prose ol {
-  margin-top: 2.5em;
-  margin-bottom: 2.5em;
+.prose :where(:not(pre) > code):not(:where(.not-prose *)) {
+  background: var(--muted);
+  border-radius: 0.375rem;
+  padding: 0.15em 0.4em;
+  font-weight: 500;
 }
 
-.prose li {
-  margin-top: 1.5em;
-  margin-bottom: 1.5em;
+.prose :where(:not(pre) > code):not(:where(.not-prose *))::before,
+.prose :where(:not(pre) > code):not(:where(.not-prose *))::after {
+  content: none;
 }
 
-.prose blockquote {
-  margin-top: 2.5em;
-  margin-bottom: 2.5em;
+.prose :where(pre):not(:where(.not-prose *)) {
+  border-radius: 1rem;
 }
 
-.prose a {
-  color: var(--primary);
-  text-decoration: none;
-  border-bottom: 1px dashed var(--primary);
-  transition:
-    color 150ms,
-    border-bottom-color 150ms;
-}
-
-.prose a:hover {
-  border-bottom-style: solid;
-}
-
-.prose h2 {
-  padding-top: 1.5em;
-  border-top: 1px dashed var(--border);
-}
-
-.prose hr {
+.prose :where(blockquote):not(:where(.not-prose *)) {
   border: none;
-  border-top: 1px dashed var(--border);
-  margin: 2.5em 0;
+  background: var(--muted);
+  border-radius: 1rem;
+  padding: 1em 1.25em;
+  font-style: normal;
+  font-weight: 500;
 }
 
-.prose li::marker {
-  color: var(--primary);
+.prose :where(blockquote p):not(:where(.not-prose *)) {
+  margin: 0;
+}
+
+.prose :where(blockquote p):not(:where(.not-prose *))::before,
+.prose :where(blockquote p):not(:where(.not-prose *))::after {
+  content: none;
+}
+
+.prose :where(img):not(:where(.not-prose *)) {
+  border-radius: 1rem;
+}
+
+.prose :where(li):not(:where(.not-prose *))::marker {
+  color: var(--muted-foreground);
 }
