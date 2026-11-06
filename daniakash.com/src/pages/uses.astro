@@ -1,10 +1,20 @@
 ---
 import { getCollection } from "astro:content";
+import Icon from "../components/Icon.astro";
+import Tile from "../components/Tile.astro";
 import { assetUrl } from "../constants/asset-prefix";
 import MainLayout from "../layouts/MainLayout.astro";
 
 const uses = (await getCollection("uses"))[0]!;
 const sections = uses.data.items;
+
+const toolCount = sections.reduce(
+  (total, section) => total + section.tools.length,
+  0,
+);
+const agentCount =
+  sections.find((section) => section.title === "Coding Agents")?.tools.length ??
+  0;
 
 /** Resolve an image path: absolute URLs pass through, relative paths get the asset prefix */
 const resolveImage = (path?: string) => {
@@ -12,223 +22,176 @@ const resolveImage = (path?: string) => {
   if (path.startsWith("http://") || path.startsWith("https://")) return path;
   return assetUrl(path);
 };
+
+const hardwareSpan = {
+  wide: "col-span-2 md:col-span-4",
+  square: "col-span-2 md:col-span-2",
+  small: "col-span-1 md:col-span-1",
+} as const;
 ---
 
 <MainLayout title="Uses" description="Hardware, software, and tools Dani Akash uses for development.">
-  <div class="mx-auto max-w-[1100px] pb-20 pt-[120px]">
-    <!-- Header -->
-    <header class="mb-20">
-      <p class="mb-6 font-mono text-[11px] uppercase tracking-[0.15em] text-muted-foreground">
-        06 // USES
-      </p>
-      <h1
-        class="mb-4 font-bold leading-[1.1] tracking-[-0.03em]"
-        style="font-size: clamp(36px, 5vw, 56px);"
-      >
+  <section
+    aria-label="Uses introduction"
+    class="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4 lg:grid-cols-6"
+  >
+    <Tile
+      as="header"
+      class="col-span-2 flex flex-col justify-end gap-4 md:col-span-4 md:min-h-[18rem] lg:col-span-4"
+    >
+      <h1 class="font-display text-[clamp(2.5rem,5vw,4.5rem)] leading-[0.95] font-extrabold tracking-[-0.035em]">
         Tools of the Trade
       </h1>
-      <p class="max-w-[600px] text-lg leading-relaxed text-muted-foreground">
+      <p class="text-muted-foreground max-w-[44ch] text-lg leading-snug md:text-xl">
         A peek behind the curtain — the stuff that keeps me running (and coding).
       </p>
-    </header>
+    </Tile>
+    <Tile tone="yellow" class="flex min-h-[10rem] flex-col justify-end md:col-span-2 lg:col-span-1">
+      <p class="font-display tabular text-6xl leading-none font-extrabold tracking-[-0.03em]">
+        {toolCount}
+      </p>
+      <p class="mt-2 text-sm font-semibold">Tools on this page</p>
+    </Tile>
+    <Tile tone="ink" class="flex min-h-[10rem] flex-col justify-end md:col-span-2 lg:col-span-1">
+      <p class="font-display tabular text-6xl leading-none font-extrabold tracking-[-0.03em]">
+        {agentCount}
+      </p>
+      <p class="text-on-ink-muted mt-2 text-sm font-semibold">Coding agents</p>
+    </Tile>
+  </section>
 
-    {sections.map((section, sectionIndex) => {
-      const num = String(sectionIndex + 1).padStart(2, "0");
+  {
+    sections.map((section) => {
       const isHardware = section.variant === "hardware";
+      const headingId = `uses-${section.title.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
 
       return (
-        <section class="mb-20">
-          {/* Section header */}
-          <div class="mb-12 flex items-baseline gap-4 border-b border-dashed border-border pb-4">
-            <span class="font-mono text-4xl font-light text-foreground/10">{num}</span>
-            <span class="font-mono text-[11px] font-medium uppercase tracking-[0.15em] text-muted-foreground">
-              {section.title}
-            </span>
-          </div>
+        <section aria-labelledby={headingId} class="mt-10 md:mt-14">
+          <h2
+            id={headingId}
+            class="font-display mb-4 px-1 text-3xl leading-none font-bold tracking-[-0.025em] md:mb-5 md:text-4xl"
+          >
+            {section.title}
+          </h2>
 
           {isHardware ? (
-            /* Hardware grid — 4-col strict grid */
-            <div class="hw-grid">
+            <div class="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4">
               {section.tools.map((tool) => {
                 const size = tool.size ?? "square";
                 const img = resolveImage(tool.image);
                 return (
-                  <div
+                  <Tile
+                    as="article"
                     class:list={[
-                      "hw-card group overflow-hidden rounded-[20px] border border-border bg-foreground/[0.025] transition-all hover:-translate-y-0.5 hover:border-foreground/15 hover:shadow-lg hover:shadow-black/10",
-                      size === "wide" && "hw-wide",
-                      size === "square" && "hw-square",
-                      size === "small" && "hw-small",
+                      hardwareSpan[size],
+                      "flex flex-col p-0 md:p-0",
+                      size === "wide" && "md:flex-row",
                     ]}
                   >
-                    {size === "wide" ? (
-                      /* Wide: image left, text right */
-                      <div class="flex h-full flex-row">
-                        <div class="flex w-[45%] items-center justify-center overflow-hidden bg-foreground/5">
-                          {img ? (
-                            <img src={img} alt={tool.title} loading="lazy" class="size-full object-cover" />
-                          ) : (
-                            <span class="text-5xl opacity-30">🖥</span>
-                          )}
-                        </div>
-                        <div class="flex flex-1 flex-col justify-center gap-1 p-6">
-                          {tool.tag && (
-                            <span class="font-mono text-[11px] tracking-wide text-primary">{tool.tag}</span>
-                          )}
-                          <h3 class="text-lg font-semibold leading-snug tracking-tight">{tool.title}</h3>
-                          <p class="mt-1 text-sm leading-relaxed text-muted-foreground">{tool.description}</p>
-                        </div>
-                      </div>
-                    ) : size === "square" ? (
-                      /* Square: image top, text bottom */
-                      <div class="flex h-full flex-col">
-                        <div class="flex flex-1 items-center justify-center overflow-hidden bg-foreground/5">
-                          {img ? (
-                            <img src={img} alt={tool.title} loading="lazy" class="size-full object-cover" />
-                          ) : (
-                            <span class="text-5xl opacity-30">🖥</span>
-                          )}
-                        </div>
-                        <div class="flex flex-col gap-1 p-5">
-                          {tool.tag && (
-                            <span class="font-mono text-[11px] tracking-wide text-primary">{tool.tag}</span>
-                          )}
-                          <h3 class="text-base font-semibold leading-snug tracking-tight">{tool.title}</h3>
-                          <p class="mt-0.5 text-sm leading-relaxed text-muted-foreground line-clamp-2">{tool.description}</p>
-                        </div>
-                      </div>
-                    ) : (
-                      /* Small: image-focused with overlay label */
-                      <div class="group/small relative flex h-full items-center justify-center overflow-hidden">
-                        {img ? (
-                          <img
-                            src={img}
-                            alt={tool.title}
-                            loading="lazy"
-                            class="size-full object-cover transition-transform duration-300 group-hover/small:scale-105"
-                          />
-                        ) : (
-                          <div class="flex size-full items-center justify-center bg-foreground/5">
-                            <span class="text-3xl opacity-30">🖥</span>
-                          </div>
-                        )}
-                        {/* Gradient overlay + label at bottom */}
-                        <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent px-3 pb-2.5 pt-8">
-                          {tool.tag && (
-                            <span class="font-mono text-[9px] uppercase tracking-wider text-primary">{tool.tag}</span>
-                          )}
-                          <h3 class="text-sm font-semibold leading-tight text-white">{tool.title}</h3>
-                        </div>
-                        {/* Hover tooltip with description */}
-                        <div class="pointer-events-none absolute inset-0 flex items-center justify-center bg-black/85 p-4 opacity-0 transition-opacity duration-200 group-hover/small:opacity-100">
-                          <p class="text-center text-xs leading-relaxed text-white/90">{tool.description}</p>
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                );
-              })}
-            </div>
-          ) : (
-            /* Software grid — icon + info cards */
-            <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
-              {section.tools.map((tool) => {
-                const Tag = tool.link ? "a" : "div";
-                const linkProps = tool.link ? { href: tool.link, target: "_blank", rel: "noopener" } : {};
-                const img = resolveImage(tool.image);
-                return (
-                  <Tag {...linkProps} class="flex gap-4 rounded-xl border border-border p-6 transition-all hover:border-foreground/15 hover:bg-foreground/5">
-                    {/* Icon */}
-                    <div class="flex size-12 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-foreground/5">
-                      {img ? (
+                    <div
+                      class:list={[
+                        "bg-muted relative overflow-hidden",
+                        size === "wide" &&
+                          "aspect-[16/10] md:aspect-auto md:min-h-[20rem] md:w-[55%]",
+                        size === "square" && "aspect-[4/3]",
+                        size === "small" && "aspect-square",
+                      ]}
+                    >
+                      {img && (
                         <img
                           src={img}
                           alt={tool.title}
                           loading="lazy"
+                          decoding="async"
+                          class="absolute inset-0 size-full object-cover"
+                        />
+                      )}
+                    </div>
+                    <div
+                      class:list={[
+                        "flex flex-1 flex-col gap-2",
+                        size === "small" ? "p-4" : "p-5 md:p-6",
+                        size === "wide" && "md:justify-center md:p-8",
+                      ]}
+                    >
+                      <h3
+                        class:list={[
+                          "font-display leading-tight font-bold tracking-[-0.015em]",
+                          size === "wide" && "text-2xl md:text-3xl",
+                          size === "square" && "text-xl md:text-2xl",
+                          size === "small" && "text-base md:text-lg",
+                        ]}
+                      >
+                        {tool.title}
+                      </h3>
+                      {tool.tag && (
+                        <span class="bg-yellow text-on-yellow self-start rounded-full px-2.5 py-0.5 text-xs font-semibold">
+                          {tool.tag}
+                        </span>
+                      )}
+                      <p
+                        class:list={[
+                          "text-muted-foreground leading-relaxed",
+                          size === "small" ? "text-[13px]" : "text-[15px]",
+                        ]}
+                      >
+                        {tool.description}
+                      </p>
+                    </div>
+                  </Tile>
+                );
+              })}
+            </div>
+          ) : (
+            <div class="grid gap-3 sm:grid-cols-2 md:gap-4 lg:grid-cols-3">
+              {section.tools.map((tool) => {
+                const img = resolveImage(tool.image);
+                return (
+                  <Tile
+                    {...(tool.link
+                      ? { href: tool.link, target: "_blank", rel: "noopener" }
+                      : {})}
+                    class="flex gap-4"
+                  >
+                    <div class="bg-muted flex size-14 shrink-0 items-center justify-center overflow-hidden rounded-2xl">
+                      {img && (
+                        <img
+                          src={img}
+                          alt=""
+                          loading="lazy"
+                          decoding="async"
                           class="size-full object-contain"
                         />
-                      ) : (
-                        <span class="text-2xl opacity-30">⚙</span>
                       )}
                     </div>
-                    {/* Body */}
-                    <div class="flex min-w-0 flex-col gap-0.5">
+                    <div class="flex min-w-0 flex-1 flex-col gap-1.5">
+                      <div class="flex items-start justify-between gap-2">
+                        <h3 class="text-lg leading-snug font-semibold">
+                          {tool.title}
+                        </h3>
+                        {tool.link && (
+                          <Icon
+                            name="arrow-up-right"
+                            class="text-muted-foreground group-hover:text-foreground mt-1 size-4 transition-[color,transform] duration-300 ease-out-expo group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                          />
+                        )}
+                      </div>
                       {tool.tag && (
-                        <span class="font-mono text-[10px] uppercase tracking-wide text-primary">{tool.tag}</span>
+                        <span class="bg-muted self-start rounded-full px-2.5 py-0.5 text-xs font-semibold">
+                          {tool.tag}
+                        </span>
                       )}
-                      <h3 class="text-base font-semibold">{tool.title}{tool.link && <span class="ml-1.5 text-xs text-muted-foreground transition-transform group-hover:translate-x-0.5">↗</span>}</h3>
-                      <p class="mt-1 text-[13px] leading-relaxed text-muted-foreground">{tool.description}</p>
+                      <p class="text-muted-foreground text-sm leading-relaxed">
+                        {tool.description}
+                      </p>
                     </div>
-                  </Tag>
+                  </Tile>
                 );
               })}
             </div>
           )}
         </section>
       );
-    })}
-  </div>
+    })
+  }
 </MainLayout>
-
-<style>
-  /* 4-column hardware grid with explicit row heights */
-  .hw-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: 280px 280px 280px 160px;
-    gap: 24px;
-  }
-
-  /* Wide: spans all 4 columns */
-  .hw-wide {
-    grid-column: span 4;
-  }
-
-  /* Square: spans 2 columns */
-  .hw-square {
-    grid-column: span 2;
-  }
-
-  /* Small: spans 1 column */
-  .hw-small {
-    grid-column: span 1;
-  }
-
-  /* Tablet: 2 columns */
-  @media (max-width: 900px) {
-    .hw-grid {
-      grid-template-columns: repeat(2, 1fr);
-      grid-template-rows: 260px 260px 260px 120px 120px;
-    }
-    .hw-wide {
-      grid-column: span 2;
-    }
-    .hw-square {
-      grid-column: span 1;
-    }
-    .hw-small {
-      grid-column: span 1;
-    }
-  }
-
-  /* Mobile: 1 column, auto heights */
-  @media (max-width: 600px) {
-    .hw-grid {
-      grid-template-columns: 1fr;
-      grid-template-rows: none;
-      grid-auto-rows: auto;
-    }
-    .hw-wide,
-    .hw-square,
-    .hw-small {
-      grid-column: span 1;
-    }
-    .hw-wide > div {
-      flex-direction: column !important;
-    }
-    .hw-wide > div > div:first-child {
-      width: 100% !important;
-      min-height: 180px;
-    }
-  }
-</style>
