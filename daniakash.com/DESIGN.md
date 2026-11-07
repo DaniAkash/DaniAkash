@@ -256,7 +256,7 @@ components:
 
 **Creative North Star: "The Home Screen"**
 
-The site is Dani's phone home screen laid flat on the web. The homepage is a grid of real things he made: native app icons pulled from each repository, language and npm glyph icons for the libraries without one, folders that zoom open out of their own tile, and widgets that hold who he is, what he is building now, and his photos. A dock pinned to the bottom of every page carries a Home key and the site sections as apps. Every inner page is an app opened from that screen: an app sheet with its section icon, an Archivo headline and a close button that returns home. Every catalog app opens as a story dialog over the home screen, the way a phone app opens on top of its springboard.
+The site is Dani's phone home screen laid flat on the web. The homepage is a grid of real things he made: native app icons pulled from each repository, language and npm glyph icons for the libraries without one, folders that zoom open out of their own tile, and widgets that hold who he is, everything he has built, and his photos. A dock pinned to the bottom of every page carries a Home key and the site sections as apps. Every inner page is an app opened from that screen: an app sheet with its section icon, an Archivo headline and a close button that returns home. Every catalog app opens as a story dialog over the home screen, the way a phone app opens on top of its springboard.
 
 The world is calm and flat. A pale lavender wallpaper (deep ink at night) sits behind opaque white widgets with large, soft corners and no borders. Colour comes from the icons themselves, the section tints, a few flat bento tiles (yellow, pink, green) for stats and features, and one blue that means "live". Depth is tonal, not shadowed: the only cast shadow in the system belongs to the dock and the App Library that rises out of it. Density is high on the home screen (icons pack an 8-column grid) and generous inside sheets, where long-form reading gets a 68ch measure and 17px text.
 
@@ -277,11 +277,11 @@ A cool lavender-and-ink neutral world in OKLCH (hue 285 to 290) that stays quiet
 
 ### Primary
 - **Signal Blue** (`primary`, lifted to `primary-dark` at night): links, the back link on sheets, the focus ring (3px outline, 3px offset), the caret, hover state of the solid button, the "Open" label on Projects rows and the link colour inside prose. In dark mode it lifts to a lighter, less saturated blue so links hold contrast on ink.
-- **Live Blue** (`live-blue` / `live-blue-dark`): the bento palette's blue (`--blue`), a slightly cooler, more saturated sibling of Signal Blue. It fills the "building now" widget and the Now page's latest entry, the "Active" status badge on projects, the pulsing dot, the primary link button in story dialogs ("View on GitHub"), and text selection (with `on-blue` text). At night it shifts only a touch lighter and less saturated, because it is a fill under white text, not a text colour.
+- **Live Blue** (`live-blue` / `live-blue-dark`): the bento palette's blue (`--blue`), a slightly cooler, more saturated sibling of Signal Blue. It fills the "all work" widget and the Now page's latest entry, the "Active" status badge on projects, the primary link button in story dialogs ("View on GitHub"), and text selection (with `on-blue` text). At night it shifts only a touch lighter and less saturated, because it is a fill under white text, not a text colour.
 
 ### Secondary
 - **Ink Widget** (`ink` / `ink-dark`): the dark widget tone used for the speaking widget, the About closing widget and the Projects closing widget, with `on-ink` text and `on-ink-muted` supporting copy. In light mode it is the text ink itself; in dark mode it is deliberately lifted (0.31 lightness) above the card tone (0.235) so an ink widget reads as a raised surface on the night wallpaper instead of a hole in it. Code blocks in prose and the npm command bar in story dialogs use the same pair.
-- **Bento Yellow** (`bento-yellow` / `bento-yellow-dark`, `--yellow`): the GitHub stars widget.
+- **Bento Yellow** (`bento-yellow` / `bento-yellow-dark`, `--yellow`): the GitHub stars widget (stars across every public, non-fork repo Dani owns or has contributed to).
 - **Bento Pink** (`bento-pink` / `bento-pink-dark`, `--pink`): the talks counter widget.
 - **Bento Green** (`bento-green` / `bento-green-dark`, `--green`): the newsletter tile on the home screen, posts and newsletter pages.
 - **On Bright** (`on-bright`): the near-black violet ink set on every bright bento tile, for headings, body (at 75% to 80% opacity for supporting lines) and icons. It is also the Subscribe button fill on the green tile and its focus ring colour. It does not change at night; the three bento fills drop about 0.02 lightness instead so they do not glare on the night wallpaper.
@@ -314,7 +314,7 @@ Section tints are fixed hex values and do not change between themes: an app icon
 - **Dock White / Dock Slate** (`dock`, `dock-dark`): the dock and the App Library popover are opaque in both themes; at night this is the lightest neutral surface so it reads above everything it floats over.
 
 ### Named Rules
-**The One Blue Rule.** Blue means live or actionable: links, focus, selection, the building-now widget, the Active badge, the primary link in a story dialog. It never decorates. Yellow, pink and green are the bento tones that share the tile grid with it, but they mark a stat or feature tile, never state or an action.
+**The One Blue Rule.** Blue means live or actionable: links, focus, selection, the all-work widget, the Active badge, the primary link in a story dialog. It never decorates. Yellow, pink and green are the bento tones that share the tile grid with it, but they mark a stat or feature tile, never state or an action.
 
 **The Bento Tone Rule.** A bright bento tile is one flat fill with `on-bright` ink, used for a single stat or feature (stars, talks, newsletter). One tile per tone on a screen; never a bento tone as text, a link colour or an accent stripe.
 
@@ -358,7 +358,7 @@ The ramp is registered as Tailwind theme sizes and with tailwind-merge (`src/uti
 - **Base (under 640px):** 4 columns, rows of 6.75rem (108px), 8px column gap and 12px row gap. The hello widget spans 4x2, app icons and folders take one cell each, photo and stat widgets take 2 columns, writing and connect span the full width.
 - **sm (640px):** 6 columns; hello and the speaking photo sit side by side at 3x2.
 - **md (768px):** gaps grow to 16px both ways; still 6 columns.
-- **lg (1024px):** 8 columns, rows of 7.5rem (120px), and explicit placement takes over: hello widget at columns 1 to 3 over rows 1 and 2, six app icons in a 3x2 block at columns 4 to 6, the speaking photo at columns 7 and 8; row 3 holds the Google Rust Style Guide icon, the AI Tools, Open Source and Earlier Work folders, the blue building-now widget (3 wide) and the yellow GitHub stars widget; rows 4 and 5 hold the pink talks counter over the hike photo, the cosplay photo (2x2) and Latest writing (4x2). More posts, Work, Speaking, a market photo, Connect (full width) and the green newsletter tile (full width) follow.
+- **lg (1024px):** 8 columns, rows of 7.5rem (120px), and explicit placement takes over: hello widget at columns 1 to 3 over rows 1 and 2, six app icons in a 3x2 block at columns 4 to 6, the speaking photo at columns 7 and 8; row 3 holds the Google Rust Style Guide icon, the AI Tools, Open Source and Earlier Work folders, the blue all-work widget (3 wide) and the yellow GitHub stars widget; rows 4 and 5 hold the pink talks counter over the hike photo, the cosplay photo (2x2) and Latest writing (4x2). More posts, Work, Speaking, a market photo, Connect (full width) and the green newsletter tile (full width) follow.
 
 Icons and folders sit at the top of their cell with 4px top padding and a label beneath; the cell height leaves room for two-line names.
 
@@ -415,7 +415,7 @@ A translucent squircle (72px, 88px from md; 11px or 13px padding) previewing up 
 ### Widget
 The home screen's container (`Widget.astro`): 1.75rem radius, 16px padding (20px from md), clipped, no border. Tones:
 - **plain** (card): hello, stars, Latest writing, More from the blog, Work, Connect.
-- **blue** (live blue, on-blue text): building now, Now page latest entry. Carries a pulsing on-blue dot when it reports live state.
+- **blue** (live blue, on-blue text): the all-work widget and the Now page latest entry. All work counts the catalog ("27 things I've built"), breaks it down by category, and shows a strip of the first nine icons at 28px to 32px with a "+N" pill; the whole tile opens Projects.
 - **ink** (ink, on-ink text): speaking blurb, About and Projects closing widgets.
 - **yellow** (bento yellow, on-bright text): the GitHub stars widget.
 - **pink** (bento pink, on-bright text): the talks counter, with its caption at 75% opacity.

@@ -315,7 +315,7 @@
   {
     "name": "GitHub Stars",
     "size": "stat",
-    "stat": { "number": "473+", "label": "GitHub Stars" }
+    "stat": { "number": "24.6k+", "label": "Stars on repos I ship to" }
   },
   {
     "name": "React Native Responsive Dimensions",

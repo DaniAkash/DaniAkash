@@ -29,9 +29,28 @@ const socialData = (await getCollection("social"))[0]?.data;
 
 const projects = (await getCollection("project"))[0]?.data.items ?? [];
 const starsStat = projects.find((p) => p.name === "GitHub Stars")?.stat ?? {
-  number: "473+",
-  label: "GitHub Stars",
+  number: "24.6k+",
+  label: "Stars on repos I ship to",
 };
+
+const workOrder = [
+  { category: "app", label: "apps" },
+  { category: "ai-tool", label: "AI tools" },
+  { category: "oss", label: "open source" },
+  { category: "earlier", label: "earlier work" },
+];
+const catalog = workOrder.flatMap(({ category }) =>
+  projects.filter((p) => p.icon && p.category === category),
+);
+const workTotal = catalog.length;
+const workBreakdown = workOrder
+  .map(({ category, label }) => {
+    const count = catalog.filter((p) => p.category === category).length;
+    return count ? `${count} ${label}` : "";
+  })
+  .filter(Boolean)
+  .join(" · ");
+const workStrip = catalog.slice(0, 9).map((p) => p.icon as AppIconArt);
 
 const toApp = (p: (typeof projects)[number]): FolderApp | undefined =>
   p.icon
@@ -270,20 +289,33 @@ const isExternal = (href: string) => href.startsWith("http");
     <Widget
       href="/projects/"
       tone="blue"
-      class="col-span-4 flex flex-col justify-between sm:col-span-4 lg:col-span-3 lg:col-start-5 lg:row-start-3"
+      aria-label={`All work: ${workTotal} projects`}
+      class="col-span-4 flex flex-col justify-between gap-2 sm:col-span-4 lg:col-span-3 lg:col-start-5 lg:row-start-3 lg:gap-1"
     >
-      <span class="bg-on-blue size-2 animate-pulse rounded-full" aria-hidden="true"></span>
-      <div class="flex items-end justify-between gap-3">
-        <p class="text-body leading-snug font-semibold">
-          <span class="font-display text-title block font-extrabold tracking-[-0.02em]">
-            BrowserOS
-          </span>
-          Building now: an AI-powered browser for agents
-        </p>
+      <div class="flex items-start justify-between gap-3">
+        <div>
+          <p class="font-display text-title font-extrabold tracking-[-0.02em]">
+            {workTotal} things I've built
+          </p>
+          <p class="text-caption font-semibold opacity-85">
+            {workBreakdown}
+          </p>
+        </div>
         <span
-          class="bg-on-blue text-blue text-caption inline-flex shrink-0 items-center gap-1 rounded-full px-3 py-1.5 font-bold whitespace-nowrap transition-transform duration-300 ease-out-expo group-hover:translate-x-0.5"
+          class="bg-on-blue text-blue inline-flex size-8 shrink-0 items-center justify-center rounded-full transition-transform duration-300 ease-out-expo group-hover:translate-x-0.5"
+          aria-hidden="true"
         >
-          Explore the work <Icon name="arrow-right" class="size-3.5" />
+          <Icon name="arrow-right" class="size-4" />
+        </span>
+      </div>
+      <div class="flex items-center" aria-hidden="true">
+        {
+          workStrip.map((art) => (
+            <AppIcon art={art} size="xs" class="-mr-1 size-8 lg:size-7" />
+          ))
+        }
+        <span class="bg-on-blue/20 text-meta ml-2 inline-flex h-6 items-center rounded-full px-2 font-bold">
+          +{workTotal - workStrip.length}
         </span>
       </div>
     </Widget>
