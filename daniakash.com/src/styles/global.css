@@ -83,6 +83,7 @@
   --font-sans: "Hanken Grotesk Variable", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Archivo Variable", "Hanken Grotesk Variable", sans-serif;
   --font-mono: ui-monospace, "SF Mono", Menlo, monospace;
+  --font-calorie: "Calorie", cursive, sans-serif;
 
   --breakpoint-mobile: 375px;
 
