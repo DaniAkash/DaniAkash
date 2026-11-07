@@ -29,28 +29,26 @@ const socialData = (await getCollection("social"))[0]?.data;
 
 const projects = (await getCollection("project"))[0]?.data.items ?? [];
 const starsStat = projects.find((p) => p.name === "GitHub Stars")?.stat ?? {
-  number: "24.6k+",
-  label: "Stars on repos I ship to",
+  number: "24.6K+",
+  label: "GitHub Stars",
 };
 
-const workOrder = [
-  { category: "app", label: "apps" },
-  { category: "ai-tool", label: "AI tools" },
-  { category: "oss", label: "open source" },
-  { category: "earlier", label: "earlier work" },
+/** Languages, runtimes and frameworks found across Dani's repos; logos from svgl. */
+const techStack = [
+  { name: "TypeScript", logo: "typescript" },
+  { name: "Rust", logo: "rust" },
+  { name: "Kotlin", logo: "kotlin" },
+  { name: "Swift", logo: "swift" },
+  { name: "Python", logo: "python" },
+  { name: "Bun", logo: "bun" },
+  { name: "React", logo: "react" },
+  { name: "Expo", logo: "expo" },
+  { name: "Tauri", logo: "tauri" },
+  { name: "Svelte", logo: "svelte" },
+  { name: "Astro", logo: "astro" },
+  { name: "Hono", logo: "hono" },
 ];
-const catalog = workOrder.flatMap(({ category }) =>
-  projects.filter((p) => p.icon && p.category === category),
-);
-const workTotal = catalog.length;
-const workBreakdown = workOrder
-  .map(({ category, label }) => {
-    const count = catalog.filter((p) => p.category === category).length;
-    return count ? `${count} ${label}` : "";
-  })
-  .filter(Boolean)
-  .join(" · ");
-const workStrip = catalog.slice(0, 9).map((p) => p.icon as AppIconArt);
+const techNames = techStack.map((tech) => tech.name).join(", ");
 
 const toApp = (p: (typeof projects)[number]): FolderApp | undefined =>
   p.icon
@@ -289,18 +287,13 @@ const isExternal = (href: string) => href.startsWith("http");
     <Widget
       href="/projects/"
       tone="blue"
-      aria-label={`All work: ${workTotal} projects`}
-      class="col-span-4 flex flex-col justify-between gap-2 sm:col-span-4 lg:col-span-3 lg:col-start-5 lg:row-start-3 lg:gap-1"
+      aria-label={`Everything I've built, with ${techNames}`}
+      class="col-span-4 flex flex-col justify-between gap-3 sm:col-span-4 lg:col-span-3 lg:col-start-5 lg:row-start-3"
     >
       <div class="flex items-start justify-between gap-3">
-        <div>
-          <p class="font-display text-title font-extrabold tracking-[-0.02em]">
-            {workTotal} things I've built
-          </p>
-          <p class="text-caption font-semibold opacity-85">
-            {workBreakdown}
-          </p>
-        </div>
+        <p class="font-display text-title font-extrabold tracking-[-0.02em]">
+          Everything I've built
+        </p>
         <span
           class="bg-on-blue text-blue inline-flex size-8 shrink-0 items-center justify-center rounded-full transition-transform duration-300 ease-out-expo group-hover:translate-x-0.5"
           aria-hidden="true"
@@ -308,16 +301,26 @@ const isExternal = (href: string) => href.startsWith("http");
           <Icon name="arrow-right" class="size-4" />
         </span>
       </div>
-      <div class="flex items-center" aria-hidden="true">
+      <ul class="flex flex-wrap gap-1.5 lg:gap-1" aria-hidden="true">
         {
-          workStrip.map((art) => (
-            <AppIcon art={art} size="xs" class="-mr-1 size-8 lg:size-7" />
+          techStack.map((tech) => (
+            <li
+              title={tech.name}
+              class="flex size-11 items-center justify-center rounded-[22.5%] bg-white lg:size-6.5"
+            >
+              <img
+                src={`/tech/${tech.logo}.svg`}
+                alt=""
+                width="18"
+                height="18"
+                class="size-[62%] object-contain"
+                loading="lazy"
+                decoding="async"
+              />
+            </li>
           ))
         }
-        <span class="bg-on-blue/20 text-meta ml-2 inline-flex h-6 items-center rounded-full px-2 font-bold">
-          +{workTotal - workStrip.length}
-        </span>
-      </div>
+      </ul>
     </Widget>
 
     <Widget

@@ -9,7 +9,11 @@ import { appHref } from "../utils/slugify";
 
 const items = (await getCollection("project"))[0]?.data.items ?? [];
 
-const stats = items.filter((item) => item.size === "stat" && item.stat);
+// Project counts stay out of the page; the work speaks for itself.
+const projectCounts = new Set(["Libraries Published", "Public Repos"]);
+const stats = items.filter(
+  (item) => item.size === "stat" && item.stat && !projectCounts.has(item.name),
+);
 const closing = items.find((item) => item.size === "full");
 
 const groups = [
@@ -82,10 +86,9 @@ const isExternal = (href: string) => href.startsWith("http");
         groups.map((group) => (
           <a
             href={`#${group.id}`}
-            class="bg-muted hover:bg-foreground hover:text-background text-label inline-flex min-h-9 items-center gap-2 rounded-full px-3.5 font-bold transition-colors"
+            class="bg-muted hover:bg-foreground hover:text-background text-label inline-flex min-h-9 items-center rounded-full px-3.5 font-bold transition-colors"
           >
             {group.title}
-            <span class="text-meta tabular opacity-60">{group.projects.length}</span>
           </a>
         ))
       }
