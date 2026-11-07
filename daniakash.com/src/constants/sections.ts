@@ -46,6 +46,13 @@ export const sections: SiteSection[] = [
     ink: "#FFFFFF",
   },
   {
+    title: "Resume",
+    href: "/resume/",
+    glyph: "file",
+    tint: "#5B6474",
+    ink: "#FFFFFF",
+  },
+  {
     title: "Uses",
     href: "/uses/",
     glyph: "laptop",
@@ -59,16 +66,7 @@ export const sections: SiteSection[] = [
     tint: "#FFC21A",
     ink: "#1C1B22",
   },
-  {
-    title: "Resume",
-    href: "/resume/",
-    glyph: "file",
-    tint: "#5B6474",
-    ink: "#FFFFFF",
-  },
 ];
-
-export const dockSections = sections.filter((s) => s.title !== "Resume");
 
 export const sectionFor = (path: string) =>
   sections.find(

@@ -1,9 +1,5 @@
 ---
-import {
-  dockSections,
-  type SiteSection,
-  sections,
-} from "../constants/sections";
+import { type SiteSection, sections } from "../constants/sections";
 import AppIcon from "./AppIcon.astro";
 import Icon from "./Icon.astro";
 
@@ -17,7 +13,7 @@ const home: SiteSection = {
 
 /** On phones the dock keeps these; everything else lives in the App Library. */
 const phoneSections = new Set(["Blog", "Projects", "About"]);
-const items = [home, ...dockSections];
+const items = [home, ...sections];
 ---
 
 <nav
