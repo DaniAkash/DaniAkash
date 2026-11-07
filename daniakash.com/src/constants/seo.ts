@@ -17,4 +17,11 @@ export const SEGMENT_LABELS: Record<string, string> = {
   uses: "Uses",
   now: "Now",
   resume: "Resume",
+  app: "Projects",
+};
+
+/** Sections whose detail pages live under a different first path segment than their list. */
+export const SEGMENT_PARENTS: Record<string, string> = {
+  posts: "/blog/",
+  app: "/projects/",
 };

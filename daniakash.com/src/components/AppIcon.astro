@@ -1,0 +1,111 @@
+---
+import { cn } from "../utils/cn";
+import Icon, { type IconName } from "./Icon.astro";
+
+/** `outline` adds a faint dark-mode edge, for art whose plate would vanish on the dark page. */
+export type AppIconArt = { outline?: boolean | undefined } & (
+  | { kind: "app" | "bleed"; src: string }
+  | { kind: "mark"; src: string; tint?: string | undefined }
+  | {
+      kind: "glyph";
+      src: string;
+      tint?: string | undefined;
+      ink?: string | undefined;
+    }
+  | {
+      kind: "section";
+      glyph: IconName;
+      tint: string;
+      ink?: string | undefined;
+    }
+);
+
+interface Props {
+  art: AppIconArt;
+  /** Rendered size of the full icon canvas, including the built-in margin. */
+  size?: "xs" | "sm" | "md" | "lg";
+  class?: string;
+}
+
+const { art, size = "md", class: className } = Astro.props;
+
+const sizes = {
+  xs: "size-7",
+  sm: "size-14",
+  md: "size-[4.5rem]",
+  lg: "size-[5.5rem]",
+};
+---
+
+<span
+  aria-hidden="true"
+  data-vt-icon
+  class={cn(
+    "relative block shrink-0 transition-transform duration-300 ease-out-expo",
+    sizes[size],
+    className,
+  )}
+>
+  {
+    art.kind === "app" ? (
+      <img
+        src={art.src}
+        alt=""
+        class:list={[
+          "size-full",
+          art.outline && "dark:drop-shadow-[0_0_0.75px_rgb(255_255_255/45%)]",
+        ]}
+        loading="lazy"
+        decoding="async"
+      />
+    ) : (
+      // Every non-native icon sits on the same inset squircle as macOS app icons (9.6% margin).
+      <span
+        class:list={[
+          "absolute inset-[9.6%] overflow-hidden rounded-[22.5%]",
+          art.outline && "dark:ring-1 dark:ring-white/12 dark:ring-inset",
+        ]}
+        style={
+          "tint" in art && art.tint
+            ? `background:${art.tint}`
+            : art.kind === "bleed"
+              ? undefined
+              : "background:var(--card)"
+        }
+      >
+        {art.kind === "bleed" && (
+          <img
+            src={art.src}
+            alt=""
+            class="size-full object-cover"
+            loading="lazy"
+            decoding="async"
+          />
+        )}
+        {art.kind === "mark" && (
+          <img
+            src={art.src}
+            alt=""
+            class="absolute inset-[18%] size-[64%] object-contain"
+            loading="lazy"
+            decoding="async"
+          />
+        )}
+        {art.kind === "glyph" && (
+          <span
+            class="absolute inset-[24%]"
+            style={`background-color:${art.ink ?? "#fff"};mask:url(${art.src}) center/contain no-repeat;-webkit-mask:url(${art.src}) center/contain no-repeat`}
+          />
+        )}
+        {art.kind === "section" && (
+          <span
+            class="absolute inset-0 flex items-center justify-center"
+            style={`color:${art.ink ?? "#fff"}`}
+          >
+            <Icon name={art.glyph} class="size-[52%]" />
+          </span>
+        )}
+      </span>
+    )
+  }
+</span>

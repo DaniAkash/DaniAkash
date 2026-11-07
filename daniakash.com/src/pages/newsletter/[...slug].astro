@@ -1,6 +1,8 @@
 ---
 import { getCollection } from "astro:content";
 import type { GetStaticPaths } from "astro";
+import AppSheet from "../../components/AppSheet.astro";
+import Icon from "../../components/Icon.astro";
 import Newsletter from "../../components/Newsletter.astro";
 import { ASSET_PREFIX } from "../../constants/asset-prefix";
 import MainLayout from "../../layouts/MainLayout.astro";
@@ -29,7 +31,8 @@ export const getStaticPaths = (async () => {
   });
 }) satisfies GetStaticPaths;
 
-const { content, dateDisplay, title, canonical, prev, next } = Astro.props;
+const { content, dateValue, dateDisplay, title, canonical, prev, next } =
+  Astro.props;
 
 // Extract unique description from issue content, fallback to generic
 const fallbackDescription =
@@ -61,80 +64,83 @@ await getOGImage({
   image={image}
   canonical={canonical}
 >
-  <article class="mx-auto max-w-[720px] pt-[120px] pb-20" id="article">
-    <!-- Back link -->
-    <a
-      href="/newsletter/"
-      class="text-muted-foreground hover:text-primary mb-12 inline-flex items-center gap-2 font-mono text-xs tracking-wide transition-colors"
-    >
-      ← Back to newsletter
-    </a>
+  <div id="article">
+    <AppSheet title={title} sectionHref="/newsletter/" class="max-w-[60rem]">
+      <p
+        slot="header"
+        class="text-muted-foreground text-label mt-3 flex flex-wrap items-center gap-x-2 font-semibold"
+      >
+        <span>Newsletter</span>
+        <span aria-hidden="true">·</span>
+        <time datetime={dateValue} class="tabular">{dateDisplay}</time>
+      </p>
 
-    <!-- Issue badge -->
-    <span
-      class="bg-primary/15 text-primary mb-4 inline-block rounded-full px-2.5 py-0.5 font-mono text-[11px] tracking-[0.08em] uppercase"
-    >
-      Newsletter
-    </span>
+      <div class="border-border border-t pt-6 md:pt-8">
+        <div
+          class="prose dark:prose-invert mx-auto max-w-[68ch]"
+          set:html={content}
+        />
+      </div>
 
-    <!-- Date -->
-    <div class="text-muted-foreground mb-4 font-mono text-[13px] tracking-wide">
-      {dateDisplay}
-    </div>
+      <nav
+        aria-label="Issue navigation"
+        class="border-border mt-10 grid gap-2 border-t pt-6 sm:grid-cols-2"
+      >
+        {
+          prev ? (
+            <a
+              href={`/newsletter/${prev.slug}/`}
+              class="bg-muted hover:bg-foreground hover:text-background group flex items-center gap-3 rounded-2xl px-4 py-3 transition-colors"
+            >
+              <Icon name="chevron-left" class="size-4 shrink-0" />
+              <span class="min-w-0">
+                <span class="text-meta block font-semibold opacity-70">
+                  Previous issue
+                </span>
+                <span class="text-label block truncate font-bold">
+                  {prev.title}
+                </span>
+              </span>
+            </a>
+          ) : (
+            <span class="hidden sm:block" />
+          )
+        }
+        {
+          next && (
+            <a
+              href={`/newsletter/${next.slug}/`}
+              class="bg-muted hover:bg-foreground hover:text-background group flex items-center justify-end gap-3 rounded-2xl px-4 py-3 text-right transition-colors"
+            >
+              <span class="min-w-0">
+                <span class="text-meta block font-semibold opacity-70">
+                  Next issue
+                </span>
+                <span class="text-label block truncate font-bold">
+                  {next.title}
+                </span>
+              </span>
+              <Icon name="arrow-right" class="size-4 shrink-0" />
+            </a>
+          )
+        }
+      </nav>
+      <a
+        href="/newsletter/"
+        class="bg-muted hover:bg-foreground hover:text-background text-label mt-3 inline-flex min-h-10 items-center gap-1.5 rounded-full px-4 font-bold transition-colors"
+      >
+        <Icon name="chevron-left" class="size-4" />
+        Back to newsletter
+      </a>
+    </AppSheet>
+  </div>
 
-    <!-- Title -->
-    <h1
-      class="border-border mb-12 border-b border-dashed pb-12 leading-[1.15] font-bold tracking-[-0.03em]"
-      style="font-size: clamp(28px, 4vw, 40px);"
-    >
-      {title}
-    </h1>
-
-    <!-- Prose body -->
-    <div
-      class="prose dark:prose-invert max-w-none"
-      set:html={content}
-    />
-
-    <!-- Subscribe CTA -->
-    <Newsletter
-      heading="Enjoyed this issue?"
-      description="Subscribe to get future issues delivered to your inbox."
-      class="mt-20 rounded-xl p-6"
-    />
-
-    <!-- Prev/Next navigation -->
-    <div
-      class="border-border mt-12 flex justify-between border-t border-dashed pt-12"
-    >
-      {
-        prev ? (
-          <a
-            href={`/newsletter/${prev.slug}/`}
-            class="text-muted-foreground hover:text-primary font-mono text-[13px] transition-colors"
-          >
-            ← {prev.title}
-          </a>
-        ) : (
-          <span />
-        )
-      }
-      {
-        next ? (
-          <a
-            href={`/newsletter/${next.slug}/`}
-            class="text-muted-foreground hover:text-primary font-mono text-[13px] transition-colors"
-          >
-            {next.title} →
-          </a>
-        ) : (
-          <span />
-        )
-      }
-    </div>
-  </article>
+  <Newsletter
+    heading="Enjoyed this issue?"
+    description="Subscribe to get future issues delivered to your inbox."
+    class="mx-auto mt-4 max-w-[60rem] md:mt-5"
+  />
 </MainLayout>
-
 
 <script is:inline>
   document.addEventListener("astro:page-load", function () {
@@ -149,10 +155,10 @@ await getOGImage({
     var container = document.createElement("div");
     container.id = "readingProgress";
     container.style.cssText =
-      "position:fixed;top:0;left:0;right:0;height:2px;z-index:9999;pointer-events:none;";
+      "position:fixed;top:0;left:0;right:0;height:3px;z-index:9999;pointer-events:none;";
     var bar = document.createElement("div");
     bar.style.cssText =
-      "height:100%;width:0;background:var(--primary);transition:none;";
+      "height:100%;width:0;background:var(--blue);transition:none;";
     container.appendChild(bar);
     document.body.appendChild(container);
 

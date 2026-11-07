@@ -141,6 +141,18 @@ const project = defineCollection({
             label: z.string(),
           })
           .optional(),
+        category: z.enum(["app", "ai-tool", "oss", "earlier"]).optional(),
+        icon: z
+          .object({
+            kind: z.enum(["app", "bleed", "mark", "glyph"]),
+            src: z.string(),
+            tint: z.string().optional(),
+            ink: z.string().optional(),
+            outline: z.boolean().optional(),
+          })
+          .optional(),
+        npm: z.string().optional(),
+        language: z.string().optional(),
       }),
     ),
   }),
@@ -207,6 +219,11 @@ const rss = defineCollection({
 
 const now = defineCollection({
   loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/now" }),
+});
+
+/** One story per app, named by its slug (src/content/apps/<slug>.mdx); an empty body shows no story. */
+const apps = defineCollection({
+  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/apps" }),
 });
 
 const resume = defineCollection({
@@ -283,4 +300,5 @@ export const collections = {
   now,
   resume,
   destinations,
+  apps,
 };
