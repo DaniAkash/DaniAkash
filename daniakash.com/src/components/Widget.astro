@@ -12,7 +12,7 @@ export type WidgetTone =
   | "photo";
 
 type Props = Omit<HTMLAttributes<"div">, "class"> & {
-  as?: "div" | "section" | "article" | "aside" | "li" | "a";
+  as?: "div" | "section" | "article" | "aside" | "li" | "a" | "figure";
   href?: string | undefined;
   tone?: WidgetTone;
   class?: string;

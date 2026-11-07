@@ -420,7 +420,7 @@ The home screen's container (`Widget.astro`): 1.75rem radius, 16px padding (20px
 - **yellow** (bento yellow, on-bright text): the GitHub stars widget.
 - **pink** (bento pink, on-bright text): the talks counter, with its caption at 75% opacity.
 - **green** (bento green, on-bright text): available as a tone; the newsletter tile (`Newsletter.astro`) uses the same fill and ink as its own component.
-- **photo** (muted backing, zero padding): one of the five candid photos filling the widget with `object-fit: cover` and a per-photo focal point.
+- **photo** (muted backing, zero padding): a candid photo filling the widget with `object-fit: cover` and a per-photo focal point. Four sit on the home screen; the desk photo with Dani's cat leads the About sheet at its natural 1080:565 ratio, uncropped. The hello widget's avatar is the portrait (`avatar.jpg`), zoomed 1.6x from the top left inside a circle so the face is centred.
 - **Linked widgets** press to 0.98 and nudge their arrow 2px right on hover.
 
 ### App Sheet

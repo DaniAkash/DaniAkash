@@ -141,14 +141,12 @@ const connectLinks: {
   },
 ];
 
+const avatar = assetUrl("avatar.jpg");
+
 const photos = {
   cosplay: {
     src: assetUrl("image-1.jpg"),
     alt: "Dani Akash posing with a cosplayer in a fighting stance",
-  },
-  cat: {
-    src: assetUrl("image-2.jpg"),
-    alt: "Dani Akash coding at his desk with a cat on his lap",
   },
   talk: {
     src: assetUrl("image-3.jpg"),
@@ -182,15 +180,17 @@ const isExternal = (href: string) => href.startsWith("http");
       class="col-span-4 row-span-2 flex flex-col justify-between sm:col-span-3 lg:col-span-3 lg:col-start-1 lg:row-span-2 lg:row-start-1"
     >
       <div class="flex items-center justify-between gap-3">
-        <img
-          src={photos.cat.src}
-          alt=""
-          width="56"
-          height="56"
-          class="size-12 rounded-full object-cover object-[30%_20%] md:size-14"
-          loading="eager"
-          decoding="async"
-        />
+        <span class="block size-12 shrink-0 overflow-hidden rounded-full md:size-14">
+          <img
+            src={avatar}
+            alt=""
+            width="56"
+            height="56"
+            class="size-full origin-top-left scale-[1.6] object-cover"
+            loading="eager"
+            decoding="async"
+          />
+        </span>
         <ul class="flex gap-0.5" aria-label="Social links">
           {
             connectLinks.map((link) => (

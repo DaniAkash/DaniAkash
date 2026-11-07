@@ -79,6 +79,18 @@ const connectLinks: { label: string; href: string; icon: IconName }[] = [
   <AppSheet title="I'm Dani Akash">
     <div class="grid items-start gap-8 lg:grid-cols-2 lg:gap-10">
       <div class="min-w-0">
+        <Widget tone="photo" as="figure" class="mb-8 max-w-[68ch]">
+          <img
+            src={`${ASSET_PREFIX}/image-2.jpg`}
+            alt="Dani Akash coding at his desk with his cat on his lap"
+            width="1080"
+            height="565"
+            class="aspect-[1080/565] w-full object-cover"
+            loading="eager"
+            decoding="async"
+          />
+        </Widget>
+
         <div class="prose dark:prose-invert max-w-[68ch]">
           <Content />
         </div>
