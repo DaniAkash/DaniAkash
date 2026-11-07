@@ -6,6 +6,7 @@ export interface SiteSection {
   glyph: IconName;
   tint: string;
   ink: string;
+  outline?: boolean;
 }
 
 /** The site's own pages, shown as apps in the dock and on page headers. */
@@ -58,6 +59,7 @@ export const sections: SiteSection[] = [
     glyph: "laptop",
     tint: "#1C1B22",
     ink: "#FFFFFF",
+    outline: true,
   },
   {
     title: "Now",

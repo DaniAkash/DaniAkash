@@ -148,6 +148,7 @@ const project = defineCollection({
             src: z.string(),
             tint: z.string().optional(),
             ink: z.string().optional(),
+            outline: z.boolean().optional(),
           })
           .optional(),
         npm: z.string().optional(),

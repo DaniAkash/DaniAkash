@@ -2,7 +2,8 @@
 import { cn } from "../utils/cn";
 import Icon, { type IconName } from "./Icon.astro";
 
-export type AppIconArt =
+/** `outline` adds a faint dark-mode edge, for art whose plate would vanish on the dark page. */
+export type AppIconArt = { outline?: boolean | undefined } & (
   | { kind: "app" | "bleed"; src: string }
   | { kind: "mark"; src: string; tint?: string | undefined }
   | {
@@ -16,7 +17,8 @@ export type AppIconArt =
       glyph: IconName;
       tint: string;
       ink?: string | undefined;
-    };
+    }
+);
 
 interface Props {
   art: AppIconArt;
@@ -49,14 +51,20 @@ const sizes = {
       <img
         src={art.src}
         alt=""
-        class="size-full dark:drop-shadow-[0_0_0.75px_rgb(255_255_255/45%)]"
+        class:list={[
+          "size-full",
+          art.outline && "dark:drop-shadow-[0_0_0.75px_rgb(255_255_255/45%)]",
+        ]}
         loading="lazy"
         decoding="async"
       />
     ) : (
       // Every non-native icon sits on the same inset squircle as macOS app icons (9.6% margin).
       <span
-        class="absolute inset-[9.6%] overflow-hidden rounded-[22.5%] dark:ring-1 dark:ring-white/12 dark:ring-inset"
+        class:list={[
+          "absolute inset-[9.6%] overflow-hidden rounded-[22.5%]",
+          art.outline && "dark:ring-1 dark:ring-white/12 dark:ring-inset",
+        ]}
         style={
           "tint" in art && art.tint
             ? `background:${art.tint}`

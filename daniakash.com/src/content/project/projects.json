@@ -42,7 +42,7 @@
       "label": "View on GitHub"
     },
     "category": "app",
-    "icon": { "kind": "app", "src": "/apps/aalai.svg" },
+    "icon": { "kind": "app", "src": "/apps/aalai.svg", "outline": true },
     "language": "TypeScript"
   },
   {
@@ -52,7 +52,11 @@
     "tech": ["TypeScript", "Tauri", "AI Agents"],
     "link": { "href": "https://agent-terminal.org/", "label": "Visit site" },
     "category": "app",
-    "icon": { "kind": "app", "src": "/apps/agent-terminal.svg" },
+    "icon": {
+      "kind": "app",
+      "src": "/apps/agent-terminal.svg",
+      "outline": true
+    },
     "language": "TypeScript"
   },
   {
@@ -78,7 +82,7 @@
       "label": "Visit site"
     },
     "category": "app",
-    "icon": { "kind": "bleed", "src": "/apps/screen-time-overlay.png" },
+    "icon": { "kind": "bleed", "src": "/apps/screen-time-overlay.svg" },
     "language": "Kotlin"
   },
   {
@@ -308,7 +312,8 @@
       "kind": "glyph",
       "src": "/apps/lang/react.svg",
       "tint": "#20232A",
-      "ink": "#61DAFB"
+      "ink": "#61DAFB",
+      "outline": true
     },
     "language": "TypeScript"
   },
@@ -382,7 +387,8 @@
       "kind": "glyph",
       "src": "/apps/lang/react.svg",
       "tint": "#20232A",
-      "ink": "#61DAFB"
+      "ink": "#61DAFB",
+      "outline": true
     },
     "language": "JavaScript"
   },
@@ -401,7 +407,8 @@
       "kind": "glyph",
       "src": "/apps/lang/react.svg",
       "tint": "#20232A",
-      "ink": "#61DAFB"
+      "ink": "#61DAFB",
+      "outline": true
     },
     "language": "TypeScript"
   },
@@ -420,7 +427,8 @@
       "kind": "glyph",
       "src": "/apps/lang/react.svg",
       "tint": "#20232A",
-      "ink": "#61DAFB"
+      "ink": "#61DAFB",
+      "outline": true
     },
     "language": "Markdown"
   },
@@ -439,7 +447,8 @@
       "kind": "glyph",
       "src": "/apps/lang/react.svg",
       "tint": "#20232A",
-      "ink": "#61DAFB"
+      "ink": "#61DAFB",
+      "outline": true
     },
     "language": "JavaScript"
   },
