@@ -43,7 +43,13 @@ const connectLinks: { label: string; href: string; icon: IconName }[] = [
       name: "Dani Akash",
       url: new URL("/about/", siteUrl).href,
       image: `${ASSET_PREFIX}/avatar.jpg`,
-      jobTitle: "AI Engineer",
+      // The linked Knowledge Panel entity is a Google Books author; a matching occupation keeps the two reconciled.
+      jobTitle: "Writer",
+      hasOccupation: {
+        "@type": "Occupation",
+        name: "Writer",
+        sameAs: "https://www.wikidata.org/wiki/Q36180",
+      },
       description:
         "AI Engineer, speaker, and open source contributor based in Chennai, India. Building AI agents and writing about JavaScript, React Native, and the web.",
       nationality: {
