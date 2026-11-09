@@ -6,7 +6,7 @@ import Globe from "../components/Globe.tsx";
 import Icon, { type IconName } from "../components/Icon.astro";
 import Widget from "../components/Widget.astro";
 import { ASSET_PREFIX } from "../constants/asset-prefix";
-import { PERSON_ENTITY_ID } from "../constants/seo";
+import { AUTHORED_BOOK, PERSON_ENTITY_ID } from "../constants/seo";
 import MainLayout from "../layouts/MainLayout.astro";
 
 const siteUrl = Astro.site?.href || "https://daniakash.com/";
@@ -34,13 +34,16 @@ const connectLinks: { label: string; href: string; icon: IconName }[] = [
 ];
 ---
 
-<MainLayout title="About" description="Dani Akash | AI Engineer, builder, and speaker based in Chennai, India. Building AI agents and writing about JavaScript, React Native, and the web.">
+<MainLayout title="About" description="Dani Akash | Writer, AI Engineer, and speaker from Chennai, India. Author of JavaScript by Example. Writing about AI, JavaScript, React Native, and the web.">
   <Schema
     item={{
       "@context": "https://schema.org",
+      "@graph": [
+        {
       "@type": "Person",
       "@id": PERSON_ENTITY_ID,
       name: "Dani Akash",
+      alternateName: "Dani Akash S",
       url: new URL("/about/", siteUrl).href,
       image: `${ASSET_PREFIX}/avatar.jpg`,
       // The linked Knowledge Panel entity is a Google Books author; a matching occupation keeps the two reconciled.
@@ -51,7 +54,7 @@ const connectLinks: { label: string; href: string; icon: IconName }[] = [
         sameAs: "https://www.wikidata.org/wiki/Q36180",
       },
       description:
-        "AI Engineer, speaker, and open source contributor based in Chennai, India. Building AI agents and writing about JavaScript, React Native, and the web.",
+        "Writer, AI Engineer, and speaker based in Chennai, India. Author of JavaScript by Example (Packt, 2017), building AI agents and writing about JavaScript, React Native, and the web.",
       nationality: {
         "@type": "Country",
         name: "India",
@@ -78,6 +81,9 @@ const connectLinks: { label: string; href: string; icon: IconName }[] = [
         "React",
         "Web Development",
         "Open Source",
+      ],
+        },
+        AUTHORED_BOOK,
       ],
     }}
   />

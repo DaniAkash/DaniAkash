@@ -454,9 +454,9 @@
   },
   {
     "name": "JavaScript by Example — Book (2017)",
-    "description": "Author of the O'Reilly book covering modern JavaScript programming with real web apps.",
+    "description": "Author of the Packt book covering modern JavaScript programming with real web apps.",
     "status": "previous",
-    "tech": ["JavaScript", "O'Reilly"],
+    "tech": ["JavaScript", "Packt"],
     "link": {
       "href": "https://www.oreilly.com/library/view/javascript-by-example/9781788293969/",
       "label": "Read the book"

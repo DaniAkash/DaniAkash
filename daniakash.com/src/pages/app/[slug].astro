@@ -4,7 +4,12 @@ import { Schema } from "astro-seo-schema";
 import AppIcon, { type AppIconArt } from "../../components/AppIcon.astro";
 import HomeScreen from "../../components/HomeScreen.astro";
 import Icon from "../../components/Icon.astro";
-import { PERSON_ENTITY_ID, SITE_URL } from "../../constants/seo";
+import {
+  AUTHORED_BOOK,
+  AUTHORED_BOOK_PROJECT,
+  PERSON_ENTITY_ID,
+  SITE_URL,
+} from "../../constants/seo";
 import MainLayout from "../../layouts/MainLayout.astro";
 import { appHref, slugify } from "../../utils/slugify";
 
@@ -207,7 +212,12 @@ const titleId = `app-title-${slug}`;
   </section>
 
   <Schema
-    item={{
+    item={project.name === AUTHORED_BOOK_PROJECT ? {
+      "@context": "https://schema.org",
+      ...AUTHORED_BOOK,
+      description: project.description ?? project.name,
+      url: canonical,
+    } : {
       "@context": "https://schema.org",
       "@type": isCode ? "SoftwareSourceCode" : "CreativeWork",
       name: project.name,
