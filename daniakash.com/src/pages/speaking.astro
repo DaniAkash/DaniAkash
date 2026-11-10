@@ -91,7 +91,7 @@ const talkCount = events.reduce(
               </p>
             </div>
 
-            <ul class="mt-5 grid gap-x-6 gap-y-8 md:grid-cols-2">
+            <ul class="mt-5 grid gap-x-5 gap-y-6 sm:grid-cols-2 sm:gap-y-8 lg:grid-cols-3">
               {yearGroup.data.events.map((event) => {
                 const youtubeThumbnail = getYoutubeThumbnail(event.video ?? "");
                 const primaryLink = event.video ?? event.cta?.[0]?.url;
@@ -101,17 +101,17 @@ const talkCount = events.reduce(
                 );
 
                 return (
-                  <li class="group relative flex flex-col">
+                  <li class="group relative grid grid-cols-[7.5rem_1fr] items-start gap-3 sm:flex sm:flex-col sm:gap-0">
                     {primaryLink && (
                       <a
                         href={primaryLink}
                         target="_blank"
                         rel="noopener"
-                        class="absolute inset-0 z-0 rounded-2xl"
+                        class="absolute inset-0 z-0 rounded-xl"
                         aria-label={event.title}
                       />
                     )}
-                    <div class="pointer-events-none relative z-1 aspect-video overflow-hidden rounded-2xl">
+                    <div class="pointer-events-none relative z-1 aspect-video overflow-hidden rounded-xl">
                       {hasThumbnail ? (
                         event.thumbnail ? (
                           <Image
@@ -130,43 +130,43 @@ const talkCount = events.reduce(
                           />
                         )
                       ) : (
-                        <div class="flex size-full items-end bg-[#E5357F] p-5 text-white">
-                          <p class="font-display text-heading font-extrabold tracking-[-0.025em]">
+                        <div class="flex size-full items-end bg-[#E5357F] p-2.5 text-white sm:p-4">
+                          <p class="font-display text-label sm:text-title font-extrabold tracking-[-0.02em]">
                             {event.name}
                           </p>
                         </div>
                       )}
                       {event.video && (
-                        <span class="bg-card text-card-foreground absolute bottom-3 left-3 inline-flex size-9 items-center justify-center rounded-full">
-                          <Icon name="play" class="ml-0.5 size-4" />
+                        <span class="bg-card text-card-foreground absolute bottom-1.5 left-1.5 inline-flex size-6 items-center justify-center rounded-full sm:bottom-2.5 sm:left-2.5 sm:size-8">
+                          <Icon name="play" class="ml-0.5 size-3 sm:size-3.5" />
                         </span>
                       )}
                     </div>
-                    <div class="pointer-events-none relative z-1 mt-3 flex flex-1 flex-col">
-                      <p class="text-label font-bold">{event.name}</p>
+                    <div class="pointer-events-none relative z-1 flex min-w-0 flex-1 flex-col sm:mt-3">
+                      <p class="text-caption line-clamp-1 font-bold">{event.name}</p>
                       <time
                         class="text-muted-foreground text-caption tabular mt-0.5 block font-semibold whitespace-nowrap"
                         datetime={new Date(event.date).toISOString().split("T")[0]}
                       >
                         {event.date}
                       </time>
-                      <h3 class="font-display text-title group-hover:text-primary mt-2 font-extrabold tracking-[-0.02em] transition-colors">
+                      <h3 class="font-display text-label sm:text-body group-hover:text-primary mt-1 leading-snug font-extrabold tracking-[-0.01em] transition-colors sm:mt-1.5">
                         {event.title}
                       </h3>
-                      <p class="text-muted-foreground text-body mt-1.5">
+                      <p class="text-muted-foreground text-caption mt-1 line-clamp-2 sm:line-clamp-3">
                         {event.description}
                       </p>
                       {event.cta && event.cta.length > 0 && (
-                        <div class="mt-3 flex flex-wrap gap-1.5">
+                        <div class="mt-2.5 flex flex-wrap gap-1">
                           {event.cta.map((cta) => (
                             <a
                               href={cta.url}
                               target="_blank"
                               rel="noopener"
-                              class="bg-muted hover:bg-foreground hover:text-background text-caption pointer-events-auto relative z-2 inline-flex min-h-9 items-center gap-1 rounded-full px-3 font-bold transition-colors"
+                              class="bg-muted hover:bg-foreground hover:text-background text-caption pointer-events-auto relative z-2 inline-flex min-h-8 items-center gap-1 rounded-full px-2.5 font-bold transition-colors"
                             >
                               {cta.title}
-                              <Icon name="arrow-up-right" class="size-3.5" />
+                              <Icon name="arrow-up-right" class="size-3" />
                             </a>
                           ))}
                         </div>
