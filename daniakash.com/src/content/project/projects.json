@@ -82,7 +82,7 @@
     "description": "Android overlay that shows a live screen-on timer and per-app timer to build phone-usage self-awareness.",
     "status": "active",
     "tech": ["Kotlin", "Android"],
-    "stack": ["kotlin", "android"],
+    "stack": ["kotlin", "jetpack-compose", "android"],
     "link": {
       "href": "https://screentimeoverlay.com/",
       "label": "Visit site"
@@ -128,7 +128,7 @@
     "description": "Tooling for AI coding agents. Vercel AI SDK adapters, sandbox providers, skill and MCP managers, ACP-protocol utilities.",
     "status": "oss",
     "tech": ["TypeScript", "npm", "AI SDK"],
-    "stack": ["typescript", "bun", "mcp"],
+    "stack": ["ai-sdk", "typescript", "bun", "mcp"],
     "link": {
       "href": "https://github.com/DaniAkash/agent-toolkit",
       "label": "View on GitHub"

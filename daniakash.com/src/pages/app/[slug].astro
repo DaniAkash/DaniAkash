@@ -11,7 +11,7 @@ import {
   PERSON_ENTITY_ID,
   SITE_URL,
 } from "../../constants/seo";
-import { techLabels } from "../../constants/tech";
+import { techLabels, techLogo } from "../../constants/tech";
 import MainLayout from "../../layouts/MainLayout.astro";
 import { appHref, slugify } from "../../utils/slugify";
 
@@ -188,7 +188,7 @@ const titleId = `app-title-${slug}`;
               <li class="flex flex-col items-center gap-1.5">
                 <span class="flex size-14 items-center justify-center rounded-[22.5%] bg-white shadow-[inset_0_0_0_1px_rgb(20_16_40/8%)]">
                   <img
-                    src={`/tech/${tech.logo}.svg`}
+                    src={techLogo(tech.logo)}
                     alt=""
                     width="32"
                     height="32"

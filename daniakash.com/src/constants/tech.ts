@@ -1,5 +1,6 @@
 /** Display names for the logos in public/tech, keyed by file name. Logos come from svgl. */
 export const techLabels: Record<string, string> = {
+  "ai-sdk": "Vercel AI SDK",
   android: "Android",
   astro: "Astro",
   bash: "Bash",
@@ -12,6 +13,7 @@ export const techLabels: Record<string, string> = {
   expo: "Expo",
   git: "Git",
   hono: "Hono",
+  "jetpack-compose": "Jetpack Compose",
   javascript: "JavaScript",
   kotlin: "Kotlin",
   markdown: "Markdown",
@@ -30,3 +32,9 @@ export const techLabels: Record<string, string> = {
   vite: "Vite",
   vitest: "Vitest",
 };
+
+/** Logos svgl does not carry, supplied as PNG. */
+const rasterLogos = new Set(["jetpack-compose"]);
+
+export const techLogo = (slug: string) =>
+  `/tech/${slug}.${rasterLogos.has(slug) ? "png" : "svg"}`;
