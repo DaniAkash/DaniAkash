@@ -41,7 +41,7 @@ const isExternal = (href: string) => href.startsWith("http");
 
 <div
   id={id}
-  popover
+  popover="manual"
   data-held={held ? "" : undefined}
   class="folder-panel bg-card text-card-foreground rounded-widget m-auto w-[min(92vw,44rem)] p-5 md:p-7"
 >
@@ -88,95 +88,91 @@ const isExternal = (href: string) => href.startsWith("http");
 </div>
 
 <style>
-  /* Popover open/close transitions need @starting-style and discrete display, which utilities cannot express. */
-  /* Closing: the panel shrinks back into its tile at full strength and only fades at the end. */
-  .folder-panel {
-    opacity: 0;
-    translate: var(--folder-dx, 0) var(--folder-dy, 0);
-    scale: 0.2;
-    transition:
-      opacity 0.14s ease-in 0.24s,
-      translate 0.38s cubic-bezier(0.4, 0, 0.2, 1),
-      scale 0.38s cubic-bezier(0.4, 0, 0.2, 1),
-      display 0.38s allow-discrete,
-      overlay 0.38s allow-discrete;
-  }
-
-  .folder-panel:popover-open {
-    opacity: 1;
-    translate: 0 0;
-    scale: 1;
-    transition:
-      opacity 0.3s var(--ease-expo),
-      translate 0.5s var(--ease-expo),
-      scale 0.5s var(--ease-expo),
-      display 0.5s allow-discrete,
-      overlay 0.5s allow-discrete;
-  }
-
-  @starting-style {
-    .folder-panel:popover-open {
-      opacity: 0;
-      translate: var(--folder-dx, 0) var(--folder-dy, 0);
-      scale: 0.2;
-    }
+  .folder-panel::backdrop {
+    background-color: oklch(0.2 0.03 285 / 35%);
   }
 
   /* Held open under an app dialog: the open look without the top layer, so the dialog stays above it. */
   .folder-panel[data-held] {
     display: block;
     z-index: 45;
-    opacity: 1;
-    translate: 0 0;
-    scale: 1;
-    transition: none;
     box-shadow: 0 0 0 100vmax oklch(0.2 0.03 285 / 35%);
-  }
-
-  .folder-panel[data-instant],
-  .folder-panel[data-instant]::backdrop {
-    transition: none;
-  }
-
-  .folder-panel::backdrop {
-    background-color: oklch(0.2 0.03 285 / 0%);
-    transition:
-      background-color 0.4s var(--ease-expo),
-      display 0.4s allow-discrete,
-      overlay 0.4s allow-discrete;
-  }
-
-  .folder-panel:popover-open::backdrop {
-    background-color: oklch(0.2 0.03 285 / 35%);
-  }
-
-  @starting-style {
-    .folder-panel:popover-open::backdrop {
-      background-color: oklch(0.2 0.03 285 / 0%);
-    }
   }
 </style>
 
-<script is:inline>
-  // The panel is centred on the viewport, so offsetting it to the folder's centre makes it grow out of the tile.
-  document.addEventListener("astro:page-load", function () {
-    document.querySelectorAll("[data-folder-trigger]").forEach(function (btn) {
-      // A folder carried under an app dialog and back keeps its node, so bind it once.
-      if (btn.hasAttribute("data-bound")) return;
-      btn.setAttribute("data-bound", "");
-      btn.addEventListener("click", function () {
-        var panel = document.getElementById(btn.getAttribute("popovertarget"));
-        if (!panel) return;
-        var r = btn.getBoundingClientRect();
-        panel.style.setProperty(
-          "--folder-dx",
-          Math.round(r.left + r.width / 2 - window.innerWidth / 2) + "px",
-        );
-        panel.style.setProperty(
-          "--folder-dy",
-          Math.round(r.top + r.height / 2 - window.innerHeight / 2) + "px",
-        );
-      });
+<script>
+  // Folders open and close with the same view-transition morph as app icons: the tile grows into
+  // the panel and shrinks back. The panel is a manual popover so every close, including Escape
+  // and taps outside it, goes through the morph; without JS, popovertarget still toggles it.
+  const triggerFor = (panel: HTMLElement) =>
+    document.querySelector<HTMLElement>(
+      `[data-folder-trigger][popovertarget="${panel.id}"]`,
+    );
+
+  const morphFolder = (panel: HTMLElement, btn: HTMLElement, open: boolean) => {
+    if (panel.matches(":popover-open") === open) return;
+    const toggle = () => (open ? panel.showPopover() : panel.hidePopover());
+    if (!document.startViewTransition) {
+      toggle();
+      return;
+    }
+    const root = document.documentElement;
+    const [from, to] = open ? [btn, panel] : [panel, btn];
+    from.style.viewTransitionName = "folder-zoom";
+    root.setAttribute("data-folder-motion", open ? "open" : "close");
+    const transition = document.startViewTransition(() => {
+      from.style.viewTransitionName = "";
+      to.style.viewTransitionName = "folder-zoom";
+      toggle();
     });
+    transition.finished.finally(() => {
+      btn.style.viewTransitionName = "";
+      panel.style.viewTransitionName = "";
+      root.removeAttribute("data-folder-motion");
+      if (!open) btn.focus({ preventScroll: true });
+    });
+  };
+
+  const closeOpenFolder = (event: Event) => {
+    const panel = document.querySelector<HTMLElement>(".folder-panel:popover-open");
+    const btn = panel && triggerFor(panel);
+    if (!panel || !btn) return;
+    event.preventDefault();
+    event.stopPropagation();
+    morphFolder(panel, btn, false);
+  };
+
+  document.addEventListener("astro:page-load", () => {
+    for (const btn of document.querySelectorAll<HTMLElement>("[data-folder-trigger]")) {
+      // A folder carried under an app dialog and back keeps its node, so bind it once.
+      if (btn.hasAttribute("data-bound")) continue;
+      btn.setAttribute("data-bound", "");
+      const panel = document.getElementById(btn.getAttribute("popovertarget") ?? "");
+      if (!panel) continue;
+      btn.addEventListener("click", (event) => {
+        event.preventDefault();
+        morphFolder(panel, btn, true);
+      });
+      for (const close of panel.querySelectorAll('[popovertargetaction="hide"]')) {
+        close.addEventListener("click", (event) => {
+          event.preventDefault();
+          morphFolder(panel, btn, false);
+        });
+      }
+    }
   });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") closeOpenFolder(event);
+  });
+
+  // A popover backdrop lets taps through, so a tap outside the open folder only closes it.
+  document.addEventListener(
+    "click",
+    (event) => {
+      const panel = document.querySelector(".folder-panel:popover-open");
+      if (panel && !panel.contains(event.target as Node)) closeOpenFolder(event);
+    },
+    true,
+  );
 </script>

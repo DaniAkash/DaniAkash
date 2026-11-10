@@ -300,33 +300,39 @@
   z-index: 2;
 }
 
-::view-transition-group(app-zoom) {
+::view-transition-group(app-zoom),
+::view-transition-group(folder-zoom) {
   animation-duration: 0.5s;
   animation-timing-function: var(--ease-native);
   z-index: 50;
 }
 
-::view-transition-old(app-zoom) {
+::view-transition-old(app-zoom),
+::view-transition-old(folder-zoom) {
   animation: 0.2s ease-out both vt-fade-out;
 }
 
-::view-transition-new(app-zoom) {
+::view-transition-new(app-zoom),
+::view-transition-new(folder-zoom) {
   animation: 0.35s var(--ease-native) both vt-fade-in;
 }
 
 /* Exits run faster than entrances. */
 html[data-astro-transition="app-close"]::view-transition-group(app-zoom),
-html[data-astro-transition="zoom-out"]::view-transition-group(app-zoom) {
+html[data-astro-transition="zoom-out"]::view-transition-group(app-zoom),
+html[data-folder-motion="close"]::view-transition-group(folder-zoom) {
   animation-duration: 0.36s;
 }
 
 html[data-astro-transition="app-close"]::view-transition-old(app-zoom),
-html[data-astro-transition="zoom-out"]::view-transition-old(app-zoom) {
+html[data-astro-transition="zoom-out"]::view-transition-old(app-zoom),
+html[data-folder-motion="close"]::view-transition-old(folder-zoom) {
   animation: 0.24s ease-out both vt-fade-out;
 }
 
 html[data-astro-transition="app-close"]::view-transition-new(app-zoom),
-html[data-astro-transition="zoom-out"]::view-transition-new(app-zoom) {
+html[data-astro-transition="zoom-out"]::view-transition-new(app-zoom),
+html[data-folder-motion="close"]::view-transition-new(folder-zoom) {
   animation: 0.18s ease-out both vt-fade-in;
 }
 

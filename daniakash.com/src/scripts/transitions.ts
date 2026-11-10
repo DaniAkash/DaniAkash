@@ -119,26 +119,8 @@ const releaseHeldFolders = () => {
     "[popover][data-held]",
   )) {
     if (panel.closest("[data-app-backdrop]")) continue;
-    const trigger = document.querySelector(
-      `[data-folder-trigger][popovertarget="${panel.id}"]`,
-    );
-    if (trigger) {
-      const r = trigger.getBoundingClientRect();
-      panel.style.setProperty(
-        "--folder-dx",
-        `${Math.round(r.left + r.width / 2 - window.innerWidth / 2)}px`,
-      );
-      panel.style.setProperty(
-        "--folder-dy",
-        `${Math.round(r.top + r.height / 2 - window.innerHeight / 2)}px`,
-      );
-    }
-    panel.setAttribute("data-instant", "");
     panel.removeAttribute("data-held");
     panel.showPopover();
-    requestAnimationFrame(() =>
-      requestAnimationFrame(() => panel.removeAttribute("data-instant")),
-    );
   }
 };
 
