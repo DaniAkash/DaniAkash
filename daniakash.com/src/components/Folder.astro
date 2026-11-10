@@ -13,9 +13,11 @@ interface Props {
   id: string;
   title: string;
   apps: FolderApp[];
+  /** Drawn open without the popover, behind an app dialog opened from it. */
+  held?: boolean;
 }
 
-const { id, title, apps } = Astro.props;
+const { id, title, apps, held = false } = Astro.props;
 const preview = apps.slice(0, 9);
 const isExternal = (href: string) => href.startsWith("http");
 ---
@@ -40,6 +42,7 @@ const isExternal = (href: string) => href.startsWith("http");
 <div
   id={id}
   popover
+  data-held={held ? "" : undefined}
   class="folder-panel bg-card text-card-foreground rounded-widget m-auto w-[min(92vw,44rem)] p-5 md:p-7"
 >
   <div class="flex items-center justify-between gap-4">
@@ -112,6 +115,22 @@ const isExternal = (href: string) => href.startsWith("http");
     }
   }
 
+  /* Held open under an app dialog: the open look without the top layer, so the dialog stays above it. */
+  .folder-panel[data-held] {
+    display: block;
+    z-index: 45;
+    opacity: 1;
+    translate: 0 0;
+    scale: 1;
+    transition: none;
+    box-shadow: 0 0 0 100vmax oklch(0.2 0.03 285 / 35%);
+  }
+
+  .folder-panel[data-instant],
+  .folder-panel[data-instant]::backdrop {
+    transition: none;
+  }
+
   .folder-panel::backdrop {
     background-color: oklch(0.2 0.03 285 / 0%);
     transition:
@@ -135,6 +154,9 @@ const isExternal = (href: string) => href.startsWith("http");
   // The panel is centred on the viewport, so offsetting it to the folder's centre makes it grow out of the tile.
   document.addEventListener("astro:page-load", function () {
     document.querySelectorAll("[data-folder-trigger]").forEach(function (btn) {
+      // A folder carried under an app dialog and back keeps its node, so bind it once.
+      if (btn.hasAttribute("data-bound")) return;
+      btn.setAttribute("data-bound", "");
       btn.addEventListener("click", function () {
         var panel = document.getElementById(btn.getAttribute("popovertarget"));
         if (!panel) return;

@@ -6,14 +6,17 @@ import Icon, { type IconName } from "../components/Icon.astro";
 import Newsletter from "../components/Newsletter.astro";
 import Widget from "../components/Widget.astro";
 import { assetUrl } from "../constants/asset-prefix";
+import { folders as folderList } from "../constants/folders";
 import { appHref } from "../utils/slugify";
 
 interface Props {
   /** Rendered behind an app dialog: the name is not the page heading there. */
   decorative?: boolean;
+  /** A folder shown open behind the dialog of an app that lives in it. */
+  heldFolder?: string | undefined;
 }
 
-const { decorative = false } = Astro.props;
+const { decorative = false, heldFolder } = Astro.props;
 const NameTag = decorative ? "p" : "h1";
 
 const posts = (await getCollection("blog"))
@@ -84,26 +87,17 @@ const homeApps = [
   },
 ];
 
-const folders = [
-  {
-    id: "folder-ai-tools",
-    title: "AI Tools",
-    apps: inCategory("ai-tool"),
-    lg: "lg:col-start-2 lg:row-start-3",
-  },
-  {
-    id: "folder-open-source",
-    title: "Open Source",
-    apps: inCategory("oss"),
-    lg: "lg:col-start-3 lg:row-start-3",
-  },
-  {
-    id: "folder-earlier",
-    title: "Earlier Work",
-    apps: inCategory("earlier"),
-    lg: "lg:col-start-4 lg:row-start-3",
-  },
-];
+const folderSlots: Record<string, string> = {
+  "folder-ai-tools": "lg:col-start-2 lg:row-start-3",
+  "folder-open-source": "lg:col-start-3 lg:row-start-3",
+  "folder-earlier": "lg:col-start-4 lg:row-start-3",
+};
+
+const folders = folderList.map((folder) => ({
+  ...folder,
+  apps: inCategory(folder.category),
+  lg: folderSlots[folder.id],
+}));
 
 const speakingGroups = await getCollection("speaking");
 const talkCount = speakingGroups.reduce(
@@ -279,7 +273,12 @@ const isExternal = (href: string) => href.startsWith("http");
     {
       folders.map((folder) => (
         <div class:list={["flex justify-center pt-1", folder.lg]}>
-          <Folder id={folder.id} title={folder.title} apps={folder.apps} />
+          <Folder
+            id={folder.id}
+            title={folder.title}
+            apps={folder.apps}
+            held={folder.id === heldFolder}
+          />
         </div>
       ))
     }

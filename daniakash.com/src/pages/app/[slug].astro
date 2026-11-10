@@ -4,12 +4,14 @@ import { Schema } from "astro-seo-schema";
 import AppIcon, { type AppIconArt } from "../../components/AppIcon.astro";
 import HomeScreen from "../../components/HomeScreen.astro";
 import Icon from "../../components/Icon.astro";
+import { folderFor } from "../../constants/folders";
 import {
   AUTHORED_BOOK,
   AUTHORED_BOOK_PROJECT,
   PERSON_ENTITY_ID,
   SITE_URL,
 } from "../../constants/seo";
+import { techLabels } from "../../constants/tech";
 import MainLayout from "../../layouts/MainLayout.astro";
 import { appHref, slugify } from "../../utils/slugify";
 
@@ -18,18 +20,11 @@ export async function getStaticPaths() {
   const apps = items.filter((p) => p.icon);
   return apps.map((project) => ({
     params: { slug: slugify(project.name) },
-    props: {
-      project,
-      related: apps
-        .filter(
-          (p) => p.category === project.category && p.name !== project.name,
-        )
-        .slice(0, 4),
-    },
+    props: { project },
   }));
 }
 
-const { project, related } = Astro.props;
+const { project } = Astro.props;
 const slug = slugify(project.name);
 
 const categoryLabel: Record<string, string> = {
@@ -38,17 +33,14 @@ const categoryLabel: Record<string, string> = {
   oss: "Open source",
   earlier: "Earlier work",
 };
-const relatedLabel: Record<string, string> = {
-  app: "More apps",
-  "ai-tool": "More AI tools",
-  oss: "More open source",
-  earlier: "More earlier work",
-};
 const kindLabel = project.category
   ? categoryLabel[project.category]
   : undefined;
-const moreLabel =
-  (project.category && relatedLabel[project.category]) ?? "More apps";
+const stack = (project.stack ?? []).map((logo) => ({
+  logo,
+  name: techLabels[logo] ?? logo,
+}));
+const heldFolder = folderFor(project.category)?.id;
 
 const story = (await getCollection("apps")).find((entry) => entry.id === slug);
 // A story file holding only its MDX comment counts as empty.
@@ -68,8 +60,11 @@ const titleId = `app-title-${slug}`;
   title={project.name}
   description={project.description ?? `${project.name} by Dani Akash.`}
 >
-  <div inert>
-    <HomeScreen decorative />
+  <!-- A soft navigation swaps in the page that opened the dialog; a direct load shows home. -->
+  <div data-app-backdrop inert>
+    <div data-page data-backdrop-from="/">
+      <HomeScreen decorative heldFolder={heldFolder} />
+    </div>
   </div>
 
   <a
@@ -177,36 +172,38 @@ const titleId = `app-title-${slug}`;
     }
 
     {
-      related.length > 0 && (
-        <nav
-          aria-label={moreLabel}
+      stack.length > 0 && (
+        <section
+          aria-labelledby={`${titleId}-stack`}
           class="border-border mt-7 border-t pt-5"
         >
-          <h2 class="text-muted-foreground text-label font-bold">
-            {moreLabel}
+          <h2
+            id={`${titleId}-stack`}
+            class="text-muted-foreground text-label font-bold"
+          >
+            Built with
           </h2>
           <ul class="mt-3 grid grid-cols-4 gap-2">
-            {related.map((item) => (
-              <li>
-                <a
-                  href={appHref(item.name)}
-                  class="group flex flex-col items-center gap-1"
-                >
-                  {item.icon && (
-                    <AppIcon
-                      art={item.icon as AppIconArt}
-                      size="sm"
-                      class="size-14 group-active:scale-90"
-                    />
-                  )}
-                  <span class="text-caption line-clamp-2 text-center leading-tight font-semibold">
-                    {item.name}
-                  </span>
-                </a>
+            {stack.map((tech) => (
+              <li class="flex flex-col items-center gap-1.5">
+                <span class="flex size-14 items-center justify-center rounded-[22.5%] bg-white shadow-[inset_0_0_0_1px_rgb(20_16_40/8%)]">
+                  <img
+                    src={`/tech/${tech.logo}.svg`}
+                    alt=""
+                    width="32"
+                    height="32"
+                    class="size-[56%] object-contain"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </span>
+                <span class="text-caption line-clamp-2 text-center leading-tight font-semibold">
+                  {tech.name}
+                </span>
               </li>
             ))}
           </ul>
-        </nav>
+        </section>
       )
     }
   </section>

@@ -128,6 +128,8 @@ const project = defineCollection({
         description: z.string().optional(),
         status: z.enum(["active", "oss", "previous"]).optional(),
         tech: z.array(z.string()).optional(),
+        /** Up to four key technologies, as logo slugs in public/tech (see constants/tech.ts). */
+        stack: z.array(z.string()).max(4).optional(),
         link: z
           .object({
             href: z.string(),

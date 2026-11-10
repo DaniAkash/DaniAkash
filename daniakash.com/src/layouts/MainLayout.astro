@@ -196,7 +196,9 @@ const isHomePage = Astro.url.pathname === "/";
     >
     <StatusBar />
     <main id="main" class="mx-auto w-full max-w-[1200px] px-4 pt-2 md:px-8 md:pt-4">
-      <slot />
+      <div data-page>
+        <slot />
+      </div>
     </main>
     {hideFooter ? <div class="h-28" /> : <SiteFooter />}
     <Dock />

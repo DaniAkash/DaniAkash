@@ -4,6 +4,7 @@
     "description": "AI-powered browser platform that gives agents a real browser to work with. Building the future of AI-human interaction.",
     "status": "active",
     "tech": ["TypeScript", "AI Agents", "Browser"],
+    "stack": ["chromium", "typescript", "rust", "react"],
     "link": {
       "href": "https://github.com/BrowserOS-ai/BrowserOS",
       "label": "View project"
@@ -18,6 +19,7 @@
     "description": "Teaching AI agents how to use tools correctly. A skill system for LLM-powered coding agents.",
     "status": "active",
     "tech": ["AI", "LLM", "Developer Tools"],
+    "stack": ["claude", "markdown", "bash"],
     "link": {
       "href": "https://github.com/DaniAkash/skills",
       "label": "View project"
@@ -37,6 +39,7 @@
     "description": "Local-first AI software factory: issues in, reviewed draft pull requests out.",
     "status": "active",
     "tech": ["TypeScript", "AI Agents"],
+    "stack": ["tauri", "react", "hono", "bun"],
     "link": {
       "href": "https://github.com/DaniAkash/aalai",
       "label": "View on GitHub"
@@ -50,6 +53,7 @@
     "description": "A terminal that understands AI agents. Project workspaces, live process metrics, and native Claude Code + Codex support.",
     "status": "active",
     "tech": ["TypeScript", "Tauri", "AI Agents"],
+    "stack": ["tauri", "rust", "react", "expo"],
     "link": { "href": "https://agent-terminal.org/", "label": "Visit site" },
     "category": "app",
     "icon": {
@@ -64,6 +68,7 @@
     "description": "One menubar window for every AI coding agent. Pick Claude, Codex, or Gemini, share skills across them, drive them from your phone.",
     "status": "active",
     "tech": ["TypeScript", "macOS", "AI Agents"],
+    "stack": ["bun", "react", "hono", "mcp"],
     "link": {
       "href": "https://github.com/DaniAkash/herbie",
       "label": "View on GitHub"
@@ -77,8 +82,9 @@
     "description": "Android overlay that shows a live screen-on timer and per-app timer to build phone-usage self-awareness.",
     "status": "active",
     "tech": ["Kotlin", "Android"],
+    "stack": ["kotlin", "android"],
     "link": {
-      "href": "https://screentimeoverlay.daniakash.com/",
+      "href": "https://screentimeoverlay.com/",
       "label": "Visit site"
     },
     "category": "app",
@@ -90,6 +96,7 @@
     "description": "Brand-themed presets for shadcn/ui - Apple, Stripe, Linear, Airbnb, and 10 more. Copy the CSS, ship the look.",
     "status": "oss",
     "tech": ["TypeScript", "shadcn/ui"],
+    "stack": ["shadcn-ui", "react", "tailwindcss", "vite"],
     "link": {
       "href": "https://daniakash.github.io/stylecn/",
       "label": "Visit site"
@@ -103,6 +110,7 @@
     "description": "Unofficial kit that enforces Google's Rust style guide: drop-in rustfmt, clippy and cargo-deny configs, AGENTS.md for Claude Code, Codex and Cursor, and a human code review guide. Adopt it in 5 minutes.",
     "status": "oss",
     "tech": ["Rust", "Style Guide"],
+    "stack": ["rust", "astro"],
     "link": {
       "href": "https://daniakash.github.io/Google-Rust-Style-Guide/",
       "label": "Visit site"
@@ -120,6 +128,7 @@
     "description": "Tooling for AI coding agents. Vercel AI SDK adapters, sandbox providers, skill and MCP managers, ACP-protocol utilities.",
     "status": "oss",
     "tech": ["TypeScript", "npm", "AI SDK"],
+    "stack": ["typescript", "bun", "mcp"],
     "link": {
       "href": "https://github.com/DaniAkash/agent-toolkit",
       "label": "View on GitHub"
@@ -139,6 +148,7 @@
     "description": "Read-only MCP server for native macOS apps (Mail, Notes, Calendar, Reminders, Contacts, Messages, Spotlight).",
     "status": "oss",
     "tech": ["TypeScript", "MCP", "macOS"],
+    "stack": ["mcp", "typescript", "bun"],
     "link": {
       "href": "https://github.com/DaniAkash/mac-mcp",
       "label": "View on GitHub"
@@ -157,6 +167,7 @@
     "description": "Coding agent that safely connects to internal tools and produces verifiable, computed facts and stats. Built with Bun and OpenTUI React.",
     "status": "oss",
     "tech": ["TypeScript", "Bun", "AI Agents"],
+    "stack": ["bun", "react", "typescript"],
     "link": {
       "href": "https://github.com/DaniAkash/internal-tool-agent",
       "label": "View on GitHub"
@@ -175,6 +186,7 @@
     "description": "Standalone static HTML reports for skill iteration workspaces.",
     "status": "oss",
     "tech": ["JavaScript", "npm"],
+    "stack": ["javascript", "bun"],
     "link": {
       "href": "https://github.com/DaniAkash/skill-reporter",
       "label": "View on GitHub"
@@ -194,6 +206,7 @@
     "description": "Snapshot Claude Code history and config into a timestamped backup directory.",
     "status": "oss",
     "tech": ["TypeScript", "npm"],
+    "stack": ["typescript", "claude", "bun"],
     "link": {
       "href": "https://github.com/DaniAkash/claude-code-backup",
       "label": "View on GitHub"
@@ -213,6 +226,7 @@
     "description": "CLI that renders clawpatch findings into GitHub-flavored Markdown or semantic HTML reports.",
     "status": "oss",
     "tech": ["TypeScript", "npm"],
+    "stack": ["typescript", "openclaw", "vitest"],
     "link": {
       "href": "https://github.com/DaniAkash/clawpatch-reporter",
       "label": "View on GitHub"
@@ -232,6 +246,7 @@
     "description": "Global git post-checkout hook that auto-copies .env* files into new worktrees. Monorepo-aware, gitignore-respecting, chains per-repo hooks (git-lfs, husky). Essential for AI coding agents (Claude Code, Codex, Cursor) that spin up worktrees on demand.",
     "status": "oss",
     "tech": ["Shell", "git"],
+    "stack": ["bash", "git"],
     "link": {
       "href": "https://github.com/DaniAkash/worktree-env-copy",
       "label": "View on GitHub"
@@ -250,6 +265,7 @@
     "description": "Rewrite imports with esm.sh at build time.",
     "status": "oss",
     "tech": ["TypeScript", "Vite", "npm"],
+    "stack": ["vite", "typescript"],
     "link": {
       "href": "https://github.com/DaniAkash/vite-plugin-esm.sh",
       "label": "View on GitHub"
@@ -269,6 +285,7 @@
     "description": "Convert hooks into shared states between React components.",
     "status": "oss",
     "tech": ["TypeScript", "React", "npm"],
+    "stack": ["react", "typescript"],
     "link": { "href": "https://rex-state.netlify.app", "label": "Visit docs" },
     "category": "oss",
     "icon": {
@@ -285,6 +302,7 @@
     "description": "Wundergraph <> Svelte Query code generation.",
     "status": "oss",
     "tech": ["TypeScript", "Svelte"],
+    "stack": ["svelte", "tanstack", "typescript"],
     "link": {
       "href": "https://github.com/DaniAkash/wundergraph-svelte-query",
       "label": "View on GitHub"
@@ -303,6 +321,7 @@
     "description": "An app to view the backlogs in your playstation library and sort by ratings.",
     "status": "oss",
     "tech": ["TypeScript", "React"],
+    "stack": ["react", "tanstack", "drizzle", "tailwindcss"],
     "link": {
       "href": "https://github.com/DaniAkash/playstation-backlogs",
       "label": "View on GitHub"
@@ -327,6 +346,7 @@
     "description": "Responsive fontSize, height & width for React Native. Used in thousands of apps worldwide for building adaptive mobile UIs.",
     "status": "oss",
     "tech": ["React Native", "npm"],
+    "stack": ["react-native", "typescript"],
     "link": {
       "href": "https://github.com/DaniAkash/react-native-responsive-dimensions",
       "label": "View on GitHub"
@@ -352,6 +372,7 @@
     "description": "Founding Engineer & team lead. Built v1 of OSlash for Chrome, Safari & Firefox. Shortcuts for work, shipped to thousands of teams.",
     "status": "previous",
     "tech": ["Browser Extension", "React", "TypeScript"],
+    "stack": ["chrome", "react", "typescript"],
     "size": "3col",
     "category": "earlier",
     "icon": {
@@ -377,6 +398,7 @@
     "description": "Solo engineer behind the cross-platform travel planner app through v1.8. Built with React Native for Android & iOS.",
     "status": "previous",
     "tech": ["React Native", "Mobile"],
+    "stack": ["react-native", "javascript"],
     "link": {
       "href": "https://play.google.com/store/apps/details?id=com.pickyourtrail",
       "label": "Get the app"
@@ -397,6 +419,7 @@
     "description": "High quality react-native libraries built for use in personal projects. Fully open sourced. DraftJS editor, masonry layouts, and more.",
     "status": "oss",
     "tech": ["React Native", "Open Source"],
+    "stack": ["react-native", "typescript"],
     "link": {
       "href": "https://github.com/react-native-toolkit",
       "label": "View on GitHub"
@@ -417,6 +440,7 @@
     "description": "Part of the official React Native docs rewrite. Wrote significant sections including Animated & PanResponder documentation.",
     "status": "oss",
     "tech": ["React Native", "Documentation"],
+    "stack": ["react-native", "docusaurus", "markdown"],
     "link": {
       "href": "https://github.com/facebook/react-native-website/issues/1579",
       "label": "Link to project"
@@ -437,6 +461,7 @@
     "description": "A content-rich SEO friendly travel guide website built before the days of Gatsby & Next.js, with a custom in-house React framework.",
     "status": "previous",
     "tech": ["React", "SEO", "Custom Framework"],
+    "stack": ["react", "javascript"],
     "link": {
       "href": "https://pickyourtrail.com/guides/",
       "label": "Checkout the guides"
@@ -457,6 +482,7 @@
     "description": "Author of the Packt book covering modern JavaScript programming with real web apps.",
     "status": "previous",
     "tech": ["JavaScript", "Packt"],
+    "stack": ["javascript", "react", "redux"],
     "link": {
       "href": "https://www.oreilly.com/library/view/javascript-by-example/9781788293969/",
       "label": "Read the book"
@@ -476,6 +502,7 @@
     "description": "A video course teaching git to new developers on the GUVI platform.",
     "status": "previous",
     "tech": ["Git", "Education"],
+    "stack": ["git"],
     "link": {
       "href": "https://www.guvi.in/courses/git_git",
       "label": "Course videos"
