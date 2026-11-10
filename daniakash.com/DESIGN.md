@@ -479,7 +479,7 @@ Pages navigate through Astro's `ClientRouter` with view transitions. `src/script
 ### The shared element
 There is exactly one shared view transition name, `app-zoom`, assigned at runtime because the same icon can appear on many pages. On the way in it goes on the tapped icon's squircle and on the destination's `[data-zoom-target]` (the AppSheet or the story dialog panel). On the way out it goes on the closing sheet or dialog and on the return target in the new page: the icon linking to the closed page, or, for an app that lives in a folder, the folder tile; failing both, the section's key in the persisted dock. Names are cleared only once the view transition has finished, so the morph always has a new image to fly to. A sheet already scrolled above the viewport sits out the morph and the page crossfade carries it.
 
-The morph group runs 0.5s on the native curve for entrances and 0.36s for exits; the old image fades out over 0.2s (0.24s on exits) and the new fades in over 0.35s (0.18s on exits). Exits are always faster than entrances.
+The morph group runs 0.5s on the native curve for entrances; the old image fades out over 0.2s and the new fades in over 0.35s. Closes run 0.52s on the close curve (`cubic-bezier(0.3, 0.4, 0.15, 1)`): the sheet, dialog or folder stays fully visible while it shrinks, fades over 0.18s from 0.2s as it lands, and the icon fades in over 0.16s from 0.22s. A front-loaded curve on a close reads as a snap, so closes never use the native curve. A sheet scrolled past its top cannot morph; it closes by shrinking the whole visible page into the icon with squircle corners, painted solid above the incoming page. Folders open and close with the same morph (`folder-zoom`) as apps.
 
 ### Chrome stays still
 The dock (`app-dock`) and status bar (`status-bar`) are persisted with `transition:persist` and given their own names, with their groups and new images unanimated and their old images hidden. They never recede, fade or slide; only the page under them moves.
@@ -500,7 +500,7 @@ Under `prefers-reduced-motion: reduce`, no view transition group moves or scales
 - **Do** record the provenance of every shipped raster or icon file (repository or Simple Icons version and licence).
 - **Do** open every inner page as an AppSheet with its section icon, h1 and close button, and keep the dock on every page.
 - **Do** open every catalog app as its story dialog over the home screen, with its outbound link as the single Live Blue button inside it.
-- **Do** use the expo ease (`cubic-bezier(0.16, 1, 0.3, 1)`) for lifts, presses, folder zooms and arrow nudges: 0.3s for presses and lifts, 0.5s for zooms. Use the native ease (`cubic-bezier(0.2, 0.9, 0.1, 1)`) for navigation, with exits faster than entrances.
+- **Do** use the expo ease (`cubic-bezier(0.16, 1, 0.3, 1)`) for lifts, presses and arrow nudges: 0.3s. Use the native ease (`cubic-bezier(0.2, 0.9, 0.1, 1)`) for opening navigation and the close ease (`cubic-bezier(0.3, 0.4, 0.15, 1)`) for closes, so a shrink stays readable.
 - **Do** mark a new page's main surface as the zoom target (`data-zoom-target`) and its tappable icon as the morph source, so navigation reads as one object moving.
 - **Do** put `on-bright` ink on every yellow, pink or green tile, and give inputs on a bright tile an `on-bright` focus ring.
 - **Do** give icons the press physics: lift on hover, scale to 0.9 on press; widgets that link press to 0.98.

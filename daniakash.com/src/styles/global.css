@@ -44,6 +44,8 @@
   --radius: 1rem;
   --ease-native: cubic-bezier(0.2, 0.9, 0.1, 1);
   --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  /* Closes: still prompt, but halfway only at ~120ms, so the shrink reads instead of snapping. */
+  --ease-close: cubic-bezier(0.3, 0.4, 0.15, 1);
 }
 
 /* Dark: a deep ink wallpaper with raised widgets. */
@@ -317,23 +319,25 @@
   animation: 0.35s var(--ease-native) both vt-fade-in;
 }
 
-/* Exits run faster than entrances. */
+/* Closes follow the shape back into its icon: the sheet stays visible while it shrinks and only
+   fades as it lands, then the icon fades in under it. */
 html[data-astro-transition="app-close"]::view-transition-group(app-zoom),
 html[data-astro-transition="zoom-out"]::view-transition-group(app-zoom),
 html[data-folder-motion="close"]::view-transition-group(folder-zoom) {
-  animation-duration: 0.36s;
+  animation-duration: 0.52s;
+  animation-timing-function: var(--ease-close);
 }
 
 html[data-astro-transition="app-close"]::view-transition-old(app-zoom),
 html[data-astro-transition="zoom-out"]::view-transition-old(app-zoom),
 html[data-folder-motion="close"]::view-transition-old(folder-zoom) {
-  animation: 0.24s ease-out both vt-fade-out;
+  animation: 0.18s ease-in 0.2s both vt-fade-out;
 }
 
 html[data-astro-transition="app-close"]::view-transition-new(app-zoom),
 html[data-astro-transition="zoom-out"]::view-transition-new(app-zoom),
 html[data-folder-motion="close"]::view-transition-new(folder-zoom) {
-  animation: 0.18s ease-out both vt-fade-in;
+  animation: 0.16s ease-out 0.22s both vt-fade-in;
 }
 
 html[data-astro-transition="zoom-in"]::view-transition-old(root) {
@@ -345,11 +349,22 @@ html[data-astro-transition="zoom-in"]::view-transition-new(root) {
 }
 
 html[data-astro-transition="zoom-out"]::view-transition-old(root) {
-  animation: 0.22s ease-out both vt-fade-out;
+  animation: 0.3s ease-out both vt-fade-out;
 }
 
 html[data-astro-transition="zoom-out"]::view-transition-new(root) {
-  animation: 0.45s var(--ease-native) both vt-advance;
+  animation: 0.52s var(--ease-close) both vt-advance;
+}
+
+/* A scrolled sheet closes by shrinking the whole old page into the icon (transitions.ts), so it
+   paints solid on top of the incoming page instead of blending with it. */
+html[data-vt-shrink]::view-transition-old(root),
+html[data-vt-shrink]::view-transition-new(root) {
+  mix-blend-mode: normal;
+}
+
+html[data-vt-shrink]::view-transition-old(root) {
+  z-index: 1;
 }
 
 /* The home screen stays put under a story dialog: only the dialog and its backdrop move. */

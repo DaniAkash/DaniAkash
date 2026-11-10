@@ -63,6 +63,7 @@ let lastPath = "";
 let savedScroll = 0;
 let traversal = false;
 let inFlight = false;
+let shrinkPage = false;
 
 /** The path of the page this one was reached from in this session, if any. */
 export const previousPath = () => lastPath;
@@ -121,6 +122,41 @@ const releaseHeldFolders = () => {
     if (panel.closest("[data-app-backdrop]")) continue;
     panel.removeAttribute("data-held");
     panel.showPopover();
+  }
+};
+
+/** The old page snapshot shrinks into the icon, iOS style, staying visible until it lands. */
+const shrinkPageInto = (icon: HTMLElement) => {
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const r = icon.getBoundingClientRect();
+  const dx = r.left + r.width / 2 - window.innerWidth / 2;
+  const dy = r.top + r.height / 2 - window.innerHeight / 2;
+  const scale = r.width / window.innerWidth;
+  // The page lands with the icon's squircle corners, measured before scaling.
+  const radius = (r.width * 0.225) / scale;
+  const target = {
+    pseudoElement: "::view-transition-old(root)",
+    fill: "both",
+  } as const;
+  try {
+    document.documentElement.animate(
+      [
+        { transform: "none", clipPath: "inset(0 round 0px)" },
+        {
+          transform: `translate(${dx}px, ${dy}px) scale(${scale})`,
+          clipPath: `inset(0 round ${radius}px)`,
+        },
+      ],
+      { ...target, duration: 520, easing: "cubic-bezier(0.3, 0.4, 0.15, 1)" },
+    );
+    document.documentElement.animate([{ opacity: 1 }, { opacity: 0 }], {
+      ...target,
+      duration: 180,
+      delay: 220,
+      easing: "ease-in",
+    });
+  } catch {
+    // Without pseudo-element animation support the root crossfade still plays.
   }
 };
 
@@ -205,14 +241,16 @@ document.addEventListener("astro:before-preparation", (event) => {
   event.direction = kind;
   clearNames(document);
   const sheet = zoomTarget(document);
-  // A sheet scrolled above the viewport would morph from far off-screen, so it sits out and
-  // the root crossfade carries it instead.
+  // A sheet scrolled above the viewport would morph from far off-screen, so it sits out; on a
+  // close the whole visible page shrinks into the icon instead.
   const scrolledPast = Boolean(sheet && sheet.getBoundingClientRect().top < 0);
+  shrinkPage = false;
   if (kind === "app-open" || kind === "zoom-in") {
     name(iconIn(event.sourceElement));
   } else if (kind === "app-close" || kind === "zoom-out") {
     if (scrolledPast) unname(sheet);
     else name(sheet);
+    shrinkPage = scrolledPast;
   } else if (scrolledPast) {
     unname(document.querySelector(".vt-sheet"));
   }
@@ -236,6 +274,14 @@ document.addEventListener("astro:before-swap", (event) => {
         ),
       );
     name(target);
+    if (shrinkPage && target instanceof HTMLElement) {
+      // Astro copies the new root's attributes over during the swap.
+      doc.documentElement.setAttribute("data-vt-shrink", "");
+      event.viewTransition.ready.then(
+        () => shrinkPageInto(target),
+        () => {},
+      );
+    }
   }
   // page-load fires before the browser captures the new state, so names may only be cleared
   // once the transition has finished, or the morph has no new image to fly to.
@@ -243,6 +289,7 @@ document.addEventListener("astro:before-swap", (event) => {
   const closing = kind === "app-close";
   event.viewTransition.finished.finally(() => {
     inFlight = false;
+    document.documentElement.removeAttribute("data-vt-shrink");
     clearNames(document);
     if (closing) releaseHeldFolders();
   });
