@@ -419,7 +419,7 @@
       "label": "Get the app"
     },
     "size": "2col",
-    "category": "earlier",
+    "category": "app",
     "icon": { "kind": "bleed", "src": "/apps/pickyourtrail.png" },
     "language": "JavaScript"
   },
