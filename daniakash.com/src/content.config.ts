@@ -130,6 +130,21 @@ const project = defineCollection({
         tech: z.array(z.string()).optional(),
         /** Up to four key technologies, as logo slugs in public/tech (see constants/tech.ts). */
         stack: z.array(z.string()).max(4).optional(),
+        /** Shown in place of the tech strip, e.g. an org's libraries. */
+        showcase: z
+          .object({
+            title: z.string(),
+            items: z
+              .array(
+                z.object({
+                  name: z.string(),
+                  logo: z.string(),
+                  href: z.string().optional(),
+                }),
+              )
+              .max(4),
+          })
+          .optional(),
         /** Still being built; marked with an in-progress dot. */
         wip: z.boolean().optional(),
         link: z
@@ -148,7 +163,7 @@ const project = defineCollection({
         category: z.enum(["app", "ai-tool", "oss", "earlier"]).optional(),
         icon: z
           .object({
-            kind: z.enum(["app", "bleed", "mark", "glyph"]),
+            kind: z.enum(["app", "bleed", "mark", "glyph", "cover"]),
             src: z.string(),
             tint: z.string().optional(),
             ink: z.string().optional(),

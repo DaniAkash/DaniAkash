@@ -24,7 +24,7 @@ export const AUTHORED_BOOK: Book = {
 };
 
 /** The project entry whose story page describes the book. */
-export const AUTHORED_BOOK_PROJECT = "JavaScript by Example — Book (2017)";
+export const AUTHORED_BOOK_PROJECT = "JavaScript by Example Book";
 
 export const FALLBACK_DESCRIPTION =
   "Dani Akash | AI Engineer, speaker, and open source contributor. Writing about AI, JavaScript, React Native, and the modern web.";

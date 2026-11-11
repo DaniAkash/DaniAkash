@@ -2,9 +2,9 @@
 import { cn } from "../utils/cn";
 import Icon, { type IconName } from "./Icon.astro";
 
-/** `outline` adds a faint dark-mode edge, for art whose plate would vanish on the dark page. */
+/** `outline` adds a faint edge, for art whose plate would vanish on a white sheet or the dark page. */
 export type AppIconArt = { outline?: boolean | undefined } & (
-  | { kind: "app" | "bleed"; src: string }
+  | { kind: "app" | "bleed" | "cover"; src: string }
   | { kind: "mark"; src: string; tint?: string | undefined }
   | {
       kind: "glyph";
@@ -47,7 +47,21 @@ const sizes = {
   )}
 >
   {
-    art.kind === "app" ? (
+    art.kind === "cover" ? (
+      // A book keeps its portrait cover, like Apple Books, instead of the app squircle.
+      <span class="absolute inset-[7%] flex items-center justify-center">
+        <span class="relative h-full overflow-hidden rounded-[2.5cqw] shadow-[0_2cqw_5cqw_-1cqw_rgb(20_16_40/35%),0_0_0_0.5px_rgb(20_16_40/12%)]">
+          <img
+            src={art.src}
+            alt=""
+            class="block h-full w-auto"
+            loading="lazy"
+            decoding="async"
+          />
+          <span class="absolute inset-y-0 left-0 w-[9%] bg-linear-to-r from-black/25 via-white/15 to-transparent" />
+        </span>
+      </span>
+    ) : art.kind === "app" ? (
       <img
         src={art.src}
         alt=""
@@ -63,7 +77,7 @@ const sizes = {
       <span
         class:list={[
           "absolute inset-[9.6%] overflow-hidden rounded-[22.5%]",
-          art.outline && "dark:ring-1 dark:ring-white/12 dark:ring-inset",
+          art.outline && "ring-1 ring-[rgb(20_16_40/8%)] ring-inset dark:ring-white/12",
         ]}
         style={
           "tint" in art && art.tint

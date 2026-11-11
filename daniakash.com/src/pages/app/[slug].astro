@@ -36,10 +36,21 @@ const categoryLabel: Record<string, string> = {
 const kindLabel = project.category
   ? categoryLabel[project.category]
   : undefined;
-const stack = (project.stack ?? []).map((logo) => ({
-  logo,
-  name: techLabels[logo] ?? logo,
-}));
+// A showcase (e.g. an org's libraries) takes the place of the tech strip.
+const strip: {
+  title: string;
+  items: { name: string; logo: string; href?: string | undefined }[];
+} | null = project.showcase
+  ? project.showcase
+  : project.stack?.length
+    ? {
+        title: "Built with",
+        items: project.stack.map((logo) => ({
+          name: techLabels[logo] ?? logo,
+          logo: techLogo(logo),
+        })),
+      }
+    : null;
 const heldFolder = folderFor(project)?.id;
 
 const story = (await getCollection("apps")).find((entry) => entry.id === slug);
@@ -180,7 +191,7 @@ const titleId = `app-title-${slug}`;
     }
 
     {
-      stack.length > 0 && (
+      strip && (
         <section
           aria-labelledby={`${titleId}-stack`}
           class="border-border mt-7 border-t pt-5"
@@ -189,27 +200,37 @@ const titleId = `app-title-${slug}`;
             id={`${titleId}-stack`}
             class="text-muted-foreground text-label font-bold"
           >
-            Built with
+            {strip.title}
           </h2>
           <ul class="mt-3 grid grid-cols-4 gap-2">
-            {stack.map((tech) => (
-              <li class="flex flex-col items-center gap-1.5">
-                <span class="flex size-14 items-center justify-center rounded-[22.5%] bg-white shadow-[inset_0_0_0_1px_rgb(20_16_40/8%)]">
-                  <img
-                    src={techLogo(tech.logo)}
-                    alt=""
-                    width="32"
-                    height="32"
-                    class="size-[56%] object-contain"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </span>
-                <span class="text-caption line-clamp-2 text-center leading-tight font-semibold">
-                  {tech.name}
-                </span>
-              </li>
-            ))}
+            {strip.items.map((item) => {
+              const Tag = item.href ? "a" : "div";
+              return (
+                <li>
+                  <Tag
+                    {...(item.href
+                      ? { href: item.href, target: "_blank", rel: "noopener" }
+                      : {})}
+                    class="group flex flex-col items-center gap-1.5"
+                  >
+                    <span class="flex size-14 items-center justify-center rounded-[22.5%] bg-white shadow-[inset_0_0_0_1px_rgb(20_16_40/8%)] transition-transform group-active:scale-90">
+                      <img
+                        src={item.logo}
+                        alt=""
+                        width="32"
+                        height="32"
+                        class="size-[56%] object-contain"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    </span>
+                    <span class="text-caption line-clamp-2 text-center leading-tight font-semibold group-[[href]]:group-hover:underline">
+                      {item.name}
+                    </span>
+                  </Tag>
+                </li>
+              );
+            })}
           </ul>
         </section>
       )
