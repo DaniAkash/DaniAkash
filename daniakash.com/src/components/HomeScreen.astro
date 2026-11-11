@@ -447,37 +447,41 @@ const isExternal = (href: string) => href.startsWith("http");
   >
     <Widget
       as="section"
-      aria-labelledby="more-writing"
-      class="col-span-4 lg:col-span-5"
+      aria-labelledby="speaking-heading"
+      tone="ink"
+      class="col-span-4 flex flex-col justify-between gap-4 sm:col-span-2 lg:col-span-3"
     >
       <h2
-        id="more-writing"
+        id="speaking-heading"
         class="font-display text-title font-extrabold tracking-[-0.02em]"
       >
-        More from the blog
+        Speaking
       </h2>
-      <ul class="mt-2">
-        {
-          morePosts.map((post) => (
-            <li class="border-border border-t first:border-t-0">
-              <a
-                href={`/posts/${post.id}/`}
-                class="hover:text-primary flex items-baseline gap-3 py-2 transition-colors"
-              >
-                <time
-                  datetime={new Date(post.data.date).toISOString()}
-                  class="text-muted-foreground text-meta w-[4.75rem] shrink-0 font-semibold"
-                >
-                  {formatDate(post.data.date)}
-                </time>
-                <span class="text-body leading-snug font-semibold">
-                  {post.data.title}
-                </span>
-              </a>
-            </li>
-          ))
-        }
-      </ul>
+      <p class="text-on-ink-muted text-body">
+        I regularly speak at community meetups and conferences about AI,
+        JavaScript, React Native, and the web. I've given 25+ talks since 2017
+        across events like React Nexus, JSLovers, Thoughtworks Geeknight, React
+        Bangalore, and more.
+      </p>
+      <a
+        href="/speaking/"
+        class="bg-on-ink text-ink text-label inline-flex min-h-10 items-center justify-center gap-1.5 self-start rounded-full px-4 font-bold transition-opacity hover:opacity-85"
+      >
+        View all talks <Icon name="arrow-right" class="size-3.5" />
+      </a>
+    </Widget>
+
+    <Widget
+      tone="photo"
+      class="col-span-4 aspect-[16/10] sm:col-span-2 sm:aspect-auto lg:col-span-2"
+    >
+      <img
+        src={photos.market.src}
+        alt={photos.market.alt}
+        class="absolute inset-0 size-full object-cover"
+        loading="lazy"
+        decoding="async"
+      />
     </Widget>
 
     <Widget
@@ -530,41 +534,37 @@ const isExternal = (href: string) => href.startsWith("http");
 
     <Widget
       as="section"
-      aria-labelledby="speaking-heading"
-      tone="ink"
-      class="col-span-4 flex flex-col justify-between gap-4 sm:col-span-2 lg:col-span-3"
+      aria-labelledby="more-writing"
+      class="col-span-4 lg:col-span-5"
     >
       <h2
-        id="speaking-heading"
+        id="more-writing"
         class="font-display text-title font-extrabold tracking-[-0.02em]"
       >
-        Speaking
+        More from the blog
       </h2>
-      <p class="text-on-ink-muted text-body">
-        I regularly speak at community meetups and conferences about AI,
-        JavaScript, React Native, and the web. I've given 25+ talks since 2017
-        across events like React Nexus, JSLovers, Thoughtworks Geeknight, React
-        Bangalore, and more.
-      </p>
-      <a
-        href="/speaking/"
-        class="bg-on-ink text-ink text-label inline-flex min-h-10 items-center justify-center gap-1.5 self-start rounded-full px-4 font-bold transition-opacity hover:opacity-85"
-      >
-        View all talks <Icon name="arrow-right" class="size-3.5" />
-      </a>
-    </Widget>
-
-    <Widget
-      tone="photo"
-      class="col-span-4 aspect-[16/10] sm:col-span-2 sm:aspect-auto lg:col-span-2"
-    >
-      <img
-        src={photos.market.src}
-        alt={photos.market.alt}
-        class="absolute inset-0 size-full object-cover"
-        loading="lazy"
-        decoding="async"
-      />
+      <ul class="mt-2">
+        {
+          morePosts.map((post) => (
+            <li class="border-border border-t first:border-t-0">
+              <a
+                href={`/posts/${post.id}/`}
+                class="hover:text-primary flex items-baseline gap-3 py-2 transition-colors"
+              >
+                <time
+                  datetime={new Date(post.data.date).toISOString()}
+                  class="text-muted-foreground text-meta w-[4.75rem] shrink-0 font-semibold"
+                >
+                  {formatDate(post.data.date)}
+                </time>
+                <span class="text-body leading-snug font-semibold">
+                  {post.data.title}
+                </span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
     </Widget>
 
     <Widget
