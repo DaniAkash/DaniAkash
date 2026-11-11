@@ -380,7 +380,7 @@
   {
     "name": "Years Shipping",
     "size": "stat",
-    "stat": { "number": "7+", "label": "Years Shipping" }
+    "stat": { "number": "10+", "label": "Years Shipping" }
   },
   {
     "name": "React Native Toolkit",
