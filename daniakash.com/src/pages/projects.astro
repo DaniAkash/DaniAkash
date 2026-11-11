@@ -134,6 +134,7 @@ const isExternal = (href: string) => href.startsWith("http");
                         <AppIcon
                           art={item.icon as AppIconArt}
                           size="md"
+                          wip={item.wip}
                           class:list={[
                             "group-hover:-translate-y-0.5 group-active:scale-95",
                             group.category === "app" ? "size-[4.5rem]" : "size-14",
@@ -145,7 +146,12 @@ const isExternal = (href: string) => href.startsWith("http");
                           <h3 class="font-display text-title font-extrabold tracking-[-0.02em]">
                             {item.name}
                           </h3>
-                          {item.status && (
+                          {item.wip && (
+                            <span class="bg-yellow text-on-bright text-meta inline-flex rounded-full px-2 py-0.5 font-bold">
+                              In progress
+                            </span>
+                          )}
+                          {item.status && !item.wip && (
                             <span
                               class:list={[
                                 "text-meta inline-flex rounded-full px-2 py-0.5 font-bold",

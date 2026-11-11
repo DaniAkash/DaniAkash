@@ -130,6 +130,8 @@ const project = defineCollection({
         tech: z.array(z.string()).optional(),
         /** Up to four key technologies, as logo slugs in public/tech (see constants/tech.ts). */
         stack: z.array(z.string()).max(4).optional(),
+        /** Still being built; the icon wears an "in progress" sticker. */
+        wip: z.boolean().optional(),
         link: z
           .object({
             href: z.string(),

@@ -60,6 +60,7 @@ const toApp = (p: (typeof projects)[number]): FolderApp | undefined =>
         href: appHref(p.name),
         description: p.description,
         art: p.icon as AppIconArt,
+        wip: p.wip,
       }
     : undefined;
 
@@ -76,9 +77,9 @@ const inCategory = (category: string) =>
 
 const homeApps = [
   { app: byName("BrowserOS"), lg: "lg:col-start-4 lg:row-start-1" },
-  { app: byName("aalai"), lg: "lg:col-start-5 lg:row-start-1" },
-  { app: byName("Agent Terminal"), lg: "lg:col-start-6 lg:row-start-1" },
-  { app: byName("herbie"), lg: "lg:col-start-4 lg:row-start-2" },
+  { app: byName("Agent Terminal"), lg: "lg:col-start-5 lg:row-start-1" },
+  { app: byName("herbie"), lg: "lg:col-start-6 lg:row-start-1" },
+  { app: byName("aalai"), lg: "lg:col-start-4 lg:row-start-2" },
   { app: byName("Screen Time Overlay"), lg: "lg:col-start-5 lg:row-start-2" },
   { app: byName("stylecn"), lg: "lg:col-start-6 lg:row-start-2" },
   {
@@ -247,10 +248,12 @@ const isExternal = (href: string) => href.startsWith("http");
               <AppIcon
                 art={app.art}
                 size="lg"
+                wip={app.wip}
                 class="size-[4.5rem] group-hover:-translate-y-1 group-active:scale-90 md:size-[5.5rem]"
               />
               <span class="text-label max-w-[6.5rem] text-center leading-tight font-semibold">
                 {app.name}
+                {app.wip && <span class="sr-only">, in progress</span>}
               </span>
             </a>
           ),

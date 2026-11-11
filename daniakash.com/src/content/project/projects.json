@@ -38,6 +38,7 @@
     "name": "aalai",
     "description": "Local-first AI software factory: issues in, reviewed draft pull requests out.",
     "status": "active",
+    "wip": true,
     "tech": ["TypeScript", "AI Agents"],
     "stack": ["tauri", "react", "hono", "bun"],
     "link": {
@@ -65,12 +66,13 @@
   },
   {
     "name": "herbie",
-    "description": "One menubar window for every AI coding agent. Pick Claude, Codex, or Gemini, share skills across them, drive them from your phone.",
+    "description": "Open Source alternative to Grokbot, dots and muse.",
     "status": "active",
-    "tech": ["TypeScript", "macOS", "AI Agents"],
-    "stack": ["bun", "react", "hono", "mcp"],
+    "wip": true,
+    "tech": ["TypeScript", "Tauri", "AI Agents"],
+    "stack": ["tauri", "bun", "react", "ai-sdk"],
     "link": {
-      "href": "https://github.com/DaniAkash/herbie",
+      "href": "https://github.com/DaniAkash/herbie/tree/main/v2",
       "label": "View on GitHub"
     },
     "category": "app",

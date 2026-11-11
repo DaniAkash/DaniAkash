@@ -88,6 +88,7 @@ const titleId = `app-title-${slug}`;
           <AppIcon
             art={project.icon as AppIconArt}
             size="lg"
+            wip={project.wip}
             class="-m-2 size-20 md:size-[5.5rem]"
           />
         )
@@ -99,8 +100,13 @@ const titleId = `app-title-${slug}`;
         >
           {project.name}
         </h1>
-        <p class="text-muted-foreground text-label mt-1 font-semibold">
+        <p class="text-muted-foreground text-label mt-1 flex flex-wrap items-center gap-x-2 gap-y-1 font-semibold">
           {[kindLabel, project.language].filter(Boolean).join(" · ")}
+          {project.wip && (
+            <span class="bg-yellow text-on-bright text-meta rounded-full px-2 py-0.5 font-bold">
+              In progress
+            </span>
+          )}
         </p>
       </div>
       <a
