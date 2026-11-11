@@ -132,7 +132,11 @@
     "tech": ["Android", "iOS"],
     "stack": ["kotlin", "android", "swift", "ios"],
     "category": "app",
-    "icon": { "kind": "bleed", "src": "/apps/coming-soon.svg" }
+    "icon": {
+      "kind": "bleed",
+      "src": "/apps/coming-soon.svg",
+      "outline": true
+    }
   },
   {
     "name": "agent-toolkit",
