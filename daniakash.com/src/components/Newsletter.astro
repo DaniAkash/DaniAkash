@@ -1,63 +1,56 @@
 ---
+import { cn } from "../utils/cn";
+
 interface Props {
   heading: string;
   description: string;
-  /** Optional mono-text label rendered above the heading */
-  label?: string;
   /** Button text, defaults to "Subscribe" */
   buttonLabel?: string;
-  /** Center-align heading, description, and form. Defaults to true */
-  center?: boolean;
   class?: string;
 }
 
 const {
   heading,
   description,
-  label,
   buttonLabel = "Subscribe",
-  center = true,
   class: className,
 } = Astro.props;
+
+const inputId = `newsletter-email-${heading.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
 ---
 
 <div
-  class:list={[
-    "border-border bg-foreground/[0.025] rounded-2xl border p-8",
-    center && "text-center",
+  class={cn(
+    "bg-green text-on-bright rounded-widget flex flex-col gap-4 p-4 md:flex-row md:items-center md:gap-6 md:p-5",
     className,
-  ]}
+  )}
 >
-  {
-    label && (
-      <div class="text-muted-foreground mb-2 font-mono text-[11px] tracking-[0.1em] uppercase">
-        {label}
-      </div>
-    )
-  }
-  <h2 class="mb-2 text-xl font-semibold">{heading}</h2>
-  <p class="text-muted-foreground mb-6 text-sm">{description}</p>
+  <div class="min-w-0 flex-1">
+    <h2 class="font-display text-title font-extrabold tracking-[-0.02em]">
+      {heading}
+    </h2>
+    <p class="text-body opacity-80">{description}</p>
+  </div>
   <form
     action="https://buttondown.com/api/emails/embed-subscribe/daniakash"
     method="post"
     target="popupwindow"
     onsubmit="window.open('https://buttondown.com/daniakash', 'popupwindow')"
-    class:list={[
-      "flex max-w-[480px] flex-col gap-2 sm:flex-row",
-      center && "mx-auto",
-    ]}
+    class="flex w-full flex-col gap-2 sm:flex-row md:w-auto"
   >
+    <label class="sr-only" for={inputId}>Email address</label>
     <input
+      id={inputId}
       type="email"
       name="email"
-      placeholder="you@email.com"
+      placeholder="you@example.com"
       required
-      aria-label="Email address"
-      class="border-border bg-foreground/5 text-foreground placeholder:text-muted-foreground focus:border-primary h-11 w-full flex-1 rounded-full border px-4 py-2 font-mono text-sm transition-colors outline-none sm:px-6"
+      autocomplete="email"
+      class="bg-card text-card-foreground placeholder:text-muted-foreground text-body h-11 w-full min-w-0 rounded-full px-4 outline-none focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-[var(--on-bright)] sm:flex-1 md:w-64"
     />
     <button
       type="submit"
-      class="bg-primary text-primary-foreground hover:bg-primary/80 h-11 w-full rounded-full px-6 font-mono text-[13px] font-medium transition-colors sm:w-auto"
+      class="bg-on-bright text-label h-11 cursor-pointer rounded-full px-5 font-bold text-white transition-opacity hover:opacity-90"
     >
       {buttonLabel}
     </button>

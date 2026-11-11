@@ -1,73 +1,116 @@
 @import "tailwindcss";
-@import "@fontsource-variable/space-grotesk";
-@import "@fontsource-variable/jetbrains-mono";
+@import "@fontsource-variable/archivo/wdth.css";
+@import "@fontsource-variable/hanken-grotesk";
 @plugin "@tailwindcss/typography";
 
 @custom-variant dark (&:is(.dark *));
 
-/* ═══════════════════════════════════════════
-   shadcn Design Tokens — Light Mode
-   ═══════════════════════════════════════════ */
+/* Light: a pale lavender wallpaper with white widgets. */
 :root {
-  --background: oklch(0.965 0.005 106.5); /* #F5F5F0 */
-  --foreground: oklch(0.15 0.01 260); /* #0A0A0F */
-  --card: oklch(0.96 0.004 106.5);
-  --card-foreground: oklch(0.15 0.01 260);
-  --popover: oklch(0.965 0.005 106.5);
-  --popover-foreground: oklch(0.15 0.01 260);
-  --primary: oklch(0.58 0.14 175); /* #0D9488 teal */
-  --primary-foreground: oklch(0.98 0.005 175);
-  --secondary: oklch(0.95 0.005 106.5);
-  --secondary-foreground: oklch(0.25 0.01 260);
-  --muted: oklch(0.92 0.004 106.5);
-  --muted-foreground: oklch(0.45 0.02 260);
-  --accent: oklch(0.92 0.004 106.5);
-  --accent-foreground: oklch(0.15 0.01 260);
+  --background: oklch(0.945 0.025 290);
+  --foreground: oklch(0.2 0.012 285);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.2 0.012 285);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.2 0.012 285);
+  --primary: oklch(0.54 0.23 265);
+  --primary-foreground: oklch(0.99 0 0);
+  --secondary: oklch(0.965 0.012 290);
+  --secondary-foreground: oklch(0.2 0.012 285);
+  --muted: oklch(0.955 0.014 290);
+  --muted-foreground: oklch(0.48 0.02 285);
+  --accent: oklch(0.955 0.014 290);
+  --accent-foreground: oklch(0.2 0.012 285);
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0 0 0 / 8%);
-  --input: oklch(0 0 0 / 8%);
-  --ring: oklch(0.58 0.14 175);
-  --radius: 0.75rem;
+  --border: oklch(0.2 0.012 285 / 9%);
+  --input: oklch(0.2 0.012 285 / 14%);
+  --ring: oklch(0.54 0.23 265);
+
+  --sheet: oklch(1 0 0);
+  --folder: oklch(1 0 0 / 55%);
+  --dock: oklch(1 0 0);
+  /* Bento tile palette: one flat colour per content type. */
+  --blue: oklch(0.53 0.24 268);
+  --on-blue: oklch(0.99 0 0);
+  --orange: oklch(0.68 0.2 40);
+  --green: oklch(0.74 0.15 170);
+  --yellow: oklch(0.89 0.15 92);
+  --pink: oklch(0.76 0.16 358);
+  /* The in-progress dot before an app name; a deeper orange than --orange so it holds 3:1 on the page. */
+  --wip: oklch(0.63 0.19 40);
+  --on-bright: oklch(0.2 0.008 290);
+  --ink: oklch(0.2 0.012 285);
+  --on-ink: oklch(0.97 0.006 290);
+  --on-ink-muted: oklch(0.8 0.012 290);
+
+  --radius: 1rem;
+  --ease-native: cubic-bezier(0.2, 0.9, 0.1, 1);
+  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  /* Closes: still prompt, but halfway only at ~120ms, so the shrink reads instead of snapping. */
+  --ease-close: cubic-bezier(0.3, 0.4, 0.15, 1);
 }
 
-/* ═══════════════════════════════════════════
-   shadcn Design Tokens — Dark Mode
-   ═══════════════════════════════════════════ */
+/* Dark: a deep ink wallpaper with raised widgets. */
 .dark {
-  --background: oklch(0.13 0.015 270); /* #08080D */
-  --foreground: oklch(0.95 0.005 260); /* #F0F0F5 */
-  --card: oklch(0.15 0.015 270);
-  --card-foreground: oklch(0.95 0.005 260);
-  --popover: oklch(0.15 0.015 270);
-  --popover-foreground: oklch(0.95 0.005 260);
-  --primary: oklch(0.76 0.15 175); /* #2DD4BF teal */
-  --primary-foreground: oklch(0.13 0.015 270);
-  --secondary: oklch(0.18 0.015 270);
-  --secondary-foreground: oklch(0.95 0.005 260);
-  --muted: oklch(0.2 0.012 270);
-  --muted-foreground: oklch(0.6 0.015 260);
-  --accent: oklch(0.2 0.012 270);
-  --accent-foreground: oklch(0.95 0.005 260);
+  --background: oklch(0.17 0.02 285);
+  --foreground: oklch(0.96 0.008 290);
+  --card: oklch(0.235 0.022 285);
+  --card-foreground: oklch(0.96 0.008 290);
+  --popover: oklch(0.235 0.022 285);
+  --popover-foreground: oklch(0.96 0.008 290);
+  --primary: oklch(0.7 0.16 265);
+  --primary-foreground: oklch(0.17 0.02 285);
+  --secondary: oklch(0.27 0.02 285);
+  --secondary-foreground: oklch(0.96 0.008 290);
+  --muted: oklch(0.27 0.02 285);
+  --muted-foreground: oklch(0.74 0.015 290);
+  --accent: oklch(0.27 0.02 285);
+  --accent-foreground: oklch(0.96 0.008 290);
   --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 8%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.76 0.15 175);
+  --border: oklch(1 0 0 / 9%);
+  --input: oklch(1 0 0 / 16%);
+  --ring: oklch(0.7 0.16 265);
+
+  --sheet: oklch(0.21 0.02 285);
+  --folder: oklch(1 0 0 / 10%);
+  --dock: oklch(0.27 0.022 285);
+  --blue: oklch(0.55 0.22 268);
+  --green: oklch(0.72 0.14 170);
+  --yellow: oklch(0.86 0.15 92);
+  --pink: oklch(0.74 0.15 358);
+  --wip: var(--orange);
+  --ink: oklch(0.31 0.03 285);
+  --on-ink: oklch(0.96 0.008 290);
+  --on-ink-muted: oklch(0.78 0.012 290);
 }
 
-/* ═══════════════════════════════════════════
-   Tailwind 4 — CSS-driven theme
-   (replaces tailwind.config.mjs entirely)
-   ═══════════════════════════════════════════ */
 @theme inline {
-  /* Fonts */
-  --font-sans: "Space Grotesk Variable", system-ui, sans-serif;
-  --font-mono: "JetBrains Mono Variable", "SF Mono", monospace;
+  --font-sans: "Hanken Grotesk Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Archivo Variable", "Hanken Grotesk Variable", sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, monospace;
   --font-calorie: "Calorie", cursive, sans-serif;
 
-  /* Screens */
   --breakpoint-mobile: 375px;
 
-  /* Colors — shadcn token mapping */
+  --text-meta: 0.6875rem;
+  --text-meta--line-height: 1.4;
+  --text-caption: 0.75rem;
+  --text-caption--line-height: 1.4;
+  --text-label: 0.8125rem;
+  --text-label--line-height: 1.3;
+  --text-body: 0.9375rem;
+  --text-body--line-height: 1.55;
+  --text-lede: 1.0625rem;
+  --text-lede--line-height: 1.5;
+  --text-title: 1.25rem;
+  --text-title--line-height: 1.2;
+  --text-heading: 1.75rem;
+  --text-heading--line-height: 1.05;
+  --text-display: 3rem;
+  --text-display--line-height: 0.95;
+  --text-stat: 2.75rem;
+  --text-stat--line-height: 1;
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -87,112 +130,390 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
 
-  /* Radii */
-  --radius-sm: calc(var(--radius) * 0.6);
-  --radius-md: calc(var(--radius) * 0.8);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) * 1.4);
-  --radius-2xl: calc(var(--radius) * 1.8);
-  --radius-pill: 999px;
+  --color-sheet: var(--sheet);
+  --color-folder: var(--folder);
+  --color-dock: var(--dock);
+  --color-blue: var(--blue);
+  --color-on-blue: var(--on-blue);
+  --color-orange: var(--orange);
+  --color-green: var(--green);
+  --color-yellow: var(--yellow);
+  --color-pink: var(--pink);
+  --color-wip: var(--wip);
+  --color-on-bright: var(--on-bright);
+  --color-ink: var(--ink);
+  --color-on-ink: var(--on-ink);
+  --color-on-ink-muted: var(--on-ink-muted);
+
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.25rem;
+  --radius-2xl: 1.5rem;
+  --radius-widget: 1.75rem;
+  --radius-icon: 22.5%;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* ═══════════════════════════════════════════
-   Base Layer
-   ═══════════════════════════════════════════ */
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    @apply border-border outline-ring/60;
+  }
+
+  html {
+    color-scheme: light;
+    scrollbar-color: var(--muted-foreground) var(--background);
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  html.dark {
+    color-scheme: dark;
   }
 
   body {
-    @apply bg-background text-foreground font-sans;
+    @apply bg-background text-foreground font-sans antialiased;
+    caret-color: var(--primary);
+  }
+
+  ::selection {
+    background: var(--blue);
+    color: var(--on-blue);
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--ring);
+    outline-offset: 3px;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  time,
+  .tabular {
+    font-variant-numeric: tabular-nums;
   }
 }
 
-/* ═══════════════════════════════════════════
-   Typography Plugin Overrides
-   Prose colors mapped to design token system
-   ═══════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Printed pages (and the downloadable resume PDF) are A4 with even margins. */
+@page {
+  size: A4;
+  margin: 12mm 14mm;
+}
+
+/*
+ * Navigation motion. src/scripts/transitions.ts classifies each navigation into
+ * html[data-astro-transition]; `app-zoom` is the one shared element (icon <-> sheet or dialog).
+ */
+@keyframes vt-recede {
+  to {
+    scale: 0.94;
+    opacity: 0.4;
+    filter: blur(2px);
+  }
+}
+
+@keyframes vt-advance {
+  from {
+    scale: 0.94;
+    opacity: 0.4;
+    filter: blur(2px);
+  }
+}
+
+@keyframes vt-fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes vt-fade-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes vt-out-left {
+  to {
+    translate: -24% 0;
+    opacity: 0;
+  }
+}
+
+@keyframes vt-in-right {
+  from {
+    translate: 60% 0;
+    opacity: 0;
+  }
+}
+
+@keyframes vt-out-right {
+  to {
+    translate: 60% 0;
+    opacity: 0;
+  }
+}
+
+@keyframes vt-in-left {
+  from {
+    translate: -24% 0;
+    opacity: 0;
+  }
+}
+
+/* A class, not an inline style: the engine's inline `app-zoom` name overrides it during zooms. */
+.vt-sheet {
+  view-transition-name: sheet-body;
+}
+
+.vt-backdrop {
+  view-transition-name: app-backdrop;
+}
+
+/* The dock and status bar are chrome: they never recede, fade or move with the page. */
+.vt-dock {
+  view-transition-name: app-dock;
+}
+
+.vt-status {
+  view-transition-name: status-bar;
+}
+
+::view-transition-group(app-dock),
+::view-transition-group(status-bar) {
+  animation: none;
+  z-index: 1;
+}
+
+::view-transition-old(app-dock),
+::view-transition-old(status-bar) {
+  display: none;
+}
+
+::view-transition-new(app-dock),
+::view-transition-new(status-bar) {
+  animation: none;
+}
+
+::view-transition-group(app-backdrop) {
+  z-index: 2;
+}
+
+::view-transition-group(app-zoom),
+::view-transition-group(folder-zoom) {
+  animation-duration: 0.5s;
+  animation-timing-function: var(--ease-native);
+  z-index: 50;
+}
+
+::view-transition-old(app-zoom),
+::view-transition-old(folder-zoom) {
+  animation: 0.2s ease-out both vt-fade-out;
+}
+
+::view-transition-new(app-zoom),
+::view-transition-new(folder-zoom) {
+  animation: 0.35s var(--ease-native) both vt-fade-in;
+}
+
+/* Closes follow the shape back into its icon: the sheet stays visible while it shrinks and only
+   fades as it lands, then the icon fades in under it. */
+html[data-astro-transition="app-close"]::view-transition-group(app-zoom),
+html[data-astro-transition="zoom-out"]::view-transition-group(app-zoom),
+html[data-folder-motion="close"]::view-transition-group(folder-zoom) {
+  animation-duration: 0.52s;
+  animation-timing-function: var(--ease-close);
+}
+
+html[data-astro-transition="app-close"]::view-transition-old(app-zoom),
+html[data-astro-transition="zoom-out"]::view-transition-old(app-zoom),
+html[data-folder-motion="close"]::view-transition-old(folder-zoom) {
+  animation: 0.18s ease-in 0.2s both vt-fade-out;
+}
+
+html[data-astro-transition="app-close"]::view-transition-new(app-zoom),
+html[data-astro-transition="zoom-out"]::view-transition-new(app-zoom),
+html[data-folder-motion="close"]::view-transition-new(folder-zoom) {
+  animation: 0.16s ease-out 0.22s both vt-fade-in;
+}
+
+html[data-astro-transition="zoom-in"]::view-transition-old(root) {
+  animation: 0.45s var(--ease-native) both vt-recede;
+}
+
+html[data-astro-transition="zoom-in"]::view-transition-new(root) {
+  animation: 0.3s var(--ease-native) 0.12s both vt-fade-in;
+}
+
+html[data-astro-transition="zoom-out"]::view-transition-old(root) {
+  animation: 0.3s ease-out both vt-fade-out;
+}
+
+html[data-astro-transition="zoom-out"]::view-transition-new(root) {
+  animation: 0.52s var(--ease-close) both vt-advance;
+}
+
+/* A scrolled sheet closes by shrinking the whole old page into the icon (transitions.ts), so it
+   paints solid on top of the incoming page instead of blending with it. */
+html[data-vt-shrink]::view-transition-old(root),
+html[data-vt-shrink]::view-transition-new(root) {
+  mix-blend-mode: normal;
+}
+
+html[data-vt-shrink]::view-transition-old(root) {
+  z-index: 1;
+}
+
+/* The home screen stays put under a story dialog: only the dialog and its backdrop move. */
+html[data-astro-transition="app-open"]::view-transition-old(root),
+html[data-astro-transition="app-open"]::view-transition-new(root),
+html[data-astro-transition="app-close"]::view-transition-old(root),
+html[data-astro-transition="app-close"]::view-transition-new(root) {
+  animation: none;
+}
+
+::view-transition-new(app-backdrop) {
+  animation: 0.35s ease-out both vt-fade-in;
+}
+
+::view-transition-old(app-backdrop) {
+  animation: 0.25s ease-out both vt-fade-out;
+}
+
+html[data-astro-transition="push"]::view-transition-old(sheet-body) {
+  animation: 0.32s var(--ease-native) both vt-out-left;
+}
+
+html[data-astro-transition="push"]::view-transition-new(sheet-body) {
+  animation: 0.42s var(--ease-native) both vt-in-right;
+}
+
+html[data-astro-transition="pop"]::view-transition-old(sheet-body) {
+  animation: 0.26s var(--ease-native) both vt-out-right;
+}
+
+html[data-astro-transition="pop"]::view-transition-new(sheet-body) {
+  animation: 0.34s var(--ease-native) both vt-in-left;
+}
+
+/* Reduced motion: no movement or scaling, only a short crossfade. */
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*) {
+    animation: none !important;
+  }
+
+  ::view-transition-old(*) {
+    animation: 0.15s ease both vt-fade-out !important;
+  }
+
+  ::view-transition-new(*) {
+    animation: 0.15s ease both vt-fade-in !important;
+  }
+
+  ::view-transition-new(app-dock),
+  ::view-transition-new(status-bar) {
+    animation: none !important;
+  }
+}
+
+/* Long-form reading inside app sheets. */
 .prose {
-  --tw-prose-body: var(--muted-foreground);
+  --tw-prose-body: var(--foreground);
   --tw-prose-headings: var(--foreground);
+  --tw-prose-lead: var(--muted-foreground);
   --tw-prose-links: var(--primary);
   --tw-prose-bold: var(--foreground);
-  --tw-prose-counters: var(--foreground);
-  --tw-prose-bullets: var(--foreground);
+  --tw-prose-counters: var(--muted-foreground);
+  --tw-prose-bullets: var(--muted-foreground);
   --tw-prose-hr: var(--border);
-  --tw-prose-quote-borders: var(--border);
+  --tw-prose-quotes: var(--foreground);
   --tw-prose-captions: var(--muted-foreground);
   --tw-prose-code: var(--foreground);
-  --tw-prose-pre-code: var(--foreground);
-  --tw-prose-pre-bg: var(--card);
-}
-
-/* Match production typography (Tailwind Typography v3 defaults) */
-.prose {
-  font-size: 16px;
+  --tw-prose-pre-code: var(--on-ink);
+  --tw-prose-pre-bg: var(--ink);
+  --tw-prose-th-borders: var(--border);
+  --tw-prose-td-borders: var(--border);
+  font-size: 1.0625rem;
   line-height: 1.75;
 }
 
-.prose h2 {
-  font-size: 1.25em;
-  line-height: 1.4;
-  margin-top: 40px;
-  margin-bottom: 40px;
+.prose :where(h2, h3, h4):not(:where(.not-prose *)) {
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: -0.02em;
 }
 
-.prose h3 {
-  font-size: 1em;
-  line-height: 1.75;
-  margin-top: 40px;
-  margin-bottom: 40px;
+.prose :where(h2):not(:where(.not-prose *)) {
+  font-size: 1.5em;
+  margin-top: 2.2em;
+  margin-bottom: 0.6em;
 }
 
-.prose p {
-  margin-top: 2.5em;
-  margin-bottom: 2.5em;
+.prose :where(h3):not(:where(.not-prose *)) {
+  font-size: 1.2em;
+  margin-top: 1.8em;
+  margin-bottom: 0.5em;
 }
 
-.prose ul,
-.prose ol {
-  margin-top: 2.5em;
-  margin-bottom: 2.5em;
+.prose :where(a):not(:where(.not-prose *)) {
+  font-weight: 600;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+  text-decoration-color: color-mix(in oklch, var(--primary) 35%, transparent);
+  transition: text-decoration-color 150ms;
 }
 
-.prose li {
-  margin-top: 1.5em;
-  margin-bottom: 1.5em;
+.prose :where(a):not(:where(.not-prose *)):hover {
+  text-decoration-color: var(--primary);
 }
 
-.prose blockquote {
-  margin-top: 2.5em;
-  margin-bottom: 2.5em;
+.prose :where(:not(pre) > code):not(:where(.not-prose *)) {
+  background: var(--muted);
+  border-radius: 0.5rem;
+  padding: 0.15em 0.4em;
+  font-weight: 500;
 }
 
-.prose a {
-  color: var(--primary);
-  text-decoration: none;
-  border-bottom: 1px dashed var(--primary);
-  transition:
-    color 150ms,
-    border-bottom-color 150ms;
+.prose :where(:not(pre) > code):not(:where(.not-prose *))::before,
+.prose :where(:not(pre) > code):not(:where(.not-prose *))::after {
+  content: none;
 }
 
-.prose a:hover {
-  border-bottom-style: solid;
+.prose :where(pre):not(:where(.not-prose *)) {
+  border-radius: 1rem;
 }
 
-.prose h2 {
-  padding-top: 1.5em;
-  border-top: 1px dashed var(--border);
-}
-
-.prose hr {
+.prose :where(blockquote):not(:where(.not-prose *)) {
   border: none;
-  border-top: 1px dashed var(--border);
-  margin: 2.5em 0;
+  background: var(--muted);
+  border-radius: 1rem;
+  padding: 1em 1.25em;
+  font-style: normal;
+  font-weight: 500;
 }
 
-.prose li::marker {
-  color: var(--primary);
+.prose :where(blockquote p):not(:where(.not-prose *)) {
+  margin: 0;
+}
+
+.prose :where(blockquote p):not(:where(.not-prose *))::before,
+.prose :where(blockquote p):not(:where(.not-prose *))::after {
+  content: none;
+}
+
+.prose :where(img):not(:where(.not-prose *)) {
+  border-radius: 1rem;
 }

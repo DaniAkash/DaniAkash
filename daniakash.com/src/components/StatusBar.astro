@@ -1,0 +1,38 @@
+---
+import ThemeToggle from "./ThemeToggle.astro";
+---
+
+<header
+  transition:persist="status-bar"
+  class="vt-status mx-auto flex w-full max-w-[1200px] items-center gap-3 px-4 pt-3 pb-2 md:px-8 md:pt-5 print:hidden"
+>
+  <a
+    href="/"
+    class="font-display hover:text-primary mr-auto text-lede inline-flex min-h-10 items-center font-extrabold tracking-[-0.02em] transition-colors"
+  >
+    dani_akash_
+  </a>
+  <span class="text-muted-foreground text-label hidden font-semibold sm:inline">
+    Chennai
+    <time data-chennai-clock class="tabular text-foreground ml-1"></time>
+  </span>
+  <ThemeToggle />
+</header>
+
+<script is:inline>
+  document.addEventListener("astro:page-load", function () {
+    var el = document.querySelector("[data-chennai-clock]");
+    if (!el) return;
+    if (window.__chennaiClock) clearInterval(window.__chennaiClock);
+    function tick() {
+      el.textContent = new Intl.DateTimeFormat("en-IN", {
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: false,
+        timeZone: "Asia/Kolkata",
+      }).format(new Date());
+    }
+    tick();
+    window.__chennaiClock = setInterval(tick, 30000);
+  });
+</script>

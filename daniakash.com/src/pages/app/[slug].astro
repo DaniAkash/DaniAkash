@@ -1,0 +1,319 @@
+---
+import { getCollection, render } from "astro:content";
+import { Schema } from "astro-seo-schema";
+import AppIcon, { type AppIconArt } from "../../components/AppIcon.astro";
+import HomeScreen from "../../components/HomeScreen.astro";
+import Icon from "../../components/Icon.astro";
+import { folderFor } from "../../constants/folders";
+import {
+  AUTHORED_BOOK,
+  AUTHORED_BOOK_PROJECT,
+  PERSON_ENTITY_ID,
+  SITE_URL,
+} from "../../constants/seo";
+import { techLabels, techLogo } from "../../constants/tech";
+import MainLayout from "../../layouts/MainLayout.astro";
+import { appHref, slugify } from "../../utils/slugify";
+
+export async function getStaticPaths() {
+  const items = (await getCollection("project"))[0]?.data.items ?? [];
+  const apps = items.filter((p) => p.icon);
+  return apps.map((project) => ({
+    params: { slug: slugify(project.name) },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const slug = slugify(project.name);
+
+const categoryLabel: Record<string, string> = {
+  app: "App",
+  "ai-tool": "AI tool",
+  oss: "Open source",
+  earlier: "Earlier work",
+};
+const kindLabel = project.category
+  ? categoryLabel[project.category]
+  : undefined;
+// A showcase (e.g. an org's libraries) takes the place of the tech strip.
+const strip: {
+  title: string;
+  items: { name: string; logo: string; href?: string | undefined }[];
+} | null = project.showcase
+  ? project.showcase
+  : project.stack?.length
+    ? {
+        title: "Built with",
+        items: project.stack.map((logo) => ({
+          name: techLabels[logo] ?? logo,
+          logo: techLogo(logo),
+        })),
+      }
+    : null;
+const heldFolder = folderFor(project)?.id;
+
+const story = (await getCollection("apps")).find((entry) => entry.id === slug);
+// A story file holding only its MDX comment counts as empty.
+const hasStory = Boolean(
+  story?.body?.replace(/\{\/\*[\s\S]*?\*\/\}/g, "").trim(),
+);
+const Story = story && hasStory ? (await render(story)).Content : null;
+
+const link = project.link;
+const isRepo = Boolean(link?.href.includes("github.com"));
+// Only work with code to point at is described as source code; the rest is a CreativeWork.
+const isCode = project.category !== "earlier" && Boolean(project.link);
+const canonical = new URL(appHref(project.name), SITE_URL).href;
+const titleId = `app-title-${slug}`;
+---
+
+<MainLayout
+  title={project.name}
+  description={project.description ?? `${project.name} by Dani Akash.`}
+>
+  <!-- A soft navigation swaps in the page that opened the dialog; a direct load shows home. -->
+  <div data-app-backdrop inert>
+    <div data-page data-backdrop-from="/">
+      <HomeScreen decorative heldFolder={heldFolder} />
+    </div>
+  </div>
+
+  <a
+    href="/"
+    data-app-close
+    tabindex="-1"
+    aria-hidden="true"
+    class="vt-backdrop fixed inset-0 z-50 bg-[oklch(0.2_0.03_285/32%)]"
+  ></a>
+
+  <section
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby={titleId}
+    data-zoom-target
+    class="bg-sheet text-card-foreground rounded-widget fixed inset-x-3 bottom-3 z-50 max-h-[calc(100dvh-4.5rem)] overflow-y-auto overscroll-contain p-5 md:inset-x-auto md:top-1/2 md:bottom-auto md:left-1/2 md:max-h-[calc(100dvh-7rem)] md:w-[min(92vw,38rem)] md:-translate-x-1/2 md:-translate-y-1/2 md:p-7"
+  >
+    <header class="flex items-start gap-4">
+      {
+        project.icon && (
+          <AppIcon
+            art={project.icon as AppIconArt}
+            size="lg"
+            class="-m-2 size-20 md:size-[5.5rem]"
+          />
+        )
+      }
+      <div class="min-w-0 flex-1 pt-1">
+        <h1
+          id={titleId}
+          class="font-display text-heading font-extrabold tracking-[-0.03em]"
+        >
+          {project.name}
+        </h1>
+        <p class="text-muted-foreground text-label mt-1 font-semibold">
+          {[kindLabel, project.language].filter(Boolean).join(" · ")}
+          {project.wip && (
+            <span class="whitespace-nowrap">
+              {" · "}
+              <span aria-hidden="true" class="bg-wip mr-1.5 inline-block size-1.5 -translate-y-px rounded-full align-middle" />
+              In progress
+            </span>
+          )}
+        </p>
+      </div>
+      <a
+        href="/"
+        data-app-close
+        class="bg-muted hover:bg-foreground hover:text-background inline-flex size-10 shrink-0 items-center justify-center rounded-full transition-colors"
+        aria-label={`Close ${project.name}`}
+      >
+        <Icon name="close" class="size-[18px]" />
+      </a>
+    </header>
+
+    {
+      project.description && (
+        <p class="text-lede mt-5 max-w-[60ch]">{project.description}</p>
+      )
+    }
+
+    {
+      project.tech && project.tech.length > 0 && (
+        <ul class="mt-4 flex flex-wrap gap-1.5" aria-label="Tech">
+          {project.tech.map((tech) => (
+            <li class="bg-muted text-caption rounded-full px-2.5 py-1 font-semibold">
+              {tech}
+            </li>
+          ))}
+        </ul>
+      )
+    }
+
+    {
+      project.npm && (
+        <div class="bg-ink text-on-ink mt-5 flex items-center justify-between gap-3 rounded-2xl py-2 pr-2 pl-4">
+          <code class="text-label truncate font-mono">
+            npm i {project.npm}
+          </code>
+          <button
+            type="button"
+            data-copy={`npm i ${project.npm}`}
+            class="text-label inline-flex min-h-9 shrink-0 cursor-pointer items-center gap-1.5 rounded-full bg-white/10 px-3 font-bold transition-colors hover:bg-white/20"
+          >
+            <Icon name="copy" class="size-4" />
+            <span data-copy-label>Copy</span>
+          </button>
+        </div>
+      )
+    }
+
+    {
+      link && (
+        <a
+          href={link.href}
+          target="_blank"
+          rel="noopener"
+          class="bg-blue text-on-blue text-label mt-5 inline-flex min-h-11 items-center gap-1.5 rounded-full px-5 font-bold transition-opacity hover:opacity-90"
+        >
+          {isRepo ? "View on GitHub" : link.label}
+          <Icon name="arrow-up-right" class="size-4" />
+        </a>
+      )
+    }
+
+    {
+      Story && (
+        <div class="prose border-border mt-7 max-w-[65ch] border-t pt-6">
+          <Story />
+        </div>
+      )
+    }
+
+    {
+      strip && (
+        <section
+          aria-labelledby={`${titleId}-stack`}
+          class="border-border mt-7 border-t pt-5"
+        >
+          <h2
+            id={`${titleId}-stack`}
+            class="text-muted-foreground text-label font-bold"
+          >
+            {strip.title}
+          </h2>
+          <ul class="mt-3 grid grid-cols-4 gap-2">
+            {strip.items.map((item) => {
+              const Tag = item.href ? "a" : "div";
+              return (
+                <li>
+                  <Tag
+                    {...(item.href
+                      ? { href: item.href, target: "_blank", rel: "noopener" }
+                      : {})}
+                    class="group flex flex-col items-center gap-1.5"
+                  >
+                    <span class="flex size-14 items-center justify-center rounded-[22.5%] bg-white shadow-[inset_0_0_0_1px_rgb(20_16_40/8%)] transition-transform group-active:scale-90">
+                      <img
+                        src={item.logo}
+                        alt=""
+                        width="32"
+                        height="32"
+                        class="size-[56%] object-contain"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    </span>
+                    <span class="text-caption line-clamp-2 text-center leading-tight font-semibold group-[[href]]:group-hover:underline">
+                      {item.name}
+                    </span>
+                  </Tag>
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      )
+    }
+  </section>
+
+  <Schema
+    item={project.name === AUTHORED_BOOK_PROJECT ? {
+      "@context": "https://schema.org",
+      ...AUTHORED_BOOK,
+      description: project.description ?? project.name,
+      url: canonical,
+    } : {
+      "@context": "https://schema.org",
+      "@type": isCode ? "SoftwareSourceCode" : "CreativeWork",
+      name: project.name,
+      description: project.description ?? project.name,
+      url: canonical,
+      author: { "@type": "Person", "@id": PERSON_ENTITY_ID, name: "Dani Akash" },
+      ...(isCode && isRepo && link ? { codeRepository: link.href } : {}),
+      ...(isCode && project.language
+        ? { programmingLanguage: project.language }
+        : {}),
+    }}
+  />
+</MainLayout>
+
+<script>
+  import { previousPath } from "../../scripts/transitions";
+
+  document.addEventListener("astro:page-load", () => {
+    const dialog = document.querySelector<HTMLElement>("[role=dialog][data-zoom-target]");
+    if (!dialog) return;
+
+    // Closing returns to the page that opened the dialog, so history stays a clean stack. From
+    // another dialog, or with nothing behind on this site, it goes home instead of leaving.
+    const from = previousPath();
+    const canGoBack = Boolean(from) && !from.startsWith("/app/") && (history.state?.index ?? 0) > 0;
+    for (const close of document.querySelectorAll<HTMLAnchorElement>("[data-app-close]")) {
+      close.addEventListener("click", (event) => {
+        if (canGoBack) {
+          event.preventDefault();
+          history.back();
+        }
+      });
+    }
+
+    // aria-modal needs real containment: everything outside the dialog stays out of reach.
+    const outside = document.querySelectorAll<HTMLElement>("[data-dock], .vt-status, body > footer");
+    for (const el of outside) el.inert = true;
+    document.addEventListener(
+      "astro:before-preparation",
+      () => {
+        for (const el of outside) el.inert = false;
+      },
+      { once: true },
+    );
+
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        document.querySelector<HTMLAnchorElement>("a[data-app-close][aria-label]")?.click();
+      }
+    };
+    document.addEventListener("keydown", onKey);
+    document.addEventListener("astro:before-preparation", () => document.removeEventListener("keydown", onKey), { once: true });
+
+    for (const button of document.querySelectorAll<HTMLButtonElement>("[data-copy]")) {
+      button.addEventListener("click", async () => {
+        try {
+          await navigator.clipboard.writeText(button.dataset.copy ?? "");
+          const label = button.querySelector("[data-copy-label]");
+          if (label) {
+            label.textContent = "Copied";
+            setTimeout(() => {
+              label.textContent = "Copy";
+            }, 1600);
+          }
+        } catch {
+          // Clipboard can be blocked; the command stays visible to copy by hand.
+        }
+      });
+    }
+
+    dialog.querySelector<HTMLElement>("a[data-app-close][aria-label]")?.focus({ preventScroll: true });
+  });
+</script>

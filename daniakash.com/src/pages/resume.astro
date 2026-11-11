@@ -1,118 +1,151 @@
 ---
 import { getCollection } from "astro:content";
+import AppSheet from "../components/AppSheet.astro";
+import Icon from "../components/Icon.astro";
+import { SITE_URL } from "../constants/seo";
 import MainLayout from "../layouts/MainLayout.astro";
 
 const resumeData = (await getCollection("resume"))[0]!.data;
 const { tagline, about, skills, jobs, community, education } = resumeData;
+const social = (await getCollection("social"))[0]?.data;
+
+// The printed resume (and the PDF made from it) is shaped for applicant tracking systems: one
+// column, standard section names, plain-text contact details and plain hyphens in dates.
+const plain = (text: string) => text.replace(/\s*\u2014\s*/g, " - ");
+const roles = jobs.map((job) => {
+  const [company, role] = job.title.split(/\s*\u2014\s*/);
+  return { ...job, company, role: role ?? company };
+});
+
+const sectionHeading =
+  "font-display text-title border-border mb-4 border-b pb-3 font-extrabold tracking-[-0.02em] print:mb-2 print:pb-1 print:text-lede print:break-after-avoid";
 ---
 
 <MainLayout title="Resume" description="Professional experience and skills of Dani Akash | AI Engineer with expertise in React Native, JavaScript, and web development.">
-  <article class="mx-auto max-w-[800px] pt-[120px] pb-20" id="article">
+  <div id="article" class="mx-auto max-w-[880px]">
+    <AppSheet
+      title="Dani Akash"
+      lede={tagline}
+      class="print:rounded-none print:bg-white print:p-0 print:text-black print:[&_header>:first-child]:hidden print:[&_*]:font-[Arial,Helvetica,sans-serif]"
+    >
+      <a
+        slot="header"
+        href="/dani-akash-resume.pdf"
+        download="Dani Akash Resume.pdf"
+        class="bg-blue text-on-blue text-label mt-4 inline-flex min-h-11 items-center gap-1.5 rounded-full px-5 font-bold transition-opacity hover:opacity-90 print:hidden"
+      >
+        <Icon name="download" class="size-4" />
+        Download PDF
+      </a>
+      <address slot="header" class="text-label hidden not-italic print:mt-2 print:block">
+        <p>AI Engineer | Chennai, India</p>
+        <p>Email: {social?.email ?? "hello@daniakash.com"} | Website: {SITE_URL}</p>
+        <p>LinkedIn: {social?.linkedIn} | GitHub: {social?.github}</p>
+      </address>
 
-    <!-- Header -->
-    <header class="mb-20 border-b border-dashed border-border pb-12">
-      <p class="mb-12 font-mono text-[11px] uppercase tracking-[1.65px] text-muted-foreground">
-        RESUME // DANI_AKASH
-      </p>
-      <h1 class="mb-4 font-bold leading-[1.05] tracking-[-0.03em]" style="font-size: clamp(42px, 6vw, 64px);">
-        Dani Akash
-      </h1>
-      <p class="mb-12 font-mono text-[15px] text-primary">
-        {tagline}
-      </p>
-      <div class="flex flex-col gap-4">
-        {about.map((line) => (
-          <p class="border-l-[3px] border-primary/20 pl-6 text-[17px] leading-relaxed text-muted-foreground">
-            {line}
-          </p>
-        ))}
-      </div>
-    </header>
-
-    <!-- ═══ 01 Skills ═══ -->
-    <section class="mb-20">
-      <div class="mb-12 flex items-baseline gap-4 border-b border-dashed border-border pb-4">
-        <span class="font-mono text-5xl font-light text-foreground/10">01</span>
-        <span class="font-mono text-[11px] font-medium uppercase tracking-[0.2em] text-muted-foreground">Skills</span>
-      </div>
-      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-        {skills.map((skill) => (
-          <div class="rounded-lg border border-border p-4 transition-colors hover:border-foreground/15 hover:bg-foreground/[0.025]">
-            <div class="mb-1 font-mono text-[11px] font-medium uppercase tracking-wide text-primary">
-              {skill.label}
-            </div>
-            <div class="text-sm leading-relaxed text-muted-foreground">
-              {skill.text}
-            </div>
-          </div>
-        ))}
-      </div>
-    </section>
-
-    <!-- ═══ 02 Work Experience ═══ -->
-    <section class="mb-20">
-      <div class="mb-12 flex items-baseline gap-4 border-b border-dashed border-border pb-4">
-        <span class="font-mono text-5xl font-light text-foreground/10">02</span>
-        <span class="font-mono text-[11px] font-medium uppercase tracking-[0.2em] text-muted-foreground">Work Experience</span>
-      </div>
-
-      {jobs.map((job) => (
-        <div class="border-b border-dashed border-border py-6 last:border-b-0">
-          <div class="mb-2 flex flex-wrap items-baseline justify-between gap-4">
-            <h3 class="text-xl font-semibold tracking-tight">{job.title}</h3>
-            <span class="shrink-0 font-mono text-xs text-muted-foreground">{job.duration}</span>
-          </div>
-          {job.description && (
-            <p class="mb-4 text-[15px] leading-relaxed text-muted-foreground">{job.description}</p>
-          )}
-          <div class="mb-2 font-mono text-[11px] uppercase tracking-wide text-muted-foreground">Key Contributions</div>
-          <ul class="flex flex-col gap-2">
-            {job.contributions.map((c) => (
-              <li class="relative pl-6 text-sm leading-relaxed text-muted-foreground before:absolute before:left-2 before:top-[10px] before:size-[5px] before:rounded-full before:bg-primary">
-                <Fragment set:html={c} />
-              </li>
-            ))}
-          </ul>
+      <section aria-labelledby="summary-heading" class="print:mt-3">
+        <h2 id="summary-heading" class:list={[sectionHeading, "hidden print:block"]}>Summary</h2>
+        <div class="text-body flex max-w-[68ch] flex-col gap-2 print:max-w-none print:gap-1 print:text-label">
+          {about.map((line) => <p>{line}</p>)}
         </div>
-      ))}
-    </section>
+      </section>
 
-    <!-- ═══ 03 Developer Community ═══ -->
-    <section class="mb-20">
-      <div class="mb-12 flex items-baseline gap-4 border-b border-dashed border-border pb-4">
-        <span class="font-mono text-5xl font-light text-foreground/10">03</span>
-        <span class="font-mono text-[11px] font-medium uppercase tracking-[0.2em] text-muted-foreground">Developer Community</span>
-      </div>
+      <section aria-labelledby="skills-heading" class="mt-10 print:mt-3">
+        <h2 id="skills-heading" class={sectionHeading}>Skills</h2>
+        <dl class="grid grid-cols-1 gap-x-8 gap-y-3 sm:grid-cols-2 print:block">
+          {
+            skills.map((skill) => (
+              <div class="print:text-label print:mb-0.5">
+                <dt class="text-label font-bold print:inline">
+                  {skill.label}
+                  <span class="hidden print:inline">{": "}</span>
+                </dt>
+                <dd class="text-muted-foreground text-label print:inline print:text-black">
+                  {skill.text}
+                </dd>
+              </div>
+            ))
+          }
+        </dl>
+      </section>
 
-      {community.map((item) => (
-        <div class="border-b border-dashed border-border py-4 last:border-b-0">
-          <h3 class="mb-1 text-[17px] font-medium">{item.title}</h3>
-          <p class="text-sm leading-relaxed text-muted-foreground">
-            <Fragment set:html={item.description} />
-          </p>
+      <section aria-labelledby="work-heading" class="mt-10 print:mt-3">
+        <h2 id="work-heading" class={sectionHeading}>
+          <span class="print:hidden">Work Experience</span>
+          <span class="hidden print:inline">Experience</span>
+        </h2>
+        <div class="flex flex-col print:block">
+          {
+            roles.map((job) => (
+              <div class="border-border border-t py-5 first:border-t-0 first:pt-1 print:border-t-0 print:py-1">
+                <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 print:hidden">
+                  <h3 class="text-lede font-bold">{job.title}</h3>
+                  <span class="text-muted-foreground text-caption tabular shrink-0 font-semibold">
+                    {job.duration}
+                  </span>
+                </div>
+                <div class="hidden print:block print:break-inside-avoid print:break-after-avoid">
+                  <h3 class="text-body font-bold">{job.role}</h3>
+                  <p class="text-label">
+                    {job.company} | {plain(job.duration)}
+                  </p>
+                </div>
+                {job.description && (
+                  <p class="text-muted-foreground text-body mt-1 print:text-label print:text-black">
+                    {job.description}
+                  </p>
+                )}
+                <p class="text-caption mt-3 font-bold print:hidden">
+                  Key Contributions
+                </p>
+                <ul class="text-body mt-1 flex list-disc flex-col gap-1.5 pl-5 marker:text-[var(--blue)] print:block print:text-label print:marker:text-black">
+                  {job.contributions.map((c) => (
+                    <li class="text-muted-foreground print:break-inside-avoid print:text-black">
+                      <Fragment set:html={c} />
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))
+          }
         </div>
-      ))}
-    </section>
+      </section>
 
-    <!-- ═══ 04 Education ═══ -->
-    <section class="mb-20">
-      <div class="mb-12 flex items-baseline gap-4 border-b border-dashed border-border pb-4">
-        <span class="font-mono text-5xl font-light text-foreground/10">04</span>
-        <span class="font-mono text-[11px] font-medium uppercase tracking-[0.2em] text-muted-foreground">Education</span>
-      </div>
+      <section aria-labelledby="community-heading" class="mt-10 print:mt-3">
+        <h2 id="community-heading" class={sectionHeading}>
+          <span class="print:hidden">Developer Community</span>
+          <span class="hidden print:inline">Projects</span>
+        </h2>
+        <div class="flex flex-col print:block">
+          {
+            community.map((item) => (
+              <div class="border-border border-t py-4 first:border-t-0 first:pt-1 print:break-inside-avoid print:border-t-0 print:py-1">
+                <h3 class="text-body font-bold print:text-label">
+                  <span class="print:hidden">{item.title}</span>
+                  <span class="hidden print:inline">{plain(item.title)}</span>
+                </h3>
+                <p class="text-muted-foreground text-body mt-0.5 print:text-label print:text-black">
+                  <Fragment set:html={item.description} />
+                </p>
+              </div>
+            ))
+          }
+        </div>
+      </section>
 
-      <div class="py-6">
-        <h3 class="text-xl font-semibold">{education.school}</h3>
-        <div class="mb-2 font-mono text-[13px] text-muted-foreground">
+      <section aria-labelledby="education-heading" class="mt-10 print:mt-3 print:break-inside-avoid">
+        <h2 id="education-heading" class={sectionHeading}>Education</h2>
+        <h3 class="text-lede font-bold print:text-body">{education.school}</h3>
+        <p class="text-muted-foreground text-label font-semibold print:hidden">
           {education.degree}
-        </div>
-        <p class="text-sm leading-relaxed text-muted-foreground">
+        </p>
+        <p class="text-label hidden font-semibold print:block">{plain(education.degree)}</p>
+        <p class="text-muted-foreground text-body mt-1 print:text-label print:text-black">
           {education.description}
         </p>
-      </div>
-    </section>
-
-  </article>
+      </section>
+    </AppSheet>
+  </div>
 </MainLayout>
 
 <script is:inline>
@@ -127,11 +160,12 @@ const { tagline, about, skills, jobs, community, education } = resumeData;
 
     var container = document.createElement("div");
     container.id = "readingProgress";
+    container.className = "print:hidden";
     container.style.cssText =
-      "position:fixed;top:0;left:0;right:0;height:2px;z-index:9999;pointer-events:none;";
+      "position:fixed;top:0;left:0;right:0;height:3px;z-index:9999;pointer-events:none;";
     var bar = document.createElement("div");
     bar.style.cssText =
-      "height:100%;width:0;background:var(--primary);transition:none;";
+      "height:100%;width:0;background:var(--blue);transition:none;";
     container.appendChild(bar);
     document.body.appendChild(container);
 

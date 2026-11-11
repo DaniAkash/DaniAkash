@@ -128,6 +128,25 @@ const project = defineCollection({
         description: z.string().optional(),
         status: z.enum(["active", "oss", "previous"]).optional(),
         tech: z.array(z.string()).optional(),
+        /** Up to four key technologies, as logo slugs in public/tech (see constants/tech.ts). */
+        stack: z.array(z.string()).max(4).optional(),
+        /** Shown in place of the tech strip, e.g. an org's libraries. */
+        showcase: z
+          .object({
+            title: z.string(),
+            items: z
+              .array(
+                z.object({
+                  name: z.string(),
+                  logo: z.string(),
+                  href: z.string().optional(),
+                }),
+              )
+              .max(4),
+          })
+          .optional(),
+        /** Still being built; marked with an in-progress dot. */
+        wip: z.boolean().optional(),
         link: z
           .object({
             href: z.string(),
@@ -141,6 +160,18 @@ const project = defineCollection({
             label: z.string(),
           })
           .optional(),
+        category: z.enum(["app", "ai-tool", "oss", "earlier"]).optional(),
+        icon: z
+          .object({
+            kind: z.enum(["app", "bleed", "mark", "glyph", "cover"]),
+            src: z.string(),
+            tint: z.string().optional(),
+            ink: z.string().optional(),
+            outline: z.boolean().optional(),
+          })
+          .optional(),
+        npm: z.string().optional(),
+        language: z.string().optional(),
       }),
     ),
   }),
@@ -207,6 +238,11 @@ const rss = defineCollection({
 
 const now = defineCollection({
   loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/now" }),
+});
+
+/** One story per app, named by its slug (src/content/apps/<slug>.mdx); an empty body shows no story. */
+const apps = defineCollection({
+  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/apps" }),
 });
 
 const resume = defineCollection({
@@ -283,4 +319,5 @@ export const collections = {
   now,
   resume,
   destinations,
+  apps,
 };

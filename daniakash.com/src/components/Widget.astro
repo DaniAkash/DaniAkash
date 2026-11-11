@@ -1,0 +1,50 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { cn } from "../utils/cn";
+
+export type WidgetTone =
+  | "plain"
+  | "blue"
+  | "ink"
+  | "yellow"
+  | "pink"
+  | "green"
+  | "photo";
+
+type Props = Omit<HTMLAttributes<"div">, "class"> & {
+  as?: "div" | "section" | "article" | "aside" | "li" | "a" | "figure";
+  href?: string | undefined;
+  tone?: WidgetTone;
+  class?: string;
+  target?: string | undefined;
+  rel?: string | undefined;
+};
+
+const { as, href, tone = "plain", class: className, ...rest } = Astro.props;
+
+const Tag = href ? "a" : (as ?? "div");
+
+const tones: Record<WidgetTone, string> = {
+  plain: "bg-card text-card-foreground",
+  blue: "bg-blue text-on-blue",
+  ink: "bg-ink text-on-ink",
+  yellow: "bg-yellow text-on-bright",
+  pink: "bg-pink text-on-bright",
+  green: "bg-green text-on-bright",
+  photo: "bg-muted p-0 md:p-0",
+};
+---
+
+<Tag
+  href={href}
+  class={cn(
+    "rounded-widget relative overflow-hidden p-4 md:p-5",
+    tones[tone],
+    href &&
+      "group block transition-transform duration-300 ease-out-expo active:scale-[0.98]",
+    className,
+  )}
+  {...rest}
+>
+  <slot />
+</Tag>

@@ -1,0 +1,183 @@
+---
+import AppIcon, { type AppIconArt } from "./AppIcon.astro";
+import Icon from "./Icon.astro";
+
+export interface FolderApp {
+  name: string;
+  href: string;
+  description?: string | undefined;
+  art: AppIconArt;
+  wip?: boolean | undefined;
+}
+
+interface Props {
+  id: string;
+  title: string;
+  apps: FolderApp[];
+  /** Drawn open without the popover, behind an app dialog opened from it. */
+  held?: boolean;
+}
+
+const { id, title, apps, held = false } = Astro.props;
+const preview = apps.slice(0, 9);
+const isExternal = (href: string) => href.startsWith("http");
+---
+
+<div class="flex flex-col items-center gap-1.5">
+  <button
+    type="button"
+    popovertarget={id}
+    data-folder-trigger
+    class="bg-folder group grid size-[4.5rem] cursor-pointer grid-cols-3 content-start gap-[3px] rounded-[22.5%] p-[11px] transition-transform duration-300 ease-out-expo hover:-translate-y-0.5 active:scale-90 md:size-[5.5rem] md:gap-1 md:p-[13px]"
+    aria-label={`Open ${title} folder, ${apps.length} projects`}
+  >
+    {
+      preview.map((app) => (
+        <AppIcon art={app.art} size="xs" class="aspect-square size-auto w-full" />
+      ))
+    }
+  </button>
+  <span class="text-label max-w-[5.5rem] text-center font-semibold">{title}</span>
+</div>
+
+<div
+  id={id}
+  popover="manual"
+  data-held={held ? "" : undefined}
+  class="folder-panel bg-card text-card-foreground rounded-widget m-auto w-[min(92vw,44rem)] p-5 md:p-7"
+>
+  <div class="flex items-center justify-between gap-4">
+    <h2 class="font-display text-heading font-extrabold tracking-[-0.025em]">
+      {title}
+    </h2>
+    <button
+      type="button"
+      popovertarget={id}
+      popovertargetaction="hide"
+      class="bg-muted hover:bg-foreground hover:text-background inline-flex size-10 cursor-pointer items-center justify-center rounded-full transition-colors"
+      aria-label={`Close ${title}`}
+    >
+      <Icon name="close" class="size-[18px]" />
+    </button>
+  </div>
+  <ul class="mt-5 grid grid-cols-1 gap-2 sm:grid-cols-2">
+    {
+      apps.map((app) => (
+        <li>
+          <a
+            href={app.href}
+            target={isExternal(app.href) ? "_blank" : undefined}
+            rel={isExternal(app.href) ? "noopener" : undefined}
+            class="hover:bg-muted group flex items-start gap-3 rounded-2xl p-2 transition-colors"
+          >
+            <AppIcon art={app.art} size="sm" class="size-12" />
+            <span class="min-w-0 pt-1">
+              <span class="text-body block leading-tight font-bold">
+                {app.wip && (
+                  <span aria-hidden="true" class="bg-wip mr-1.5 inline-block size-1.5 -translate-y-px rounded-full align-middle" />
+                )}
+                {app.name}
+                {app.wip && <span class="sr-only">, in progress</span>}
+              </span>
+              {app.description && (
+                <span class="text-muted-foreground text-caption mt-0.5 line-clamp-2 block">
+                  {app.description}
+                </span>
+              )}
+            </span>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</div>
+
+<style>
+  .folder-panel::backdrop {
+    background-color: oklch(0.2 0.03 285 / 35%);
+  }
+
+  /* Held open under an app dialog: the open look without the top layer, so the dialog stays above it. */
+  .folder-panel[data-held] {
+    display: block;
+    z-index: 45;
+    box-shadow: 0 0 0 100vmax oklch(0.2 0.03 285 / 35%);
+  }
+</style>
+
+<script>
+  // Folders open and close with the same view-transition morph as app icons: the tile grows into
+  // the panel and shrinks back. The panel is a manual popover so every close, including Escape
+  // and taps outside it, goes through the morph; without JS, popovertarget still toggles it.
+  const triggerFor = (panel: HTMLElement) =>
+    document.querySelector<HTMLElement>(
+      `[data-folder-trigger][popovertarget="${panel.id}"]`,
+    );
+
+  const morphFolder = (panel: HTMLElement, btn: HTMLElement, open: boolean) => {
+    if (panel.matches(":popover-open") === open) return;
+    const toggle = () => (open ? panel.showPopover() : panel.hidePopover());
+    if (!document.startViewTransition) {
+      toggle();
+      return;
+    }
+    const root = document.documentElement;
+    const [from, to] = open ? [btn, panel] : [panel, btn];
+    from.style.viewTransitionName = "folder-zoom";
+    root.setAttribute("data-folder-motion", open ? "open" : "close");
+    const transition = document.startViewTransition(() => {
+      from.style.viewTransitionName = "";
+      to.style.viewTransitionName = "folder-zoom";
+      toggle();
+    });
+    transition.finished.finally(() => {
+      btn.style.viewTransitionName = "";
+      panel.style.viewTransitionName = "";
+      root.removeAttribute("data-folder-motion");
+      if (!open) btn.focus({ preventScroll: true });
+    });
+  };
+
+  const closeOpenFolder = (event: Event) => {
+    const panel = document.querySelector<HTMLElement>(".folder-panel:popover-open");
+    const btn = panel && triggerFor(panel);
+    if (!panel || !btn) return;
+    event.preventDefault();
+    event.stopPropagation();
+    morphFolder(panel, btn, false);
+  };
+
+  document.addEventListener("astro:page-load", () => {
+    for (const btn of document.querySelectorAll<HTMLElement>("[data-folder-trigger]")) {
+      // A folder carried under an app dialog and back keeps its node, so bind it once.
+      if (btn.hasAttribute("data-bound")) continue;
+      btn.setAttribute("data-bound", "");
+      const panel = document.getElementById(btn.getAttribute("popovertarget") ?? "");
+      if (!panel) continue;
+      btn.addEventListener("click", (event) => {
+        event.preventDefault();
+        morphFolder(panel, btn, true);
+      });
+      for (const close of panel.querySelectorAll('[popovertargetaction="hide"]')) {
+        close.addEventListener("click", (event) => {
+          event.preventDefault();
+          morphFolder(panel, btn, false);
+        });
+      }
+    }
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") closeOpenFolder(event);
+  });
+
+  // A popover backdrop lets taps through, so a tap outside the open folder only closes it.
+  document.addEventListener(
+    "click",
+    (event) => {
+      const panel = document.querySelector(".folder-panel:popover-open");
+      if (panel && !panel.contains(event.target as Node)) closeOpenFolder(event);
+    },
+    true,
+  );
+</script>
