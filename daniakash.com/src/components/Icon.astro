@@ -27,7 +27,8 @@ export type IconName =
   | "home"
   | "apps"
   | "copy"
-  | "check";
+  | "check"
+  | "download";
 
 interface Props {
   name: IconName;
@@ -136,6 +137,7 @@ const stroke: Partial<Record<IconName, string[]>> = {
     "M4 16V5a1 1 0 0 1 1-1h11",
   ],
   check: ["m5 12.5 4.5 4.5L19 7.5"],
+  download: ["M12 4v11", "m7 10 5 5 5-5", "M5 20h14"],
 };
 
 const brandIcon = brand[name];

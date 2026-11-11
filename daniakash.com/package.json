@@ -14,7 +14,8 @@
     "lint": "biome check .",
     "lint:fix": "biome check --fix .",
     "format": "biome format --write .",
-    "clawpatch": "clawpatch --root ./"
+    "clawpatch": "clawpatch --root ./",
+    "resume:pdf": "node scripts/resume-pdf.mjs"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.10",

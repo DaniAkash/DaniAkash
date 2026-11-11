@@ -204,6 +204,12 @@
   }
 }
 
+/* Printed pages (and the downloadable resume PDF) are A4 with even margins. */
+@page {
+  size: A4;
+  margin: 12mm 14mm;
+}
+
 /*
  * Navigation motion. src/scripts/transitions.ts classifies each navigation into
  * html[data-astro-transition]; `app-zoom` is the one shared element (icon <-> sheet or dialog).

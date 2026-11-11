@@ -1,13 +1,24 @@
 ---
 import { getCollection } from "astro:content";
 import AppSheet from "../components/AppSheet.astro";
+import Icon from "../components/Icon.astro";
+import { SITE_URL } from "../constants/seo";
 import MainLayout from "../layouts/MainLayout.astro";
 
 const resumeData = (await getCollection("resume"))[0]!.data;
 const { tagline, about, skills, jobs, community, education } = resumeData;
+const social = (await getCollection("social"))[0]?.data;
+
+// The printed resume (and the PDF made from it) is shaped for applicant tracking systems: one
+// column, standard section names, plain-text contact details and plain hyphens in dates.
+const plain = (text: string) => text.replace(/\s*\u2014\s*/g, " - ");
+const roles = jobs.map((job) => {
+  const [company, role] = job.title.split(/\s*\u2014\s*/);
+  return { ...job, company, role: role ?? company };
+});
 
 const sectionHeading =
-  "font-display text-title border-border mb-4 border-b pb-3 font-extrabold tracking-[-0.02em] print:mb-2 print:pb-1";
+  "font-display text-title border-border mb-4 border-b pb-3 font-extrabold tracking-[-0.02em] print:mb-2 print:pb-1 print:text-lede print:break-after-avoid";
 ---
 
 <MainLayout title="Resume" description="Professional experience and skills of Dani Akash | AI Engineer with expertise in React Native, JavaScript, and web development.">
@@ -15,20 +26,41 @@ const sectionHeading =
     <AppSheet
       title="Dani Akash"
       lede={tagline}
-      class="print:rounded-none print:bg-white print:p-0 print:text-black"
+      class="print:rounded-none print:bg-white print:p-0 print:text-black print:[&_header>:first-child]:hidden print:[&_*]:font-[Arial,Helvetica,sans-serif]"
     >
-      <div class="text-body flex max-w-[68ch] flex-col gap-2 print:text-label">
-        {about.map((line) => <p>{line}</p>)}
-      </div>
+      <a
+        slot="header"
+        href="/dani-akash-resume.pdf"
+        download="Dani Akash Resume.pdf"
+        class="bg-blue text-on-blue text-label mt-4 inline-flex min-h-11 items-center gap-1.5 rounded-full px-5 font-bold transition-opacity hover:opacity-90 print:hidden"
+      >
+        <Icon name="download" class="size-4" />
+        Download PDF
+      </a>
+      <address slot="header" class="text-label hidden not-italic print:mt-2 print:block">
+        <p>AI Engineer | Chennai, India</p>
+        <p>Email: {social?.email ?? "hello@daniakash.com"} | Website: {SITE_URL}</p>
+        <p>LinkedIn: {social?.linkedIn} | GitHub: {social?.github}</p>
+      </address>
 
-      <section aria-labelledby="skills-heading" class="mt-10 print:mt-6 print:break-inside-avoid">
+      <section aria-labelledby="summary-heading" class="print:mt-3">
+        <h2 id="summary-heading" class:list={[sectionHeading, "hidden print:block"]}>Summary</h2>
+        <div class="text-body flex max-w-[68ch] flex-col gap-2 print:max-w-none print:gap-1 print:text-label">
+          {about.map((line) => <p>{line}</p>)}
+        </div>
+      </section>
+
+      <section aria-labelledby="skills-heading" class="mt-10 print:mt-3">
         <h2 id="skills-heading" class={sectionHeading}>Skills</h2>
-        <dl class="grid grid-cols-1 gap-x-8 gap-y-3 sm:grid-cols-2 print:grid-cols-2 print:gap-y-1.5">
+        <dl class="grid grid-cols-1 gap-x-8 gap-y-3 sm:grid-cols-2 print:block">
           {
             skills.map((skill) => (
-              <div>
-                <dt class="text-label font-bold">{skill.label}</dt>
-                <dd class="text-muted-foreground text-label print:text-black">
+              <div class="print:text-label print:mb-0.5">
+                <dt class="text-label font-bold print:inline">
+                  {skill.label}
+                  <span class="hidden print:inline">{": "}</span>
+                </dt>
+                <dd class="text-muted-foreground text-label print:inline print:text-black">
                   {skill.text}
                 </dd>
               </div>
@@ -37,27 +69,38 @@ const sectionHeading =
         </dl>
       </section>
 
-      <section aria-labelledby="work-heading" class="mt-10 print:mt-6">
-        <h2 id="work-heading" class={sectionHeading}>Work Experience</h2>
-        <div class="flex flex-col">
+      <section aria-labelledby="work-heading" class="mt-10 print:mt-3">
+        <h2 id="work-heading" class={sectionHeading}>
+          <span class="print:hidden">Work Experience</span>
+          <span class="hidden print:inline">Experience</span>
+        </h2>
+        <div class="flex flex-col print:block">
           {
-            jobs.map((job) => (
-              <div class="border-border border-t py-5 first:border-t-0 first:pt-1 print:break-inside-avoid print:py-3">
-                <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+            roles.map((job) => (
+              <div class="border-border border-t py-5 first:border-t-0 first:pt-1 print:border-t-0 print:py-1">
+                <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 print:hidden">
                   <h3 class="text-lede font-bold">{job.title}</h3>
-                  <span class="text-muted-foreground text-caption tabular shrink-0 font-semibold print:text-black">
+                  <span class="text-muted-foreground text-caption tabular shrink-0 font-semibold">
                     {job.duration}
                   </span>
                 </div>
+                <div class="hidden print:block print:break-inside-avoid print:break-after-avoid">
+                  <h3 class="text-body font-bold">{job.role}</h3>
+                  <p class="text-label">
+                    {job.company} | {plain(job.duration)}
+                  </p>
+                </div>
                 {job.description && (
-                  <p class="text-muted-foreground text-body mt-1 print:text-black">
+                  <p class="text-muted-foreground text-body mt-1 print:text-label print:text-black">
                     {job.description}
                   </p>
                 )}
-                <p class="text-caption mt-3 font-bold">Key Contributions</p>
-                <ul class="text-body mt-1 flex list-disc flex-col gap-1.5 pl-5 marker:text-[var(--blue)] print:text-label">
+                <p class="text-caption mt-3 font-bold print:hidden">
+                  Key Contributions
+                </p>
+                <ul class="text-body mt-1 flex list-disc flex-col gap-1.5 pl-5 marker:text-[var(--blue)] print:block print:text-label print:marker:text-black">
                   {job.contributions.map((c) => (
-                    <li class="text-muted-foreground print:text-black">
+                    <li class="text-muted-foreground print:break-inside-avoid print:text-black">
                       <Fragment set:html={c} />
                     </li>
                   ))}
@@ -68,13 +111,19 @@ const sectionHeading =
         </div>
       </section>
 
-      <section aria-labelledby="community-heading" class="mt-10 print:mt-6">
-        <h2 id="community-heading" class={sectionHeading}>Developer Community</h2>
-        <div class="flex flex-col">
+      <section aria-labelledby="community-heading" class="mt-10 print:mt-3">
+        <h2 id="community-heading" class={sectionHeading}>
+          <span class="print:hidden">Developer Community</span>
+          <span class="hidden print:inline">Projects</span>
+        </h2>
+        <div class="flex flex-col print:block">
           {
             community.map((item) => (
-              <div class="border-border border-t py-4 first:border-t-0 first:pt-1 print:break-inside-avoid print:py-2">
-                <h3 class="text-body font-bold">{item.title}</h3>
+              <div class="border-border border-t py-4 first:border-t-0 first:pt-1 print:break-inside-avoid print:border-t-0 print:py-1">
+                <h3 class="text-body font-bold print:text-label">
+                  <span class="print:hidden">{item.title}</span>
+                  <span class="hidden print:inline">{plain(item.title)}</span>
+                </h3>
                 <p class="text-muted-foreground text-body mt-0.5 print:text-label print:text-black">
                   <Fragment set:html={item.description} />
                 </p>
@@ -84,12 +133,13 @@ const sectionHeading =
         </div>
       </section>
 
-      <section aria-labelledby="education-heading" class="mt-10 print:mt-6 print:break-inside-avoid">
+      <section aria-labelledby="education-heading" class="mt-10 print:mt-3 print:break-inside-avoid">
         <h2 id="education-heading" class={sectionHeading}>Education</h2>
-        <h3 class="text-lede font-bold">{education.school}</h3>
-        <p class="text-muted-foreground text-label font-semibold print:text-black">
+        <h3 class="text-lede font-bold print:text-body">{education.school}</h3>
+        <p class="text-muted-foreground text-label font-semibold print:hidden">
           {education.degree}
         </p>
+        <p class="text-label hidden font-semibold print:block">{plain(education.degree)}</p>
         <p class="text-muted-foreground text-body mt-1 print:text-label print:text-black">
           {education.description}
         </p>
