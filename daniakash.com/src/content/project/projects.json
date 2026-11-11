@@ -126,6 +126,15 @@
     "language": "Rust"
   },
   {
+    "name": "Coming soon",
+    "description": "Something new is in the works. More soon.",
+    "wip": true,
+    "tech": ["Android", "iOS"],
+    "stack": ["kotlin", "android", "swift", "ios"],
+    "category": "app",
+    "icon": { "kind": "bleed", "src": "/apps/coming-soon.svg" }
+  },
+  {
     "name": "agent-toolkit",
     "description": "Tooling for AI coding agents. Vercel AI SDK adapters, sandbox providers, skill and MCP managers, ACP-protocol utilities.",
     "status": "oss",
@@ -407,13 +416,7 @@
     },
     "size": "2col",
     "category": "earlier",
-    "icon": {
-      "kind": "glyph",
-      "src": "/apps/lang/react.svg",
-      "tint": "#20232A",
-      "ink": "#61DAFB",
-      "outline": true
-    },
+    "icon": { "kind": "bleed", "src": "/apps/pickyourtrail.png" },
     "language": "JavaScript"
   },
   {

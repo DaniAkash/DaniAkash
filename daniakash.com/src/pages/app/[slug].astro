@@ -40,7 +40,7 @@ const stack = (project.stack ?? []).map((logo) => ({
   logo,
   name: techLabels[logo] ?? logo,
 }));
-const heldFolder = folderFor(project.category)?.id;
+const heldFolder = folderFor(project)?.id;
 
 const story = (await getCollection("apps")).find((entry) => entry.id === slug);
 // A story file holding only its MDX comment counts as empty.
@@ -51,7 +51,8 @@ const Story = story && hasStory ? (await render(story)).Content : null;
 
 const link = project.link;
 const isRepo = Boolean(link?.href.includes("github.com"));
-const isCode = project.category !== "earlier";
+// Only work with code to point at is described as source code; the rest is a CreativeWork.
+const isCode = project.category !== "earlier" && Boolean(project.link);
 const canonical = new URL(appHref(project.name), SITE_URL).href;
 const titleId = `app-title-${slug}`;
 ---

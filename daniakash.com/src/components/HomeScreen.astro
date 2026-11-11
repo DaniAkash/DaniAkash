@@ -6,7 +6,11 @@ import Icon, { type IconName } from "../components/Icon.astro";
 import Newsletter from "../components/Newsletter.astro";
 import Widget from "../components/Widget.astro";
 import { assetUrl } from "../constants/asset-prefix";
-import { folders as folderList } from "../constants/folders";
+import {
+  folders as folderList,
+  isPinned,
+  pinnedApps,
+} from "../constants/folders";
 import { appHref } from "../utils/slugify";
 
 interface Props {
@@ -71,26 +75,28 @@ const byName = (name: string) => {
 
 const inCategory = (category: string) =>
   projects
-    .filter((p) => p.category === category)
+    .filter((p) => p.category === category && !isPinned(p.name))
     .map(toApp)
     .filter((app): app is FolderApp => Boolean(app));
 
-const homeApps = [
-  { app: byName("BrowserOS"), lg: "lg:col-start-4 lg:row-start-1" },
-  { app: byName("Agent Terminal"), lg: "lg:col-start-5 lg:row-start-1" },
-  { app: byName("herbie"), lg: "lg:col-start-6 lg:row-start-1" },
-  { app: byName("aalai"), lg: "lg:col-start-4 lg:row-start-2" },
-  { app: byName("Screen Time Overlay"), lg: "lg:col-start-5 lg:row-start-2" },
-  { app: byName("stylecn"), lg: "lg:col-start-6 lg:row-start-2" },
-  {
-    app: byName("Google Rust Style Guide"),
-    lg: "lg:col-start-1 lg:row-start-3",
-  },
-];
+const homeSlots: Record<string, string> = {
+  BrowserOS: "lg:col-start-4 lg:row-start-1",
+  "Agent Terminal": "lg:col-start-5 lg:row-start-1",
+  herbie: "lg:col-start-6 lg:row-start-1",
+  aalai: "lg:col-start-4 lg:row-start-2",
+  "Screen Time Overlay": "lg:col-start-5 lg:row-start-2",
+  stylecn: "lg:col-start-6 lg:row-start-2",
+  Pickyourtrail: "lg:col-start-1 lg:row-start-3",
+  "Google Rust Style Guide": "lg:col-start-2 lg:row-start-3",
+  "Coming soon": "lg:col-start-3 lg:row-start-3",
+};
+
+const homeApps = pinnedApps.map((name) => ({
+  app: byName(name),
+  lg: homeSlots[name],
+}));
 
 const folderSlots: Record<string, string> = {
-  "folder-ai-tools": "lg:col-start-2 lg:row-start-3",
-  "folder-open-source": "lg:col-start-3 lg:row-start-3",
   "folder-earlier": "lg:col-start-4 lg:row-start-3",
 };
 
