@@ -36,6 +36,8 @@
   --green: oklch(0.74 0.15 170);
   --yellow: oklch(0.89 0.15 92);
   --pink: oklch(0.76 0.16 358);
+  /* The in-progress dot before an app name; a deeper orange than --orange so it holds 3:1 on the page. */
+  --wip: oklch(0.63 0.19 40);
   --on-bright: oklch(0.2 0.008 290);
   --ink: oklch(0.2 0.012 285);
   --on-ink: oklch(0.97 0.006 290);
@@ -76,6 +78,7 @@
   --green: oklch(0.72 0.14 170);
   --yellow: oklch(0.86 0.15 92);
   --pink: oklch(0.74 0.15 358);
+  --wip: var(--orange);
   --ink: oklch(0.31 0.03 285);
   --on-ink: oklch(0.96 0.008 290);
   --on-ink-muted: oklch(0.78 0.012 290);
@@ -136,6 +139,7 @@
   --color-green: var(--green);
   --color-yellow: var(--yellow);
   --color-pink: var(--pink);
+  --color-wip: var(--wip);
   --color-on-bright: var(--on-bright);
   --color-ink: var(--ink);
   --color-on-ink: var(--on-ink);

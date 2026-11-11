@@ -24,12 +24,10 @@ interface Props {
   art: AppIconArt;
   /** Rendered size of the full icon canvas, including the built-in margin. */
   size?: "xs" | "sm" | "md" | "lg";
-  /** Adds the "in progress" sticker; too small to read at `xs`, so it is skipped there. */
-  wip?: boolean | undefined;
   class?: string;
 }
 
-const { art, size = "md", wip = false, class: className } = Astro.props;
+const { art, size = "md", class: className } = Astro.props;
 
 const sizes = {
   xs: "size-7",
@@ -107,13 +105,6 @@ const sizes = {
             <Icon name={art.glyph} class="size-[52%]" />
           </span>
         )}
-      </span>
-    )
-  }
-  {
-    wip && size !== "xs" && (
-      <span class="bg-yellow text-on-bright absolute top-[1%] -right-[7%] rotate-[10deg] rounded-full border-2 border-white px-[0.55em] py-[0.2em] text-[clamp(8px,12cqw,11px)] leading-none font-extrabold tracking-[0.08em] uppercase shadow-[0_3px_8px_-2px_rgb(30_20_80/45%)]">
-        WIP
       </span>
     )
   }

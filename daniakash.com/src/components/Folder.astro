@@ -73,7 +73,11 @@ const isExternal = (href: string) => href.startsWith("http");
             <AppIcon art={app.art} size="sm" class="size-12" />
             <span class="min-w-0 pt-1">
               <span class="text-body block leading-tight font-bold">
+                {app.wip && (
+                  <span aria-hidden="true" class="bg-wip mr-1.5 inline-block size-1.5 -translate-y-px rounded-full align-middle" />
+                )}
                 {app.name}
+                {app.wip && <span class="sr-only">, in progress</span>}
               </span>
               {app.description && (
                 <span class="text-muted-foreground text-caption mt-0.5 line-clamp-2 block">
