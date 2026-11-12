@@ -97,11 +97,14 @@ const isExternal = (href: string) => href.startsWith("http");
     background-color: oklch(0.2 0.03 285 / 35%);
   }
 
-  /* Held open under an app dialog: the open look without the top layer, so the dialog stays above it. */
-  .folder-panel[data-held] {
-    display: block;
-    z-index: 45;
-    box-shadow: 0 0 0 100vmax oklch(0.2 0.03 285 / 35%);
+  /* Held open under an app dialog: the open look without the top layer, so the dialog stays above it.
+     Phones hide the folder tiles, so a held folder is only drawn from the sm breakpoint up. */
+  @media (width >= 40rem) {
+    .folder-panel[data-held] {
+      display: block;
+      z-index: 45;
+      box-shadow: 0 0 0 100vmax oklch(0.2 0.03 285 / 35%);
+    }
   }
 </style>
 

@@ -121,7 +121,7 @@ const releaseHeldFolders = () => {
   )) {
     if (panel.closest("[data-app-backdrop]")) continue;
     panel.removeAttribute("data-held");
-    panel.showPopover();
+    if (!phoneHome()) panel.showPopover();
   }
 };
 
@@ -204,7 +204,11 @@ const iconIn = (el: Element | null | undefined) =>
  * Where a closing sheet or dialog should shrink back to on the destination page. Dock links in
  * the new document are skipped: the persisted dock replaces them during the swap.
  */
+/** Phones show bento cards only; home icons and folders are hidden there (HomeScreen.astro). */
+const phoneHome = () => window.matchMedia("(width < 40rem)").matches;
+
 const returnTarget = (doc: ParentNode, path: string) => {
+  const phone = phoneHome();
   const link = [...doc.querySelectorAll<HTMLAnchorElement>("a[href]")].find(
     (a) => {
       const href = new URL(a.getAttribute("href") ?? "", location.origin)
@@ -213,12 +217,14 @@ const returnTarget = (doc: ParentNode, path: string) => {
         href === path &&
         a.querySelector("[data-vt-icon]") &&
         !a.closest("[popover]:not([data-held])") &&
-        !a.closest("[data-dock]")
+        !a.closest("[data-dock]") &&
+        !(phone && (a.hasAttribute("data-home-icon") || a.closest("[popover]")))
       );
     },
   );
   if (link) return link.querySelector("[data-vt-icon]");
   // Apps that live inside a folder shrink back into the folder tile.
+  if (phone) return null;
   const inFolder = [...doc.querySelectorAll<HTMLElement>("[popover]")].find(
     (p) => p.querySelector(`a[href="${path}"]`),
   );
