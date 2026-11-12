@@ -44,6 +44,8 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^2.6.6",
+    "@emnapi/core": "1.11.3",
+    "@emnapi/runtime": "1.11.3",
     "@tailwindcss/typography": "^0.5.20",
     "@tailwindcss/vite": "^4.3.5",
     "@types/markdown-it": "^14.2.0",
