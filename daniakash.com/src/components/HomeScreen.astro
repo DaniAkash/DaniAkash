@@ -191,11 +191,11 @@ const isExternal = (href: string) => href.startsWith("http");
 <div>
   <section
     aria-label="Home screen"
-    class="grid grid-flow-row-dense auto-rows-[minmax(6.75rem,auto)] grid-cols-4 gap-x-2 gap-y-3 sm:grid-cols-6 md:gap-x-4 md:gap-y-4 lg:grid-cols-8 lg:auto-rows-[7.5rem]"
+    class="grid grid-flow-row-dense auto-rows-[minmax(6.75rem,auto)] grid-cols-4 gap-4 sm:grid-cols-6 sm:gap-x-2 sm:gap-y-3 md:gap-x-4 md:gap-y-4 lg:grid-cols-8 lg:auto-rows-[7.5rem]"
   >
     <Widget
       as="div"
-      class="col-span-4 row-span-2 flex flex-col justify-between sm:col-span-3 lg:col-span-3 lg:col-start-1 lg:row-span-2 lg:row-start-1"
+      class="col-span-4 row-span-2 flex flex-col justify-between max-sm:order-1 sm:col-span-3 lg:col-span-3 lg:col-start-1 lg:row-span-2 lg:row-start-1"
     >
       <div class="flex items-center justify-between gap-3">
         <span class="block size-12 shrink-0 overflow-hidden rounded-full md:size-14">
@@ -246,8 +246,9 @@ const isExternal = (href: string) => href.startsWith("http");
             <a
               href={app.href}
               title={app.description}
+              data-home-icon
               class:list={[
-                "group flex flex-col items-center justify-start gap-1.5 pt-1",
+                "group flex flex-col items-center justify-start gap-1.5 pt-1 max-sm:hidden",
                 lg,
               ]}
             >
@@ -270,7 +271,7 @@ const isExternal = (href: string) => href.startsWith("http");
 
     <Widget
       tone="photo"
-      class="col-span-4 row-span-2 sm:col-span-3 lg:col-span-2 lg:col-start-7 lg:row-span-2 lg:row-start-1"
+      class="col-span-4 row-span-2 max-sm:order-5 max-sm:row-span-1 max-sm:aspect-[16/10] sm:col-span-3 lg:col-span-2 lg:col-start-7 lg:row-span-2 lg:row-start-1"
     >
       <img
         src={photos.talk.src}
@@ -283,7 +284,7 @@ const isExternal = (href: string) => href.startsWith("http");
 
     {
       folders.map((folder) => (
-        <div class:list={["flex justify-center pt-1", folder.lg]}>
+        <div class:list={["flex justify-center pt-1 max-sm:hidden", folder.lg]}>
           <Folder
             id={folder.id}
             title={folder.title}
@@ -298,7 +299,7 @@ const isExternal = (href: string) => href.startsWith("http");
       href="/projects/"
       tone="blue"
       aria-label={`Everything I've built, with ${techNames}`}
-      class="col-span-4 flex flex-col justify-between gap-3 sm:col-span-4 lg:col-span-3 lg:col-start-5 lg:row-start-3"
+      class="col-span-4 flex flex-col justify-between gap-3 max-sm:order-2 max-sm:justify-center sm:col-span-4 lg:col-span-3 lg:col-start-5 lg:row-start-3"
     >
       <div class="flex items-start justify-between gap-3">
         <p class="font-display text-title font-extrabold tracking-[-0.02em]">
@@ -311,7 +312,7 @@ const isExternal = (href: string) => href.startsWith("http");
           <Icon name="arrow-right" class="size-4" />
         </span>
       </div>
-      <ul class="flex flex-wrap gap-1.5 lg:gap-1" aria-hidden="true">
+      <ul class="flex flex-wrap gap-1.5 max-sm:hidden lg:gap-1" aria-hidden="true">
         {
           techStack.map((tech) => (
             <li
@@ -338,7 +339,7 @@ const isExternal = (href: string) => href.startsWith("http");
       target="_blank"
       rel="noopener"
       tone="yellow"
-      class="col-span-2 flex flex-col justify-between lg:col-span-1 lg:col-start-8 lg:row-start-3"
+      class="col-span-2 flex flex-col justify-between max-sm:order-3 lg:col-span-1 lg:col-start-8 lg:row-start-3"
     >
       <Icon name="github" class="size-4" />
       <div>
@@ -354,7 +355,7 @@ const isExternal = (href: string) => href.startsWith("http");
     <Widget
       href="/speaking/"
       tone="pink"
-      class="col-span-2 flex flex-col justify-between lg:col-span-2 lg:col-start-1 lg:row-start-4"
+      class="col-span-2 flex flex-col justify-between max-sm:order-4 lg:col-span-2 lg:col-start-1 lg:row-start-4"
     >
       <span class="text-caption font-bold opacity-75">
         Talks since {firstTalkYear}
@@ -372,7 +373,7 @@ const isExternal = (href: string) => href.startsWith("http");
 
     <Widget
       tone="photo"
-      class="col-span-2 row-span-3 lg:col-span-2 lg:col-start-1 lg:row-span-1 lg:row-start-5"
+      class="col-span-2 row-span-3 max-sm:order-7 max-sm:row-span-1 max-sm:aspect-square lg:col-span-2 lg:col-start-1 lg:row-span-1 lg:row-start-5"
     >
       <img
         src={photos.hike.src}
@@ -385,7 +386,7 @@ const isExternal = (href: string) => href.startsWith("http");
 
     <Widget
       tone="photo"
-      class="col-span-2 row-span-2 lg:col-span-2 lg:col-start-3 lg:row-span-2 lg:row-start-4"
+      class="col-span-2 row-span-2 max-sm:order-8 max-sm:row-span-1 max-sm:aspect-square lg:col-span-2 lg:col-start-3 lg:row-span-2 lg:row-start-4"
     >
       <img
         src={photos.cosplay.src}
@@ -399,7 +400,7 @@ const isExternal = (href: string) => href.startsWith("http");
     <Widget
       as="section"
       aria-labelledby="latest-writing"
-      class="col-span-4 flex flex-col sm:col-span-6 lg:col-span-4 lg:col-start-5 lg:row-span-2 lg:row-start-4"
+      class="col-span-4 flex flex-col max-sm:order-6 sm:col-span-6 lg:col-span-4 lg:col-start-5 lg:row-span-2 lg:row-start-4"
     >
       <div class="flex items-center justify-between gap-4">
         <h2
@@ -449,7 +450,7 @@ const isExternal = (href: string) => href.startsWith("http");
       as="section"
       aria-labelledby="speaking-heading"
       tone="ink"
-      class="col-span-4 flex flex-col justify-between gap-4 sm:col-span-2 lg:col-span-3"
+      class="col-span-4 flex flex-col justify-between gap-4 max-sm:order-9 sm:col-span-2 lg:col-span-3"
     >
       <h2
         id="speaking-heading"
@@ -473,7 +474,7 @@ const isExternal = (href: string) => href.startsWith("http");
 
     <Widget
       tone="photo"
-      class="col-span-4 aspect-[16/10] sm:col-span-2 sm:aspect-auto lg:col-span-2"
+      class="col-span-4 aspect-[16/10] max-sm:order-10 sm:col-span-2 sm:aspect-auto lg:col-span-2"
     >
       <img
         src={photos.market.src}
@@ -487,7 +488,7 @@ const isExternal = (href: string) => href.startsWith("http");
     <Widget
       as="section"
       aria-labelledby="work-heading"
-      class="col-span-4 flex flex-col lg:col-span-3 lg:row-span-2"
+      class="col-span-4 flex flex-col max-sm:order-11 lg:col-span-3 lg:row-span-2"
     >
       <h2
         id="work-heading"
@@ -535,7 +536,7 @@ const isExternal = (href: string) => href.startsWith("http");
     <Widget
       as="section"
       aria-labelledby="more-writing"
-      class="col-span-4 lg:col-span-5"
+      class="col-span-4 max-sm:order-12 lg:col-span-5"
     >
       <h2
         id="more-writing"
@@ -570,7 +571,7 @@ const isExternal = (href: string) => href.startsWith("http");
     <Widget
       as="section"
       aria-labelledby="connect-heading"
-      class="col-span-4 lg:col-span-8"
+      class="col-span-4 max-sm:order-13 lg:col-span-8"
     >
       <h2
         id="connect-heading"
@@ -608,7 +609,7 @@ const isExternal = (href: string) => href.startsWith("http");
       heading="Stay in the loop"
       description="Thoughts delivered straight to your inbox. Zero spam, I promise."
       buttonLabel="Subscribe"
-      class="col-span-4 lg:col-span-8"
+      class="col-span-4 max-sm:order-14 lg:col-span-8"
     />
   </section>
 </div>
