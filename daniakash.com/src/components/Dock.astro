@@ -14,6 +14,8 @@ const home: SiteSection = {
 /** On phones the dock keeps these; everything else lives in the App Library. */
 const phoneSections = new Set(["Blog", "Projects", "About", "Resume"]);
 const items = [home, ...sections];
+/** On desktop the dock leads with the phone's four, then the rest after a divider. */
+const firstSecondary = sections.find((s) => !phoneSections.has(s.title))?.title;
 ---
 
 <nav
@@ -30,13 +32,15 @@ const items = [home, ...sections];
             "relative",
             index === 0 && "border-border mr-0.5 border-r pr-2 md:mr-1 md:pr-2.5",
             index > 0 && !phoneSections.has(section.title) && "max-md:hidden",
+            index > 0 && (phoneSections.has(section.title) ? "lg:order-1" : "lg:order-2"),
+            section.title === firstSecondary && "lg:border-border lg:ml-0.5 lg:border-l lg:pl-2.5",
           ]}
         >
           <a
             href={section.href}
             data-dock-link
             title={section.title}
-            class="group flex flex-col items-center rounded-2xl"
+            class="group flex flex-col items-center rounded-2xl lg:w-16"
           >
             <AppIcon
               art={{
@@ -47,9 +51,19 @@ const items = [home, ...sections];
                 outline: section.outline,
               }}
               size="sm"
-              class="size-12 group-hover:-translate-y-1 group-active:scale-90 md:size-14"
+              class:list={[
+                "size-12 group-hover:-translate-y-1 group-active:scale-90 md:size-14",
+                index > 0 && !phoneSections.has(section.title) && "lg:size-12",
+              ]}
             />
-            <span class="sr-only">{section.title}</span>
+            <span
+              class:list={[
+                "sr-only lg:not-sr-only lg:text-meta lg:mt-0.5 lg:font-bold",
+                index > 0 && !phoneSections.has(section.title) && "lg:text-muted-foreground lg:font-semibold",
+              ]}
+            >
+              {section.title}
+            </span>
             <span
               aria-hidden="true"
               data-dock-dot
