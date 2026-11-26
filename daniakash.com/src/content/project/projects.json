@@ -126,17 +126,23 @@
     "language": "Rust"
   },
   {
-    "name": "Coming soon",
-    "description": "Something new is in the works. More soon.",
+    "name": "Sidequest",
+    "description": "Hobby planner for the fun part of your week. Save the shows, anime, games and books on your someday list, and each one gets its own time in your week and a countdown to look forward to.",
+    "status": "active",
     "wip": true,
-    "tech": ["Android", "iOS"],
+    "tech": ["Swift", "Kotlin", "iOS", "Android"],
     "stack": ["kotlin", "android", "swift", "ios"],
+    "link": {
+      "href": "https://plansidequest.com/",
+      "label": "Visit site"
+    },
     "category": "app",
     "icon": {
       "kind": "bleed",
-      "src": "/apps/coming-soon.svg",
+      "src": "/apps/sidequest.svg",
       "outline": true
-    }
+    },
+    "language": "Swift"
   },
   {
     "name": "agent-toolkit",
