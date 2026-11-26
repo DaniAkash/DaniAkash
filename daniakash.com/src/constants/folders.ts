@@ -8,7 +8,7 @@ export const pinnedApps = [
   "stylecn",
   "Pickyourtrail",
   "Google Rust Style Guide",
-  "Coming soon",
+  "Sidequest",
 ] as const;
 
 /** Home screen folders; every unpinned project in the category lives inside. */
